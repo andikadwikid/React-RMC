@@ -44,8 +44,8 @@ interface RiskItem {
   dampakKuantitatif: string;
   kontrolEksisting: string;
   risikoAwal: {
-    kejadian: string;
-    dampak: string;
+    kejadian: number;
+    dampak: number;
     level: number;
   };
 }
@@ -58,13 +58,7 @@ interface RiskCaptureFormProps {
   onSave: (data: any) => void;
 }
 
-const risikoAwalOptions = [
-  "Sangat Rendah",
-  "Rendah", 
-  "Sedang",
-  "Tinggi",
-  "Sangat Tinggi"
-];
+
 
 const getRiskLevelColor = (level: number) => {
   if (level >= 1 && level <= 5) return "bg-green-100 text-green-800";
@@ -105,8 +99,8 @@ export function RiskCaptureForm({
       dampakKuantitatif: "",
       kontrolEksisting: "",
       risikoAwal: {
-        kejadian: "",
-        dampak: "",
+        kejadian: 0,
+        dampak: 0,
         level: 1,
       },
     };
@@ -329,39 +323,29 @@ export function RiskCaptureForm({
                           <div className="grid grid-cols-3 gap-4">
                             <div>
                               <Label htmlFor={`kejadian-${risk.id}`}>Kejadian *</Label>
-                              <Select
-                                value={risk.risikoAwal.kejadian}
-                                onValueChange={(value) => updateRiskItem(risk.id, "risikoAwal.kejadian", value)}
-                              >
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Pilih kejadian" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {risikoAwalOptions.map((option) => (
-                                    <SelectItem key={option} value={option}>
-                                      {option}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
+                              <Input
+                                id={`kejadian-${risk.id}`}
+                                type="number"
+                                value={risk.risikoAwal.kejadian || ""}
+                                onChange={(e) => {
+                                  const kejadian = parseFloat(e.target.value) || 0;
+                                  updateRiskItem(risk.id, "risikoAwal.kejadian", kejadian);
+                                }}
+                                placeholder="Masukkan angka kejadian"
+                              />
                             </div>
                             <div>
                               <Label htmlFor={`dampak-${risk.id}`}>Dampak *</Label>
-                              <Select
-                                value={risk.risikoAwal.dampak}
-                                onValueChange={(value) => updateRiskItem(risk.id, "risikoAwal.dampak", value)}
-                              >
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Pilih dampak" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {risikoAwalOptions.map((option) => (
-                                    <SelectItem key={option} value={option}>
-                                      {option}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
+                              <Input
+                                id={`dampak-${risk.id}`}
+                                type="number"
+                                value={risk.risikoAwal.dampak || ""}
+                                onChange={(e) => {
+                                  const dampak = parseFloat(e.target.value) || 0;
+                                  updateRiskItem(risk.id, "risikoAwal.dampak", dampak);
+                                }}
+                                placeholder="Masukkan angka dampak"
+                              />
                             </div>
                             <div>
                               <Label htmlFor={`level-${risk.id}`}>Level (1-25) *</Label>
