@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +11,14 @@ import {
 } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
   AlertTriangle,
   Clock,
   CheckCircle,
@@ -19,15 +28,11 @@ import {
   FileText,
   TrendingUp,
   XCircle,
-  MapPin,
-  DollarSign,
   BarChart3,
   Activity,
-  Flag,
-  Users,
   Shield,
-  Target,
-  Zap,
+  Filter,
+  Download,
 } from "lucide-react";
 
 interface RiskItem {
@@ -356,13 +361,13 @@ const generateMockRiskItems = (categoryId: string) => {
   const templates = riskTemplates[categoryId as keyof typeof riskTemplates] || [];
   const statuses: ("overdue" | "inProcess" | "closed")[] = ["overdue", "inProcess", "closed"];
   const assignees = [
-    "Ahmad Rahman (Risk Manager)", 
-    "Siti Nurhaliza (Security Lead)", 
-    "Budi Santoso (Project Manager)", 
-    "Maya Sari (Compliance Officer)", 
-    "Randi Pratama (Tech Lead)",
-    "Dr. Indira Sari (Risk Analyst)",
-    "Agus Wijaya (Operations Manager)"
+    "Ahmad Rahman", 
+    "Siti Nurhaliza", 
+    "Budi Santoso", 
+    "Maya Sari", 
+    "Randi Pratama",
+    "Dr. Indira Sari",
+    "Agus Wijaya"
   ];
 
   return templates.map((template, index) => ({
@@ -409,7 +414,7 @@ const getStatusBadge = (status: "overdue" | "inProcess" | "closed") => {
   const IconComponent = statusConfig.icon;
 
   return (
-    <Badge className={`${statusConfig.color} border`}>
+    <Badge className={`${statusConfig.color} border text-xs`}>
       <IconComponent className="w-3 h-3 mr-1" />
       {statusConfig.label}
     </Badge>
@@ -418,12 +423,12 @@ const getStatusBadge = (status: "overdue" | "inProcess" | "closed") => {
 
 // Helper functions sesuai dengan Risk Capture Form
 const getRiskColor = (value: number) => {
-  if (value >= 1 && value <= 5) return "bg-green-100 text-green-800 border-green-200";
-  if (value >= 6 && value <= 10) return "bg-yellow-100 text-yellow-800 border-yellow-200";
-  if (value >= 11 && value <= 15) return "bg-orange-100 text-orange-800 border-orange-200";
-  if (value >= 16 && value <= 20) return "bg-red-100 text-red-800 border-red-200";
-  if (value >= 21 && value <= 25) return "bg-red-200 text-red-900 border-red-300";
-  return "bg-gray-100 text-gray-800 border-gray-200";
+  if (value >= 1 && value <= 5) return "bg-green-100 text-green-800";
+  if (value >= 6 && value <= 10) return "bg-yellow-100 text-yellow-800";
+  if (value >= 11 && value <= 15) return "bg-orange-100 text-orange-800";
+  if (value >= 16 && value <= 20) return "bg-red-100 text-red-800";
+  if (value >= 21 && value <= 25) return "bg-red-200 text-red-900";
+  return "bg-gray-100 text-gray-800";
 };
 
 const getRiskLabel = (value: number) => {
@@ -435,27 +440,25 @@ const getRiskLabel = (value: number) => {
   return "Invalid";
 };
 
-const getRiskBadge = (value: number, label: string) => {
+const getRiskBadge = (value: number) => {
   return (
-    <Badge className={`${getRiskColor(value)} border text-xs`}>
-      {label} {value} - {getRiskLabel(value)}
+    <Badge className={`${getRiskColor(value)} text-xs`}>
+      {value} - {getRiskLabel(value)}
     </Badge>
   );
 };
 
-export function RiskCategoryDetailDialog({
-  isOpen,
-  onClose,
-  category,
-}: RiskCategoryDetailDialogProps) {
-  if (!category) return null;
-
-  const riskItems = generateMockRiskItems(category.id);
-  const overdueItems = riskItems.filter((item) => item.status === "overdue");
-  const inProcessItems = riskItems.filter((item) => item.status === "inProcess");
-  const closedItems = riskItems.filter((item) => item.status === "closed");
-
-  const IconComponent = category.icon;
+// Risk Detail Modal Component
+const RiskDetailModal = ({ 
+  isOpen, 
+  onClose, 
+  riskItem 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  riskItem: RiskItem | null; 
+}) => {
+  if (!riskItem) return null;
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("id-ID", {
@@ -477,559 +480,405 @@ export function RiskCategoryDetailDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
-            <IconComponent className="h-6 w-6 text-blue-600" />
-            Detail Risiko: {category.name}
+            <Shield className="h-6 w-6 text-blue-600" />
+            Detail Risiko: [{riskItem.kode}] {riskItem.sasaran}
           </DialogTitle>
           <DialogDescription>
-            Detail breakdown risiko berdasarkan status untuk kategori {category.name}
+            Informasi lengkap mengenai risiko dan kontrol mitigasi
           </DialogDescription>
         </DialogHeader>
 
-        {/* Enhanced Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <Card className="border-l-4 border-l-blue-500">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                <BarChart3 className="w-4 h-4" />
-                Total Risiko
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-gray-900">
-                {category.total}
-              </div>
-              <p className="text-xs text-gray-500 mt-1">Seluruh kategori risiko</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-l-4 border-l-red-500">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                <XCircle className="w-4 h-4" />
-                Overdue
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-red-600">
-                {category.overdue}
-              </div>
-              <p className="text-xs text-red-500 mt-1">Memerlukan aksi segera</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-l-4 border-l-blue-500">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                <Activity className="w-4 h-4" />
-                Dalam Mitigasi
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-blue-600">
-                {category.inProcess}
-              </div>
-              <p className="text-xs text-blue-500 mt-1">Sedang ditangani</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-l-4 border-l-green-500">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                Selesai
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-green-600">
-                {category.closed}
-              </div>
-              <p className="text-xs text-green-500 mt-1">Berhasil dimitigasi</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Risk Analysis Summary */}
-        <Card className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-blue-700">
-              <Shield className="w-5 h-5" />
-              Analisis Risiko {category.name}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-white rounded-lg border">
-                <div className="text-2xl font-bold text-orange-600 mb-1">
-                  {Math.round(riskItems.reduce((sum, item) => sum + item.risikoAwal.level, 0) / riskItems.length)}
-                </div>
-                <p className="text-sm text-gray-600">Rata-rata Risk Level</p>
-              </div>
-              <div className="text-center p-4 bg-white rounded-lg border">
-                <div className="text-2xl font-bold text-red-600 mb-1">
-                  {riskItems.filter(item => item.risikoAwal.level >= 21).length}
-                </div>
-                <p className="text-sm text-gray-600">Risiko Sangat Tinggi</p>
-              </div>
-              <div className="text-center p-4 bg-white rounded-lg border">
-                <div className="text-2xl font-bold text-purple-600 mb-1">
-                  {riskItems.length} Items
-                </div>
-                <p className="text-sm text-gray-600">Total Risk Items</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Detailed Risk Items */}
         <div className="space-y-6">
-          {/* Overdue Items */}
-          {overdueItems.length > 0 && (
-            <Card>
-              <CardHeader className="bg-red-100 border-b">
-                <CardTitle className="flex items-center gap-2 text-red-700">
-                  <XCircle className="w-5 h-5" />
-                  Risiko Overdue - Membutuhkan Aksi Segera ({overdueItems.length})
-                </CardTitle>
-                <p className="text-sm text-red-600 mt-1">Risiko yang melewati deadline dan berpotensi menimbulkan dampak signifikan</p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {overdueItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="border border-red-200 rounded-lg p-6 bg-red-50 hover:shadow-md transition-shadow"
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
-                            <h4 className="font-bold text-lg text-gray-900 flex-1">
-                              [{item.kode}] {item.sasaran}
-                            </h4>
-                            <div className={`text-lg font-bold ${getRiskColor(item.risikoAwal.level).includes('red') ? 'text-red-600' : getRiskColor(item.risikoAwal.level).includes('orange') ? 'text-orange-600' : getRiskColor(item.risikoAwal.level).includes('yellow') ? 'text-yellow-600' : 'text-green-600'}`}>
-                              Level {item.risikoAwal.level}
-                            </div>
-                          </div>
-                          <div className="flex flex-wrap gap-2 mb-3">
-                            {getStatusBadge(item.status)}
-                            {getRiskBadge(item.risikoAwal.kejadian, "Kejadian")}
-                            {getRiskBadge(item.risikoAwal.dampak, "Dampak")}
-                            {getRiskBadge(item.risikoAwal.level, "Level")}
-                          </div>
-                          <div className="mb-3">
-                            <p className="text-sm font-medium text-gray-700 mb-1">Taksonomi:</p>
-                            <p className="text-sm text-gray-600 mb-2">{item.taksonomi}</p>
-                          </div>
-                          <div className="mb-4">
-                            <p className="text-sm font-medium text-gray-700 mb-1">Peristiwa Risiko:</p>
-                            <p className="text-sm text-gray-700 leading-relaxed">{item.peristiwaRisiko}</p>
-                          </div>
-                          
-                          {/* Project and Assignment Info */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
-                            <div className="flex items-center gap-2 p-2 bg-white rounded border">
-                              <FileText className="w-4 h-4 text-blue-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Project:</span>
-                                <p className="text-gray-600">{item.project}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-white rounded border">
-                              <User className="w-4 h-4 text-green-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">PIC:</span>
-                                <p className="text-gray-600">{item.assignee}</p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Timeline Info */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4 text-orange-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Target:</span>
-                                <p className="text-gray-600">{formatDate(item.dueDate)}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-blue-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Created:</span>
-                                <p className="text-gray-600">{formatDate(item.createdAt)}</p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Sumber Risiko */}
-                          <div className="mb-4">
-                            <span className="font-medium text-gray-700 mb-2 block">Sumber Risiko:</span>
-                            <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">{item.sumberRisiko}</p>
-                          </div>
-
-                          {/* Dampak */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div>
-                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kualitatif:</span>
-                              <p className="text-sm text-gray-600 bg-blue-50 p-2 rounded leading-relaxed">{item.dampakKualitatif}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kuantitatif:</span>
-                              <p className="text-sm text-gray-600 bg-purple-50 p-2 rounded leading-relaxed">{item.dampakKuantitatif}</p>
-                            </div>
-                          </div>
-
-                          {/* Risk Comparison */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div className="bg-red-50 p-3 rounded border">
-                              <span className="font-medium text-gray-700 mb-2 block">Risiko Awal:</span>
-                              <div className="flex flex-wrap gap-1">
-                                {getRiskBadge(item.risikoAwal.kejadian, "K")}
-                                {getRiskBadge(item.risikoAwal.dampak, "D")}
-                                {getRiskBadge(item.risikoAwal.level, "L")}
-                              </div>
-                            </div>
-                            <div className="bg-green-50 p-3 rounded border">
-                              <span className="font-medium text-gray-700 mb-2 block">Risiko Akhir:</span>
-                              <div className="flex flex-wrap gap-1">
-                                {getRiskBadge(item.resikoAkhir.kejadian, "K")}
-                                {getRiskBadge(item.resikoAkhir.dampak, "D")}
-                                {getRiskBadge(item.resikoAkhir.level, "L")}
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Kontrol Eksisting */}
-                          <div className="bg-white p-3 rounded border-l-4 border-blue-400">
-                            <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
-                              <Shield className="w-4 h-4 text-blue-500" />
-                              Kontrol Eksisting:
-                            </span>
-                            <p className="text-sm text-gray-600 leading-relaxed">{item.kontrolEksisting}</p>
-                          </div>
-                        </div>
-                        <div className="ml-4">
-                          <Button variant="outline" size="sm" className="mb-2">
-                            <Eye className="w-4 h-4 mr-2" />
-                            Detail
-                          </Button>
-                        </div>
+          {/* Status dan Level */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <BarChart3 className="w-5 h-5" />
+                Status & Risk Level
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Status Saat Ini:</p>
+                  {getStatusBadge(riskItem.status)}
+                  
+                  <div className="mt-4">
+                    <p className="text-sm font-medium text-gray-700 mb-2">Taksonomi:</p>
+                    <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">{riskItem.taksonomi}</p>
+                  </div>
+                </div>
+                
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-3">Risk Assessment:</p>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Risiko Awal:</span>
+                      <div className="flex gap-1">
+                        {getRiskBadge(riskItem.risikoAwal.kejadian)}
+                        {getRiskBadge(riskItem.risikoAwal.dampak)}
+                        {getRiskBadge(riskItem.risikoAwal.level)}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* In Process Items */}
-          {inProcessItems.length > 0 && (
-            <Card>
-              <CardHeader className="bg-blue-100 border-b">
-                <CardTitle className="flex items-center gap-2 text-blue-700">
-                  <Activity className="w-5 h-5" />
-                  Risiko Dalam Proses Mitigasi ({inProcessItems.length})
-                </CardTitle>
-                <p className="text-sm text-blue-600 mt-1">Risiko yang sedang ditangani dengan rencana mitigasi aktif</p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {inProcessItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="border border-blue-200 rounded-lg p-6 bg-blue-50 hover:shadow-md transition-shadow"
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
-                            <h4 className="font-bold text-lg text-gray-900 flex-1">
-                              [{item.kode}] {item.sasaran}
-                            </h4>
-                            <div className={`text-lg font-bold ${getRiskColor(item.risikoAwal.level).includes('red') ? 'text-red-600' : getRiskColor(item.risikoAwal.level).includes('orange') ? 'text-orange-600' : getRiskColor(item.risikoAwal.level).includes('yellow') ? 'text-yellow-600' : 'text-green-600'}`}>
-                              Level {item.risikoAwal.level}
-                            </div>
-                          </div>
-                          <div className="flex flex-wrap gap-2 mb-3">
-                            {getStatusBadge(item.status)}
-                            {getRiskBadge(item.risikoAwal.kejadian, "Kejadian")}
-                            {getRiskBadge(item.risikoAwal.dampak, "Dampak")}
-                            {getRiskBadge(item.risikoAwal.level, "Level")}
-                          </div>
-                          <div className="mb-3">
-                            <p className="text-sm font-medium text-gray-700 mb-1">Taksonomi:</p>
-                            <p className="text-sm text-gray-600 mb-2">{item.taksonomi}</p>
-                          </div>
-                          <div className="mb-4">
-                            <p className="text-sm font-medium text-gray-700 mb-1">Peristiwa Risiko:</p>
-                            <p className="text-sm text-gray-700 leading-relaxed">{item.peristiwaRisiko}</p>
-                          </div>
-                          
-                          {/* Project and Assignment Info */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
-                            <div className="flex items-center gap-2 p-2 bg-white rounded border">
-                              <FileText className="w-4 h-4 text-blue-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Project:</span>
-                                <p className="text-gray-600">{item.project}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-white rounded border">
-                              <User className="w-4 h-4 text-green-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">PIC:</span>
-                                <p className="text-gray-600">{item.assignee}</p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Timeline Info */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4 text-orange-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Target:</span>
-                                <p className="text-gray-600">{formatDate(item.dueDate)}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <TrendingUp className="w-4 h-4 text-blue-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Update:</span>
-                                <p className="text-gray-600">{formatDateTime(item.lastUpdate!)}</p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Sumber Risiko */}
-                          <div className="mb-4">
-                            <span className="font-medium text-gray-700 mb-2 block">Sumber Risiko:</span>
-                            <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">{item.sumberRisiko}</p>
-                          </div>
-
-                          {/* Dampak */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div>
-                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kualitatif:</span>
-                              <p className="text-sm text-gray-600 bg-blue-50 p-2 rounded leading-relaxed">{item.dampakKualitatif}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kuantitatif:</span>
-                              <p className="text-sm text-gray-600 bg-purple-50 p-2 rounded leading-relaxed">{item.dampakKuantitatif}</p>
-                            </div>
-                          </div>
-
-                          {/* Risk Comparison */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div className="bg-red-50 p-3 rounded border">
-                              <span className="font-medium text-gray-700 mb-2 block">Risiko Awal:</span>
-                              <div className="flex flex-wrap gap-1">
-                                {getRiskBadge(item.risikoAwal.kejadian, "K")}
-                                {getRiskBadge(item.risikoAwal.dampak, "D")}
-                                {getRiskBadge(item.risikoAwal.level, "L")}
-                              </div>
-                            </div>
-                            <div className="bg-green-50 p-3 rounded border">
-                              <span className="font-medium text-gray-700 mb-2 block">Risiko Akhir:</span>
-                              <div className="flex flex-wrap gap-1">
-                                {getRiskBadge(item.resikoAkhir.kejadian, "K")}
-                                {getRiskBadge(item.resikoAkhir.dampak, "D")}
-                                {getRiskBadge(item.resikoAkhir.level, "L")}
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Kontrol Eksisting */}
-                          <div className="bg-white p-3 rounded border-l-4 border-blue-400">
-                            <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
-                              <Shield className="w-4 h-4 text-blue-500" />
-                              Kontrol Eksisting:
-                            </span>
-                            <p className="text-sm text-gray-600 leading-relaxed">{item.kontrolEksisting}</p>
-                          </div>
-                        </div>
-                        <div className="ml-4">
-                          <Button variant="outline" size="sm" className="mb-2">
-                            <Eye className="w-4 h-4 mr-2" />
-                            Detail
-                          </Button>
-                        </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Risiko Akhir:</span>
+                      <div className="flex gap-1">
+                        {getRiskBadge(riskItem.resikoAkhir.kejadian)}
+                        {getRiskBadge(riskItem.resikoAkhir.dampak)}
+                        {getRiskBadge(riskItem.resikoAkhir.level)}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Closed Items */}
-          {closedItems.length > 0 && (
-            <Card>
-              <CardHeader className="bg-green-100 border-b">
-                <CardTitle className="flex items-center gap-2 text-green-700">
-                  <CheckCircle className="w-5 h-5" />
-                  Risiko Berhasil Dimitigasi ({closedItems.length})
-                </CardTitle>
-                <p className="text-sm text-green-600 mt-1">Risiko yang telah berhasil diselesaikan dan tidak lagi menimbulkan ancaman</p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {closedItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="border border-green-200 rounded-lg p-6 bg-green-50 hover:shadow-md transition-shadow opacity-90"
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
-                            <h4 className="font-bold text-lg text-gray-900 flex-1">
-                              [{item.kode}] {item.sasaran}
-                            </h4>
-                            <div className={`text-lg font-bold ${getRiskColor(item.risikoAwal.level).includes('red') ? 'text-red-600' : getRiskColor(item.risikoAwal.level).includes('orange') ? 'text-orange-600' : getRiskColor(item.risikoAwal.level).includes('yellow') ? 'text-yellow-600' : 'text-green-600'}`}>
-                              Level {item.risikoAwal.level}
-                            </div>
-                          </div>
-                          <div className="flex flex-wrap gap-2 mb-3">
-                            {getStatusBadge(item.status)}
-                            {getRiskBadge(item.risikoAwal.kejadian, "Kejadian")}
-                            {getRiskBadge(item.risikoAwal.dampak, "Dampak")}
-                            {getRiskBadge(item.risikoAwal.level, "Level")}
-                          </div>
-                          <div className="mb-3">
-                            <p className="text-sm font-medium text-gray-700 mb-1">Taksonomi:</p>
-                            <p className="text-sm text-gray-600 mb-2">{item.taksonomi}</p>
-                          </div>
-                          <div className="mb-4">
-                            <p className="text-sm font-medium text-gray-700 mb-1">Peristiwa Risiko:</p>
-                            <p className="text-sm text-gray-700 leading-relaxed">{item.peristiwaRisiko}</p>
-                          </div>
-                          
-                          {/* Project and Assignment Info */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
-                            <div className="flex items-center gap-2 p-2 bg-white rounded border">
-                              <FileText className="w-4 h-4 text-blue-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Project:</span>
-                                <p className="text-gray-600">{item.project}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-white rounded border">
-                              <User className="w-4 h-4 text-green-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">PIC:</span>
-                                <p className="text-gray-600">{item.assignee}</p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Resolution Details */}
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-sm">
-                            <div className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-green-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Resolved:</span>
-                                <p className="text-gray-600">{formatDate(item.dueDate)}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <TrendingUp className="w-4 h-4 text-blue-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Improvement:</span>
-                                <p className="text-gray-600">
-                                  {item.risikoAwal.level - item.resikoAkhir.level} point
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4 text-blue-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Duration:</span>
-                                <p className="text-gray-600">
-                                  {Math.ceil((new Date(item.dueDate).getTime() - new Date(item.createdAt).getTime()) / (1000 * 60 * 60 * 24))} hari
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Sumber Risiko */}
-                          <div className="mb-4">
-                            <span className="font-medium text-gray-700 mb-2 block">Sumber Risiko (Resolved):</span>
-                            <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">{item.sumberRisiko}</p>
-                          </div>
-
-                          {/* Dampak */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div>
-                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kualitatif (Mitigated):</span>
-                              <p className="text-sm text-gray-600 bg-green-50 p-2 rounded leading-relaxed">{item.dampakKualitatif}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kuantitatif (Controlled):</span>
-                              <p className="text-sm text-gray-600 bg-green-50 p-2 rounded leading-relaxed">{item.dampakKuantitatif}</p>
-                            </div>
-                          </div>
-
-                          {/* Risk Improvement */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div className="bg-red-50 p-3 rounded border opacity-60">
-                              <span className="font-medium text-gray-700 mb-2 block">Risiko Awal (Before):</span>
-                              <div className="flex flex-wrap gap-1">
-                                {getRiskBadge(item.risikoAwal.kejadian, "K")}
-                                {getRiskBadge(item.risikoAwal.dampak, "D")}
-                                {getRiskBadge(item.risikoAwal.level, "L")}
-                              </div>
-                            </div>
-                            <div className="bg-green-100 p-3 rounded border">
-                              <span className="font-medium text-gray-700 mb-2 block">Risiko Akhir (After) ✓:</span>
-                              <div className="flex flex-wrap gap-1">
-                                {getRiskBadge(item.resikoAkhir.kejadian, "K")}
-                                {getRiskBadge(item.resikoAkhir.dampak, "D")}
-                                {getRiskBadge(item.resikoAkhir.level, "L")}
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Success Story */}
-                          <div className="bg-white p-3 rounded border-l-4 border-green-400">
-                            <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-green-500" />
-                              Kontrol yang Berhasil Diterapkan:
-                            </span>
-                            <p className="text-sm text-gray-600 leading-relaxed">{item.kontrolEksisting}</p>
-                          </div>
-                        </div>
-                        <div className="ml-4">
-                          <Button variant="outline" size="sm" className="mb-2">
-                            <Eye className="w-4 h-4 mr-2" />
-                            Detail
-                          </Button>
-                        </div>
-                      </div>
+                    <div className="flex justify-between items-center pt-2 border-t">
+                      <span className="text-sm font-medium text-green-600">Improvement:</span>
+                      <span className="text-sm font-bold text-green-600">
+                        -{riskItem.risikoAwal.level - riskItem.resikoAkhir.level} point
+                      </span>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Project Info */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                Project Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-1">Project:</p>
+                  <p className="text-sm text-gray-600 mb-4">{riskItem.project}</p>
+                  
+                  <p className="text-sm font-medium text-gray-700 mb-1">PIC:</p>
+                  <p className="text-sm text-gray-600">{riskItem.assignee}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-1">Target Date:</p>
+                  <p className="text-sm text-gray-600 mb-4">{formatDate(riskItem.dueDate)}</p>
+                  
+                  <p className="text-sm font-medium text-gray-700 mb-1">Last Update:</p>
+                  <p className="text-sm text-gray-600">{formatDateTime(riskItem.lastUpdate!)}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Risk Description */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5" />
+                Risk Description
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Peristiwa Risiko:</p>
+                  <p className="text-sm text-gray-600 leading-relaxed bg-red-50 p-3 rounded">
+                    {riskItem.peristiwaRisiko}
+                  </p>
+                </div>
+                
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Sumber Risiko:</p>
+                  <p className="text-sm text-gray-600 leading-relaxed bg-gray-50 p-3 rounded">
+                    {riskItem.sumberRisiko}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Impact Analysis */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <TrendingUp className="w-5 h-5" />
+                Impact Analysis
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Dampak Kualitatif:</p>
+                  <p className="text-sm text-gray-600 leading-relaxed bg-blue-50 p-3 rounded">
+                    {riskItem.dampakKualitatif}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Dampak Kuantitatif:</p>
+                  <p className="text-sm text-gray-600 leading-relaxed bg-purple-50 p-3 rounded">
+                    {riskItem.dampakKuantitatif}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Control Measures */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Shield className="w-5 h-5" />
+                Control Measures
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div>
+                <p className="text-sm font-medium text-gray-700 mb-2">Kontrol Eksisting:</p>
+                <p className="text-sm text-gray-600 leading-relaxed bg-green-50 p-3 rounded border-l-4 border-green-400">
+                  {riskItem.kontrolEksisting}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
-        <DialogFooter className="bg-gray-50 pt-6">
-          <div className="flex flex-col sm:flex-row gap-3 w-full">
-            <Button variant="outline" onClick={onClose} className="flex-1">
-              Tutup
-            </Button>
-            <Button variant="outline" className="flex-1">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              Analisis Trend
-            </Button>
-            <Button className="flex-1">
-              <FileText className="w-4 h-4 mr-2" />
-              Export Report
-            </Button>
-          </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Tutup
+          </Button>
+          <Button>
+            <FileText className="w-4 h-4 mr-2" />
+            Export Detail
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+};
+
+export function RiskCategoryDetailDialog({
+  isOpen,
+  onClose,
+  category,
+}: RiskCategoryDetailDialogProps) {
+  const [selectedRisk, setSelectedRisk] = useState<RiskItem | null>(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  if (!category) return null;
+
+  const riskItems = generateMockRiskItems(category.id);
+  
+  const filteredRiskItems = statusFilter === "all" 
+    ? riskItems 
+    : riskItems.filter(item => item.status === statusFilter);
+
+  const IconComponent = category.icon;
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  const handleViewDetail = (risk: RiskItem) => {
+    setSelectedRisk(risk);
+    setIsDetailModalOpen(true);
+  };
+
+  return (
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-3">
+              <IconComponent className="h-6 w-6 text-blue-600" />
+              Detail Risiko: {category.name}
+            </DialogTitle>
+            <DialogDescription>
+              Daftar lengkap risiko dalam kategori {category.name} dengan level detail dan status mitigasi
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* Summary Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <Card className="border-l-4 border-l-blue-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Total Risiko</p>
+                    <p className="text-2xl font-bold text-gray-900">{category.total}</p>
+                  </div>
+                  <BarChart3 className="w-8 h-8 text-blue-500" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-l-red-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Overdue</p>
+                    <p className="text-2xl font-bold text-red-600">{category.overdue}</p>
+                  </div>
+                  <XCircle className="w-8 h-8 text-red-500" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-l-blue-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Dalam Mitigasi</p>
+                    <p className="text-2xl font-bold text-blue-600">{category.inProcess}</p>
+                  </div>
+                  <Activity className="w-8 h-8 text-blue-500" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-l-green-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Selesai</p>
+                    <p className="text-2xl font-bold text-green-600">{category.closed}</p>
+                  </div>
+                  <CheckCircle className="w-8 h-8 text-green-500" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Filter and Actions */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-gray-500" />
+              <select 
+                value={statusFilter} 
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+              >
+                <option value="all">Semua Status</option>
+                <option value="overdue">Overdue</option>
+                <option value="inProcess">Dalam Mitigasi</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
+            <div className="flex gap-2 ml-auto">
+              <Button variant="outline" size="sm">
+                <Download className="w-4 h-4 mr-2" />
+                Export Excel
+              </Button>
+            </div>
+          </div>
+
+          {/* Risk Table */}
+          <Card>
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-gray-50">
+                    <TableHead className="w-20">Kode</TableHead>
+                    <TableHead className="min-w-[200px]">Sasaran</TableHead>
+                    <TableHead className="w-32">Status</TableHead>
+                    <TableHead className="w-24">Level</TableHead>
+                    <TableHead className="w-32">PIC</TableHead>
+                    <TableHead className="w-28">Target</TableHead>
+                    <TableHead className="w-24">Progress</TableHead>
+                    <TableHead className="w-20">Aksi</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredRiskItems.map((item) => (
+                    <TableRow key={item.id} className="hover:bg-gray-50">
+                      <TableCell className="font-mono text-xs">
+                        {item.kode}
+                      </TableCell>
+                      <TableCell>
+                        <div>
+                          <p className="font-medium text-sm">{item.sasaran}</p>
+                          <p className="text-xs text-gray-500 mt-1">{item.project}</p>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        {getStatusBadge(item.status)}
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          <div className="text-xs text-gray-500">Awal: {item.risikoAwal.level}</div>
+                          <div className="text-xs font-medium">Akhir: {item.resikoAkhir.level}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <p className="text-sm">{item.assignee}</p>
+                      </TableCell>
+                      <TableCell>
+                        <p className="text-xs">{formatDate(item.dueDate)}</p>
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          {item.risikoAwal.level > item.resikoAkhir.level ? (
+                            <div className="text-xs text-green-600 font-medium">
+                              ↓ {item.risikoAwal.level - item.resikoAkhir.level}
+                            </div>
+                          ) : (
+                            <div className="text-xs text-gray-500">-</div>
+                          )}
+                          <div className="w-full bg-gray-200 rounded-full h-1">
+                            <div 
+                              className="bg-blue-600 h-1 rounded-full" 
+                              style={{ 
+                                width: `${Math.max(10, 100 - (item.resikoAkhir.level / item.risikoAwal.level) * 100)}%` 
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleViewDetail(item)}
+                        >
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          <DialogFooter className="bg-gray-50 pt-6">
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <Button variant="outline" onClick={onClose} className="flex-1">
+                Tutup
+              </Button>
+              <Button variant="outline" className="flex-1">
+                <TrendingUp className="w-4 h-4 mr-2" />
+                Analisis Trend
+              </Button>
+              <Button className="flex-1">
+                <FileText className="w-4 h-4 mr-2" />
+                Export Report
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Risk Detail Modal */}
+      <RiskDetailModal
+        isOpen={isDetailModalOpen}
+        onClose={() => setIsDetailModalOpen(false)}
+        riskItem={selectedRisk}
+      />
+    </>
   );
 }
