@@ -922,6 +922,24 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Project Readiness Form */}
+      <ProjectReadinessForm
+        isOpen={readinessForm.isOpen}
+        onClose={closeReadinessForm}
+        projectId={readinessForm.projectId}
+        projectName={readinessForm.projectName}
+        onSave={handleReadinessSave}
+      />
+
+      {/* Risk Capture Form */}
+      <RiskCaptureForm
+        isOpen={riskCaptureForm.isOpen}
+        onClose={closeRiskCaptureForm}
+        projectId={riskCaptureForm.projectId}
+        projectName={riskCaptureForm.projectName}
+        onSave={handleRiskCaptureSave}
+      />
     </div>
   );
 }
