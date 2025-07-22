@@ -386,16 +386,7 @@ export default function ProjectDetail() {
                     <span className="text-sm text-gray-600">Category</span>
                     <Badge variant="outline">{project.category}</Badge>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Team Size</span>
-                    <span className="font-medium">{project.teamSize} people</span>
-                  </div>
-                  {project.estimatedHours && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Est. Hours</span>
-                      <span className="font-medium">{project.estimatedHours}h</span>
-                    </div>
-                  )}
+
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Last Update</span>
                     <span className="text-sm">
