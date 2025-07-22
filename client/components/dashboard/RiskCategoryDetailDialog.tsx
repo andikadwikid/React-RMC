@@ -776,17 +776,6 @@ export function RiskCategoryDetailDialog({
           {/* Filter and Actions */}
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="flex items-center gap-4">
-              {/* Search Input */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <Input
-                  placeholder="Cari kode, sasaran, taksonomi, atau project..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 w-80 text-sm"
-                />
-              </div>
-
               {/* Status Filter */}
               <div className="flex items-center gap-2">
                 <Filter className="w-4 h-4 text-gray-500" />
@@ -800,6 +789,17 @@ export function RiskCategoryDetailDialog({
                   <option value="inProcess">Dalam Mitigasi</option>
                   <option value="closed">Closed</option>
                 </select>
+              </div>
+
+              {/* Search Input */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  placeholder="Cari kode, sasaran, taksonomi, atau project..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-4 py-2 w-80 text-sm"
+                />
               </div>
             </div>
 
