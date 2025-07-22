@@ -784,21 +784,27 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Start Date:</span>
                         <span className="font-medium">
-                          {new Date(project.startDate).toLocaleDateString("id-ID", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
+                          {new Date(project.startDate).toLocaleDateString(
+                            "id-ID",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            },
+                          )}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">End Date:</span>
                         <span className="font-medium">
-                          {new Date(project.endDate).toLocaleDateString("id-ID", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
+                          {new Date(project.endDate).toLocaleDateString(
+                            "id-ID",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            },
+                          )}
                         </span>
                       </div>
                       <div className="pt-2 border-t border-gray-200">
@@ -827,7 +833,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Timeline Start:</span>
                         <span className="font-medium">
-                          {new Date(project.timeline[0].startDate).toLocaleDateString("id-ID", {
+                          {new Date(
+                            project.timeline[0].startDate,
+                          ).toLocaleDateString("id-ID", {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
@@ -837,7 +845,11 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Timeline End:</span>
                         <span className="font-medium">
-                          {new Date(project.timeline[project.timeline.length - 1].endDate).toLocaleDateString("id-ID", {
+                          {new Date(
+                            project.timeline[
+                              project.timeline.length - 1
+                            ].endDate,
+                          ).toLocaleDateString("id-ID", {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
@@ -849,10 +861,17 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                           <span className="text-gray-600">Total Duration:</span>
                           <span className="text-2xl font-bold text-purple-600">
                             {Math.ceil(
-                              (new Date(project.timeline[project.timeline.length - 1].endDate).getTime() -
-                               new Date(project.timeline[0].startDate).getTime()) /
-                              (1000 * 60 * 60 * 24)
-                            )} days
+                              (new Date(
+                                project.timeline[
+                                  project.timeline.length - 1
+                                ].endDate,
+                              ).getTime() -
+                                new Date(
+                                  project.timeline[0].startDate,
+                                ).getTime()) /
+                                (1000 * 60 * 60 * 24),
+                            )}{" "}
+                            days
                           </span>
                         </div>
                       </div>
@@ -873,17 +892,21 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <div className="space-y-3">
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Days Remaining:</span>
-                        <span className="font-medium">{totalDays - daysElapsed} days</span>
+                        <span className="font-medium">
+                          {totalDays - daysElapsed} days
+                        </span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Status:</span>
-                        <span className={`font-medium ${
-                          project.progress >= timeElapsedPercentage
-                            ? "text-green-600"
-                            : project.progress >= timeElapsedPercentage - 10
-                              ? "text-yellow-600"
-                              : "text-red-600"
-                        }`}>
+                        <span
+                          className={`font-medium ${
+                            project.progress >= timeElapsedPercentage
+                              ? "text-green-600"
+                              : project.progress >= timeElapsedPercentage - 10
+                                ? "text-yellow-600"
+                                : "text-red-600"
+                          }`}
+                        >
                           {project.progress >= timeElapsedPercentage
                             ? "On Track"
                             : project.progress >= timeElapsedPercentage - 10
