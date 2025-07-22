@@ -44,15 +44,12 @@ interface ProjectFormData {
   client: string;
   clientEmail: string;
   clientPhone: string;
-  status: string;
-  riskLevel: string;
   budget: string;
   startDate: string;
   endDate: string;
   teamSize: string;
   province: string;
   projectManager: string;
-  priority: string;
   category: string;
   estimatedHours: string;
   timeline: TimelineMilestone[];
@@ -66,15 +63,12 @@ export default function CreateProject() {
     client: "",
     clientEmail: "",
     clientPhone: "",
-    status: "planning",
-    riskLevel: "low",
     budget: "",
     startDate: "",
     endDate: "",
     teamSize: "",
     province: "",
     projectManager: "",
-    priority: "medium",
     category: "",
     estimatedHours: "",
     timeline: [],
