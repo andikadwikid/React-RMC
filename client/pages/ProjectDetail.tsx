@@ -599,17 +599,33 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <CardTitle className="text-sm">Quick Actions</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start hover:bg-blue-50"
+                    onClick={openReadinessForm}
+                  >
                     <ClipboardCheck className="w-4 h-4 mr-2" />
                     Project Readiness
                   </Button>
-                  <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start hover:bg-orange-50"
+                    onClick={openRiskCaptureForm}
+                  >
                     <Shield className="w-4 h-4 mr-2" />
                     Risk Assessment
                   </Button>
-                  <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start hover:bg-green-50"
+                    onClick={generateReport}
+                    disabled={isGeneratingReport}
+                  >
                     <FileText className="w-4 h-4 mr-2" />
-                    Generate Report
+                    {isGeneratingReport ? "Generating..." : "Generate Report"}
                   </Button>
                 </CardContent>
               </Card>
