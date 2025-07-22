@@ -11,6 +11,7 @@ import { ErrorBoundary } from "./components/common/ErrorBoundary";
 import Index from "./pages/Index";
 import Projects from "./pages/Projects";
 import CreateProject from "./pages/CreateProject";
+import ProjectDetail from "./pages/ProjectDetail";
 import ProjectTimeline from "./pages/ProjectTimeline";
 import Verification from "./pages/Verification";
 import VerifierDashboard from "./pages/VerifierDashboard";
