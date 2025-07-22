@@ -547,40 +547,117 @@ export default function ProjectDetail() {
 
         <TabsContent value="timeline" className="space-y-6">
           {project.timeline ? (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <GitBranch className="h-5 w-5 text-blue-600" />
-                  Project Timeline
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {project.timeline.map((milestone, index) => (
-                    <div key={milestone.id} className="flex gap-4">
-                      <div className="flex flex-col items-center">
-                        <div className="w-3 h-3 rounded-full bg-blue-500" />
-                        {index < project.timeline!.length - 1 && (
-                          <div className="w-px h-12 bg-gray-200 mt-2" />
-                        )}
-                      </div>
-                      <div className="flex-1 pb-4">
-                        <div>
-                          <h4 className="font-medium text-gray-900">{milestone.title}</h4>
-                          <p className="text-sm text-gray-600 mt-1">{milestone.description}</p>
-                          <div className="mt-2 text-sm text-gray-500">
-                            <span>
-                              {new Date(milestone.startDate).toLocaleDateString("id-ID")} -
-                              {new Date(milestone.endDate).toLocaleDateString("id-ID")}
-                            </span>
+            <div className="space-y-4">
+              {/* Timeline Overview */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <GitBranch className="h-5 w-5 text-blue-600" />
+                    Project Timeline Overview
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="text-center p-4 bg-blue-50 rounded-lg">
+                      <p className="text-sm text-blue-600 font-medium">Total Milestones</p>
+                      <p className="text-2xl font-bold text-blue-700">{project.timeline.length}</p>
+                    </div>
+                    <div className="text-center p-4 bg-green-50 rounded-lg">
+                      <p className="text-sm text-green-600 font-medium">Project Duration</p>
+                      <p className="text-2xl font-bold text-green-700">{totalDays} days</p>
+                    </div>
+                    <div className="text-center p-4 bg-purple-50 rounded-lg">
+                      <p className="text-sm text-purple-600 font-medium">Time Elapsed</p>
+                      <p className="text-2xl font-bold text-purple-700">{daysElapsed} days</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Timeline Milestones */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5 text-indigo-600" />
+                    Milestones
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    {project.timeline.map((milestone, index) => {
+                      const startDate = new Date(milestone.startDate);
+                      const endDate = new Date(milestone.endDate);
+                      const currentDate = new Date();
+
+                      // Determine if milestone is upcoming, current, or past
+                      const isUpcoming = currentDate < startDate;
+                      const isCurrent = currentDate >= startDate && currentDate <= endDate;
+                      const isPast = currentDate > endDate;
+
+                      const duration = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+
+                      return (
+                        <div key={milestone.id} className="flex gap-6">
+                          <div className="flex flex-col items-center">
+                            <div className={`w-4 h-4 rounded-full border-2 ${
+                              isPast ? 'bg-green-500 border-green-500' :
+                              isCurrent ? 'bg-blue-500 border-blue-500' :
+                              'bg-white border-gray-300'
+                            }`} />
+                            {index < project.timeline!.length - 1 && (
+                              <div className="w-px h-16 bg-gray-200 mt-2" />
+                            )}
+                          </div>
+                          <div className="flex-1 pb-6">
+                            <div className={`p-4 rounded-lg border ${
+                              isPast ? 'bg-green-50 border-green-200' :
+                              isCurrent ? 'bg-blue-50 border-blue-200' :
+                              'bg-gray-50 border-gray-200'
+                            }`}>
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                  <h4 className="font-semibold text-gray-900 mb-1">{milestone.title}</h4>
+                                  <p className="text-sm text-gray-600 mb-3">{milestone.description}</p>
+
+                                  <div className="flex items-center gap-4 text-xs text-gray-500">
+                                    <div className="flex items-center gap-1">
+                                      <Calendar className="w-3 h-3" />
+                                      <span>
+                                        {startDate.toLocaleDateString("id-ID")} - {endDate.toLocaleDateString("id-ID")}
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Clock className="w-3 h-3" />
+                                      <span>{duration} hari</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="ml-4">
+                                  <Badge variant={
+                                    isPast ? "default" :
+                                    isCurrent ? "secondary" :
+                                    "outline"
+                                  } className={
+                                    isPast ? "bg-green-100 text-green-800" :
+                                    isCurrent ? "bg-blue-100 text-blue-800" :
+                                    "text-gray-500"
+                                  }>
+                                    {isPast ? "Completed Period" :
+                                     isCurrent ? "Active Period" :
+                                     "Upcoming"}
+                                  </Badge>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           ) : (
             <Card>
               <CardContent className="text-center py-12">
