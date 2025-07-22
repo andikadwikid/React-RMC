@@ -47,11 +47,9 @@ interface ProjectFormData {
   budget: string;
   startDate: string;
   endDate: string;
-  teamSize: string;
   province: string;
   projectManager: string;
   category: string;
-  estimatedHours: string;
   timeline: TimelineMilestone[];
 }
 
