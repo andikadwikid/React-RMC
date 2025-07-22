@@ -788,8 +788,6 @@ export function RiskCategoryDetailDialog({
                     <TableHead className="w-32">Status</TableHead>
                     <TableHead className="w-24">Level</TableHead>
                     <TableHead className="w-32">PIC</TableHead>
-                    <TableHead className="w-28">Target</TableHead>
-                    <TableHead className="w-24">Progress</TableHead>
                     <TableHead className="w-20">Aksi</TableHead>
                   </TableRow>
                 </TableHeader>
