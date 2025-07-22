@@ -775,20 +775,45 @@ export function RiskCategoryDetailDialog({
 
           {/* Filter and Actions */}
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
-            <div className="flex items-center gap-2">
-              <Filter className="w-4 h-4 text-gray-500" />
-              <select 
-                value={statusFilter} 
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="border border-gray-300 rounded-md px-3 py-1 text-sm"
-              >
-                <option value="all">Semua Status</option>
-                <option value="overdue">Overdue</option>
-                <option value="inProcess">Dalam Mitigasi</option>
-                <option value="closed">Closed</option>
-              </select>
+            <div className="flex items-center gap-4">
+              {/* Search Input */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  placeholder="Cari kode, sasaran, taksonomi, atau project..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-4 py-2 w-80 text-sm"
+                />
+              </div>
+
+              {/* Status Filter */}
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-gray-500" />
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+                >
+                  <option value="all">Semua Status</option>
+                  <option value="overdue">Overdue</option>
+                  <option value="inProcess">Dalam Mitigasi</option>
+                  <option value="closed">Closed</option>
+                </select>
+              </div>
             </div>
+
             <div className="flex gap-2 ml-auto">
+              {/* Clear Search Button */}
+              {searchQuery && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSearchQuery("")}
+                >
+                  Clear Search
+                </Button>
+              )}
               <Button variant="outline" size="sm">
                 <Download className="w-4 h-4 mr-2" />
                 Export Excel
