@@ -29,7 +29,7 @@ export function TimelineCard({ milestone }: TimelineCardProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-4">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-green-500" />
               <div>
@@ -47,14 +47,6 @@ export function TimelineCard({ milestone }: TimelineCardProps) {
                 <span className="ml-1 font-medium">
                   {formatDate(milestone.endDate, "dd MMM yyyy")}
                 </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-blue-500" />
-              <div>
-                <span className="text-gray-600">Assignee:</span>
-                <span className="ml-1 font-medium">{milestone.assignee}</span>
               </div>
             </div>
           </div>
