@@ -32,6 +32,8 @@ import {
 } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
 import { Project } from "@/types";
+import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
+import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
 
 // Mock data untuk demo - nanti bisa diganti dengan API call
 const mockProjects: Project[] = [
