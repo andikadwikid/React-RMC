@@ -83,7 +83,7 @@ export default function Projects() {
       spent: 1800000000,
       startDate: "2024-01-15",
       endDate: "2024-06-30",
-      teamSize: 8,
+      
       progress: 72,
       lastUpdate: "2024-01-20",
       readinessStatus: "in-progress",
@@ -101,7 +101,7 @@ export default function Projects() {
       spent: 900000000,
       startDate: "2024-02-01",
       endDate: "2024-07-15",
-      teamSize: 6,
+      
       progress: 45,
       lastUpdate: "2024-01-19",
       readinessStatus: "completed",
@@ -119,7 +119,7 @@ export default function Projects() {
       spent: 820000000,
       startDate: "2023-11-01",
       endDate: "2024-01-15",
-      teamSize: 4,
+      
       progress: 100,
       lastUpdate: "2024-01-15",
       readinessStatus: "completed",
@@ -137,7 +137,7 @@ export default function Projects() {
       spent: 2100000000,
       startDate: "2023-12-01",
       endDate: "2024-05-30",
-      teamSize: 12,
+      
       progress: 68,
       lastUpdate: "2024-01-18",
       readinessStatus: "in-progress",
@@ -155,7 +155,7 @@ export default function Projects() {
       spent: 0,
       startDate: "2024-02-15",
       endDate: "2024-08-30",
-      teamSize: 5,
+      
       progress: 0,
       lastUpdate: "2024-01-21",
       readinessStatus: "not-started",
@@ -173,7 +173,7 @@ export default function Projects() {
       spent: 1100000000,
       startDate: "2023-10-15",
       endDate: "2024-04-30",
-      teamSize: 7,
+      
       progress: 50,
       lastUpdate: "2024-01-10",
       readinessStatus: "in-progress",
