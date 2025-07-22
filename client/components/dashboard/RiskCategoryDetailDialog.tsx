@@ -821,6 +821,42 @@ export function RiskCategoryDetailDialog({
             </div>
           </div>
 
+          {/* Search Results Info */}
+          {(searchQuery || statusFilter !== "all") && (
+            <div className="mb-4 p-3 bg-gray-50 rounded-lg border">
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-600">
+                    Menampilkan {filteredRiskItems.length} dari {riskItems.length} risiko
+                  </span>
+                  {searchQuery && (
+                    <span className="text-blue-600">
+                      untuk pencarian "{searchQuery}"
+                    </span>
+                  )}
+                  {statusFilter !== "all" && (
+                    <span className="text-green-600">
+                      dengan status "{statusFilter}"
+                    </span>
+                  )}
+                </div>
+                {(searchQuery || statusFilter !== "all") && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setSearchQuery("");
+                      setStatusFilter("all");
+                    }}
+                    className="text-xs"
+                  >
+                    Reset Filter
+                  </Button>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Risk Table */}
           <Card>
             <CardContent className="p-0">
