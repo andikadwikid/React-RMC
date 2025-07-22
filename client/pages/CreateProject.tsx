@@ -493,52 +493,18 @@ export default function CreateProject() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="budget">Budget (IDR) *</Label>
-                <Input
-                  id="budget"
-                  placeholder="1,000,000,000"
-                  value={formData.budget}
-                  onChange={(e) => handleBudgetChange(e.target.value)}
-                  className={errors.budget ? "border-red-500" : ""}
-                />
-                {errors.budget && (
-                  <p className="text-sm text-red-500">{errors.budget}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="teamSize">Jumlah Tim *</Label>
-                <Input
-                  id="teamSize"
-                  type="number"
-                  min="1"
-                  placeholder="5"
-                  value={formData.teamSize}
-                  onChange={(e) =>
-                    handleInputChange("teamSize", e.target.value)
-                  }
-                  className={errors.teamSize ? "border-red-500" : ""}
-                />
-                {errors.teamSize && (
-                  <p className="text-sm text-red-500">{errors.teamSize}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="estimatedHours">Estimasi Jam Kerja</Label>
-                <Input
-                  id="estimatedHours"
-                  type="number"
-                  min="0"
-                  placeholder="1000"
-                  value={formData.estimatedHours}
-                  onChange={(e) =>
-                    handleInputChange("estimatedHours", e.target.value)
-                  }
-                />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="budget">Budget (IDR) *</Label>
+              <Input
+                id="budget"
+                placeholder="1,000,000,000"
+                value={formData.budget}
+                onChange={(e) => handleBudgetChange(e.target.value)}
+                className={errors.budget ? "border-red-500" : ""}
+              />
+              {errors.budget && (
+                <p className="text-sm text-red-500">{errors.budget}</p>
+              )}
             </div>
 
             <div className="space-y-2">
