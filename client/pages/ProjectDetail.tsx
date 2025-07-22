@@ -819,24 +819,40 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="flex items-center gap-2">
                         <Clock className="h-5 w-5 text-purple-600" />
                         <span className="font-medium text-gray-900">
-                          Timeline Progress
+                          Timeline Duration
                         </span>
                       </div>
                     </div>
                     <div className="space-y-3">
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Total Milestones:</span>
-                        <span className="font-medium">{project.timeline.length}</span>
+                        <span className="text-gray-600">Timeline Start:</span>
+                        <span className="font-medium">
+                          {new Date(project.timeline[0].startDate).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Time Elapsed:</span>
-                        <span className="font-medium">{daysElapsed} days</span>
+                        <span className="text-gray-600">Timeline End:</span>
+                        <span className="font-medium">
+                          {new Date(project.timeline[project.timeline.length - 1].endDate).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </span>
                       </div>
                       <div className="pt-2 border-t border-gray-200">
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Progress:</span>
+                          <span className="text-gray-600">Total Duration:</span>
                           <span className="text-2xl font-bold text-purple-600">
-                            {project.progress}%
+                            {Math.ceil(
+                              (new Date(project.timeline[project.timeline.length - 1].endDate).getTime() -
+                               new Date(project.timeline[0].startDate).getTime()) /
+                              (1000 * 60 * 60 * 24)
+                            )} days
                           </span>
                         </div>
                       </div>
