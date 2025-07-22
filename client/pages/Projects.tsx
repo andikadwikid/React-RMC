@@ -525,11 +525,8 @@ export default function Projects() {
                 <TableRow>
                   <TableHead>Project</TableHead>
                   <TableHead>Client</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Risk Level</TableHead>
                   <TableHead>Progress</TableHead>
                   <TableHead>Budget</TableHead>
-                  <TableHead>Team</TableHead>
                   <TableHead>Timeline</TableHead>
                   <TableHead>Readiness</TableHead>
                   <TableHead>Risk Capture</TableHead>
