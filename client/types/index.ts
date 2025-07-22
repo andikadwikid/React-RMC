@@ -12,8 +12,6 @@ export interface Project extends BaseEntity {
   client: string;
   clientEmail: string;
   clientPhone: string;
-  status: ProjectStatus;
-  riskLevel: RiskLevel;
   budget: number;
   spent: number;
   startDate: string;
@@ -21,7 +19,6 @@ export interface Project extends BaseEntity {
   teamSize: number;
   province: string;
   projectManager: string;
-  priority: Priority;
   category: string;
   estimatedHours: number;
   progress: number;
