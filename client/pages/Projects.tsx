@@ -563,7 +563,11 @@ export default function Projects() {
                           </Button>
                         </Link>
                         <Link to={`/projects/${project.id}`}>
-                          <Button variant="ghost" size="sm" title="View Details">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            title="View Details"
+                          >
                             <Eye className="w-4 h-4" />
                           </Button>
                         </Link>
