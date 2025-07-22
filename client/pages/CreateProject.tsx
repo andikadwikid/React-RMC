@@ -64,11 +64,9 @@ export default function CreateProject() {
     budget: "",
     startDate: "",
     endDate: "",
-    teamSize: "",
     province: "",
     projectManager: "",
     category: "",
-    estimatedHours: "",
     timeline: [],
   });
 
