@@ -649,9 +649,11 @@ export default function Projects() {
                             <GitBranch className="w-4 h-4" />
                           </Button>
                         </Link>
-                        <Button variant="ghost" size="sm" title="View Details">
-                          <Eye className="w-4 h-4" />
-                        </Button>
+                        <Link to={`/projects/${project.id}`}>
+                          <Button variant="ghost" size="sm" title="View Details">
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </Link>
                         <Button variant="ghost" size="sm">
                           <MoreHorizontal className="w-4 h-4" />
                         </Button>
