@@ -1,29 +1,17 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Calendar,
   User,
-  MoreVertical,
-  Edit2,
 } from "lucide-react";
 import { formatDate } from "@/utils/formatters";
 import type { TimelineMilestone, MilestoneStatus } from "@/types";
 
 interface TimelineCardProps {
   milestone: TimelineMilestone;
-  isLast: boolean;
-  onEdit?: (milestone: TimelineMilestone) => void;
-  onStatusChange?: (
-    milestone: TimelineMilestone,
-    status: MilestoneStatus,
-  ) => void;
 }
 
 export function TimelineCard({
   milestone,
-  isLast,
-  onEdit,
-  onStatusChange,
 }: TimelineCardProps) {
   const getDuration = () => {
     const start = new Date(milestone.startDate);
@@ -33,35 +21,16 @@ export function TimelineCard({
 
   return (
     <div className="mb-6">
-      <Card className="hover:shadow-lg transition-all duration-300 group">
+      <Card className="border border-gray-200">
         <CardContent className="p-6">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-1">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {milestone.title}
-                </h3>
-              </div>
-              <p className="text-gray-600 text-sm mb-3 leading-relaxed">
+          <div className="mb-4">
+            <div className="mb-3">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                {milestone.title}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
                 {milestone.description}
               </p>
-            </div>
-            <div className="flex items-center gap-2 ml-4">
-              <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                {onEdit && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => onEdit(milestone)}
-                    className="h-8 w-8 p-0"
-                  >
-                    <Edit2 className="w-4 h-4" />
-                  </Button>
-                )}
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                  <MoreVertical className="w-4 h-4" />
-                </Button>
-              </div>
             </div>
           </div>
 
