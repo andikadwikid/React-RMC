@@ -205,7 +205,7 @@ export default function ProjectDetail() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
@@ -248,20 +248,6 @@ export default function ProjectDetail() {
               <Clock className="h-8 w-8 text-purple-500" />
             </div>
             <Progress value={timeElapsedPercentage} className="mt-2" />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Team Size</p>
-                <p className="text-2xl font-bold text-orange-600">
-                  {project.teamSize}
-                </p>
-              </div>
-              <Users className="h-8 w-8 text-orange-500" />
-            </div>
           </CardContent>
         </Card>
       </div>
