@@ -44,8 +44,6 @@ interface Project {
   id: string;
   name: string;
   client: string;
-  status: "running" | "completed" | "on-hold" | "planning";
-  riskLevel: "low" | "medium" | "high";
   budget: number;
   spent: number;
   startDate: string;
