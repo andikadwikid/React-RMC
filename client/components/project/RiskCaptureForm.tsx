@@ -369,9 +369,14 @@ export function RiskCaptureForm({
                                 max={25}
                                 value={risk.risikoAwal.kejadian}
                                 onChange={(e) => {
-                                  const kejadian = parseInt(e.target.value);
-                                  if (isValidRange(kejadian)) {
-                                    updateRiskItem(risk.id, "risikoAwal.kejadian", kejadian);
+                                  const value = e.target.value;
+                                  if (value === "") {
+                                    updateRiskItem(risk.id, "risikoAwal.kejadian", 1);
+                                  } else {
+                                    const kejadian = parseInt(value);
+                                    if (!isNaN(kejadian)) {
+                                      updateRiskItem(risk.id, "risikoAwal.kejadian", kejadian);
+                                    }
                                   }
                                 }}
                                 placeholder="1-25"
@@ -392,9 +397,14 @@ export function RiskCaptureForm({
                                 max={25}
                                 value={risk.risikoAwal.dampak}
                                 onChange={(e) => {
-                                  const dampak = parseInt(e.target.value);
-                                  if (isValidRange(dampak)) {
-                                    updateRiskItem(risk.id, "risikoAwal.dampak", dampak);
+                                  const value = e.target.value;
+                                  if (value === "") {
+                                    updateRiskItem(risk.id, "risikoAwal.dampak", 1);
+                                  } else {
+                                    const dampak = parseInt(value);
+                                    if (!isNaN(dampak)) {
+                                      updateRiskItem(risk.id, "risikoAwal.dampak", dampak);
+                                    }
                                   }
                                 }}
                                 placeholder="1-25"
@@ -415,9 +425,14 @@ export function RiskCaptureForm({
                                 max={25}
                                 value={risk.risikoAwal.level}
                                 onChange={(e) => {
-                                  const level = parseInt(e.target.value);
-                                  if (isValidRange(level)) {
-                                    updateRiskItem(risk.id, "risikoAwal.level", level);
+                                  const value = e.target.value;
+                                  if (value === "") {
+                                    updateRiskItem(risk.id, "risikoAwal.level", 1);
+                                  } else {
+                                    const level = parseInt(value);
+                                    if (!isNaN(level)) {
+                                      updateRiskItem(risk.id, "risikoAwal.level", level);
+                                    }
                                   }
                                 }}
                                 placeholder="1-25"
@@ -444,9 +459,14 @@ export function RiskCaptureForm({
                                 max={25}
                                 value={risk.resikoAkhir.kejadian}
                                 onChange={(e) => {
-                                  const kejadian = parseInt(e.target.value);
-                                  if (isValidRange(kejadian)) {
-                                    updateRiskItem(risk.id, "resikoAkhir.kejadian", kejadian);
+                                  const value = e.target.value;
+                                  if (value === "") {
+                                    updateRiskItem(risk.id, "resikoAkhir.kejadian", 1);
+                                  } else {
+                                    const kejadian = parseInt(value);
+                                    if (!isNaN(kejadian)) {
+                                      updateRiskItem(risk.id, "resikoAkhir.kejadian", kejadian);
+                                    }
                                   }
                                 }}
                                 placeholder="1-25"
@@ -467,9 +487,14 @@ export function RiskCaptureForm({
                                 max={25}
                                 value={risk.resikoAkhir.dampak}
                                 onChange={(e) => {
-                                  const dampak = parseInt(e.target.value);
-                                  if (isValidRange(dampak)) {
-                                    updateRiskItem(risk.id, "resikoAkhir.dampak", dampak);
+                                  const value = e.target.value;
+                                  if (value === "") {
+                                    updateRiskItem(risk.id, "resikoAkhir.dampak", 1);
+                                  } else {
+                                    const dampak = parseInt(value);
+                                    if (!isNaN(dampak)) {
+                                      updateRiskItem(risk.id, "resikoAkhir.dampak", dampak);
+                                    }
                                   }
                                 }}
                                 placeholder="1-25"
@@ -490,9 +515,14 @@ export function RiskCaptureForm({
                                 max={25}
                                 value={risk.resikoAkhir.level}
                                 onChange={(e) => {
-                                  const level = parseInt(e.target.value);
-                                  if (isValidRange(level)) {
-                                    updateRiskItem(risk.id, "resikoAkhir.level", level);
+                                  const value = e.target.value;
+                                  if (value === "") {
+                                    updateRiskItem(risk.id, "resikoAkhir.level", 1);
+                                  } else {
+                                    const level = parseInt(value);
+                                    if (!isNaN(level)) {
+                                      updateRiskItem(risk.id, "resikoAkhir.level", level);
+                                    }
                                   }
                                 }}
                                 placeholder="1-25"
