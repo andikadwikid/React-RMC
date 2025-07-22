@@ -784,6 +784,35 @@ export default function CreateProject() {
                       Total milestone:{" "}
                       <strong>{formData.timeline.length}</strong>
                     </p>
+                    {(() => {
+                      // Calculate total duration from timeline
+                      if (formData.timeline.length === 0) return null;
+
+                      const milestonesWithDates = formData.timeline.filter(
+                        m => m.startDate && m.endDate
+                      );
+
+                      if (milestonesWithDates.length === 0) return null;
+
+                      // Get the earliest start date and latest end date
+                      const startDates = milestonesWithDates.map(m => new Date(m.startDate));
+                      const endDates = milestonesWithDates.map(m => new Date(m.endDate));
+
+                      const earliestStart = new Date(Math.min(...startDates));
+                      const latestEnd = new Date(Math.max(...endDates));
+
+                      const totalDays = Math.ceil(
+                        (latestEnd.getTime() - earliestStart.getTime()) / (1000 * 60 * 60 * 24)
+                      );
+
+                      return (
+                        <p>
+                          Total durasi:{" "}
+                          <strong>{totalDays} hari</strong>
+                          {" "}({earliestStart.toLocaleDateString("id-ID")} - {latestEnd.toLocaleDateString("id-ID")})
+                        </p>
+                      );
+                    })()}
                   </div>
                 </div>
               )}
