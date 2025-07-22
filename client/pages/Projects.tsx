@@ -548,13 +548,6 @@ export default function Projects() {
                     <TableCell>
                       <p className="text-sm text-gray-900">{project.client}</p>
                     </TableCell>
-                    <TableCell>{getStatusBadge(project.status)}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        {getRiskIcon(project.riskLevel)}
-                        {getRiskBadge(project.riskLevel)}
-                      </div>
-                    </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <div className="w-16 bg-gray-200 rounded-full h-2">
@@ -576,12 +569,6 @@ export default function Projects() {
                         <p className="text-gray-500">
                           Spent: {formatCurrency(project.spent)}
                         </p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1">
-                        <Users className="w-4 h-4 text-gray-400" />
-                        <span className="text-sm">{project.teamSize}</span>
                       </div>
                     </TableCell>
                     <TableCell>
