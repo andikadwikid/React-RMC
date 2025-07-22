@@ -455,10 +455,7 @@ export default function ProjectDetail() {
                     <label className="text-sm font-medium text-gray-700">Province</label>
                     <p className="text-gray-900">{project.province}</p>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">Team Size</label>
-                    <p className="text-gray-900">{project.teamSize} people</p>
-                  </div>
+
                   <div>
                     <label className="text-sm font-medium text-gray-700">Start Date</label>
                     <p className="text-gray-900">
