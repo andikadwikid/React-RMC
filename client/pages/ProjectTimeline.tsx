@@ -124,7 +124,8 @@ export default function ProjectTimeline() {
 
   // Calculate durations
   const projectDuration = Math.ceil(
-    (new Date(project.endDate).getTime() - new Date(project.startDate).getTime()) /
+    (new Date(project.endDate).getTime() -
+      new Date(project.startDate).getTime()) /
       (1000 * 60 * 60 * 24),
   );
 
@@ -132,7 +133,8 @@ export default function ProjectTimeline() {
     const milestoneStart = new Date(milestone.startDate);
     const milestoneEnd = new Date(milestone.endDate);
     const milestoneDays = Math.ceil(
-      (milestoneEnd.getTime() - milestoneStart.getTime()) / (1000 * 60 * 60 * 24),
+      (milestoneEnd.getTime() - milestoneStart.getTime()) /
+        (1000 * 60 * 60 * 24),
     );
     return total + milestoneDays;
   }, 0);
@@ -168,30 +170,38 @@ export default function ProjectTimeline() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-blue-600" />
-                <span className="font-medium text-gray-900">Project Duration</span>
+                <span className="font-medium text-gray-900">
+                  Project Duration
+                </span>
               </div>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Start Date:</span>
-                <span className="font-medium">{new Date(project.startDate).toLocaleDateString('id-ID', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}</span>
+                <span className="font-medium">
+                  {new Date(project.startDate).toLocaleDateString("id-ID", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">End Date:</span>
-                <span className="font-medium">{new Date(project.endDate).toLocaleDateString('id-ID', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}</span>
+                <span className="font-medium">
+                  {new Date(project.endDate).toLocaleDateString("id-ID", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
               </div>
               <div className="pt-2 border-t border-gray-200">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Total Duration:</span>
-                  <span className="text-2xl font-bold text-blue-600">{projectDuration} days</span>
+                  <span className="text-2xl font-bold text-blue-600">
+                    {projectDuration} days
+                  </span>
                 </div>
               </div>
             </div>
@@ -203,7 +213,9 @@ export default function ProjectTimeline() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Clock className="h-5 w-5 text-purple-600" />
-                <span className="font-medium text-gray-900">Timeline Duration</span>
+                <span className="font-medium text-gray-900">
+                  Timeline Duration
+                </span>
               </div>
             </div>
             <div className="space-y-3">
@@ -218,7 +230,9 @@ export default function ProjectTimeline() {
               <div className="pt-2 border-t border-gray-200">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Total Duration:</span>
-                  <span className="text-2xl font-bold text-purple-600">{timelineDuration} days</span>
+                  <span className="text-2xl font-bold text-purple-600">
+                    {timelineDuration} days
+                  </span>
                 </div>
               </div>
             </div>
@@ -234,36 +248,44 @@ export default function ProjectTimeline() {
                 ) : (
                   <AlertTriangle className="h-5 w-5 text-yellow-600" />
                 )}
-                <span className="font-medium text-gray-900">Duration Analysis</span>
+                <span className="font-medium text-gray-900">
+                  Duration Analysis
+                </span>
               </div>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Difference:</span>
-                <span className={`font-medium ${
-                  durationDifference > 0 ? 'text-yellow-600' :
-                  durationDifference < 0 ? 'text-blue-600' : 'text-green-600'
-                }`}>
-                  {durationDifference > 0 ? '+' : ''}{durationDifference} days
+                <span
+                  className={`font-medium ${
+                    durationDifference > 0
+                      ? "text-yellow-600"
+                      : durationDifference < 0
+                        ? "text-blue-600"
+                        : "text-green-600"
+                  }`}
+                >
+                  {durationDifference > 0 ? "+" : ""}
+                  {durationDifference} days
                 </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Status:</span>
-                <span className={`font-medium ${
-                  isDurationMatched ? 'text-green-600' : 'text-yellow-600'
-                }`}>
-                  {isDurationMatched ? 'Aligned' : 'Needs Review'}
+                <span
+                  className={`font-medium ${
+                    isDurationMatched ? "text-green-600" : "text-yellow-600"
+                  }`}
+                >
+                  {isDurationMatched ? "Aligned" : "Needs Review"}
                 </span>
               </div>
               <div className="pt-2 border-t border-gray-200">
                 <div className="text-xs text-gray-500">
-                  {durationDifference > 5 ? (
-                    'Timeline duration exceeds project duration. Consider optimizing milestones.'
-                  ) : durationDifference < -5 ? (
-                    'Timeline duration is shorter than project duration. Consider adding more detailed milestones.'
-                  ) : (
-                    'Timeline duration is well aligned with project schedule.'
-                  )}
+                  {durationDifference > 5
+                    ? "Timeline duration exceeds project duration. Consider optimizing milestones."
+                    : durationDifference < -5
+                      ? "Timeline duration is shorter than project duration. Consider adding more detailed milestones."
+                      : "Timeline duration is well aligned with project schedule."}
                 </div>
               </div>
             </div>
@@ -282,10 +304,7 @@ export default function ProjectTimeline() {
         <CardContent>
           <div className="space-y-4">
             {project.timeline.map((milestone) => (
-              <TimelineCard
-                key={milestone.id}
-                milestone={milestone}
-              />
+              <TimelineCard key={milestone.id} milestone={milestone} />
             ))}
           </div>
         </CardContent>

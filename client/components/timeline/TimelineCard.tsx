@@ -1,8 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Calendar,
-  User,
-} from "lucide-react";
+import { Calendar, User } from "lucide-react";
 import { formatDate } from "@/utils/formatters";
 import type { TimelineMilestone, MilestoneStatus } from "@/types";
 
@@ -10,9 +7,7 @@ interface TimelineCardProps {
   milestone: TimelineMilestone;
 }
 
-export function TimelineCard({
-  milestone,
-}: TimelineCardProps) {
+export function TimelineCard({ milestone }: TimelineCardProps) {
   const getDuration = () => {
     const start = new Date(milestone.startDate);
     const end = new Date(milestone.endDate);
@@ -59,9 +54,7 @@ export function TimelineCard({
               <User className="w-4 h-4 text-blue-500" />
               <div>
                 <span className="text-gray-600">Assignee:</span>
-                <span className="ml-1 font-medium">
-                  {milestone.assignee}
-                </span>
+                <span className="ml-1 font-medium">{milestone.assignee}</span>
               </div>
             </div>
           </div>
