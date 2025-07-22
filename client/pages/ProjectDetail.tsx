@@ -123,6 +123,21 @@ export default function ProjectDetail() {
   const [project, setProject] = useState<Project | null>(null);
   const [activeTab, setActiveTab] = useState("overview");
 
+  // Quick Actions states
+  const [readinessForm, setReadinessForm] = useState({
+    isOpen: false,
+    projectId: "",
+    projectName: "",
+  });
+
+  const [riskCaptureForm, setRiskCaptureForm] = useState({
+    isOpen: false,
+    projectId: "",
+    projectName: "",
+  });
+
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false);
+
   useEffect(() => {
     // Simulate API call
     const foundProject = mockProjects.find((p) => p.id === projectId);
