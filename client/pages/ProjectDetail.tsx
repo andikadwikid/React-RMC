@@ -146,57 +146,7 @@ export default function ProjectDetail() {
     );
   }
 
-  const getStatusBadge = (status: Project["status"]) => {
-    const variants = {
-      running: "bg-green-100 text-green-800",
-      completed: "bg-blue-100 text-blue-800",
-      "on-hold": "bg-yellow-100 text-yellow-800",
-      planning: "bg-gray-100 text-gray-800",
-    };
 
-    const labels = {
-      running: "Berjalan",
-      completed: "Selesai",
-      "on-hold": "Tertunda",
-      planning: "Perencanaan",
-    };
-
-    return <Badge className={variants[status]}>{labels[status]}</Badge>;
-  };
-
-  const getRiskBadge = (risk: Project["riskLevel"]) => {
-    const variants = {
-      low: "bg-green-100 text-green-800",
-      medium: "bg-yellow-100 text-yellow-800",
-      high: "bg-red-100 text-red-800",
-    };
-
-    const labels = {
-      low: "Rendah",
-      medium: "Sedang",
-      high: "Tinggi",
-    };
-
-    return <Badge className={variants[risk]}>{labels[risk]}</Badge>;
-  };
-
-  const getPriorityBadge = (priority: Project["priority"]) => {
-    const variants = {
-      low: "bg-gray-100 text-gray-800",
-      medium: "bg-blue-100 text-blue-800",
-      high: "bg-orange-100 text-orange-800",
-      critical: "bg-red-100 text-red-800",
-    };
-
-    const labels = {
-      low: "Rendah",
-      medium: "Sedang",
-      high: "Tinggi",
-      critical: "Kritis",
-    };
-
-    return <Badge className={variants[priority]}>{labels[priority]}</Badge>;
-  };
 
 
 
@@ -341,11 +291,7 @@ export default function ProjectDetail() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex flex-wrap gap-2">
-                    {getStatusBadge(project.status)}
-                    {getRiskBadge(project.riskLevel)}
-                    {getPriorityBadge(project.priority)}
-                  </div>
+
                   <p className="text-gray-700 leading-relaxed">
                     {project.description}
                   </p>
@@ -521,18 +467,7 @@ export default function ProjectDetail() {
                     <label className="text-sm font-medium text-gray-700">Category</label>
                     <p className="text-gray-900">{project.category}</p>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">Status</label>
-                    <div className="mt-1">{getStatusBadge(project.status)}</div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">Risk Level</label>
-                    <div className="mt-1">{getRiskBadge(project.riskLevel)}</div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">Priority</label>
-                    <div className="mt-1">{getPriorityBadge(project.priority)}</div>
-                  </div>
+
                 </div>
                 <div className="space-y-4">
                   <div>
