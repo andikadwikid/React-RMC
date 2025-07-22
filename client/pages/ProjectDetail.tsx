@@ -204,27 +204,7 @@ export default function ProjectDetail() {
     return <Badge className={variants[priority]}>{labels[priority]}</Badge>;
   };
 
-  const getTimelineStatusBadge = (status: string) => {
-    const variants = {
-      pending: "bg-gray-100 text-gray-800",
-      "in-progress": "bg-blue-100 text-blue-800",
-      completed: "bg-green-100 text-green-800",
-      blocked: "bg-red-100 text-red-800",
-    };
 
-    const labels = {
-      pending: "Pending",
-      "in-progress": "In Progress",
-      completed: "Completed",
-      blocked: "Blocked",
-    };
-
-    return (
-      <Badge className={variants[status as keyof typeof variants]}>
-        {labels[status as keyof typeof labels]}
-      </Badge>
-    );
-  };
 
   const budgetUsedPercentage = (project.spent / project.budget) * 100;
   const remainingBudget = project.budget - project.spent;
@@ -424,11 +404,14 @@ export default function ProjectDetail() {
 
                   {project.timeline && (
                     <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-gray-700">Milestone Status</h4>
+                      <h4 className="text-sm font-medium text-gray-700">Milestone List</h4>
                       {project.timeline.map((milestone) => (
                         <div key={milestone.id} className="flex items-center justify-between text-sm">
                           <span className="text-gray-600">{milestone.title}</span>
-                          {getTimelineStatusBadge(milestone.status)}
+                          <span className="text-xs text-gray-500">
+                            {new Date(milestone.startDate).toLocaleDateString("id-ID")} -
+                            {new Date(milestone.endDate).toLocaleDateString("id-ID")}
+                          </span>
                         </div>
                       ))}
                     </div>
