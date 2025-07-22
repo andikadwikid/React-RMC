@@ -36,8 +36,6 @@ interface TimelineMilestone {
   description: string;
   startDate: string;
   endDate: string;
-  status: string;
-  assignee: string;
 }
 
 interface ProjectFormData {
@@ -250,8 +248,6 @@ export default function CreateProject() {
       description: "",
       startDate: "",
       endDate: "",
-      status: "pending",
-      assignee: "",
     };
     setFormData((prev) => ({
       ...prev,
@@ -715,34 +711,6 @@ export default function CreateProject() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label>Status</Label>
-                          <Select
-                            value={milestone.status}
-                            onValueChange={(value) =>
-                              updateTimelineMilestone(
-                                milestone.id,
-                                "status",
-                                value,
-                              )
-                            }
-                          >
-                            <SelectTrigger>
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="pending">Pending</SelectItem>
-                              <SelectItem value="in-progress">
-                                In Progress
-                              </SelectItem>
-                              <SelectItem value="completed">
-                                Completed
-                              </SelectItem>
-                              <SelectItem value="blocked">Blocked</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        <div className="space-y-2">
                           <Label>Tanggal Mulai</Label>
                           <Input
                             type="date"
@@ -766,21 +734,6 @@ export default function CreateProject() {
                               updateTimelineMilestone(
                                 milestone.id,
                                 "endDate",
-                                e.target.value,
-                              )
-                            }
-                          />
-                        </div>
-
-                        <div className="space-y-2 md:col-span-2">
-                          <Label>Assignee</Label>
-                          <Input
-                            placeholder="Nama person yang bertanggung jawab"
-                            value={milestone.assignee}
-                            onChange={(e) =>
-                              updateTimelineMilestone(
-                                milestone.id,
-                                "assignee",
                                 e.target.value,
                               )
                             }
