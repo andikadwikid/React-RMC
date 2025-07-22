@@ -64,8 +64,6 @@ const mockProjects: Project[] = [
         description: "Analisis kebutuhan sistem dan business process mapping",
         startDate: "2024-01-15",
         endDate: "2024-02-15",
-        status: "completed",
-        assignee: "Tim Analyst",
         createdAt: "2024-01-10",
       },
       {
@@ -74,8 +72,6 @@ const mockProjects: Project[] = [
         description: "Perancangan arsitektur sistem dan database design",
         startDate: "2024-02-16",
         endDate: "2024-03-15",
-        status: "completed",
-        assignee: "Senior Developer",
         createdAt: "2024-01-10",
       },
       {
@@ -84,8 +80,6 @@ const mockProjects: Project[] = [
         description: "Development module HR dan Finance",
         startDate: "2024-03-16",
         endDate: "2024-04-30",
-        status: "in-progress",
-        assignee: "Development Team",
         createdAt: "2024-01-10",
       },
       {
@@ -94,8 +88,6 @@ const mockProjects: Project[] = [
         description: "Testing komprehensif dan quality assurance",
         startDate: "2024-05-01",
         endDate: "2024-05-30",
-        status: "pending",
-        assignee: "QA Team",
         createdAt: "2024-01-10",
       },
       {
@@ -104,8 +96,6 @@ const mockProjects: Project[] = [
         description: "Deployment ke production dan user training",
         startDate: "2024-06-01",
         endDate: "2024-06-30",
-        status: "pending",
-        assignee: "DevOps Team",
         createdAt: "2024-01-10",
       },
     ],
