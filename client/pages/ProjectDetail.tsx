@@ -40,7 +40,8 @@ const mockProjects: Project[] = [
   {
     id: "PRJ-001",
     name: "Sistem ERP Perusahaan",
-    description: "Implementasi sistem ERP untuk mengelola seluruh operasional perusahaan termasuk inventory, HR, finance, dan CRM. Sistem ini akan mengintegrasikan semua departemen dalam satu platform yang unified.",
+    description:
+      "Implementasi sistem ERP untuk mengelola seluruh operasional perusahaan termasuk inventory, HR, finance, dan CRM. Sistem ini akan mengintegrasikan semua departemen dalam satu platform yang unified.",
     client: "PT. Teknologi Maju",
     clientEmail: "contact@teknologimaju.com",
     clientPhone: "+62 21 1234 5678",
@@ -100,7 +101,8 @@ const mockProjects: Project[] = [
   {
     id: "PRJ-002",
     name: "Mobile Banking App",
-    description: "Pengembangan aplikasi mobile banking dengan fitur lengkap untuk transaksi, transfer, pembayaran bills, dan investasi. Aplikasi akan tersedia untuk iOS dan Android.",
+    description:
+      "Pengembangan aplikasi mobile banking dengan fitur lengkap untuk transaksi, transfer, pembayaran bills, dan investasi. Aplikasi akan tersedia untuk iOS dan Android.",
     client: "Bank Digital Nusantara",
     clientEmail: "tech@bankdigitalnusantara.co.id",
     clientPhone: "+62 21 9876 5432",
@@ -208,7 +210,7 @@ export default function ProjectDetail() {
 
     try {
       // Simulate report generation
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Create a simple report content
       const reportContent = `
@@ -236,17 +238,17 @@ TIMELINE
 ========
 Start Date: ${new Date(project.startDate).toLocaleDateString("id-ID")}
 End Date: ${new Date(project.endDate).toLocaleDateString("id-ID")}
-${project.timeline ? `\nMilestones: ${project.timeline.length} defined` : ''}
+${project.timeline ? `\nMilestones: ${project.timeline.length} defined` : ""}
 
 Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLocaleTimeString("id-ID")}
       `;
 
       // Create and download the report
-      const blob = new Blob([reportContent], { type: 'text/plain' });
+      const blob = new Blob([reportContent], { type: "text/plain" });
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
-      a.download = `Project_Report_${project.id}_${new Date().toISOString().split('T')[0]}.txt`;
+      a.download = `Project_Report_${project.id}_${new Date().toISOString().split("T")[0]}.txt`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -271,10 +273,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
       </div>
     );
   }
-
-
-
-
 
   const budgetUsedPercentage = (project.spent / project.budget) * 100;
   const remainingBudget = project.budget - project.spent;
@@ -383,7 +381,11 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
       </div>
 
       {/* Main Content */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="space-y-4"
+      >
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="details">Details</TabsTrigger>
@@ -403,7 +405,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-
                   <p className="text-gray-700 leading-relaxed">
                     {project.description}
                   </p>
@@ -413,7 +414,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <Calendar className="w-4 h-4 text-gray-400" />
                       <span className="text-gray-600">Start Date:</span>
                       <span className="font-medium">
-                        {new Date(project.startDate).toLocaleDateString("id-ID")}
+                        {new Date(project.startDate).toLocaleDateString(
+                          "id-ID",
+                        )}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -431,7 +434,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <div className="flex items-center gap-2">
                       <User className="w-4 h-4 text-gray-400" />
                       <span className="text-gray-600">Project Manager:</span>
-                      <span className="font-medium">{project.projectManager}</span>
+                      <span className="font-medium">
+                        {project.projectManager}
+                      </span>
                     </div>
                   </div>
                 </CardContent>
@@ -450,15 +455,23 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-gray-700">Progress</span>
-                        <span className="text-sm text-blue-600 font-medium">{project.progress}%</span>
+                        <span className="text-sm font-medium text-gray-700">
+                          Progress
+                        </span>
+                        <span className="text-sm text-blue-600 font-medium">
+                          {project.progress}%
+                        </span>
                       </div>
                       <Progress value={project.progress} className="h-2" />
                     </div>
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-gray-700">Time Used</span>
-                        <span className="text-sm text-purple-600 font-medium">{timeElapsedPercentage.toFixed(1)}%</span>
+                        <span className="text-sm font-medium text-gray-700">
+                          Time Used
+                        </span>
+                        <span className="text-sm text-purple-600 font-medium">
+                          {timeElapsedPercentage.toFixed(1)}%
+                        </span>
                       </div>
                       <Progress value={timeElapsedPercentage} className="h-2" />
                     </div>
@@ -468,29 +481,49 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center gap-2">
-                        <div className={`w-3 h-3 rounded-full ${
-                          project.progress >= timeElapsedPercentage ? 'bg-green-500' :
-                          project.progress >= timeElapsedPercentage - 10 ? 'bg-yellow-500' : 'bg-red-500'
-                        }`} />
-                        <span className="text-sm font-medium">Schedule Performance</span>
+                        <div
+                          className={`w-3 h-3 rounded-full ${
+                            project.progress >= timeElapsedPercentage
+                              ? "bg-green-500"
+                              : project.progress >= timeElapsedPercentage - 10
+                                ? "bg-yellow-500"
+                                : "bg-red-500"
+                          }`}
+                        />
+                        <span className="text-sm font-medium">
+                          Schedule Performance
+                        </span>
                       </div>
                       <span className="text-xs text-gray-600">
-                        {project.progress >= timeElapsedPercentage ? 'On Track' :
-                         project.progress >= timeElapsedPercentage - 10 ? 'Minor Delay' : 'Behind Schedule'}
+                        {project.progress >= timeElapsedPercentage
+                          ? "On Track"
+                          : project.progress >= timeElapsedPercentage - 10
+                            ? "Minor Delay"
+                            : "Behind Schedule"}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center gap-2">
-                        <div className={`w-3 h-3 rounded-full ${
-                          budgetUsedPercentage <= project.progress ? 'bg-green-500' :
-                          budgetUsedPercentage <= project.progress + 10 ? 'bg-yellow-500' : 'bg-red-500'
-                        }`} />
-                        <span className="text-sm font-medium">Budget Performance</span>
+                        <div
+                          className={`w-3 h-3 rounded-full ${
+                            budgetUsedPercentage <= project.progress
+                              ? "bg-green-500"
+                              : budgetUsedPercentage <= project.progress + 10
+                                ? "bg-yellow-500"
+                                : "bg-red-500"
+                          }`}
+                        />
+                        <span className="text-sm font-medium">
+                          Budget Performance
+                        </span>
                       </div>
                       <span className="text-xs text-gray-600">
-                        {budgetUsedPercentage <= project.progress ? 'Under Budget' :
-                         budgetUsedPercentage <= project.progress + 10 ? 'On Budget' : 'Over Budget'}
+                        {budgetUsedPercentage <= project.progress
+                          ? "Under Budget"
+                          : budgetUsedPercentage <= project.progress + 10
+                            ? "On Budget"
+                            : "Over Budget"}
                       </span>
                     </div>
 
@@ -498,10 +531,13 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div className="flex items-center gap-2">
                           <div className="w-3 h-3 rounded-full bg-blue-500" />
-                          <span className="text-sm font-medium">Milestones</span>
+                          <span className="text-sm font-medium">
+                            Milestones
+                          </span>
                         </div>
                         <span className="text-xs text-gray-600">
-                          {project.timeline.length} milestone{project.timeline.length !== 1 ? 's' : ''} defined
+                          {project.timeline.length} milestone
+                          {project.timeline.length !== 1 ? "s" : ""} defined
                         </span>
                       </div>
                     )}
@@ -512,11 +548,17 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <div className="grid grid-cols-2 gap-4 text-center">
                       <div>
                         <p className="text-xs text-gray-500">Days Remaining</p>
-                        <p className="text-lg font-semibold text-gray-900">{totalDays - daysElapsed}</p>
+                        <p className="text-lg font-semibold text-gray-900">
+                          {totalDays - daysElapsed}
+                        </p>
                       </div>
                       <div>
-                        <p className="text-xs text-gray-500">Budget Remaining</p>
-                        <p className="text-lg font-semibold text-gray-900">{formatCurrency(remainingBudget)}</p>
+                        <p className="text-xs text-gray-500">
+                          Budget Remaining
+                        </p>
+                        <p className="text-lg font-semibold text-gray-900">
+                          {formatCurrency(remainingBudget)}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -536,18 +578,26 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <p className="font-medium text-gray-900">{project.client}</p>
+                    <p className="font-medium text-gray-900">
+                      {project.client}
+                    </p>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <Mail className="w-4 h-4 text-gray-400" />
-                    <a href={`mailto:${project.clientEmail}`} className="text-blue-600 hover:underline">
+                    <a
+                      href={`mailto:${project.clientEmail}`}
+                      className="text-blue-600 hover:underline"
+                    >
                       {project.clientEmail}
                     </a>
                   </div>
                   {project.clientPhone && (
                     <div className="flex items-center gap-2 text-sm">
                       <Phone className="w-4 h-4 text-gray-400" />
-                      <a href={`tel:${project.clientPhone}`} className="text-blue-600 hover:underline">
+                      <a
+                        href={`tel:${project.clientPhone}`}
+                        className="text-blue-600 hover:underline"
+                      >
                         {project.clientPhone}
                       </a>
                     </div>
@@ -570,8 +620,12 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Project Manager</span>
-                    <span className="text-sm font-medium">{project.projectManager}</span>
+                    <span className="text-sm text-gray-600">
+                      Project Manager
+                    </span>
+                    <span className="text-sm font-medium">
+                      {project.projectManager}
+                    </span>
                   </div>
 
                   <div className="flex justify-between items-center">
@@ -642,41 +696,56 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Project ID</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Project ID
+                    </label>
                     <p className="text-gray-900">{project.id}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Project Name</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Project Name
+                    </label>
                     <p className="text-gray-900">{project.name}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Category</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Category
+                    </label>
                     <p className="text-gray-900">{project.category}</p>
                   </div>
-
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Client</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Client
+                    </label>
                     <p className="text-gray-900">{project.client}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Project Manager</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Project Manager
+                    </label>
                     <p className="text-gray-900">{project.projectManager}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Province</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Province
+                    </label>
                     <p className="text-gray-900">{project.province}</p>
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Start Date</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Start Date
+                    </label>
                     <p className="text-gray-900">
                       {new Date(project.startDate).toLocaleDateString("id-ID")}
                     </p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700">End Date</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      End Date
+                    </label>
                     <p className="text-gray-900">
                       {new Date(project.endDate).toLocaleDateString("id-ID")}
                     </p>
@@ -684,8 +753,12 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 </div>
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700">Description</label>
-                <p className="text-gray-900 mt-1 leading-relaxed">{project.description}</p>
+                <label className="text-sm font-medium text-gray-700">
+                  Description
+                </label>
+                <p className="text-gray-900 mt-1 leading-relaxed">
+                  {project.description}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -705,16 +778,28 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div className="text-center p-4 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-blue-600 font-medium">Total Milestones</p>
-                      <p className="text-2xl font-bold text-blue-700">{project.timeline.length}</p>
+                      <p className="text-sm text-blue-600 font-medium">
+                        Total Milestones
+                      </p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {project.timeline.length}
+                      </p>
                     </div>
                     <div className="text-center p-4 bg-green-50 rounded-lg">
-                      <p className="text-sm text-green-600 font-medium">Project Duration</p>
-                      <p className="text-2xl font-bold text-green-700">{totalDays} days</p>
+                      <p className="text-sm text-green-600 font-medium">
+                        Project Duration
+                      </p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {totalDays} days
+                      </p>
                     </div>
                     <div className="text-center p-4 bg-purple-50 rounded-lg">
-                      <p className="text-sm text-purple-600 font-medium">Time Elapsed</p>
-                      <p className="text-2xl font-bold text-purple-700">{daysElapsed} days</p>
+                      <p className="text-sm text-purple-600 font-medium">
+                        Time Elapsed
+                      </p>
+                      <p className="text-2xl font-bold text-purple-700">
+                        {daysElapsed} days
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -737,39 +822,56 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
 
                       // Determine if milestone is upcoming, current, or past
                       const isUpcoming = currentDate < startDate;
-                      const isCurrent = currentDate >= startDate && currentDate <= endDate;
+                      const isCurrent =
+                        currentDate >= startDate && currentDate <= endDate;
                       const isPast = currentDate > endDate;
 
-                      const duration = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+                      const duration = Math.ceil(
+                        (endDate.getTime() - startDate.getTime()) /
+                          (1000 * 60 * 60 * 24),
+                      );
 
                       return (
                         <div key={milestone.id} className="flex gap-6">
                           <div className="flex flex-col items-center">
-                            <div className={`w-4 h-4 rounded-full border-2 ${
-                              isPast ? 'bg-green-500 border-green-500' :
-                              isCurrent ? 'bg-blue-500 border-blue-500' :
-                              'bg-white border-gray-300'
-                            }`} />
+                            <div
+                              className={`w-4 h-4 rounded-full border-2 ${
+                                isPast
+                                  ? "bg-green-500 border-green-500"
+                                  : isCurrent
+                                    ? "bg-blue-500 border-blue-500"
+                                    : "bg-white border-gray-300"
+                              }`}
+                            />
                             {index < project.timeline!.length - 1 && (
                               <div className="w-px h-16 bg-gray-200 mt-2" />
                             )}
                           </div>
                           <div className="flex-1 pb-6">
-                            <div className={`p-4 rounded-lg border ${
-                              isPast ? 'bg-green-50 border-green-200' :
-                              isCurrent ? 'bg-blue-50 border-blue-200' :
-                              'bg-gray-50 border-gray-200'
-                            }`}>
+                            <div
+                              className={`p-4 rounded-lg border ${
+                                isPast
+                                  ? "bg-green-50 border-green-200"
+                                  : isCurrent
+                                    ? "bg-blue-50 border-blue-200"
+                                    : "bg-gray-50 border-gray-200"
+                              }`}
+                            >
                               <div className="flex items-start justify-between">
                                 <div className="flex-1">
-                                  <h4 className="font-semibold text-gray-900 mb-1">{milestone.title}</h4>
-                                  <p className="text-sm text-gray-600 mb-3">{milestone.description}</p>
+                                  <h4 className="font-semibold text-gray-900 mb-1">
+                                    {milestone.title}
+                                  </h4>
+                                  <p className="text-sm text-gray-600 mb-3">
+                                    {milestone.description}
+                                  </p>
 
                                   <div className="flex items-center gap-4 text-xs text-gray-500">
                                     <div className="flex items-center gap-1">
                                       <Calendar className="w-3 h-3" />
                                       <span>
-                                        {startDate.toLocaleDateString("id-ID")} - {endDate.toLocaleDateString("id-ID")}
+                                        {startDate.toLocaleDateString("id-ID")}{" "}
+                                        - {endDate.toLocaleDateString("id-ID")}
                                       </span>
                                     </div>
                                     <div className="flex items-center gap-1">
@@ -780,18 +882,27 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                                 </div>
 
                                 <div className="ml-4">
-                                  <Badge variant={
-                                    isPast ? "default" :
-                                    isCurrent ? "secondary" :
-                                    "outline"
-                                  } className={
-                                    isPast ? "bg-green-100 text-green-800" :
-                                    isCurrent ? "bg-blue-100 text-blue-800" :
-                                    "text-gray-500"
-                                  }>
-                                    {isPast ? "Completed Period" :
-                                     isCurrent ? "Active Period" :
-                                     "Upcoming"}
+                                  <Badge
+                                    variant={
+                                      isPast
+                                        ? "default"
+                                        : isCurrent
+                                          ? "secondary"
+                                          : "outline"
+                                    }
+                                    className={
+                                      isPast
+                                        ? "bg-green-100 text-green-800"
+                                        : isCurrent
+                                          ? "bg-blue-100 text-blue-800"
+                                          : "text-gray-500"
+                                    }
+                                  >
+                                    {isPast
+                                      ? "Completed Period"
+                                      : isCurrent
+                                        ? "Active Period"
+                                        : "Upcoming"}
                                   </Badge>
                                 </div>
                               </div>
@@ -827,22 +938,34 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Total Budget</span>
-                    <span className="font-medium">{formatCurrency(project.budget)}</span>
+                    <span className="font-medium">
+                      {formatCurrency(project.budget)}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Amount Spent</span>
-                    <span className="font-medium text-red-600">{formatCurrency(project.spent)}</span>
+                    <span className="font-medium text-red-600">
+                      {formatCurrency(project.spent)}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Remaining Budget</span>
-                    <span className="font-medium text-green-600">{formatCurrency(remainingBudget)}</span>
+                    <span className="text-sm text-gray-600">
+                      Remaining Budget
+                    </span>
+                    <span className="font-medium text-green-600">
+                      {formatCurrency(remainingBudget)}
+                    </span>
                   </div>
                 </div>
                 <Separator />
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium">Budget Utilization</span>
-                    <span className="text-sm text-gray-600">{budgetUsedPercentage.toFixed(1)}%</span>
+                    <span className="text-sm font-medium">
+                      Budget Utilization
+                    </span>
+                    <span className="text-sm text-gray-600">
+                      {budgetUsedPercentage.toFixed(1)}%
+                    </span>
                   </div>
                   <Progress value={budgetUsedPercentage} className="h-2" />
                 </div>
@@ -859,7 +982,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
               <CardContent className="space-y-4">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Total Duration</span>
+                    <span className="text-sm text-gray-600">
+                      Total Duration
+                    </span>
                     <span className="font-medium">{totalDays} days</span>
                   </div>
                   <div className="flex justify-between items-center">
@@ -867,15 +992,21 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <span className="font-medium">{daysElapsed} days</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Days Remaining</span>
-                    <span className="font-medium">{totalDays - daysElapsed} days</span>
+                    <span className="text-sm text-gray-600">
+                      Days Remaining
+                    </span>
+                    <span className="font-medium">
+                      {totalDays - daysElapsed} days
+                    </span>
                   </div>
                 </div>
                 <Separator />
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-medium">Time Progress</span>
-                    <span className="text-sm text-gray-600">{timeElapsedPercentage.toFixed(1)}%</span>
+                    <span className="text-sm text-gray-600">
+                      {timeElapsedPercentage.toFixed(1)}%
+                    </span>
                   </div>
                   <Progress value={timeElapsedPercentage} className="h-2" />
                 </div>
@@ -884,7 +1015,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <Separator />
                     <div className="text-center">
                       <p className="text-sm text-gray-600">Estimated Hours</p>
-                      <p className="text-lg font-semibold">{project.estimatedHours}h</p>
+                      <p className="text-lg font-semibold">
+                        {project.estimatedHours}h
+                      </p>
                     </div>
                   </>
                 )}
@@ -906,13 +1039,17 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   </p>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <p className="text-sm text-green-600 font-medium">Cost per Progress</p>
+                  <p className="text-sm text-green-600 font-medium">
+                    Cost per Progress
+                  </p>
                   <p className="text-2xl font-bold text-green-700">
                     {formatCurrency(project.spent / project.progress)}/%
                   </p>
                 </div>
                 <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <p className="text-sm text-purple-600 font-medium">Projected Total Cost</p>
+                  <p className="text-sm text-purple-600 font-medium">
+                    Projected Total Cost
+                  </p>
                   <p className="text-2xl font-bold text-purple-700">
                     {formatCurrency((project.spent / project.progress) * 100)}
                   </p>
