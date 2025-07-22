@@ -55,6 +55,14 @@ const App = () => (
               }
             />
             <Route
+              path="/projects/:projectId"
+              element={
+                <Layout>
+                  <ProjectDetail />
+                </Layout>
+              }
+            />
+            <Route
               path="/projects/:projectId/timeline"
               element={
                 <Layout>
