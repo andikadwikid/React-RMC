@@ -8,13 +8,13 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -22,30 +22,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import {
   Shield,
+  Save,
+  Plus,
+  Trash2,
   AlertTriangle,
   CheckCircle,
-  Clock,
-  Save,
   X,
-  FileText,
 } from "lucide-react";
-
-type RiskLevel = "low" | "medium" | "high" | "critical";
-type RiskLikelihood = "very-low" | "low" | "medium" | "high" | "very-high";
-type RiskImpact = "very-low" | "low" | "medium" | "high" | "very-high";
 
 interface RiskItem {
   id: string;
-  category: string;
-  description: string;
-  likelihood: RiskLikelihood;
-  impact: RiskImpact;
-  riskLevel: RiskLevel;
-  mitigation: string;
-  owner: string;
+  sasaran: string;
+  kode: string;
+  taksonomi: string;
+  peristiwaRisiko: string;
+  sumberRisiko: string;
+  dampakKualitatif: string;
+  dampakKuantitatif: string;
+  kontrolEksisting: string;
+  risikoAwal: {
+    kejadian: string;
+    dampak: string;
+    level: number;
+  };
 }
 
 interface RiskCaptureFormProps {
@@ -56,67 +58,30 @@ interface RiskCaptureFormProps {
   onSave: (data: any) => void;
 }
 
-const riskCategories = [
-  {
-    id: "technical",
-    name: "Technical Risk",
-    description: "Teknologi, arsitektur, dan implementasi teknis",
-    icon: "⚙️",
-  },
-  {
-    id: "business",
-    name: "Business Risk", 
-    description: "Bisnis proses, stakeholder, dan requirement",
-    icon: "💼",
-  },
-  {
-    id: "resource",
-    name: "Resource Risk",
-    description: "Team, budget, dan sumber daya project",
-    icon: "👥",
-  },
-  {
-    id: "timeline",
-    name: "Timeline Risk",
-    description: "Jadwal, deadline, dan milestone dependencies",
-    icon: "📅",
-  },
-  {
-    id: "external",
-    name: "External Risk",
-    description: "Vendor, regulasi, dan faktor eksternal",
-    icon: "🌐",
-  },
-  {
-    id: "operational",
-    name: "Operational Risk",
-    description: "Operasional, maintenance, dan sustainability",
-    icon: "🔧",
-  },
+const risikoAwalOptions = [
+  "Sangat Rendah",
+  "Rendah", 
+  "Sedang",
+  "Tinggi",
+  "Sangat Tinggi"
 ];
 
-const riskLevelColors = {
-  low: "bg-green-100 text-green-800",
-  medium: "bg-yellow-100 text-yellow-800", 
-  high: "bg-orange-100 text-orange-800",
-  critical: "bg-red-100 text-red-800",
+const getRiskLevelColor = (level: number) => {
+  if (level >= 1 && level <= 5) return "bg-green-100 text-green-800";
+  if (level >= 6 && level <= 10) return "bg-yellow-100 text-yellow-800";
+  if (level >= 11 && level <= 15) return "bg-orange-100 text-orange-800";
+  if (level >= 16 && level <= 20) return "bg-red-100 text-red-800";
+  if (level >= 21 && level <= 25) return "bg-red-200 text-red-900";
+  return "bg-gray-100 text-gray-800";
 };
 
-const getRiskLevel = (likelihood: RiskLikelihood, impact: RiskImpact): RiskLevel => {
-  const scoreMap = {
-    "very-low": 1,
-    "low": 2,
-    "medium": 3,
-    "high": 4,
-    "very-high": 5,
-  };
-  
-  const score = scoreMap[likelihood] * scoreMap[impact];
-  
-  if (score <= 4) return "low";
-  if (score <= 9) return "medium";
-  if (score <= 16) return "high";
-  return "critical";
+const getRiskLevelLabel = (level: number) => {
+  if (level >= 1 && level <= 5) return "Sangat Rendah";
+  if (level >= 6 && level <= 10) return "Rendah";
+  if (level >= 11 && level <= 15) return "Sedang";
+  if (level >= 16 && level <= 20) return "Tinggi";
+  if (level >= 21 && level <= 25) return "Sangat Tinggi";
+  return "Invalid";
 };
 
 export function RiskCaptureForm({
@@ -126,67 +91,56 @@ export function RiskCaptureForm({
   projectName,
   onSave,
 }: RiskCaptureFormProps) {
-  const [currentStep, setCurrentStep] = useState(0);
   const [risks, setRisks] = useState<RiskItem[]>([]);
-  const [currentRisk, setCurrentRisk] = useState<Partial<RiskItem>>({
-    category: riskCategories[0].id,
-    likelihood: "medium",
-    impact: "medium",
-  });
 
-  const addRisk = () => {
-    if (!currentRisk.description || !currentRisk.mitigation || !currentRisk.owner) {
-      return;
-    }
-
-    const riskLevel = getRiskLevel(
-      currentRisk.likelihood as RiskLikelihood,
-      currentRisk.impact as RiskImpact
-    );
-
+  const addRiskItem = () => {
     const newRisk: RiskItem = {
       id: Date.now().toString(),
-      category: currentRisk.category!,
-      description: currentRisk.description,
-      likelihood: currentRisk.likelihood as RiskLikelihood,
-      impact: currentRisk.impact as RiskImpact,
-      riskLevel,
-      mitigation: currentRisk.mitigation,
-      owner: currentRisk.owner!,
+      sasaran: "",
+      kode: "",
+      taksonomi: "",
+      peristiwaRisiko: "",
+      sumberRisiko: "",
+      dampakKualitatif: "",
+      dampakKuantitatif: "",
+      kontrolEksisting: "",
+      risikoAwal: {
+        kejadian: "",
+        dampak: "",
+        level: 1,
+      },
     };
-
     setRisks([...risks, newRisk]);
-    setCurrentRisk({
-      category: riskCategories[currentStep]?.id || riskCategories[0].id,
-      likelihood: "medium",
-      impact: "medium",
-    });
   };
 
-  const removeRisk = (id: string) => {
-    setRisks(risks.filter(r => r.id !== id));
+  const removeRiskItem = (id: string) => {
+    setRisks(risks.filter((risk) => risk.id !== id));
   };
 
-  const nextCategory = () => {
-    if (currentStep < riskCategories.length - 1) {
-      setCurrentStep(currentStep + 1);
-      setCurrentRisk({
-        category: riskCategories[currentStep + 1].id,
-        likelihood: "medium",
-        impact: "medium",
-      });
-    }
-  };
-
-  const prevCategory = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-      setCurrentRisk({
-        category: riskCategories[currentStep - 1].id,
-        likelihood: "medium",
-        impact: "medium",
-      });
-    }
+  const updateRiskItem = (
+    id: string,
+    field: keyof RiskItem | string,
+    value: string | number,
+  ) => {
+    setRisks((prev) =>
+      prev.map((risk) => {
+        if (risk.id !== id) return risk;
+        
+        if (field.includes('.')) {
+          // Handle nested fields like 'risikoAwal.kejadian'
+          const [parent, child] = field.split('.');
+          return {
+            ...risk,
+            [parent]: {
+              ...risk[parent as keyof RiskItem],
+              [child]: value,
+            },
+          };
+        }
+        
+        return { ...risk, [field]: value };
+      })
+    );
   };
 
   const handleSave = () => {
@@ -195,11 +149,12 @@ export function RiskCaptureForm({
       risks,
       completedAt: new Date().toISOString(),
       totalRisks: risks.length,
-      riskDistribution: {
-        low: risks.filter(r => r.riskLevel === "low").length,
-        medium: risks.filter(r => r.riskLevel === "medium").length,
-        high: risks.filter(r => r.riskLevel === "high").length,
-        critical: risks.filter(r => r.riskLevel === "critical").length,
+      riskLevelDistribution: {
+        sangatRendah: risks.filter(r => r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5).length,
+        rendah: risks.filter(r => r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10).length,
+        sedang: risks.filter(r => r.risikoAwal.level >= 11 && r.risikoAwal.level <= 15).length,
+        tinggi: risks.filter(r => r.risikoAwal.level >= 16 && r.risikoAwal.level <= 20).length,
+        sangatTinggi: risks.filter(r => r.risikoAwal.level >= 21 && r.risikoAwal.level <= 25).length,
       },
     };
     
@@ -207,229 +162,285 @@ export function RiskCaptureForm({
     onClose();
   };
 
-  const categoryRisks = risks.filter(r => r.category === riskCategories[currentStep].id);
-  const progress = ((currentStep + 1) / riskCategories.length) * 100;
+  const isValidLevel = (level: number) => {
+    return level >= 1 && level <= 25;
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5 text-blue-600" />
             Risk Capture Assessment - {projectName}
           </DialogTitle>
-          <div className="mt-4">
-            <div className="flex items-center justify-between text-sm mb-2">
-              <span>Progress Assessment</span>
-              <span>{currentStep + 1} of {riskCategories.length} categories</span>
-            </div>
-            <Progress value={progress} className="h-2" />
-          </div>
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* Current Category */}
+          {/* Risk Items */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">{riskCategories[currentStep].icon}</span>
-                {riskCategories[currentStep].name}
-              </CardTitle>
-              <CardDescription>
-                {riskCategories[currentStep].description}
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          {/* Risk Input Form */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Tambah Risk Baru</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <label className="text-sm font-medium mb-2 block">Deskripsi Risk</label>
-                <Textarea
-                  placeholder="Jelaskan risk yang teridentifikasi..."
-                  value={currentRisk.description || ""}
-                  onChange={(e) => setCurrentRisk({...currentRisk, description: e.target.value})}
-                  className="min-h-20"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Likelihood</label>
-                  <Select 
-                    value={currentRisk.likelihood} 
-                    onValueChange={(value) => setCurrentRisk({...currentRisk, likelihood: value as RiskLikelihood})}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="very-low">Very Low (1)</SelectItem>
-                      <SelectItem value="low">Low (2)</SelectItem>
-                      <SelectItem value="medium">Medium (3)</SelectItem>
-                      <SelectItem value="high">High (4)</SelectItem>
-                      <SelectItem value="very-high">Very High (5)</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <CardTitle className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-blue-600" />
+                    Daftar Risk Capture
+                  </CardTitle>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Tambahkan dan kelola risk capture untuk project ini
+                  </p>
                 </div>
-
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Impact</label>
-                  <Select 
-                    value={currentRisk.impact} 
-                    onValueChange={(value) => setCurrentRisk({...currentRisk, impact: value as RiskImpact})}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="very-low">Very Low (1)</SelectItem>
-                      <SelectItem value="low">Low (2)</SelectItem>
-                      <SelectItem value="medium">Medium (3)</SelectItem>
-                      <SelectItem value="high">High (4)</SelectItem>
-                      <SelectItem value="very-high">Very High (5)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                <Badge variant="outline" className="text-blue-600">
+                  {risks.length} Risk{risks.length !== 1 ? 's' : ''}
+                </Badge>
               </div>
+            </CardHeader>
+            <CardContent>
+              {risks.length === 0 ? (
+                <div className="text-center py-8">
+                  <Shield className="mx-auto h-12 w-12 text-gray-400" />
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">
+                    Belum ada risk capture
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Mulai dengan menambahkan risk capture pertama untuk project ini.
+                  </p>
+                  <div className="mt-6">
+                    <Button onClick={addRiskItem}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Tambah Risk Capture Pertama
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {risks.map((risk, index) => (
+                    <Card key={risk.id} className="border border-gray-200">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-lg font-medium">
+                            Risk Capture #{index + 1}
+                          </h4>
+                          <div className="flex items-center gap-2">
+                            <Badge className={getRiskLevelColor(risk.risikoAwal.level)}>
+                              Level {risk.risikoAwal.level} - {getRiskLevelLabel(risk.risikoAwal.level)}
+                            </Badge>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeRiskItem(risk.id)}
+                              className="text-red-600 hover:text-red-700"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor={`sasaran-${risk.id}`}>Sasaran *</Label>
+                            <Input
+                              id={`sasaran-${risk.id}`}
+                              value={risk.sasaran}
+                              onChange={(e) => updateRiskItem(risk.id, "sasaran", e.target.value)}
+                              placeholder="Masukkan sasaran"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor={`kode-${risk.id}`}>Kode *</Label>
+                            <Input
+                              id={`kode-${risk.id}`}
+                              value={risk.kode}
+                              onChange={(e) => updateRiskItem(risk.id, "kode", e.target.value)}
+                              placeholder="Masukkan kode"
+                            />
+                          </div>
+                        </div>
 
-              {currentRisk.likelihood && currentRisk.impact && (
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">Calculated Risk Level:</span>
-                    <Badge className={riskLevelColors[getRiskLevel(currentRisk.likelihood, currentRisk.impact)]}>
-                      {getRiskLevel(currentRisk.likelihood, currentRisk.impact).toUpperCase()}
-                    </Badge>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor={`taksonomi-${risk.id}`}>Taksonomi *</Label>
+                            <Input
+                              id={`taksonomi-${risk.id}`}
+                              value={risk.taksonomi}
+                              onChange={(e) => updateRiskItem(risk.id, "taksonomi", e.target.value)}
+                              placeholder="Masukkan taksonomi"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor={`sumberRisiko-${risk.id}`}>Sumber Risiko *</Label>
+                            <Input
+                              id={`sumberRisiko-${risk.id}`}
+                              value={risk.sumberRisiko}
+                              onChange={(e) => updateRiskItem(risk.id, "sumberRisiko", e.target.value)}
+                              placeholder="Masukkan sumber risiko"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label htmlFor={`peristiwaRisiko-${risk.id}`}>Peristiwa Risiko *</Label>
+                          <Textarea
+                            id={`peristiwaRisiko-${risk.id}`}
+                            value={risk.peristiwaRisiko}
+                            onChange={(e) => updateRiskItem(risk.id, "peristiwaRisiko", e.target.value)}
+                            placeholder="Jelaskan peristiwa risiko yang mungkin terjadi"
+                            className="min-h-20"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor={`dampakKualitatif-${risk.id}`}>Dampak Kualitatif *</Label>
+                            <Textarea
+                              id={`dampakKualitatif-${risk.id}`}
+                              value={risk.dampakKualitatif}
+                              onChange={(e) => updateRiskItem(risk.id, "dampakKualitatif", e.target.value)}
+                              placeholder="Jelaskan dampak kualitatif"
+                              className="min-h-20"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor={`dampakKuantitatif-${risk.id}`}>Dampak Kuantitatif *</Label>
+                            <Textarea
+                              id={`dampakKuantitatif-${risk.id}`}
+                              value={risk.dampakKuantitatif}
+                              onChange={(e) => updateRiskItem(risk.id, "dampakKuantitatif", e.target.value)}
+                              placeholder="Jelaskan dampak kuantitatif (angka, nilai, dll)"
+                              className="min-h-20"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label htmlFor={`kontrolEksisting-${risk.id}`}>Kontrol Eksisting *</Label>
+                          <Textarea
+                            id={`kontrolEksisting-${risk.id}`}
+                            value={risk.kontrolEksisting}
+                            onChange={(e) => updateRiskItem(risk.id, "kontrolEksisting", e.target.value)}
+                            placeholder="Jelaskan kontrol yang sudah ada"
+                            className="min-h-20"
+                          />
+                        </div>
+
+                        <div className="border-t pt-4">
+                          <h5 className="font-medium mb-3">Risiko Awal</h5>
+                          <div className="grid grid-cols-3 gap-4">
+                            <div>
+                              <Label htmlFor={`kejadian-${risk.id}`}>Kejadian *</Label>
+                              <Select
+                                value={risk.risikoAwal.kejadian}
+                                onValueChange={(value) => updateRiskItem(risk.id, "risikoAwal.kejadian", value)}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Pilih kejadian" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {risikoAwalOptions.map((option) => (
+                                    <SelectItem key={option} value={option}>
+                                      {option}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div>
+                              <Label htmlFor={`dampak-${risk.id}`}>Dampak *</Label>
+                              <Select
+                                value={risk.risikoAwal.dampak}
+                                onValueChange={(value) => updateRiskItem(risk.id, "risikoAwal.dampak", value)}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Pilih dampak" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {risikoAwalOptions.map((option) => (
+                                    <SelectItem key={option} value={option}>
+                                      {option}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div>
+                              <Label htmlFor={`level-${risk.id}`}>Level (1-25) *</Label>
+                              <Input
+                                id={`level-${risk.id}`}
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.risikoAwal.level}
+                                onChange={(e) => {
+                                  const level = parseInt(e.target.value);
+                                  if (isValidLevel(level)) {
+                                    updateRiskItem(risk.id, "risikoAwal.level", level);
+                                  }
+                                }}
+                                placeholder="1-25"
+                                className={!isValidLevel(risk.risikoAwal.level) ? "border-red-500" : ""}
+                              />
+                              {!isValidLevel(risk.risikoAwal.level) && (
+                                <p className="text-sm text-red-600 mt-1">
+                                  Level harus antara 1-25
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+
+                  <div className="flex justify-center">
+                    <Button variant="outline" onClick={addRiskItem}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Tambah Risk Capture Lainnya
+                    </Button>
                   </div>
                 </div>
               )}
-
-              <div>
-                <label className="text-sm font-medium mb-2 block">Mitigation Strategy</label>
-                <Textarea
-                  placeholder="Strategi mitigasi untuk menangani risk ini..."
-                  value={currentRisk.mitigation || ""}
-                  onChange={(e) => setCurrentRisk({...currentRisk, mitigation: e.target.value})}
-                  className="min-h-20"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium mb-2 block">Risk Owner</label>
-                <Select 
-                  value={currentRisk.owner} 
-                  onValueChange={(value) => setCurrentRisk({...currentRisk, owner: value})}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih risk owner..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="project-manager">Project Manager</SelectItem>
-                    <SelectItem value="tech-lead">Tech Lead</SelectItem>
-                    <SelectItem value="business-analyst">Business Analyst</SelectItem>
-                    <SelectItem value="client">Client</SelectItem>
-                    <SelectItem value="vendor">Vendor</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <Button 
-                onClick={addRisk}
-                disabled={!currentRisk.description || !currentRisk.mitigation || !currentRisk.owner}
-                className="w-full"
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                Tambah Risk
-              </Button>
             </CardContent>
           </Card>
-
-          {/* Category Risks List */}
-          {categoryRisks.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Risks yang Teridentifikasi ({categoryRisks.length})</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {categoryRisks.map((risk) => (
-                    <div key={risk.id} className="p-4 border border-gray-200 rounded-lg">
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="flex-1">
-                          <p className="font-medium text-gray-900">{risk.description}</p>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge className={riskLevelColors[risk.riskLevel]}>
-                              {risk.riskLevel.toUpperCase()}
-                            </Badge>
-                            <span className="text-xs text-gray-500">
-                              Owner: {risk.owner}
-                            </span>
-                          </div>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeRisk(risk.id)}
-                        >
-                          <X className="w-4 h-4" />
-                        </Button>
-                      </div>
-                      <p className="text-sm text-gray-600">{risk.mitigation}</p>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Navigation */}
-          <div className="flex justify-between">
-            <Button 
-              variant="outline" 
-              onClick={prevCategory}
-              disabled={currentStep === 0}
-            >
-              Previous Category
-            </Button>
-            
-            <div className="flex gap-2">
-              {currentStep < riskCategories.length - 1 ? (
-                <Button onClick={nextCategory}>
-                  Next Category
-                </Button>
-              ) : (
-                <Button onClick={handleSave} className="bg-green-600 hover:bg-green-700">
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Risk Assessment
-                </Button>
-              )}
-              <Button variant="outline" onClick={onClose}>
-                Cancel
-              </Button>
-            </div>
-          </div>
 
           {/* Summary */}
           {risks.length > 0 && (
             <Card className="border-blue-200 bg-blue-50">
               <CardContent className="p-4">
-                <div className="flex items-center gap-2 text-blue-800">
-                  <Shield className="w-4 h-4" />
-                  <span className="font-medium">Assessment Summary: {risks.length} risks identified</span>
-                </div>
-                <div className="grid grid-cols-4 gap-4 mt-2 text-sm">
-                  <div>Low: {risks.filter(r => r.riskLevel === "low").length}</div>
-                  <div>Medium: {risks.filter(r => r.riskLevel === "medium").length}</div>
-                  <div>High: {risks.filter(r => r.riskLevel === "high").length}</div>
-                  <div>Critical: {risks.filter(r => r.riskLevel === "critical").length}</div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-blue-800">
+                    <CheckCircle className="w-4 h-4" />
+                    <span className="font-medium">
+                      Total: {risks.length} Risk Capture
+                    </span>
+                  </div>
+                  <div className="flex gap-4 text-sm">
+                    <span>Level 1-5: {risks.filter(r => r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5).length}</span>
+                    <span>Level 6-10: {risks.filter(r => r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10).length}</span>
+                    <span>Level 11-15: {risks.filter(r => r.risikoAwal.level >= 11 && r.risikoAwal.level <= 15).length}</span>
+                    <span>Level 16-20: {risks.filter(r => r.risikoAwal.level >= 16 && r.risikoAwal.level <= 20).length}</span>
+                    <span>Level 21-25: {risks.filter(r => r.risikoAwal.level >= 21 && r.risikoAwal.level <= 25).length}</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           )}
+
+          {/* Actions */}
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={onClose}>
+              <X className="w-4 h-4 mr-2" />
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleSave}
+              disabled={risks.length === 0}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              <Save className="w-4 h-4 mr-2" />
+              Simpan Risk Capture ({risks.length})
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
