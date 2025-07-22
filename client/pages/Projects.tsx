@@ -48,7 +48,6 @@ interface Project {
   spent: number;
   startDate: string;
   endDate: string;
-  teamSize: number;
   progress: number;
   lastUpdate: string;
   readinessStatus?: "not-started" | "in-progress" | "completed";
