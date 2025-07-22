@@ -34,8 +34,6 @@ export interface TimelineMilestone extends BaseEntity {
   description: string;
   startDate: string;
   endDate: string;
-  status: MilestoneStatus;
-  assignee: string;
 }
 
 // Risk Management types
