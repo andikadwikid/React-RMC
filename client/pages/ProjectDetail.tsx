@@ -767,151 +767,143 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
 
         <TabsContent value="timeline" className="space-y-6">
           {project.timeline ? (
-            <div className="space-y-4">
-              {/* Timeline Overview */}
+            <div className="space-y-6">
+              {/* Project Duration Summary - Similar to ProjectTimeline */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-5 w-5 text-blue-600" />
+                        <span className="font-medium text-gray-900">
+                          Project Duration
+                        </span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Start Date:</span>
+                        <span className="font-medium">
+                          {new Date(project.startDate).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">End Date:</span>
+                        <span className="font-medium">
+                          {new Date(project.endDate).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </span>
+                      </div>
+                      <div className="pt-2 border-t border-gray-200">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Total Duration:</span>
+                          <span className="text-2xl font-bold text-blue-600">
+                            {totalDays} days
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-5 w-5 text-purple-600" />
+                        <span className="font-medium text-gray-900">
+                          Timeline Progress
+                        </span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Total Milestones:</span>
+                        <span className="font-medium">{project.timeline.length}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Time Elapsed:</span>
+                        <span className="font-medium">{daysElapsed} days</span>
+                      </div>
+                      <div className="pt-2 border-t border-gray-200">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Progress:</span>
+                          <span className="text-2xl font-bold text-purple-600">
+                            {project.progress}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="h-5 w-5 text-green-600" />
+                        <span className="font-medium text-gray-900">
+                          Timeline Health
+                        </span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Days Remaining:</span>
+                        <span className="font-medium">{totalDays - daysElapsed} days</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Status:</span>
+                        <span className={`font-medium ${
+                          project.progress >= timeElapsedPercentage
+                            ? "text-green-600"
+                            : project.progress >= timeElapsedPercentage - 10
+                              ? "text-yellow-600"
+                              : "text-red-600"
+                        }`}>
+                          {project.progress >= timeElapsedPercentage
+                            ? "On Track"
+                            : project.progress >= timeElapsedPercentage - 10
+                              ? "Minor Delay"
+                              : "Behind Schedule"}
+                        </span>
+                      </div>
+                      <div className="pt-2 border-t border-gray-200">
+                        <div className="text-center">
+                          <span className="text-2xl font-bold text-green-600">
+                            {timeElapsedPercentage.toFixed(1)}%
+                          </span>
+                          <p className="text-xs text-gray-500">Time Used</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Timeline List using TimelineCard */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <GitBranch className="h-5 w-5 text-blue-600" />
-                    Project Timeline Overview
+                    Project Timeline
                   </CardTitle>
+                  <p className="text-sm text-gray-600">
+                    Daftar milestone project dari awal hingga akhir
+                  </p>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div className="text-center p-4 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-blue-600 font-medium">
-                        Total Milestones
-                      </p>
-                      <p className="text-2xl font-bold text-blue-700">
-                        {project.timeline.length}
-                      </p>
-                    </div>
-                    <div className="text-center p-4 bg-green-50 rounded-lg">
-                      <p className="text-sm text-green-600 font-medium">
-                        Project Duration
-                      </p>
-                      <p className="text-2xl font-bold text-green-700">
-                        {totalDays} days
-                      </p>
-                    </div>
-                    <div className="text-center p-4 bg-purple-50 rounded-lg">
-                      <p className="text-sm text-purple-600 font-medium">
-                        Time Elapsed
-                      </p>
-                      <p className="text-2xl font-bold text-purple-700">
-                        {daysElapsed} days
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Timeline Milestones */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-indigo-600" />
-                    Milestones
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    {project.timeline.map((milestone, index) => {
-                      const startDate = new Date(milestone.startDate);
-                      const endDate = new Date(milestone.endDate);
-                      const currentDate = new Date();
-
-                      // Determine if milestone is upcoming, current, or past
-                      const isUpcoming = currentDate < startDate;
-                      const isCurrent =
-                        currentDate >= startDate && currentDate <= endDate;
-                      const isPast = currentDate > endDate;
-
-                      const duration = Math.ceil(
-                        (endDate.getTime() - startDate.getTime()) /
-                          (1000 * 60 * 60 * 24),
-                      );
-
-                      return (
-                        <div key={milestone.id} className="flex gap-6">
-                          <div className="flex flex-col items-center">
-                            <div
-                              className={`w-4 h-4 rounded-full border-2 ${
-                                isPast
-                                  ? "bg-green-500 border-green-500"
-                                  : isCurrent
-                                    ? "bg-blue-500 border-blue-500"
-                                    : "bg-white border-gray-300"
-                              }`}
-                            />
-                            {index < project.timeline!.length - 1 && (
-                              <div className="w-px h-16 bg-gray-200 mt-2" />
-                            )}
-                          </div>
-                          <div className="flex-1 pb-6">
-                            <div
-                              className={`p-4 rounded-lg border ${
-                                isPast
-                                  ? "bg-green-50 border-green-200"
-                                  : isCurrent
-                                    ? "bg-blue-50 border-blue-200"
-                                    : "bg-gray-50 border-gray-200"
-                              }`}
-                            >
-                              <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                  <h4 className="font-semibold text-gray-900 mb-1">
-                                    {milestone.title}
-                                  </h4>
-                                  <p className="text-sm text-gray-600 mb-3">
-                                    {milestone.description}
-                                  </p>
-
-                                  <div className="flex items-center gap-4 text-xs text-gray-500">
-                                    <div className="flex items-center gap-1">
-                                      <Calendar className="w-3 h-3" />
-                                      <span>
-                                        {startDate.toLocaleDateString("id-ID")}{" "}
-                                        - {endDate.toLocaleDateString("id-ID")}
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Clock className="w-3 h-3" />
-                                      <span>{duration} hari</span>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className="ml-4">
-                                  <Badge
-                                    variant={
-                                      isPast
-                                        ? "default"
-                                        : isCurrent
-                                          ? "secondary"
-                                          : "outline"
-                                    }
-                                    className={
-                                      isPast
-                                        ? "bg-green-100 text-green-800"
-                                        : isCurrent
-                                          ? "bg-blue-100 text-blue-800"
-                                          : "text-gray-500"
-                                    }
-                                  >
-                                    {isPast
-                                      ? "Completed Period"
-                                      : isCurrent
-                                        ? "Active Period"
-                                        : "Upcoming"}
-                                  </Badge>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+                  <div className="space-y-4">
+                    {project.timeline.map((milestone) => (
+                      <TimelineCard key={milestone.id} milestone={milestone} />
+                    ))}
                   </div>
                 </CardContent>
               </Card>
