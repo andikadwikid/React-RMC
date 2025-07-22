@@ -16,11 +16,9 @@ export interface Project extends BaseEntity {
   spent: number;
   startDate: string;
   endDate: string;
-  teamSize: number;
   province: string;
   projectManager: string;
   category: string;
-  estimatedHours: number;
   progress: number;
   lastUpdate: string;
   timeline?: TimelineMilestone[];
