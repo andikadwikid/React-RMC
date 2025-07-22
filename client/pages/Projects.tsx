@@ -34,6 +34,7 @@ import {
   Eye,
   GitBranch,
   ClipboardCheck,
+  Shield,
 } from "lucide-react";
 import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
 import { formatCurrency } from "@/utils/formatters";
@@ -53,6 +54,8 @@ interface Project {
   lastUpdate: string;
   readinessStatus?: "not-started" | "in-progress" | "completed";
   readinessScore?: number;
+  riskCaptureStatus?: "not-started" | "in-progress" | "completed";
+  riskCaptureScore?: number;
 }
 
 export default function Projects() {
@@ -60,6 +63,12 @@ export default function Projects() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [riskFilter, setRiskFilter] = useState("all");
   const [readinessForm, setReadinessForm] = useState<{
+    isOpen: boolean;
+    projectId: string;
+    projectName: string;
+  }>({ isOpen: false, projectId: "", projectName: "" });
+
+  const [riskCaptureForm, setRiskCaptureForm] = useState<{
     isOpen: boolean;
     projectId: string;
     projectName: string;
@@ -81,6 +90,8 @@ export default function Projects() {
       lastUpdate: "2024-01-20",
       readinessStatus: "in-progress",
       readinessScore: 65,
+      riskCaptureStatus: "not-started",
+      riskCaptureScore: 0,
     },
     {
       id: "PRJ-002",
@@ -97,6 +108,8 @@ export default function Projects() {
       lastUpdate: "2024-01-19",
       readinessStatus: "completed",
       readinessScore: 95,
+      riskCaptureStatus: "completed",
+      riskCaptureScore: 85,
     },
     {
       id: "PRJ-003",
@@ -113,6 +126,8 @@ export default function Projects() {
       lastUpdate: "2024-01-15",
       readinessStatus: "completed",
       readinessScore: 100,
+      riskCaptureStatus: "completed",
+      riskCaptureScore: 92,
     },
     {
       id: "PRJ-004",
@@ -129,6 +144,8 @@ export default function Projects() {
       lastUpdate: "2024-01-18",
       readinessStatus: "in-progress",
       readinessScore: 40,
+      riskCaptureStatus: "in-progress",
+      riskCaptureScore: 60,
     },
     {
       id: "PRJ-005",
@@ -145,6 +162,8 @@ export default function Projects() {
       lastUpdate: "2024-01-21",
       readinessStatus: "not-started",
       readinessScore: 10,
+      riskCaptureStatus: "not-started",
+      riskCaptureScore: 0,
     },
     {
       id: "PRJ-006",
@@ -161,6 +180,8 @@ export default function Projects() {
       lastUpdate: "2024-01-10",
       readinessStatus: "in-progress",
       readinessScore: 75,
+      riskCaptureStatus: "not-started",
+      riskCaptureScore: 0,
     },
   ]);
 
@@ -174,6 +195,19 @@ export default function Projects() {
 
   const handleReadinessSave = (data: any) => {
     console.log("Readiness data saved:", data);
+    // Handle save logic here
+  };
+
+  const openRiskCaptureForm = (projectId: string, projectName: string) => {
+    setRiskCaptureForm({ isOpen: true, projectId, projectName });
+  };
+
+  const closeRiskCaptureForm = () => {
+    setRiskCaptureForm({ isOpen: false, projectId: "", projectName: "" });
+  };
+
+  const handleRiskCaptureSave = (data: any) => {
+    console.log("Risk capture data saved:", data);
     // Handle save logic here
   };
 
@@ -280,6 +314,41 @@ export default function Projects() {
         <Badge className={variants[status]}>{labels[status]}</Badge>
         {score !== undefined && (
           <div className="text-xs text-gray-600">{score}% ready</div>
+        )}
+      </div>
+    );
+  };
+
+  const getRiskCaptureBadge = (
+    status?: Project["riskCaptureStatus"],
+    score?: number,
+  ) => {
+    if (!status) {
+      return (
+        <Badge className="bg-gray-100 text-gray-800">
+          <Shield className="w-3 h-3 mr-1" />
+          Belum Diisi
+        </Badge>
+      );
+    }
+
+    const variants = {
+      "not-started": "bg-red-100 text-red-800",
+      "in-progress": "bg-yellow-100 text-yellow-800",
+      completed: "bg-green-100 text-green-800",
+    };
+
+    const labels = {
+      "not-started": "Belum Mulai",
+      "in-progress": "In Progress",
+      completed: "Selesai",
+    };
+
+    return (
+      <div className="space-y-1">
+        <Badge className={variants[status]}>{labels[status]}</Badge>
+        {score !== undefined && (
+          <div className="text-xs text-gray-600">{score}% captured</div>
         )}
       </div>
     );
@@ -465,6 +534,7 @@ export default function Projects() {
                   <TableHead>Team</TableHead>
                   <TableHead>Timeline</TableHead>
                   <TableHead>Readiness</TableHead>
+                  <TableHead>Risk Capture</TableHead>
                   <TableHead>Verifikasi</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
@@ -540,6 +610,12 @@ export default function Projects() {
                         project.readinessScore,
                       )}
                     </TableCell>
+                    <TableCell>
+                      {getRiskCaptureBadge(
+                        project.riskCaptureStatus,
+                        project.riskCaptureScore,
+                      )}
+                    </TableCell>
                     <TableCell>{getVerificationStatus(project.id)}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
@@ -552,6 +628,16 @@ export default function Projects() {
                           }
                         >
                           <ClipboardCheck className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          title="Risk Capture Assessment"
+                          onClick={() =>
+                            openRiskCaptureForm(project.id, project.name)
+                          }
+                        >
+                          <Shield className="w-4 h-4" />
                         </Button>
                         <Link to={`/projects/${project.id}/timeline`}>
                           <Button
