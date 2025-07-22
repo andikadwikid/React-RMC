@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, User } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { formatDate } from "@/utils/formatters";
 import type { TimelineMilestone, MilestoneStatus } from "@/types";
 
