@@ -784,35 +784,6 @@ export default function CreateProject() {
                       Total milestone:{" "}
                       <strong>{formData.timeline.length}</strong>
                     </p>
-                    <p>
-                      Status breakdown:{" "}
-                      <strong>
-                        {
-                          formData.timeline.filter(
-                            (m) => m.status === "pending",
-                          ).length
-                        }{" "}
-                        pending
-                      </strong>
-                      ,{" "}
-                      <strong>
-                        {
-                          formData.timeline.filter(
-                            (m) => m.status === "in-progress",
-                          ).length
-                        }{" "}
-                        in progress
-                      </strong>
-                      ,{" "}
-                      <strong>
-                        {
-                          formData.timeline.filter(
-                            (m) => m.status === "completed",
-                          ).length
-                        }{" "}
-                        completed
-                      </strong>
-                    </p>
                   </div>
                 </div>
               )}
