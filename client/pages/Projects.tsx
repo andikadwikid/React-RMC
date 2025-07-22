@@ -37,6 +37,7 @@ import {
   Shield,
 } from "lucide-react";
 import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
+import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
 import { formatCurrency } from "@/utils/formatters";
 
 interface Project {
@@ -671,6 +672,15 @@ export default function Projects() {
         projectId={readinessForm.projectId}
         projectName={readinessForm.projectName}
         onSave={handleReadinessSave}
+      />
+
+      {/* Risk Capture Form */}
+      <RiskCaptureForm
+        isOpen={riskCaptureForm.isOpen}
+        onClose={closeRiskCaptureForm}
+        projectId={riskCaptureForm.projectId}
+        projectName={riskCaptureForm.projectName}
+        onSave={handleRiskCaptureSave}
       />
     </div>
   );
