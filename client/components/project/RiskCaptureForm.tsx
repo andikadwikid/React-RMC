@@ -218,9 +218,21 @@ export function RiskCaptureForm({
                             Risk Capture #{index + 1}
                           </h4>
                           <div className="flex items-center gap-2">
-                            <Badge className={getRiskColor(risk.risikoAwal.level)}>
-                              Level {risk.risikoAwal.level} - {getRiskLabel(risk.risikoAwal.level)}
-                            </Badge>
+                            {isValidRange(risk.risikoAwal.kejadian) && (
+                              <Badge className={getRiskColor(risk.risikoAwal.kejadian)} size="sm">
+                                Kejadian {risk.risikoAwal.kejadian} - {getRiskLabel(risk.risikoAwal.kejadian)}
+                              </Badge>
+                            )}
+                            {isValidRange(risk.risikoAwal.dampak) && (
+                              <Badge className={getRiskColor(risk.risikoAwal.dampak)} size="sm">
+                                Dampak {risk.risikoAwal.dampak} - {getRiskLabel(risk.risikoAwal.dampak)}
+                              </Badge>
+                            )}
+                            {isValidRange(risk.risikoAwal.level) && (
+                              <Badge className={getRiskColor(risk.risikoAwal.level)} size="sm">
+                                Level {risk.risikoAwal.level} - {getRiskLabel(risk.risikoAwal.level)}
+                              </Badge>
+                            )}
                             <Button
                               variant="ghost"
                               size="sm"
@@ -345,11 +357,6 @@ export function RiskCaptureForm({
                                   Kejadian harus antara 1-25
                                 </p>
                               )}
-                              {isValidRange(risk.risikoAwal.kejadian) && (
-                                <Badge className={`${getRiskColor(risk.risikoAwal.kejadian)} mt-2`} size="sm">
-                                  Kejadian {risk.risikoAwal.kejadian} - {getRiskLabel(risk.risikoAwal.kejadian)}
-                                </Badge>
-                              )}
                             </div>
                             <div>
                               <Label htmlFor={`dampak-${risk.id}`}>Dampak (1-25) *</Label>
@@ -373,11 +380,6 @@ export function RiskCaptureForm({
                                   Dampak harus antara 1-25
                                 </p>
                               )}
-                              {isValidRange(risk.risikoAwal.dampak) && (
-                                <Badge className={`${getRiskColor(risk.risikoAwal.dampak)} mt-2`} size="sm">
-                                  Dampak {risk.risikoAwal.dampak} - {getRiskLabel(risk.risikoAwal.dampak)}
-                                </Badge>
-                              )}
                             </div>
                             <div>
                               <Label htmlFor={`level-${risk.id}`}>Level (1-25) *</Label>
@@ -400,11 +402,6 @@ export function RiskCaptureForm({
                                 <p className="text-sm text-red-600 mt-1">
                                   Level harus antara 1-25
                                 </p>
-                              )}
-                              {isValidRange(risk.risikoAwal.level) && (
-                                <Badge className={`${getRiskColor(risk.risikoAwal.level)} mt-2`} size="sm">
-                                  Level {risk.risikoAwal.level} - {getRiskLabel(risk.risikoAwal.level)}
-                                </Badge>
                               )}
                             </div>
                           </div>
