@@ -816,28 +816,6 @@ export function RiskCategoryDetailDialog({
                         <p className="text-sm">{item.assignee}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="text-xs">{formatDate(item.dueDate)}</p>
-                      </TableCell>
-                      <TableCell>
-                        <div className="space-y-1">
-                          {item.risikoAwal.level > item.resikoAkhir.level ? (
-                            <div className="text-xs text-green-600 font-medium">
-                              ↓ {item.risikoAwal.level - item.resikoAkhir.level}
-                            </div>
-                          ) : (
-                            <div className="text-xs text-gray-500">-</div>
-                          )}
-                          <div className="w-full bg-gray-200 rounded-full h-1">
-                            <div 
-                              className="bg-blue-600 h-1 rounded-full" 
-                              style={{ 
-                                width: `${Math.max(10, 100 - (item.resikoAkhir.level / item.risikoAwal.level) * 100)}%` 
-                              }}
-                            ></div>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
                         <Button 
                           variant="ghost" 
                           size="sm"
