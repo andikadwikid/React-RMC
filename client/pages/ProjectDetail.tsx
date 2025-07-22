@@ -148,6 +148,119 @@ export default function ProjectDetail() {
     }
   }, [projectId, navigate]);
 
+  // Quick Actions handlers
+  const openReadinessForm = () => {
+    if (project) {
+      setReadinessForm({
+        isOpen: true,
+        projectId: project.id,
+        projectName: project.name,
+      });
+    }
+  };
+
+  const closeReadinessForm = () => {
+    setReadinessForm({
+      isOpen: false,
+      projectId: "",
+      projectName: "",
+    });
+  };
+
+  const handleReadinessSave = (data: any) => {
+    console.log("Readiness data saved for project:", project?.id, data);
+    // Here you would typically send the data to your API
+    closeReadinessForm();
+    // Show success message
+    alert("Project Readiness assessment berhasil disimpan!");
+  };
+
+  const openRiskCaptureForm = () => {
+    if (project) {
+      setRiskCaptureForm({
+        isOpen: true,
+        projectId: project.id,
+        projectName: project.name,
+      });
+    }
+  };
+
+  const closeRiskCaptureForm = () => {
+    setRiskCaptureForm({
+      isOpen: false,
+      projectId: "",
+      projectName: "",
+    });
+  };
+
+  const handleRiskCaptureSave = (data: any) => {
+    console.log("Risk capture data saved for project:", project?.id, data);
+    // Here you would typically send the data to your API
+    closeRiskCaptureForm();
+    // Show success message
+    alert("Risk Assessment berhasil disimpan!");
+  };
+
+  const generateReport = async () => {
+    if (!project) return;
+
+    setIsGeneratingReport(true);
+
+    try {
+      // Simulate report generation
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Create a simple report content
+      const reportContent = `
+PROJECT REPORT
+==============
+
+Project: ${project.name}
+Client: ${project.client}
+Project Manager: ${project.projectManager}
+Category: ${project.category}
+
+PROGRESS OVERVIEW
+================
+Overall Progress: ${project.progress}%
+Budget Used: ${((project.spent / project.budget) * 100).toFixed(1)}%
+Time Elapsed: ${(((new Date().getTime() - new Date(project.startDate).getTime()) / (new Date(project.endDate).getTime() - new Date(project.startDate).getTime())) * 100).toFixed(1)}%
+
+FINANCIAL SUMMARY
+================
+Total Budget: ${formatCurrency(project.budget)}
+Amount Spent: ${formatCurrency(project.spent)}
+Remaining Budget: ${formatCurrency(project.budget - project.spent)}
+
+TIMELINE
+========
+Start Date: ${new Date(project.startDate).toLocaleDateString("id-ID")}
+End Date: ${new Date(project.endDate).toLocaleDateString("id-ID")}
+${project.timeline ? `\nMilestones: ${project.timeline.length} defined` : ''}
+
+Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLocaleTimeString("id-ID")}
+      `;
+
+      // Create and download the report
+      const blob = new Blob([reportContent], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Project_Report_${project.id}_${new Date().toISOString().split('T')[0]}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      alert("Report berhasil di-generate dan di-download!");
+    } catch (error) {
+      console.error("Error generating report:", error);
+      alert("Gagal generate report. Silakan coba lagi.");
+    } finally {
+      setIsGeneratingReport(false);
+    }
+  };
+
   if (!project) {
     return (
       <div className="p-6 flex items-center justify-center min-h-[400px]">
