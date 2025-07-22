@@ -48,6 +48,11 @@ interface RiskItem {
     dampak: number;
     level: number;
   };
+  resikoAkhir: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
 }
 
 interface RiskCaptureFormProps {
@@ -103,6 +108,11 @@ export function RiskCaptureForm({
       dampakKuantitatif: "",
       kontrolEksisting: "",
       risikoAwal: {
+        kejadian: 1,
+        dampak: 1,
+        level: 1,
+      },
+      resikoAkhir: {
         kejadian: 1,
         dampak: 1,
         level: 1,
@@ -231,6 +241,21 @@ export function RiskCaptureForm({
                             {isValidRange(risk.risikoAwal.level) && (
                               <Badge className={getRiskColor(risk.risikoAwal.level)} size="sm">
                                 Level {risk.risikoAwal.level} - {getRiskLabel(risk.risikoAwal.level)}
+                              </Badge>
+                            )}
+                            {isValidRange(risk.resikoAkhir.kejadian) && (
+                              <Badge className={getRiskColor(risk.resikoAkhir.kejadian)} size="sm" variant="secondary">
+                                Final K{risk.resikoAkhir.kejadian} - {getRiskLabel(risk.resikoAkhir.kejadian)}
+                              </Badge>
+                            )}
+                            {isValidRange(risk.resikoAkhir.dampak) && (
+                              <Badge className={getRiskColor(risk.resikoAkhir.dampak)} size="sm" variant="secondary">
+                                Final D{risk.resikoAkhir.dampak} - {getRiskLabel(risk.resikoAkhir.dampak)}
+                              </Badge>
+                            )}
+                            {isValidRange(risk.resikoAkhir.level) && (
+                              <Badge className={getRiskColor(risk.resikoAkhir.level)} size="sm" variant="secondary">
+                                Final L{risk.resikoAkhir.level} - {getRiskLabel(risk.resikoAkhir.level)}
                               </Badge>
                             )}
                             <Button
@@ -399,6 +424,81 @@ export function RiskCaptureForm({
                                 className={!isValidRange(risk.risikoAwal.level) ? "border-red-500" : ""}
                               />
                               {!isValidRange(risk.risikoAwal.level) && (
+                                <p className="text-sm text-red-600 mt-1">
+                                  Level harus antara 1-25
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="border-t pt-4">
+                          <h5 className="font-medium mb-3">Resiko Akhir</h5>
+                          <div className="grid grid-cols-3 gap-4">
+                            <div>
+                              <Label htmlFor={`final-kejadian-${risk.id}`}>Kejadian (1-25) *</Label>
+                              <Input
+                                id={`final-kejadian-${risk.id}`}
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.resikoAkhir.kejadian}
+                                onChange={(e) => {
+                                  const kejadian = parseInt(e.target.value);
+                                  if (isValidRange(kejadian)) {
+                                    updateRiskItem(risk.id, "resikoAkhir.kejadian", kejadian);
+                                  }
+                                }}
+                                placeholder="1-25"
+                                className={!isValidRange(risk.resikoAkhir.kejadian) ? "border-red-500" : ""}
+                              />
+                              {!isValidRange(risk.resikoAkhir.kejadian) && (
+                                <p className="text-sm text-red-600 mt-1">
+                                  Kejadian harus antara 1-25
+                                </p>
+                              )}
+                            </div>
+                            <div>
+                              <Label htmlFor={`final-dampak-${risk.id}`}>Dampak (1-25) *</Label>
+                              <Input
+                                id={`final-dampak-${risk.id}`}
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.resikoAkhir.dampak}
+                                onChange={(e) => {
+                                  const dampak = parseInt(e.target.value);
+                                  if (isValidRange(dampak)) {
+                                    updateRiskItem(risk.id, "resikoAkhir.dampak", dampak);
+                                  }
+                                }}
+                                placeholder="1-25"
+                                className={!isValidRange(risk.resikoAkhir.dampak) ? "border-red-500" : ""}
+                              />
+                              {!isValidRange(risk.resikoAkhir.dampak) && (
+                                <p className="text-sm text-red-600 mt-1">
+                                  Dampak harus antara 1-25
+                                </p>
+                              )}
+                            </div>
+                            <div>
+                              <Label htmlFor={`final-level-${risk.id}`}>Level (1-25) *</Label>
+                              <Input
+                                id={`final-level-${risk.id}`}
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.resikoAkhir.level}
+                                onChange={(e) => {
+                                  const level = parseInt(e.target.value);
+                                  if (isValidRange(level)) {
+                                    updateRiskItem(risk.id, "resikoAkhir.level", level);
+                                  }
+                                }}
+                                placeholder="1-25"
+                                className={!isValidRange(risk.resikoAkhir.level) ? "border-red-500" : ""}
+                              />
+                              {!isValidRange(risk.resikoAkhir.level) && (
                                 <p className="text-sm text-red-600 mt-1">
                                   Level harus antara 1-25
                                 </p>
