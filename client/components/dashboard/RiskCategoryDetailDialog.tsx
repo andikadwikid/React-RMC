@@ -32,21 +32,30 @@ import {
 
 interface RiskItem {
   id: string;
-  title: string;
-  description: string;
+  sasaran: string;
+  kode: string;
+  taksonomi: string;
+  peristiwaRisiko: string;
+  sumberRisiko: string;
+  dampakKualitatif: string;
+  dampakKuantitatif: string;
+  kontrolEksisting: string;
   status: "overdue" | "inProcess" | "closed";
-  priority: "critical" | "high" | "medium" | "low";
   assignee: string;
   dueDate: string;
   createdAt: string;
   project: string;
   lastUpdate?: string;
-  impactLevel: "very-high" | "high" | "medium" | "low";
-  likelihood: "very-likely" | "likely" | "possible" | "unlikely";
-  mitigationPlan?: string;
-  estimatedCost?: number;
-  affectedAreas: string[];
-  riskScore: number;
+  risikoAwal: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
+  resikoAkhir: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
 }
 
 interface RiskCategoryDetailDialogProps {
@@ -63,250 +72,289 @@ interface RiskCategoryDetailDialogProps {
   } | null;
 }
 
-// Enhanced detailed risk data
+// Risk data sesuai dengan struktur Risk Capture Form
 const generateMockRiskItems = (categoryId: string) => {
   const riskTemplates = {
     strategic: [
       {
-        title: "Ketergantungan Vendor Tunggal Oracle Database",
-        description: "Ketergantungan kritis pada Oracle untuk core banking system dengan risiko vendor lock-in dan eskalasi biaya lisensi tahunan",
+        sasaran: "Kestabilan Platform Digital Banking",
+        kode: "STR001",
+        taksonomi: "Risiko Strategis - Vendor Management",
+        peristiwaRisiko: "Ketergantungan pada vendor Oracle Database yang dapat menyebabkan vendor lock-in dan eskalasi biaya lisensi tahunan",
+        sumberRisiko: "Kebijakan vendor, kontrak jangka panjang, ketergantungan teknologi",
+        dampakKualitatif: "Gangguan operasional sistem banking, keterbatasan fleksibilitas teknologi, risiko discontinuation",
+        dampakKuantitatif: "Potensi kenaikan biaya lisensi 25-40% per tahun, biaya migrasi sistem Rp 2.5M jika vendor bermasalah",
+        kontrolEksisting: "Kontrak Service Level Agreement, backup vendor relationship, dokumentasi arsitektur sistem",
         project: "Transformasi Digital Bank Central Indonesia",
-        impactLevel: "very-high",
-        likelihood: "likely",
-        mitigationPlan: "Evaluasi multi-vendor strategy, implementasi database abstraction layer, negosiasi ulang kontrak jangka panjang",
-        estimatedCost: 2500000000,
-        affectedAreas: ["Core Banking", "Risk Management", "Customer Service"],
-        riskScore: 85,
+        risikoAwal: { kejadian: 15, dampak: 20, level: 18 },
+        resikoAkhir: { kejadian: 8, dampak: 15, level: 12 }
       },
       {
-        title: "Perubahan Regulasi OJK tentang Digital Banking",
-        description: "Regulasi baru OJK tentang layanan digital banking yang akan efektif Q2 2024 dapat mempengaruhi arsitektur sistem dan compliance requirement",
+        sasaran: "Compliance Regulasi Digital Banking",
+        kode: "STR002",
+        taksonomi: "Risiko Strategis - Regulatory Compliance",
+        peristiwaRisiko: "Perubahan regulasi OJK tentang layanan digital banking yang akan efektif Q2 2024 dapat mempengaruhi arsitektur sistem",
+        sumberRisiko: "Perubahan kebijakan regulator, evolusi standar industri, compliance requirement baru",
+        dampakKualitatif: "Non-compliance penalty, reputasi perusahaan, gangguan layanan kepada nasabah",
+        dampakKuantitatif: "Denda regulasi hingga Rp 1.8M, biaya re-development sistem Rp 3.2M, kerugian reputasi",
+        kontrolEksisting: "Tim legal compliance, monitoring regulasi berkala, relationship dengan regulator",
         project: "Platform E-Government Terpadu Kemendagri",
-        impactLevel: "high",
-        likelihood: "very-likely",
-        mitigationPlan: "Konsultasi intensif dengan legal team, roadmap compliance 6 bulan, buffer development untuk regulatory changes",
-        estimatedCost: 1800000000,
-        affectedAreas: ["Legal Compliance", "Product Development", "Operations"],
-        riskScore: 78,
+        risikoAwal: { kejadian: 18, dampak: 22, level: 20 },
+        resikoAkhir: { kejadian: 10, dampak: 18, level: 14 }
       },
       {
-        title: "Kompetitor Fintech dengan AI-Powered Features",
-        description: "Pesaing meluncurkan fitur AI untuk credit scoring dan fraud detection yang dapat menggerus market share signifikan",
+        sasaran: "Kompetitivitas Produk Fintech",
+        kode: "STR003",
+        taksonomi: "Risiko Strategis - Market Competition",
+        peristiwaRisiko: "Pesaing meluncurkan fitur AI untuk credit scoring dan fraud detection yang dapat menggerus market share",
+        sumberRisiko: "Inovasi competitor, perkembangan teknologi AI, customer preference shift",
+        dampakKualitatif: "Kehilangan competitive advantage, penurunan customer acquisition, brand positioning",
+        dampakKuantitatif: "Penurunan market share 15-25%, loss revenue Rp 5.2M, R&D investment Rp 3.8M",
+        kontrolEksisting: "Market intelligence, R&D investment, partnership teknologi, customer retention program",
         project: "NextGen Mobile Banking Platform",
-        impactLevel: "high",
-        likelihood: "possible",
-        mitigationPlan: "Accelerate AI development roadmap, partnership dengan AI vendors, customer retention program",
-        estimatedCost: 3200000000,
-        affectedAreas: ["Product Strategy", "Marketing", "Technology"],
-        riskScore: 72,
-      },
+        risikoAwal: { kejadian: 16, dampak: 19, level: 17 },
+        resikoAkhir: { kejadian: 12, dampak: 14, level: 13 }
+      }
     ],
     operational: [
       {
-        title: "Shortage Senior DevOps Engineers",
-        description: "Kekurangan 5 senior DevOps engineers untuk mengelola infrastructure cloud hybrid dengan kompleksitas tinggi",
+        sasaran: "Kapasitas Tim DevOps",
+        kode: "OPR001",
+        taksonomi: "Risiko Operasional - Human Resources",
+        peristiwaRisiko: "Kekurangan 5 senior DevOps engineers untuk mengelola infrastructure cloud hybrid dengan kompleksitas tinggi",
+        sumberRisiko: "Talent shortage, kompetisi salary market, complexity teknologi, skill gap",
+        dampakKualitatif: "Delayed deployment, reduced system reliability, team burnout, knowledge bottleneck",
+        dampakKuantitatif: "Project delay 2-3 bulan, overtime cost Rp 1.2M, recruitment cost Rp 800K",
+        kontrolEksisting: "Training program, external consultant, documentation, knowledge sharing session",
         project: "Cloud Migration Manufacturing ERP",
-        impactLevel: "high",
-        likelihood: "very-likely",
-        mitigationPlan: "Accelerated hiring program, upskilling junior staff, outsourcing kritial tasks, retention bonus",
-        estimatedCost: 1200000000,
-        affectedAreas: ["Infrastructure", "Security", "Performance"],
-        riskScore: 82,
+        risikoAwal: { kejadian: 20, dampak: 18, level: 19 },
+        resikoAkhir: { kejadian: 12, dampak: 15, level: 13 }
       },
       {
-        title: "Legacy System Integration dengan AS/400",
-        description: "Integrasi sistem rumah sakit baru dengan AS/400 legacy system berusia 15 tahun tanpa dokumentasi lengkap",
+        sasaran: "Integrasi Sistem Legacy",
+        kode: "OPR002",
+        taksonomi: "Risiko Operasional - System Integration",
+        peristiwaRisiko: "Kompleksitas integrasi dengan AS/400 legacy system berusia 15 tahun tanpa dokumentasi lengkap",
+        sumberRisiko: "Legacy system limitation, missing documentation, obsolete technology, vendor support",
+        dampakKualitatif: "Data inconsistency, system downtime, user experience degradation, operational disruption",
+        dampakKuantitatif: "Integration cost Rp 2.8M, downtime loss Rp 1.5M/hari, maintenance cost increase 40%",
+        kontrolEksisting: "Reverse engineering, parallel system, phased migration, expert consultation",
         project: "Hospital Information System RS Fatmawati",
-        impactLevel: "very-high",
-        likelihood: "likely",
-        mitigationPlan: "Reverse engineering documentation, gradual migration approach, parallel system implementation",
-        estimatedCost: 2800000000,
-        affectedAreas: ["Patient Care", "Billing", "Pharmacy"],
-        riskScore: 88,
+        risikoAwal: { kejadian: 22, dampak: 25, level: 23 },
+        resikoAkhir: { kejadian: 15, dampak: 20, level: 17 }
       },
       {
-        title: "Infrastructure Capacity untuk Peak Traffic",
-        description: "Load testing menunjukkan sistem akan crash pada 50,000 concurrent users, sementara target launch membutuhkan kapasitas 100,000 users",
+        sasaran: "Kapasitas Infrastruktur",
+        kode: "OPR003",
+        taksonomi: "Risiko Operasional - Infrastructure Capacity",
+        peristiwaRisiko: "Load testing menunjukkan sistem crash pada 50K concurrent users, target launch butuh 100K capacity",
+        sumberRisiko: "Infrastructure limitation, scaling challenges, performance bottleneck, resource constraint",
+        dampakKualitatif: "System crash, poor user experience, service unavailability, customer dissatisfaction",
+        dampakKuantitatif: "Infrastructure upgrade Rp 1.5M, revenue loss Rp 2.2M/hari, SLA penalty Rp 500K",
+        kontrolEksisting: "Auto-scaling, CDN implementation, load balancer, performance monitoring",
         project: "Supply Chain Management Pertamina",
-        impactLevel: "very-high",
-        likelihood: "very-likely",
-        mitigationPlan: "Auto-scaling implementation, CDN optimization, database sharding, load balancer upgrade",
-        estimatedCost: 1500000000,
-        affectedAreas: ["Performance", "User Experience", "Revenue"],
-        riskScore: 92,
-      },
+        risikoAwal: { kejadian: 25, dampak: 23, level: 24 },
+        resikoAkhir: { kejadian: 10, dampak: 18, level: 14 }
+      }
     ],
     financial: [
       {
-        title: "Currency Exchange Risk USD/IDR",
-        description: "Fluktuasi nilai tukar USD/IDR dapat meningkatkan biaya cloud services AWS hingga 25% dari budget yang direncanakan",
+        sasaran: "Stabilitas Biaya Operasional",
+        kode: "FIN001",
+        taksonomi: "Risiko Keuangan - Currency Exchange",
+        peristiwaRisiko: "Fluktuasi nilai tukar USD/IDR dapat meningkatkan biaya cloud services AWS hingga 25% dari budget",
+        sumberRisiko: "Currency volatility, global economic condition, monetary policy, exchange rate fluctuation",
+        dampakKualitatif: "Budget overrun, cash flow pressure, profitability impact, planning uncertainty",
+        dampakKuantitatif: "Additional cost Rp 2.1M annually, hedging cost Rp 150K, budget variance 15-25%",
+        kontrolEksisting: "Currency hedging, multi-cloud strategy, quarterly pricing review, budget buffer",
         project: "Fintech Payment Gateway Integration",
-        impactLevel: "high",
-        likelihood: "likely",
-        mitigationPlan: "Currency hedging strategy, multi-cloud approach, pricing review quarterly",
-        estimatedCost: 2100000000,
-        affectedAreas: ["Cost Management", "Profitability", "Cash Flow"],
-        riskScore: 76,
+        risikoAwal: { kejadian: 18, dampak: 16, level: 17 },
+        resikoAkhir: { kejadian: 12, dampak: 12, level: 12 }
       },
       {
-        title: "Budget Overrun akibat Scope Creep",
-        description: "Client menambah 15 fitur baru diluar kontrak initial, berpotensi meningkatkan budget 40% dari Rp 8.5M menjadi Rp 12M",
+        sasaran: "Budget Control dan Profitabilitas",
+        kode: "FIN002",
+        taksonomi: "Risiko Keuangan - Scope Management",
+        peristiwaRisiko: "Client menambah 15 fitur baru diluar kontrak, berpotensi budget overrun 40% dari Rp 8.5M ke Rp 12M",
+        sumberRisiko: "Scope creep, change request, client expectation, contract ambiguity",
+        dampakKualitatif: "Reduced profitability, resource strain, timeline pressure, team morale impact",
+        dampakKuantitatif: "Additional cost Rp 3.5M, margin reduction 25%, resource overtime Rp 800K",
+        kontrolEksisting: "Change request process, contract clarity, scope documentation, stakeholder alignment",
         project: "Smart City Dashboard Surabaya",
-        impactLevel: "high",
-        likelihood: "very-likely",
-        mitigationPlan: "Change request formal process, re-negotiation kontrak, phased delivery approach",
-        estimatedCost: 3500000000,
-        affectedAreas: ["Project Profitability", "Resource Allocation", "Timeline"],
-        riskScore: 84,
-      },
+        risikoAwal: { kejadian: 20, dampak: 19, level: 19 },
+        resikoAkhir: { kejadian: 8, dampak: 12, level: 10 }
+      }
     ],
     compliance: [
       {
-        title: "GDPR & UU PDP Data Privacy Compliance",
-        description: "Sistem e-commerce menyimpan data personal 2.5 juta user tanpa consent mechanism yang memadai sesuai UU PDP No.27/2022",
+        sasaran: "Data Privacy Compliance",
+        kode: "COM001",
+        taksonomi: "Risiko Kepatuhan - Data Protection",
+        peristiwaRisiko: "Sistem menyimpan data personal 2.5 juta user tanpa consent mechanism sesuai UU PDP No.27/2022",
+        sumberRisiko: "Regulatory requirement, data protection law, privacy regulation, consent management",
+        dampakKualitatif: "Legal penalty, user trust loss, reputation damage, business operation disruption",
+        dampakKuantitatif: "Compliance cost Rp 1.8M, potential fine Rp 5M, remediation cost Rp 2.2M",
+        kontrolEksisting: "Privacy by design, consent management system, data audit, legal consultation",
         project: "E-Commerce Platform Tokopedia",
-        impactLevel: "very-high",
-        likelihood: "very-likely",
-        mitigationPlan: "Data audit comprehensive, consent management system, privacy by design implementation",
-        estimatedCost: 1800000000,
-        affectedAreas: ["Legal Risk", "User Trust", "Business Operations"],
-        riskScore: 94,
+        risikoAwal: { kejadian: 23, dampak: 25, level: 24 },
+        resikoAkhir: { kejadian: 8, dampak: 15, level: 11 }
       },
       {
-        title: "ISO 27001 Security Audit Gap Analysis",
-        description: "Pre-audit menunjukkan 23 non-conformities dari 114 control requirements untuk sertifikasi ISO 27001 yang diperlukan client",
+        sasaran: "Security Certification",
+        kode: "COM002",
+        taksonomi: "Risiko Kepatuhan - Information Security",
+        peristiwaRisiko: "Pre-audit menunjukkan 23 non-conformities dari 114 ISO 27001 control requirements",
+        sumberRisiko: "Security standard requirement, audit finding, control implementation gap, certification timeline",
+        dampakKualitatif: "Certification delay, market access limitation, client confidence impact, competitive disadvantage",
+        dampakKuantitatif: "Remediation cost Rp 950K, consultant fee Rp 400K, potential business loss Rp 1.2M",
+        kontrolEksisting: "Security framework, external consultant, remediation plan, training program",
         project: "Educational Platform Kemdikbud",
-        impactLevel: "high",
-        likelihood: "likely",
-        mitigationPlan: "Remediation roadmap 90 hari, external consultant engagement, security training intensif",
-        estimatedCost: 950000000,
-        affectedAreas: ["Information Security", "Certification", "Market Access"],
-        riskScore: 79,
-      },
+        risikoAwal: { kejadian: 19, dampak: 17, level: 18 },
+        resikoAkhir: { kejadian: 10, dampak: 12, level: 11 }
+      }
     ],
     project: [
       {
-        title: "Critical Path Delay - Database Migration",
-        description: "Migrasi database 500GB dari Oracle ke PostgreSQL mengalami delay 3 minggu dari jadwal, mengancam go-live target",
+        sasaran: "Timeline Project Delivery",
+        kode: "PRJ001",
+        taksonomi: "Risiko Proyek - Critical Path",
+        peristiwaRisiko: "Migrasi database 500GB dari Oracle ke PostgreSQL delay 3 minggu, mengancam go-live target",
+        sumberRisiko: "Technical complexity, data migration challenge, resource constraint, timeline pressure",
+        dampakKualitatif: "Go-live delay, stakeholder confidence loss, contract penalty, team stress",
+        dampakKuantitatif: "Penalty cost Rp 1.4M, resource overtime Rp 600K, opportunity cost Rp 2M",
+        kontrolEksisting: "Migration plan, parallel approach, rollback strategy, 24/7 team support",
         project: "Tourism Portal Wonderful Indonesia",
-        impactLevel: "very-high",
-        likelihood: "very-likely",
-        mitigationPlan: "24/7 migration team, parallel migration approach, rollback strategy preparation",
-        estimatedCost: 1400000000,
-        affectedAreas: ["Timeline", "Go-Live", "Stakeholder Confidence"],
-        riskScore: 90,
+        risikoAwal: { kejadian: 22, dampak: 20, level: 21 },
+        resikoAkhir: { kejadian: 12, dampak: 15, level: 13 }
       },
       {
-        title: "Stakeholder Alignment - Multiple Decision Makers",
-        description: "Konflik kepentingan antara 5 direktorat Kementerian Pertanian dalam penentuan final requirements sistem",
+        sasaran: "Stakeholder Alignment",
+        kode: "PRJ002",
+        taksonomi: "Risiko Proyek - Stakeholder Management",
+        peristiwaRisiko: "Konflik kepentingan 5 direktorat Kementerian Pertanian dalam penentuan final requirements",
+        sumberRisiko: "Multiple stakeholder, conflicting interest, decision making process, organizational politics",
+        dampakKualitatif: "Requirement instability, development rework, team confusion, project scope uncertainty",
+        dampakKuantitatif: "Rework cost Rp 800K, timeline extension 4-6 weeks, coordination cost Rp 300K",
+        kontrolEksisting: "Stakeholder workshop, decision matrix, executive sponsorship, governance structure",
         project: "Agricultural Management System",
-        impactLevel: "high",
-        likelihood: "likely",
-        mitigationPlan: "Stakeholder workshop series, decision matrix framework, executive sponsor involvement",
-        estimatedCost: 800000000,
-        affectedAreas: ["Requirements", "Timeline", "Budget"],
-        riskScore: 74,
+        risikoAwal: { kejadian: 17, dampak: 16, level: 16 },
+        resikoAkhir: { kejadian: 8, dampak: 10, level: 9 }
       },
       {
-        title: "Critical Bug - Payment Processing Module",
-        description: "Ditemukan race condition pada payment processing yang dapat menyebabkan double charging pada 0.3% transaksi",
+        sasaran: "Quality Assurance",
+        kode: "PRJ003",
+        taksonomi: "Risiko Proyek - Quality Control",
+        peristiwaRisiko: "Race condition pada payment processing menyebabkan double charging pada 0.3% transaksi",
+        sumberRisiko: "Concurrent processing, race condition, testing gap, code complexity",
+        dampakKualitatif: "Financial accuracy issue, user trust loss, reputation damage, regulatory scrutiny",
+        dampakKuantitatif: "Financial reconciliation Rp 600K, customer compensation Rp 400K, system fix Rp 200K",
+        kontrolEksisting: "Automated testing, transaction monitoring, hotfix deployment, code review process",
         project: "Port Management System Pelindo",
-        impactLevel: "very-high",
-        likelihood: "very-likely",
-        mitigationPlan: "Hotfix deployment, transaction reconciliation, automated testing enhancement",
-        estimatedCost: 600000000,
-        affectedAreas: ["Financial Accuracy", "User Trust", "Reputation"],
-        riskScore: 96,
-      },
+        risikoAwal: { kejadian: 25, dampak: 24, level: 24 },
+        resikoAkhir: { kejadian: 5, dampak: 10, level: 7 }
+      }
     ],
     environment: [
       {
-        title: "Carbon Footprint Data Center Operations",
-        description: "Konsumsi energi data center melebihi target carbon neutral 2024 dengan 15% excess carbon emission",
+        sasaran: "Carbon Neutral Initiative",
+        kode: "ENV001",
+        taksonomi: "Risiko Lingkungan - Carbon Footprint",
+        peristiwaRisiko: "Konsumsi energi data center melebihi target carbon neutral 2024 dengan 15% excess emission",
+        sumberRisiko: "Energy consumption, infrastructure efficiency, renewable energy adoption, environmental regulation",
+        dampakKualitatif: "Environmental compliance issue, corporate image impact, sustainability goal miss",
+        dampakKuantitatif: "Carbon offset cost Rp 1.2M, green infrastructure investment Rp 2.5M, penalty risk Rp 800K",
+        kontrolEksisting: "Renewable energy transition, server optimization, carbon monitoring, offset program",
         project: "Green Logistics Platform",
-        impactLevel: "medium",
-        likelihood: "likely",
-        mitigationPlan: "Renewable energy transition, server optimization, carbon offset program",
-        estimatedCost: 1200000000,
-        affectedAreas: ["Sustainability", "Corporate Image", "Compliance"],
-        riskScore: 65,
+        risikoAwal: { kejadian: 14, dampak: 12, level: 13 },
+        resikoAkhir: { kejadian: 8, dampak: 8, level: 8 }
       },
       {
-        title: "Green IT Certification Requirement",
-        description: "Client government menambah requirement Green IT certification untuk semua sistem baru sesuai regulasi lingkungan terbaru",
+        sasaran: "Green IT Certification",
+        kode: "ENV002",
+        taksonomi: "Risiko Lingkungan - Green Certification",
+        peristiwaRisiko: "Client government menambah requirement Green IT certification untuk semua sistem baru",
+        sumberRisiko: "Environmental regulation, certification requirement, green technology standard, policy change",
+        dampakKualitatif: "Certification requirement, additional compliance burden, market access limitation",
+        dampakKuantitatif: "Certification cost Rp 750K, architecture redesign Rp 1.2M, timeline impact 8-12 weeks",
+        kontrolEksisting: "Green IT assessment, energy-efficient design, certification roadmap, policy monitoring",
         project: "Industrial IoT Monitoring",
-        impactLevel: "medium",
-        likelihood: "possible",
-        mitigationPlan: "Green IT assessment, energy-efficient architecture, certification roadmap",
-        estimatedCost: 750000000,
-        affectedAreas: ["Certification", "Architecture", "Operations"],
-        riskScore: 58,
-      },
+        risikoAwal: { kejadian: 12, dampak: 11, level: 11 },
+        resikoAkhir: { kejadian: 6, dampak: 8, level: 7 }
+      }
     ],
     it: [
       {
-        title: "Advanced Persistent Threat (APT) Detection",
-        description: "Sistem keamanan mendeteksi 3 anomali yang menunjukkan indikasi APT attack pada network manufacturing client",
+        sasaran: "Keamanan Sistem Manufacturing",
+        kode: "IT001",
+        taksonomi: "Risiko IT - Cybersecurity",
+        peristiwaRisiko: "Sistem keamanan mendeteksi 3 anomali yang menunjukkan indikasi APT attack pada network",
+        sumberRisiko: "Cyber threat, security vulnerability, advanced persistent threat, network intrusion",
+        dampakKualitatif: "Data breach, intellectual property theft, production disruption, security incident",
+        dampakKuantitatif: "Security hardening Rp 2.2M, forensic analysis Rp 800K, business interruption Rp 3.5M",
+        kontrolEksisting: "Security monitoring, incident response, forensic capability, security hardening",
         project: "Smart Factory Security System",
-        impactLevel: "very-high",
-        likelihood: "possible",
-        mitigationPlan: "Immediate security hardening, forensic analysis, incident response team activation",
-        estimatedCost: 2200000000,
-        affectedAreas: ["Data Security", "Production", "Intellectual Property"],
-        riskScore: 87,
+        risikoAwal: { kejadian: 16, dampak: 23, level: 19 },
+        resikoAkhir: { kejadian: 8, dampak: 15, level: 11 }
       },
       {
-        title: "Database Performance Bottleneck",
-        description: "Query response time sistem tracking kelapa sawit meningkat 400% saat concurrent users > 1000, mengancam SLA 2 detik",
+        sasaran: "Performance Sistem Tracking",
+        kode: "IT002",
+        taksonomi: "Risiko IT - System Performance",
+        peristiwaRisiko: "Query response time meningkat 400% saat concurrent users > 1000, mengancam SLA 2 detik",
+        sumberRisiko: "Database bottleneck, query optimization, system capacity, performance degradation",
+        dampakKualitatif: "SLA violation, user experience degradation, service unavailability, customer complaint",
+        dampakKuantitatif: "Performance optimization Rp 1.1M, SLA penalty Rp 500K, infrastructure upgrade Rp 800K",
+        kontrolEksisting: "Database optimization, horizontal scaling, performance monitoring, query tuning",
         project: "Palm Oil Supply Chain Tracking",
-        impactLevel: "high",
-        likelihood: "very-likely",
-        mitigationPlan: "Database indexing optimization, query rewriting, horizontal scaling implementation",
-        estimatedCost: 1100000000,
-        affectedAreas: ["Performance", "User Experience", "SLA Compliance"],
-        riskScore: 83,
+        risikoAwal: { kejadian: 20, dampak: 18, level: 19 },
+        resikoAkhir: { kejadian: 10, dampak: 12, level: 11 }
       },
       {
-        title: "Disaster Recovery Site Readiness",
-        description: "DR site di Jakarta belum siap 100%, dengan RTO target 4 jam tetapi current capability 12 jam untuk full recovery",
+        sasaran: "Business Continuity",
+        kode: "IT003",
+        taksonomi: "Risiko IT - Disaster Recovery",
+        peristiwaRisiko: "DR site Jakarta belum siap 100%, RTO target 4 jam tapi current capability 12 jam",
+        sumberRisiko: "Infrastructure readiness, disaster recovery capability, backup strategy, recovery time",
+        dampakKualitatif: "Business continuity risk, extended downtime, data loss potential, recovery delay",
+        dampakKuantitatif: "DR infrastructure Rp 3.5M, business loss Rp 2M/hari, compliance penalty Rp 1M",
+        kontrolEksisting: "DR infrastructure acceleration, automated failover, backup enhancement, testing schedule",
         project: "Mining Operations Management System",
-        impactLevel: "very-high",
-        likelihood: "unlikely",
-        mitigationPlan: "DR infrastructure acceleration, automated failover testing, backup strategy enhancement",
-        estimatedCost: 3500000000,
-        affectedAreas: ["Business Continuity", "Data Protection", "Operations"],
-        riskScore: 71,
-      },
+        risikoAwal: { kejadian: 13, dampak: 22, level: 17 },
+        resikoAkhir: { kejadian: 6, dampak: 15, level: 10 }
+      }
     ],
     hr: [
       {
-        title: "Key Personnel Retention Risk",
-        description: "Tech Lead dan 2 Senior Architects mendapat offer dari kompetitor dengan salary 60% lebih tinggi",
+        sasaran: "Retensi Key Personnel",
+        kode: "HR001",
+        taksonomi: "Risiko SDM - Key Personnel Retention",
+        peristiwaRisiko: "Tech Lead dan 2 Senior Architects mendapat offer competitor dengan salary 60% lebih tinggi",
+        sumberRisiko: "Market competition, salary gap, career opportunity, talent retention challenge",
+        dampakKualitatif: "Knowledge loss, project continuity risk, team morale impact, skill gap",
+        dampakKuantitatif: "Retention bonus Rp 1.8M, recruitment cost Rp 600K, knowledge transfer cost Rp 400K",
+        kontrolEksisting: "Retention program, knowledge documentation, succession planning, competitive compensation",
         project: "Tourism Digital Platform",
-        impactLevel: "very-high",
-        likelihood: "likely",
-        mitigationPlan: "Counter offer preparation, knowledge transfer acceleration, retention bonus program",
-        estimatedCost: 1800000000,
-        affectedAreas: ["Project Continuity", "Knowledge Management", "Team Morale"],
-        riskScore: 89,
+        risikoAwal: { kejadian: 21, dampak: 19, level: 20 },
+        resikoAkhir: { kejadian: 10, dampak: 14, level: 12 }
       },
       {
-        title: "React Native Expertise Shortage",
-        description: "Hanya 2 dari 8 mobile developers yang kompeten React Native untuk project cultural heritage yang membutuhkan 5 experts",
+        sasaran: "Kompetensi Teknis Tim",
+        kode: "HR002",
+        taksonomi: "Risiko SDM - Technical Competency",
+        peristiwaRisiko: "Hanya 2 dari 8 mobile developers kompeten React Native, butuh 5 experts untuk project",
+        sumberRisiko: "Skill gap, technology expertise, training need, competency development",
+        dampakKualitatif: "Technical delivery risk, quality concern, timeline impact, learning curve",
+        dampakKuantitatif: "Training cost Rp 900K, external contractor Rp 1.2M, timeline extension 6-8 weeks",
+        kontrolEksisting: "Training program, external contractor, mentoring, technology assessment",
         project: "Cultural Heritage Digital Archive",
-        impactLevel: "high",
-        likelihood: "very-likely",
-        mitigationPlan: "Intensive training program, external contractor hiring, technology stack review",
-        estimatedCost: 900000000,
-        affectedAreas: ["Technical Delivery", "Timeline", "Quality"],
-        riskScore: 81,
-      },
-    ],
+        risikoAwal: { kejadian: 19, dampak: 16, level: 17 },
+        resikoAkhir: { kejadian: 8, dampak: 10, level: 9 }
+      }
+    ]
   };
 
   const templates = riskTemplates[categoryId as keyof typeof riskTemplates] || [];
   const statuses: ("overdue" | "inProcess" | "closed")[] = ["overdue", "inProcess", "closed"];
-  const priorities: ("critical" | "high" | "medium" | "low")[] = ["critical", "high", "medium", "low"];
   const assignees = [
     "Ahmad Rahman (Risk Manager)",
     "Siti Nurhaliza (Security Lead)",
@@ -319,21 +367,22 @@ const generateMockRiskItems = (categoryId: string) => {
 
   return templates.map((template, index) => ({
     id: `${categoryId}-${index + 1}`,
-    title: template.title,
-    description: template.description,
+    sasaran: template.sasaran,
+    kode: template.kode,
+    taksonomi: template.taksonomi,
+    peristiwaRisiko: template.peristiwaRisiko,
+    sumberRisiko: template.sumberRisiko,
+    dampakKualitatif: template.dampakKualitatif,
+    dampakKuantitatif: template.dampakKuantitatif,
+    kontrolEksisting: template.kontrolEksisting,
     status: statuses[index % statuses.length],
-    priority: index === 0 ? "critical" : priorities[(index + 1) % priorities.length],
     assignee: assignees[index % assignees.length],
     dueDate: new Date(Date.now() + (index + 1) * 7 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date(Date.now() - (30 - index * 3) * 24 * 60 * 60 * 1000).toISOString(),
     project: template.project,
     lastUpdate: new Date(Date.now() - (index + 1) * 24 * 60 * 60 * 1000).toISOString(),
-    impactLevel: template.impactLevel,
-    likelihood: template.likelihood,
-    mitigationPlan: template.mitigationPlan,
-    estimatedCost: template.estimatedCost,
-    affectedAreas: template.affectedAreas,
-    riskScore: template.riskScore,
+    risikoAwal: template.risikoAwal,
+    resikoAkhir: template.resikoAkhir,
   }));
 };
 
@@ -367,62 +416,31 @@ const getStatusBadge = (status: "overdue" | "inProcess" | "closed") => {
   );
 };
 
-const getPriorityBadge = (priority: "critical" | "high" | "medium" | "low") => {
-  const config = {
-    critical: { label: "Critical", color: "bg-purple-100 text-purple-800 border-purple-200", icon: Zap },
-    high: { label: "High", color: "bg-red-100 text-red-800 border-red-200", icon: Flag },
-    medium: { label: "Medium", color: "bg-yellow-100 text-yellow-800 border-yellow-200", icon: AlertTriangle },
-    low: { label: "Low", color: "bg-green-100 text-green-800 border-green-200", icon: Target },
-  };
+// Helper functions sesuai dengan Risk Capture Form
+const getRiskColor = (value: number) => {
+  if (value >= 1 && value <= 5) return "bg-green-100 text-green-800 border-green-200";
+  if (value >= 6 && value <= 10) return "bg-yellow-100 text-yellow-800 border-yellow-200";
+  if (value >= 11 && value <= 15) return "bg-orange-100 text-orange-800 border-orange-200";
+  if (value >= 16 && value <= 20) return "bg-red-100 text-red-800 border-red-200";
+  if (value >= 21 && value <= 25) return "bg-red-200 text-red-900 border-red-300";
+  return "bg-gray-100 text-gray-800 border-gray-200";
+};
 
-  const priorityConfig = config[priority];
-  const IconComponent = priorityConfig.icon;
+const getRiskLabel = (value: number) => {
+  if (value >= 1 && value <= 5) return "Sangat Rendah";
+  if (value >= 6 && value <= 10) return "Rendah";
+  if (value >= 11 && value <= 15) return "Sedang";
+  if (value >= 16 && value <= 20) return "Tinggi";
+  if (value >= 21 && value <= 25) return "Sangat Tinggi";
+  return "Invalid";
+};
+
+const getRiskBadge = (value: number, label: string) => {
   return (
-    <Badge className={`${priorityConfig.color} border`}>
-      <IconComponent className="w-3 h-3 mr-1" />
-      {priorityConfig.label}
+    <Badge className={`${getRiskColor(value)} border text-xs`}>
+      {label} {value} - {getRiskLabel(value)}
     </Badge>
   );
-};
-
-const getImpactBadge = (impact: "very-high" | "high" | "medium" | "low") => {
-  const config = {
-    "very-high": { label: "Very High", color: "bg-red-600 text-white" },
-    high: { label: "High", color: "bg-orange-500 text-white" },
-    medium: { label: "Medium", color: "bg-yellow-500 text-white" },
-    low: { label: "Low", color: "bg-green-500 text-white" },
-  };
-
-  const impactConfig = config[impact];
-  return <Badge className={impactConfig.color}>{impactConfig.label}</Badge>;
-};
-
-const getLikelihoodBadge = (likelihood: "very-likely" | "likely" | "possible" | "unlikely") => {
-  const config = {
-    "very-likely": { label: "Very Likely", color: "bg-red-100 text-red-800" },
-    likely: { label: "Likely", color: "bg-orange-100 text-orange-800" },
-    possible: { label: "Possible", color: "bg-yellow-100 text-yellow-800" },
-    unlikely: { label: "Unlikely", color: "bg-green-100 text-green-800" },
-  };
-
-  const likelihoodConfig = config[likelihood];
-  return <Badge variant="outline" className={likelihoodConfig.color}>{likelihoodConfig.label}</Badge>;
-};
-
-const getRiskScoreColor = (score: number) => {
-  if (score >= 90) return "text-red-600 font-bold";
-  if (score >= 80) return "text-orange-600 font-semibold";
-  if (score >= 70) return "text-yellow-600 font-medium";
-  return "text-green-600";
-};
-
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
 };
 
 export function RiskCategoryDetailDialog({
@@ -545,21 +563,21 @@ export function RiskCategoryDetailDialog({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center p-4 bg-white rounded-lg border">
                 <div className="text-2xl font-bold text-orange-600 mb-1">
-                  {Math.round(riskItems.reduce((sum, item) => sum + item.riskScore, 0) / riskItems.length)}
+                  {Math.round(riskItems.reduce((sum, item) => sum + item.risikoAwal.level, 0) / riskItems.length)}
                 </div>
-                <p className="text-sm text-gray-600">Rata-rata Risk Score</p>
+                <p className="text-sm text-gray-600">Rata-rata Risk Level</p>
               </div>
               <div className="text-center p-4 bg-white rounded-lg border">
                 <div className="text-2xl font-bold text-red-600 mb-1">
-                  {riskItems.filter(item => item.priority === 'critical').length}
+                  {riskItems.filter(item => item.risikoAwal.level >= 21).length}
                 </div>
-                <p className="text-sm text-gray-600">Risiko Critical</p>
+                <p className="text-sm text-gray-600">Risiko Sangat Tinggi</p>
               </div>
               <div className="text-center p-4 bg-white rounded-lg border">
                 <div className="text-2xl font-bold text-purple-600 mb-1">
-                  {formatCurrency(riskItems.reduce((sum, item) => sum + (item.estimatedCost || 0), 0))}
+                  {riskItems.length} Items
                 </div>
-                <p className="text-sm text-gray-600">Total Estimasi Biaya</p>
+                <p className="text-sm text-gray-600">Total Risk Items</p>
               </div>
             </div>
           </CardContent>
