@@ -667,14 +667,31 @@ export function RiskCategoryDetailDialog({
   const [selectedRisk, setSelectedRisk] = useState<RiskItem | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   if (!category) return null;
 
   const riskItems = generateMockRiskItems(category.id);
-  
-  const filteredRiskItems = statusFilter === "all" 
-    ? riskItems 
-    : riskItems.filter(item => item.status === statusFilter);
+
+  // Apply filters
+  let filteredRiskItems = riskItems;
+
+  // Status filter
+  if (statusFilter !== "all") {
+    filteredRiskItems = filteredRiskItems.filter(item => item.status === statusFilter);
+  }
+
+  // Search filter
+  if (searchQuery.trim() !== "") {
+    filteredRiskItems = filteredRiskItems.filter(item =>
+      item.sasaran.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.kode.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.taksonomi.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.peristiwaRisiko.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.assignee.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
   const IconComponent = category.icon;
 
