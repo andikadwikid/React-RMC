@@ -729,14 +729,14 @@ export function RiskCategoryDetailDialog({
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-blue-500">
+            <Card className="border-l-4 border-l-yellow-500">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">Dalam Mitigasi</p>
-                    <p className="text-2xl font-bold text-blue-600">{category.inProcess}</p>
+                    <p className="text-2xl font-bold text-yellow-600">{category.inProcess}</p>
                   </div>
-                  <Activity className="w-8 h-8 text-blue-500" />
+                  <Activity className="w-8 h-8 text-yellow-500" />
                 </div>
               </CardContent>
             </Card>
