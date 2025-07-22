@@ -172,14 +172,7 @@ export default function CreateProject() {
     ) {
       newErrors.endDate = "Tanggal selesai harus setelah tanggal mulai";
     }
-    if (!formData.teamSize.trim()) {
-      newErrors.teamSize = "Jumlah tim wajib diisi";
-    } else if (
-      isNaN(Number(formData.teamSize)) ||
-      Number(formData.teamSize) < 1
-    ) {
-      newErrors.teamSize = "Jumlah tim harus berupa angka positif";
-    }
+
     if (!formData.province) {
       newErrors.province = "Provinsi wajib dipilih";
     }
