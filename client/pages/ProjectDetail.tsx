@@ -307,37 +307,89 @@ export default function ProjectDetail() {
                 </CardContent>
               </Card>
 
-              {/* Progress Summary */}
+              {/* Project Health Overview */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Activity className="h-5 w-5 text-green-600" />
-                    Progress Summary
+                    <Activity className="h-5 w-5 text-blue-600" />
+                    Project Health
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Overall Progress</span>
-                      <span className="text-sm text-gray-600">{project.progress}%</span>
+                  {/* Budget vs Time Progress Comparison */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-gray-700">Progress</span>
+                        <span className="text-sm text-blue-600 font-medium">{project.progress}%</span>
+                      </div>
+                      <Progress value={project.progress} className="h-2" />
                     </div>
-                    <Progress value={project.progress} />
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-gray-700">Time Used</span>
+                        <span className="text-sm text-purple-600 font-medium">{timeElapsedPercentage.toFixed(1)}%</span>
+                      </div>
+                      <Progress value={timeElapsedPercentage} className="h-2" />
+                    </div>
                   </div>
 
-                  {project.timeline && (
-                    <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-gray-700">Milestone List</h4>
-                      {project.timeline.map((milestone) => (
-                        <div key={milestone.id} className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600">{milestone.title}</span>
-                          <span className="text-xs text-gray-500">
-                            {new Date(milestone.startDate).toLocaleDateString("id-ID")} -
-                            {new Date(milestone.endDate).toLocaleDateString("id-ID")}
-                          </span>
-                        </div>
-                      ))}
+                  {/* Health Indicators */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-3 h-3 rounded-full ${
+                          project.progress >= timeElapsedPercentage ? 'bg-green-500' :
+                          project.progress >= timeElapsedPercentage - 10 ? 'bg-yellow-500' : 'bg-red-500'
+                        }`} />
+                        <span className="text-sm font-medium">Schedule Performance</span>
+                      </div>
+                      <span className="text-xs text-gray-600">
+                        {project.progress >= timeElapsedPercentage ? 'On Track' :
+                         project.progress >= timeElapsedPercentage - 10 ? 'Minor Delay' : 'Behind Schedule'}
+                      </span>
                     </div>
-                  )}
+
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-3 h-3 rounded-full ${
+                          budgetUsedPercentage <= project.progress ? 'bg-green-500' :
+                          budgetUsedPercentage <= project.progress + 10 ? 'bg-yellow-500' : 'bg-red-500'
+                        }`} />
+                        <span className="text-sm font-medium">Budget Performance</span>
+                      </div>
+                      <span className="text-xs text-gray-600">
+                        {budgetUsedPercentage <= project.progress ? 'Under Budget' :
+                         budgetUsedPercentage <= project.progress + 10 ? 'On Budget' : 'Over Budget'}
+                      </span>
+                    </div>
+
+                    {project.timeline && (
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full bg-blue-500" />
+                          <span className="text-sm font-medium">Milestones</span>
+                        </div>
+                        <span className="text-xs text-gray-600">
+                          {project.timeline.length} milestone{project.timeline.length !== 1 ? 's' : ''} defined
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Quick Stats Summary */}
+                  <div className="pt-3 border-t border-gray-200">
+                    <div className="grid grid-cols-2 gap-4 text-center">
+                      <div>
+                        <p className="text-xs text-gray-500">Days Remaining</p>
+                        <p className="text-lg font-semibold text-gray-900">{totalDays - daysElapsed}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Budget Remaining</p>
+                        <p className="text-lg font-semibold text-gray-900">{formatCurrency(remainingBudget)}</p>
+                      </div>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
