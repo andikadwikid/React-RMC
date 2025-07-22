@@ -60,22 +60,26 @@ interface RiskCaptureFormProps {
 
 
 
-const getRiskLevelColor = (level: number) => {
-  if (level >= 1 && level <= 5) return "bg-green-100 text-green-800";
-  if (level >= 6 && level <= 10) return "bg-yellow-100 text-yellow-800";
-  if (level >= 11 && level <= 15) return "bg-orange-100 text-orange-800";
-  if (level >= 16 && level <= 20) return "bg-red-100 text-red-800";
-  if (level >= 21 && level <= 25) return "bg-red-200 text-red-900";
+const getRiskColor = (value: number) => {
+  if (value >= 1 && value <= 5) return "bg-green-100 text-green-800";
+  if (value >= 6 && value <= 10) return "bg-yellow-100 text-yellow-800";
+  if (value >= 11 && value <= 15) return "bg-orange-100 text-orange-800";
+  if (value >= 16 && value <= 20) return "bg-red-100 text-red-800";
+  if (value >= 21 && value <= 25) return "bg-red-200 text-red-900";
   return "bg-gray-100 text-gray-800";
 };
 
-const getRiskLevelLabel = (level: number) => {
-  if (level >= 1 && level <= 5) return "Sangat Rendah";
-  if (level >= 6 && level <= 10) return "Rendah";
-  if (level >= 11 && level <= 15) return "Sedang";
-  if (level >= 16 && level <= 20) return "Tinggi";
-  if (level >= 21 && level <= 25) return "Sangat Tinggi";
+const getRiskLabel = (value: number) => {
+  if (value >= 1 && value <= 5) return "Sangat Rendah";
+  if (value >= 6 && value <= 10) return "Rendah";
+  if (value >= 11 && value <= 15) return "Sedang";
+  if (value >= 16 && value <= 20) return "Tinggi";
+  if (value >= 21 && value <= 25) return "Sangat Tinggi";
   return "Invalid";
+};
+
+const isValidRange = (value: number) => {
+  return value >= 1 && value <= 25;
 };
 
 export function RiskCaptureForm({
@@ -99,8 +103,8 @@ export function RiskCaptureForm({
       dampakKuantitatif: "",
       kontrolEksisting: "",
       risikoAwal: {
-        kejadian: 0,
-        dampak: 0,
+        kejadian: 1,
+        dampak: 1,
         level: 1,
       },
     };
@@ -156,9 +160,7 @@ export function RiskCaptureForm({
     onClose();
   };
 
-  const isValidLevel = (level: number) => {
-    return level >= 1 && level <= 25;
-  };
+
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -216,8 +218,8 @@ export function RiskCaptureForm({
                             Risk Capture #{index + 1}
                           </h4>
                           <div className="flex items-center gap-2">
-                            <Badge className={getRiskLevelColor(risk.risikoAwal.level)}>
-                              Level {risk.risikoAwal.level} - {getRiskLevelLabel(risk.risikoAwal.level)}
+                            <Badge className={getRiskColor(risk.risikoAwal.level)}>
+                              Level {risk.risikoAwal.level} - {getRiskLabel(risk.risikoAwal.level)}
                             </Badge>
                             <Button
                               variant="ghost"
@@ -322,30 +324,60 @@ export function RiskCaptureForm({
                           <h5 className="font-medium mb-3">Risiko Awal</h5>
                           <div className="grid grid-cols-3 gap-4">
                             <div>
-                              <Label htmlFor={`kejadian-${risk.id}`}>Kejadian *</Label>
+                              <Label htmlFor={`kejadian-${risk.id}`}>Kejadian (1-25) *</Label>
                               <Input
                                 id={`kejadian-${risk.id}`}
                                 type="number"
-                                value={risk.risikoAwal.kejadian || ""}
+                                min={1}
+                                max={25}
+                                value={risk.risikoAwal.kejadian}
                                 onChange={(e) => {
-                                  const kejadian = parseFloat(e.target.value) || 0;
-                                  updateRiskItem(risk.id, "risikoAwal.kejadian", kejadian);
+                                  const kejadian = parseInt(e.target.value);
+                                  if (isValidRange(kejadian)) {
+                                    updateRiskItem(risk.id, "risikoAwal.kejadian", kejadian);
+                                  }
                                 }}
-                                placeholder="Masukkan angka kejadian"
+                                placeholder="1-25"
+                                className={!isValidRange(risk.risikoAwal.kejadian) ? "border-red-500" : ""}
                               />
+                              {!isValidRange(risk.risikoAwal.kejadian) && (
+                                <p className="text-sm text-red-600 mt-1">
+                                  Kejadian harus antara 1-25
+                                </p>
+                              )}
+                              {isValidRange(risk.risikoAwal.kejadian) && (
+                                <Badge className={`${getRiskColor(risk.risikoAwal.kejadian)} mt-2`} size="sm">
+                                  Kejadian {risk.risikoAwal.kejadian} - {getRiskLabel(risk.risikoAwal.kejadian)}
+                                </Badge>
+                              )}
                             </div>
                             <div>
-                              <Label htmlFor={`dampak-${risk.id}`}>Dampak *</Label>
+                              <Label htmlFor={`dampak-${risk.id}`}>Dampak (1-25) *</Label>
                               <Input
                                 id={`dampak-${risk.id}`}
                                 type="number"
-                                value={risk.risikoAwal.dampak || ""}
+                                min={1}
+                                max={25}
+                                value={risk.risikoAwal.dampak}
                                 onChange={(e) => {
-                                  const dampak = parseFloat(e.target.value) || 0;
-                                  updateRiskItem(risk.id, "risikoAwal.dampak", dampak);
+                                  const dampak = parseInt(e.target.value);
+                                  if (isValidRange(dampak)) {
+                                    updateRiskItem(risk.id, "risikoAwal.dampak", dampak);
+                                  }
                                 }}
-                                placeholder="Masukkan angka dampak"
+                                placeholder="1-25"
+                                className={!isValidRange(risk.risikoAwal.dampak) ? "border-red-500" : ""}
                               />
+                              {!isValidRange(risk.risikoAwal.dampak) && (
+                                <p className="text-sm text-red-600 mt-1">
+                                  Dampak harus antara 1-25
+                                </p>
+                              )}
+                              {isValidRange(risk.risikoAwal.dampak) && (
+                                <Badge className={`${getRiskColor(risk.risikoAwal.dampak)} mt-2`} size="sm">
+                                  Dampak {risk.risikoAwal.dampak} - {getRiskLabel(risk.risikoAwal.dampak)}
+                                </Badge>
+                              )}
                             </div>
                             <div>
                               <Label htmlFor={`level-${risk.id}`}>Level (1-25) *</Label>
@@ -357,17 +389,22 @@ export function RiskCaptureForm({
                                 value={risk.risikoAwal.level}
                                 onChange={(e) => {
                                   const level = parseInt(e.target.value);
-                                  if (isValidLevel(level)) {
+                                  if (isValidRange(level)) {
                                     updateRiskItem(risk.id, "risikoAwal.level", level);
                                   }
                                 }}
                                 placeholder="1-25"
-                                className={!isValidLevel(risk.risikoAwal.level) ? "border-red-500" : ""}
+                                className={!isValidRange(risk.risikoAwal.level) ? "border-red-500" : ""}
                               />
-                              {!isValidLevel(risk.risikoAwal.level) && (
+                              {!isValidRange(risk.risikoAwal.level) && (
                                 <p className="text-sm text-red-600 mt-1">
                                   Level harus antara 1-25
                                 </p>
+                              )}
+                              {isValidRange(risk.risikoAwal.level) && (
+                                <Badge className={`${getRiskColor(risk.risikoAwal.level)} mt-2`} size="sm">
+                                  Level {risk.risikoAwal.level} - {getRiskLabel(risk.risikoAwal.level)}
+                                </Badge>
                               )}
                             </div>
                           </div>
@@ -398,12 +435,12 @@ export function RiskCaptureForm({
                       Total: {risks.length} Risk Capture
                     </span>
                   </div>
-                  <div className="flex gap-4 text-sm">
-                    <span>Level 1-5: {risks.filter(r => r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5).length}</span>
-                    <span>Level 6-10: {risks.filter(r => r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10).length}</span>
-                    <span>Level 11-15: {risks.filter(r => r.risikoAwal.level >= 11 && r.risikoAwal.level <= 15).length}</span>
-                    <span>Level 16-20: {risks.filter(r => r.risikoAwal.level >= 16 && r.risikoAwal.level <= 20).length}</span>
-                    <span>Level 21-25: {risks.filter(r => r.risikoAwal.level >= 21 && r.risikoAwal.level <= 25).length}</span>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>Sangat Rendah (1-5): {risks.filter(r => r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5).length}</div>
+                    <div>Rendah (6-10): {risks.filter(r => r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10).length}</div>
+                    <div>Sedang (11-15): {risks.filter(r => r.risikoAwal.level >= 11 && r.risikoAwal.level <= 15).length}</div>
+                    <div>Tinggi (16-20): {risks.filter(r => r.risikoAwal.level >= 16 && r.risikoAwal.level <= 20).length}</div>
+                    <div>Sangat Tinggi (21-25): {risks.filter(r => r.risikoAwal.level >= 21 && r.risikoAwal.level <= 25).length}</div>
                   </div>
                 </div>
               </CardContent>
