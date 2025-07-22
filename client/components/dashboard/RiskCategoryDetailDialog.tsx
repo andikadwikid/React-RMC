@@ -33,6 +33,7 @@ import {
   Shield,
   Filter,
   Download,
+  Search,
 } from "lucide-react";
 
 interface RiskItem {
