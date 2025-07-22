@@ -425,18 +425,33 @@ export default function ProjectDetail() {
                 </CardContent>
               </Card>
 
-              {/* Key Metrics */}
+              {/* Project Details */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Star className="h-5 w-5 text-yellow-600" />
-                    Key Metrics
+                    <FileText className="h-5 w-5 text-indigo-600" />
+                    Project Details
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Category</span>
                     <Badge variant="outline">{project.category}</Badge>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Project Manager</span>
+                    <span className="text-sm font-medium">{project.projectManager}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Province</span>
+                    <span className="text-sm">{project.province}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Duration</span>
+                    <span className="text-sm">{totalDays} days</span>
                   </div>
 
                   <div className="flex justify-between items-center">
