@@ -593,30 +593,21 @@ export default function ProjectDetail() {
                   {project.timeline.map((milestone, index) => (
                     <div key={milestone.id} className="flex gap-4">
                       <div className="flex flex-col items-center">
-                        <div className={`w-3 h-3 rounded-full ${
-                          milestone.status === "completed" ? "bg-green-500" :
-                          milestone.status === "in-progress" ? "bg-blue-500" :
-                          milestone.status === "blocked" ? "bg-red-500" :
-                          "bg-gray-300"
-                        }`} />
+                        <div className="w-3 h-3 rounded-full bg-blue-500" />
                         {index < project.timeline!.length - 1 && (
                           <div className="w-px h-12 bg-gray-200 mt-2" />
                         )}
                       </div>
                       <div className="flex-1 pb-4">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <h4 className="font-medium text-gray-900">{milestone.title}</h4>
-                            <p className="text-sm text-gray-600 mt-1">{milestone.description}</p>
-                            <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                              <span>
-                                {new Date(milestone.startDate).toLocaleDateString("id-ID")} - 
-                                {new Date(milestone.endDate).toLocaleDateString("id-ID")}
-                              </span>
-                              <span>Assignee: {milestone.assignee}</span>
-                            </div>
+                        <div>
+                          <h4 className="font-medium text-gray-900">{milestone.title}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{milestone.description}</p>
+                          <div className="mt-2 text-sm text-gray-500">
+                            <span>
+                              {new Date(milestone.startDate).toLocaleDateString("id-ID")} -
+                              {new Date(milestone.endDate).toLocaleDateString("id-ID")}
+                            </span>
                           </div>
-                          {getTimelineStatusBadge(milestone.status)}
                         </div>
                       </div>
                     </div>
