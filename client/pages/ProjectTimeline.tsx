@@ -5,15 +5,8 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowLeft,
   Calendar,
-  Clock,
-  CheckCircle,
-  AlertCircle,
-  Edit,
-  Filter,
-  Download,
 } from "lucide-react";
 import { TimelineCard } from "@/components/timeline/TimelineCard";
-import { TimelineOverview } from "@/components/timeline/TimelineOverview";
 import type { TimelineMilestone, MilestoneStatus } from "@/types";
 
 // Mock data - in real app this would come from API
@@ -144,144 +137,27 @@ export default function ProjectTimeline() {
             {project.name} - {project.client}
           </p>
         </div>
-        <Button className="flex items-center gap-2">
-          <Edit className="w-4 h-4" />
-          Edit Timeline
-        </Button>
       </div>
 
-      {/* Project Overview */}
-      <TimelineOverview
-        timeline={project.timeline}
-        projectStartDate={project.startDate}
-        projectEndDate={project.endDate}
-      />
-
-      {/* Timeline Actions */}
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-900">
-          Project Timeline
-        </h2>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            <Filter className="w-4 h-4 mr-2" />
-            Filter
-          </Button>
-          <Button variant="outline" size="sm">
-            <Download className="w-4 h-4 mr-2" />
-            Export
-          </Button>
-        </div>
-      </div>
-
-      {/* Timeline Visualization */}
+      {/* Timeline List */}
       <Card>
         <CardHeader>
-          <CardTitle>Milestone Timeline</CardTitle>
+          <CardTitle>Project Timeline</CardTitle>
           <p className="text-sm text-gray-600">
-            Visualisasi timeline milestone project dari awal hingga akhir
+            Daftar milestone project dari awal hingga akhir
           </p>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            {project.timeline.map((milestone, index) => (
+          <div className="space-y-4">
+            {project.timeline.map((milestone) => (
               <TimelineCard
                 key={milestone.id}
                 milestone={milestone}
-                isLast={index === project.timeline.length - 1}
-                onEdit={(milestone) => {
-                  console.log("Edit milestone:", milestone);
-                  // Handle edit functionality
-                }}
               />
             ))}
           </div>
         </CardContent>
       </Card>
-
-      {/* Timeline Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
-                  Total Duration
-                </p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {Math.ceil(
-                    (new Date(project.endDate).getTime() -
-                      new Date(project.startDate).getTime()) /
-                      (1000 * 60 * 60 * 24),
-                  )}{" "}
-                  days
-                </p>
-              </div>
-              <Calendar className="h-8 w-8 text-blue-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
-                  Days Remaining
-                </p>
-                <p className="text-2xl font-bold text-orange-600">
-                  {Math.max(
-                    0,
-                    Math.ceil(
-                      (new Date(project.endDate).getTime() -
-                        new Date().getTime()) /
-                        (1000 * 60 * 60 * 24),
-                    ),
-                  )}
-                </p>
-              </div>
-              <Clock className="h-8 w-8 text-orange-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">On Schedule</p>
-                <p className="text-2xl font-bold text-green-600">
-                  {
-                    project.timeline.filter((m) => m.status !== "blocked")
-                      .length
-                  }
-                  /{totalMilestones}
-                </p>
-              </div>
-              <CheckCircle className="h-8 w-8 text-green-500" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
-                  Critical Issues
-                </p>
-                <p className="text-2xl font-bold text-red-600">
-                  {
-                    project.timeline.filter((m) => m.status === "blocked")
-                      .length
-                  }
-                </p>
-              </div>
-              <AlertCircle className="h-8 w-8 text-red-500" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }
