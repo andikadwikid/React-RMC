@@ -872,40 +872,66 @@ export function RiskCategoryDetailDialog({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredRiskItems.map((item) => (
-                    <TableRow key={item.id} className="hover:bg-gray-50">
-                      <TableCell className="font-mono text-xs">
-                        {item.kode}
-                      </TableCell>
-                      <TableCell>
-                        <div>
-                          <p className="font-medium text-sm">{item.sasaran}</p>
-                          <p className="text-xs text-gray-500 mt-1">{item.project}</p>
+                  {filteredRiskItems.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center py-8">
+                        <div className="flex flex-col items-center gap-2">
+                          <Search className="w-8 h-8 text-gray-400" />
+                          <p className="text-gray-500">
+                            {searchQuery
+                              ? `Tidak ada risiko yang ditemukan untuk "${searchQuery}"`
+                              : "Tidak ada risiko dengan status yang dipilih"
+                            }
+                          </p>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setSearchQuery("");
+                              setStatusFilter("all");
+                            }}
+                          >
+                            Reset Filter
+                          </Button>
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        {getStatusBadge(item.status)}
-                      </TableCell>
-                      <TableCell>
-                        <div className="space-y-1">
-                          <div className="text-xs text-gray-500">Awal: {item.risikoAwal.level}</div>
-                          <div className="text-xs font-medium">Akhir: {item.resikoAkhir.level}</div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <p className="text-sm">{item.assignee}</p>
-                      </TableCell>
-                      <TableCell>
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => handleViewDetail(item)}
-                        >
-                          <Eye className="w-4 h-4" />
-                        </Button>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : (
+                    filteredRiskItems.map((item) => (
+                      <TableRow key={item.id} className="hover:bg-gray-50">
+                        <TableCell className="font-mono text-xs">
+                          {item.kode}
+                        </TableCell>
+                        <TableCell>
+                          <div>
+                            <p className="font-medium text-sm">{item.sasaran}</p>
+                            <p className="text-xs text-gray-500 mt-1">{item.project}</p>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {getStatusBadge(item.status)}
+                        </TableCell>
+                        <TableCell>
+                          <div className="space-y-1">
+                            <div className="text-xs text-gray-500">Awal: {item.risikoAwal.level}</div>
+                            <div className="text-xs font-medium">Akhir: {item.resikoAkhir.level}</div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <p className="text-sm">{item.assignee}</p>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleViewDetail(item)}
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </CardContent>
