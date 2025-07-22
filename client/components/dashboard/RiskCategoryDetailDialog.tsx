@@ -356,10 +356,10 @@ const generateMockRiskItems = (categoryId: string) => {
   const templates = riskTemplates[categoryId as keyof typeof riskTemplates] || [];
   const statuses: ("overdue" | "inProcess" | "closed")[] = ["overdue", "inProcess", "closed"];
   const assignees = [
-    "Ahmad Rahman (Risk Manager)",
-    "Siti Nurhaliza (Security Lead)",
-    "Budi Santoso (Project Manager)",
-    "Maya Sari (Compliance Officer)",
+    "Ahmad Rahman (Risk Manager)", 
+    "Siti Nurhaliza (Security Lead)", 
+    "Budi Santoso (Project Manager)", 
+    "Maya Sari (Compliance Officer)", 
     "Randi Pratama (Tech Lead)",
     "Dr. Indira Sari (Risk Analyst)",
     "Agus Wijaya (Operations Manager)"
@@ -606,22 +606,27 @@ export function RiskCategoryDetailDialog({
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <h4 className="font-bold text-lg text-gray-900 flex-1">
-                              {item.title}
+                              [{item.kode}] {item.sasaran}
                             </h4>
-                            <div className={`text-lg font-bold ${getRiskScoreColor(item.riskScore)}`}>
-                              {item.riskScore}
+                            <div className={`text-lg font-bold ${getRiskColor(item.risikoAwal.level).includes('red') ? 'text-red-600' : getRiskColor(item.risikoAwal.level).includes('orange') ? 'text-orange-600' : getRiskColor(item.risikoAwal.level).includes('yellow') ? 'text-yellow-600' : 'text-green-600'}`}>
+                              Level {item.risikoAwal.level}
                             </div>
                           </div>
                           <div className="flex flex-wrap gap-2 mb-3">
                             {getStatusBadge(item.status)}
-                            {getPriorityBadge(item.priority)}
-                            {getImpactBadge(item.impactLevel)}
-                            {getLikelihoodBadge(item.likelihood)}
+                            {getRiskBadge(item.risikoAwal.kejadian, "Kejadian")}
+                            {getRiskBadge(item.risikoAwal.dampak, "Dampak")}
+                            {getRiskBadge(item.risikoAwal.level, "Level")}
                           </div>
-                          <p className="text-sm text-gray-700 mb-4 leading-relaxed">
-                            {item.description}
-                          </p>
-
+                          <div className="mb-3">
+                            <p className="text-sm font-medium text-gray-700 mb-1">Taksonomi:</p>
+                            <p className="text-sm text-gray-600 mb-2">{item.taksonomi}</p>
+                          </div>
+                          <div className="mb-4">
+                            <p className="text-sm font-medium text-gray-700 mb-1">Peristiwa Risiko:</p>
+                            <p className="text-sm text-gray-700 leading-relaxed">{item.peristiwaRisiko}</p>
+                          </div>
+                          
                           {/* Project and Assignment Info */}
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
                             <div className="flex items-center gap-2 p-2 bg-white rounded border">
@@ -640,20 +645,13 @@ export function RiskCategoryDetailDialog({
                             </div>
                           </div>
 
-                          {/* Timeline and Cost */}
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-sm">
+                          {/* Timeline Info */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
                             <div className="flex items-center gap-2">
                               <Calendar className="w-4 h-4 text-orange-500" />
                               <div>
                                 <span className="font-medium text-gray-700">Target:</span>
                                 <p className="text-gray-600">{formatDate(item.dueDate)}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <DollarSign className="w-4 h-4 text-purple-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Est. Cost:</span>
-                                <p className="text-gray-600">{formatCurrency(item.estimatedCost || 0)}</p>
                               </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -665,28 +663,52 @@ export function RiskCategoryDetailDialog({
                             </div>
                           </div>
 
-                          {/* Affected Areas */}
+                          {/* Sumber Risiko */}
                           <div className="mb-4">
-                            <span className="font-medium text-gray-700 mb-2 block">Affected Areas:</span>
-                            <div className="flex flex-wrap gap-1">
-                              {item.affectedAreas.map((area, idx) => (
-                                <Badge key={idx} variant="outline" className="text-xs">
-                                  {area}
-                                </Badge>
-                              ))}
+                            <span className="font-medium text-gray-700 mb-2 block">Sumber Risiko:</span>
+                            <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">{item.sumberRisiko}</p>
+                          </div>
+
+                          {/* Dampak */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kualitatif:</span>
+                              <p className="text-sm text-gray-600 bg-blue-50 p-2 rounded leading-relaxed">{item.dampakKualitatif}</p>
+                            </div>
+                            <div>
+                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kuantitatif:</span>
+                              <p className="text-sm text-gray-600 bg-purple-50 p-2 rounded leading-relaxed">{item.dampakKuantitatif}</p>
                             </div>
                           </div>
 
-                          {/* Mitigation Plan */}
-                          {item.mitigationPlan && (
-                            <div className="bg-white p-3 rounded border-l-4 border-blue-400">
-                              <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
-                                <Shield className="w-4 h-4 text-blue-500" />
-                                Rencana Mitigasi:
-                              </span>
-                              <p className="text-sm text-gray-600 leading-relaxed">{item.mitigationPlan}</p>
+                          {/* Risk Comparison */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div className="bg-red-50 p-3 rounded border">
+                              <span className="font-medium text-gray-700 mb-2 block">Risiko Awal:</span>
+                              <div className="flex flex-wrap gap-1">
+                                {getRiskBadge(item.risikoAwal.kejadian, "K")}
+                                {getRiskBadge(item.risikoAwal.dampak, "D")}
+                                {getRiskBadge(item.risikoAwal.level, "L")}
+                              </div>
                             </div>
-                          )}
+                            <div className="bg-green-50 p-3 rounded border">
+                              <span className="font-medium text-gray-700 mb-2 block">Risiko Akhir:</span>
+                              <div className="flex flex-wrap gap-1">
+                                {getRiskBadge(item.resikoAkhir.kejadian, "K")}
+                                {getRiskBadge(item.resikoAkhir.dampak, "D")}
+                                {getRiskBadge(item.resikoAkhir.level, "L")}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Kontrol Eksisting */}
+                          <div className="bg-white p-3 rounded border-l-4 border-blue-400">
+                            <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
+                              <Shield className="w-4 h-4 text-blue-500" />
+                              Kontrol Eksisting:
+                            </span>
+                            <p className="text-sm text-gray-600 leading-relaxed">{item.kontrolEksisting}</p>
+                          </div>
                         </div>
                         <div className="ml-4">
                           <Button variant="outline" size="sm" className="mb-2">
@@ -723,22 +745,27 @@ export function RiskCategoryDetailDialog({
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <h4 className="font-bold text-lg text-gray-900 flex-1">
-                              {item.title}
+                              [{item.kode}] {item.sasaran}
                             </h4>
-                            <div className={`text-lg font-bold ${getRiskScoreColor(item.riskScore)}`}>
-                              {item.riskScore}
+                            <div className={`text-lg font-bold ${getRiskColor(item.risikoAwal.level).includes('red') ? 'text-red-600' : getRiskColor(item.risikoAwal.level).includes('orange') ? 'text-orange-600' : getRiskColor(item.risikoAwal.level).includes('yellow') ? 'text-yellow-600' : 'text-green-600'}`}>
+                              Level {item.risikoAwal.level}
                             </div>
                           </div>
                           <div className="flex flex-wrap gap-2 mb-3">
                             {getStatusBadge(item.status)}
-                            {getPriorityBadge(item.priority)}
-                            {getImpactBadge(item.impactLevel)}
-                            {getLikelihoodBadge(item.likelihood)}
+                            {getRiskBadge(item.risikoAwal.kejadian, "Kejadian")}
+                            {getRiskBadge(item.risikoAwal.dampak, "Dampak")}
+                            {getRiskBadge(item.risikoAwal.level, "Level")}
                           </div>
-                          <p className="text-sm text-gray-700 mb-4 leading-relaxed">
-                            {item.description}
-                          </p>
-
+                          <div className="mb-3">
+                            <p className="text-sm font-medium text-gray-700 mb-1">Taksonomi:</p>
+                            <p className="text-sm text-gray-600 mb-2">{item.taksonomi}</p>
+                          </div>
+                          <div className="mb-4">
+                            <p className="text-sm font-medium text-gray-700 mb-1">Peristiwa Risiko:</p>
+                            <p className="text-sm text-gray-700 leading-relaxed">{item.peristiwaRisiko}</p>
+                          </div>
+                          
                           {/* Project and Assignment Info */}
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
                             <div className="flex items-center gap-2 p-2 bg-white rounded border">
@@ -757,20 +784,13 @@ export function RiskCategoryDetailDialog({
                             </div>
                           </div>
 
-                          {/* Timeline and Cost */}
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-sm">
+                          {/* Timeline Info */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
                             <div className="flex items-center gap-2">
                               <Calendar className="w-4 h-4 text-orange-500" />
                               <div>
                                 <span className="font-medium text-gray-700">Target:</span>
                                 <p className="text-gray-600">{formatDate(item.dueDate)}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <DollarSign className="w-4 h-4 text-purple-500" />
-                              <div>
-                                <span className="font-medium text-gray-700">Est. Cost:</span>
-                                <p className="text-gray-600">{formatCurrency(item.estimatedCost || 0)}</p>
                               </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -782,28 +802,52 @@ export function RiskCategoryDetailDialog({
                             </div>
                           </div>
 
-                          {/* Affected Areas */}
+                          {/* Sumber Risiko */}
                           <div className="mb-4">
-                            <span className="font-medium text-gray-700 mb-2 block">Affected Areas:</span>
-                            <div className="flex flex-wrap gap-1">
-                              {item.affectedAreas.map((area, idx) => (
-                                <Badge key={idx} variant="outline" className="text-xs">
-                                  {area}
-                                </Badge>
-                              ))}
+                            <span className="font-medium text-gray-700 mb-2 block">Sumber Risiko:</span>
+                            <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">{item.sumberRisiko}</p>
+                          </div>
+
+                          {/* Dampak */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kualitatif:</span>
+                              <p className="text-sm text-gray-600 bg-blue-50 p-2 rounded leading-relaxed">{item.dampakKualitatif}</p>
+                            </div>
+                            <div>
+                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kuantitatif:</span>
+                              <p className="text-sm text-gray-600 bg-purple-50 p-2 rounded leading-relaxed">{item.dampakKuantitatif}</p>
                             </div>
                           </div>
 
-                          {/* Mitigation Plan */}
-                          {item.mitigationPlan && (
-                            <div className="bg-white p-3 rounded border-l-4 border-blue-400">
-                              <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
-                                <Shield className="w-4 h-4 text-blue-500" />
-                                Rencana Mitigasi:
-                              </span>
-                              <p className="text-sm text-gray-600 leading-relaxed">{item.mitigationPlan}</p>
+                          {/* Risk Comparison */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div className="bg-red-50 p-3 rounded border">
+                              <span className="font-medium text-gray-700 mb-2 block">Risiko Awal:</span>
+                              <div className="flex flex-wrap gap-1">
+                                {getRiskBadge(item.risikoAwal.kejadian, "K")}
+                                {getRiskBadge(item.risikoAwal.dampak, "D")}
+                                {getRiskBadge(item.risikoAwal.level, "L")}
+                              </div>
                             </div>
-                          )}
+                            <div className="bg-green-50 p-3 rounded border">
+                              <span className="font-medium text-gray-700 mb-2 block">Risiko Akhir:</span>
+                              <div className="flex flex-wrap gap-1">
+                                {getRiskBadge(item.resikoAkhir.kejadian, "K")}
+                                {getRiskBadge(item.resikoAkhir.dampak, "D")}
+                                {getRiskBadge(item.resikoAkhir.level, "L")}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Kontrol Eksisting */}
+                          <div className="bg-white p-3 rounded border-l-4 border-blue-400">
+                            <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
+                              <Shield className="w-4 h-4 text-blue-500" />
+                              Kontrol Eksisting:
+                            </span>
+                            <p className="text-sm text-gray-600 leading-relaxed">{item.kontrolEksisting}</p>
+                          </div>
                         </div>
                         <div className="ml-4">
                           <Button variant="outline" size="sm" className="mb-2">
@@ -840,22 +884,27 @@ export function RiskCategoryDetailDialog({
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <h4 className="font-bold text-lg text-gray-900 flex-1">
-                              {item.title}
+                              [{item.kode}] {item.sasaran}
                             </h4>
-                            <div className={`text-lg font-bold ${getRiskScoreColor(item.riskScore)}`}>
-                              {item.riskScore}
+                            <div className={`text-lg font-bold ${getRiskColor(item.risikoAwal.level).includes('red') ? 'text-red-600' : getRiskColor(item.risikoAwal.level).includes('orange') ? 'text-orange-600' : getRiskColor(item.risikoAwal.level).includes('yellow') ? 'text-yellow-600' : 'text-green-600'}`}>
+                              Level {item.risikoAwal.level}
                             </div>
                           </div>
                           <div className="flex flex-wrap gap-2 mb-3">
                             {getStatusBadge(item.status)}
-                            {getPriorityBadge(item.priority)}
-                            {getImpactBadge(item.impactLevel)}
-                            {getLikelihoodBadge(item.likelihood)}
+                            {getRiskBadge(item.risikoAwal.kejadian, "Kejadian")}
+                            {getRiskBadge(item.risikoAwal.dampak, "Dampak")}
+                            {getRiskBadge(item.risikoAwal.level, "Level")}
                           </div>
-                          <p className="text-sm text-gray-700 mb-4 leading-relaxed">
-                            {item.description}
-                          </p>
-
+                          <div className="mb-3">
+                            <p className="text-sm font-medium text-gray-700 mb-1">Taksonomi:</p>
+                            <p className="text-sm text-gray-600 mb-2">{item.taksonomi}</p>
+                          </div>
+                          <div className="mb-4">
+                            <p className="text-sm font-medium text-gray-700 mb-1">Peristiwa Risiko:</p>
+                            <p className="text-sm text-gray-700 leading-relaxed">{item.peristiwaRisiko}</p>
+                          </div>
+                          
                           {/* Project and Assignment Info */}
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
                             <div className="flex items-center gap-2 p-2 bg-white rounded border">
@@ -884,10 +933,12 @@ export function RiskCategoryDetailDialog({
                               </div>
                             </div>
                             <div className="flex items-center gap-2">
-                              <DollarSign className="w-4 h-4 text-purple-500" />
+                              <TrendingUp className="w-4 h-4 text-blue-500" />
                               <div>
-                                <span className="font-medium text-gray-700">Final Cost:</span>
-                                <p className="text-gray-600">{formatCurrency(item.estimatedCost || 0)}</p>
+                                <span className="font-medium text-gray-700">Improvement:</span>
+                                <p className="text-gray-600">
+                                  {item.risikoAwal.level - item.resikoAkhir.level} point
+                                </p>
                               </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -901,28 +952,52 @@ export function RiskCategoryDetailDialog({
                             </div>
                           </div>
 
-                          {/* Affected Areas */}
+                          {/* Sumber Risiko */}
                           <div className="mb-4">
-                            <span className="font-medium text-gray-700 mb-2 block">Areas Resolved:</span>
-                            <div className="flex flex-wrap gap-1">
-                              {item.affectedAreas.map((area, idx) => (
-                                <Badge key={idx} variant="outline" className="text-xs bg-green-100">
-                                  ✓ {area}
-                                </Badge>
-                              ))}
+                            <span className="font-medium text-gray-700 mb-2 block">Sumber Risiko (Resolved):</span>
+                            <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">{item.sumberRisiko}</p>
+                          </div>
+
+                          {/* Dampak */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kualitatif (Mitigated):</span>
+                              <p className="text-sm text-gray-600 bg-green-50 p-2 rounded leading-relaxed">{item.dampakKualitatif}</p>
+                            </div>
+                            <div>
+                              <span className="font-medium text-gray-700 mb-2 block">Dampak Kuantitatif (Controlled):</span>
+                              <p className="text-sm text-gray-600 bg-green-50 p-2 rounded leading-relaxed">{item.dampakKuantitatif}</p>
+                            </div>
+                          </div>
+
+                          {/* Risk Improvement */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div className="bg-red-50 p-3 rounded border opacity-60">
+                              <span className="font-medium text-gray-700 mb-2 block">Risiko Awal (Before):</span>
+                              <div className="flex flex-wrap gap-1">
+                                {getRiskBadge(item.risikoAwal.kejadian, "K")}
+                                {getRiskBadge(item.risikoAwal.dampak, "D")}
+                                {getRiskBadge(item.risikoAwal.level, "L")}
+                              </div>
+                            </div>
+                            <div className="bg-green-100 p-3 rounded border">
+                              <span className="font-medium text-gray-700 mb-2 block">Risiko Akhir (After) ✓:</span>
+                              <div className="flex flex-wrap gap-1">
+                                {getRiskBadge(item.resikoAkhir.kejadian, "K")}
+                                {getRiskBadge(item.resikoAkhir.dampak, "D")}
+                                {getRiskBadge(item.resikoAkhir.level, "L")}
+                              </div>
                             </div>
                           </div>
 
                           {/* Success Story */}
-                          {item.mitigationPlan && (
-                            <div className="bg-white p-3 rounded border-l-4 border-green-400">
-                              <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-500" />
-                                Solusi yang Diterapkan:
-                              </span>
-                              <p className="text-sm text-gray-600 leading-relaxed">{item.mitigationPlan}</p>
-                            </div>
-                          )}
+                          <div className="bg-white p-3 rounded border-l-4 border-green-400">
+                            <span className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
+                              <CheckCircle className="w-4 h-4 text-green-500" />
+                              Kontrol yang Berhasil Diterapkan:
+                            </span>
+                            <p className="text-sm text-gray-600 leading-relaxed">{item.kontrolEksisting}</p>
+                          </div>
                         </div>
                         <div className="ml-4">
                           <Button variant="outline" size="sm" className="mb-2">
