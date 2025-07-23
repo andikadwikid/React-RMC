@@ -184,6 +184,14 @@ const App = () => (
               }
             />
             <Route
+              path="/risk-capture-verification"
+              element={
+                <Layout>
+                  <RiskCaptureVerification />
+                </Layout>
+              }
+            />
+            <Route
               path="/verifier-dashboard"
               element={
                 <Layout>
