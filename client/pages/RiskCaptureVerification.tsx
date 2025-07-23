@@ -175,7 +175,7 @@ export default function RiskCaptureVerification() {
     useState<RiskCapture | null>(null);
   const [verificationModal, setVerificationModal] = useState(false);
 
-  const filteredSubmissions = useMemo(() => {
+  const getFilteredSubmissions = (status: string) => {
     return mockRiskCaptureSubmissions.filter((submission) => {
       const matchesSearch =
         submission.projectName
@@ -183,12 +183,11 @@ export default function RiskCaptureVerification() {
           .includes(searchTerm.toLowerCase()) ||
         submission.submittedBy.toLowerCase().includes(searchTerm.toLowerCase());
 
-      const matchesStatus =
-        statusFilter === "all" || submission.status === statusFilter;
+      const matchesStatus = status === "all" || submission.status === status;
 
       return matchesSearch && matchesStatus;
     });
-  }, [searchTerm, statusFilter]);
+  };
 
   const openVerificationModal = (submission: RiskCapture) => {
     setSelectedSubmission(submission);
