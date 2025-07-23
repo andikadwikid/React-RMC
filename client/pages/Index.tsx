@@ -961,11 +961,16 @@ const detectBestRiskCapturePeriod = (): RiskCaptureDataPeriod => {
 
 export default function Index() {
   // Dynamic project summary based on performance period
-  const calculateProjectSummary = (performancePeriod: DataPeriod): ProjectSummary => {
-    const totalProjects = performancePeriod.data.reduce((sum, item) => sum + item.projects, 0);
+  const calculateProjectSummary = (
+    performancePeriod: DataPeriod,
+  ): ProjectSummary => {
+    const totalProjects = performancePeriod.data.reduce(
+      (sum, item) => sum + item.projects,
+      0,
+    );
 
     // Calculate running projects (assume 60-65% of total are running)
-    const runningPercentage = performancePeriod.type === 'yearly' ? 0.62 : 0.65;
+    const runningPercentage = performancePeriod.type === "yearly" ? 0.62 : 0.65;
     const running = Math.round(totalProjects * runningPercentage);
 
     // Calculate completed projects (remaining from total)
@@ -979,7 +984,7 @@ export default function Index() {
   };
 
   const [projectSummary, setProjectSummary] = useState<ProjectSummary>(
-    calculateProjectSummary(detectBestPerformancePeriod())
+    calculateProjectSummary(detectBestPerformancePeriod()),
   );
 
   // Performance chart state
@@ -1513,12 +1518,14 @@ export default function Index() {
                     <Badge
                       variant="secondary"
                       className={`text-xs px-2 py-0.5 ${
-                        selectedPerformancePeriod.type === 'yearly'
-                          ? 'bg-blue-200 text-blue-800'
-                          : 'bg-orange-200 text-orange-800'
+                        selectedPerformancePeriod.type === "yearly"
+                          ? "bg-blue-200 text-blue-800"
+                          : "bg-orange-200 text-orange-800"
                       }`}
                     >
-                      {selectedPerformancePeriod.type === 'yearly' ? 'Tahunan' : 'Triwulan'}
+                      {selectedPerformancePeriod.type === "yearly"
+                        ? "Tahunan"
+                        : "Triwulan"}
                     </Badge>
                   </div>
                   <p className="text-3xl font-bold">{projectSummary.total}</p>
@@ -1543,7 +1550,10 @@ export default function Index() {
                       variant="secondary"
                       className="text-xs px-2 py-0.5 bg-green-200 text-green-800"
                     >
-                      {Math.round((projectSummary.running / projectSummary.total) * 100)}%
+                      {Math.round(
+                        (projectSummary.running / projectSummary.total) * 100,
+                      )}
+                      %
                     </Badge>
                   </div>
                   <p className="text-3xl font-bold">{projectSummary.running}</p>
@@ -1568,7 +1578,10 @@ export default function Index() {
                       variant="secondary"
                       className="text-xs px-2 py-0.5 bg-purple-200 text-purple-800"
                     >
-                      {Math.round((projectSummary.completed / projectSummary.total) * 100)}%
+                      {Math.round(
+                        (projectSummary.completed / projectSummary.total) * 100,
+                      )}
+                      %
                     </Badge>
                   </div>
                   <p className="text-3xl font-bold">
