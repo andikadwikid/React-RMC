@@ -1260,11 +1260,136 @@ export default function Index() {
         {/* Risk Status by RMC Categories */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Shield className="h-6 w-6 text-red-500" />
-              Status Risiko Proyek (Kategori RMC)
-            </CardTitle>
-            <div className="flex flex-wrap gap-4 text-sm">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Shield className="h-6 w-6 text-red-500" />
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    Status Risiko Proyek (Kategori RMC)
+                    <Badge
+                      variant="secondary"
+                      className={`ml-2 ${
+                        selectedRiskPeriod.type === 'yearly'
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'bg-orange-100 text-orange-800'
+                      }`}
+                    >
+                      {selectedRiskPeriod.type === 'yearly' ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
+                  </CardTitle>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {selectedRiskPeriod.label}
+                  </p>
+                </div>
+              </div>
+
+              {/* Period Selector */}
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowRiskDropdown(!showRiskDropdown)}
+                  className="flex items-center gap-2"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Ubah Periode
+                  <ChevronDown className="w-4 h-4" />
+                </Button>
+
+                {showRiskDropdown && (
+                  <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
+                    <div className="p-2">
+                      <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                      {availableRiskPeriods.map((period) => (
+                        <button
+                          key={period.id}
+                          onClick={() => handleRiskPeriodChange(period)}
+                          className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
+                            selectedRiskPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            {period.type === 'yearly' ? (
+                              <Calendar className="w-4 h-4" />
+                            ) : (
+                              <TrendingUp className="w-4 h-4" />
+                            )}
+                            <span>{period.label}</span>
+                          </div>
+                          {!period.isComplete && (
+                            <Badge variant="secondary" className="text-xs">
+                              Parsial
+                            </Badge>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Fallback Message */}
+            {shouldShowRiskFallbackMessage() && (
+              <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+                <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-amber-800">
+                    Menampilkan Data Risiko Triwulan
+                  </p>
+                  <p className="text-xs text-amber-700 mt-1">
+                    Data risiko tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Risk Insights Summary */}
+            <div className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3">
+              {(() => {
+                const insights = getRiskInsights(riskCategories);
+                return (
+                  <>
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                      <div className="text-sm font-medium text-gray-800">Total Risiko</div>
+                      <div className="text-lg font-bold text-gray-600">
+                        {insights.totalRisks}
+                      </div>
+                    </div>
+                    <div className="bg-red-50 p-3 rounded-lg">
+                      <div className="text-sm font-medium text-red-800">Overdue</div>
+                      <div className="text-lg font-bold text-red-600">
+                        {insights.totalOverdue} ({insights.overduePercentage}%)
+                      </div>
+                    </div>
+                    <div className="bg-yellow-50 p-3 rounded-lg">
+                      <div className="text-sm font-medium text-yellow-800">In Process</div>
+                      <div className="text-lg font-bold text-yellow-600">
+                        {insights.totalInProcess}
+                      </div>
+                    </div>
+                    <div className="bg-green-50 p-3 rounded-lg">
+                      <div className="text-sm font-medium text-green-800">Closed</div>
+                      <div className="text-lg font-bold text-green-600">
+                        {insights.totalClosed} ({insights.closedPercentage}%)
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+
+            <div className="flex flex-wrap gap-4 text-sm mb-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                 <span>Belum ditindaklanjuti &gt;14 hari</span>
@@ -1278,7 +1403,7 @@ export default function Index() {
                 <span>Closed dengan bukti mitigasi</span>
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mb-4">
               💡 <strong>Klik pada card</strong> untuk melihat detail risiko per
               kategori
             </p>
