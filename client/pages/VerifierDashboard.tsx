@@ -18,6 +18,7 @@ import {
   ChevronDown,
   Info,
   TrendingUp,
+  Shield,
 } from "lucide-react";
 import { formatDateTime } from "@/utils/formatters";
 import * as Highcharts from "highcharts";
