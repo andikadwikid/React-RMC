@@ -394,7 +394,7 @@ CREATE TYPE period_type AS ENUM ('yearly', 'quarterly', 'monthly');
 
 ## Financial Tables
 
-### 15. **invoices**
+### 17. **invoices**
 Tabel untuk invoice proyek
 
 ```sql
