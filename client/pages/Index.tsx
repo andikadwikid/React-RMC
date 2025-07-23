@@ -74,6 +74,15 @@ type DataPeriod = {
   isComplete: boolean;
 };
 
+// Risk data types
+type RiskDataPeriod = {
+  id: string;
+  label: string;
+  type: PeriodType;
+  data: RiskCategory[];
+  isComplete: boolean;
+};
+
 // Mock performance data
 const yearlyPerformance2024 = [
   { period: "Jan 2024", projects: 4, revenue: 2800000000, risks: 12 },
@@ -184,6 +193,376 @@ const detectBestPerformancePeriod = (): DataPeriod => {
 
   // Ultimate fallback
   return availablePerformancePeriods[0];
+};
+
+// Risk categories data for different periods
+const riskCategories2024: RiskCategory[] = [
+  {
+    id: "strategic",
+    name: "Strategis",
+    icon: Target,
+    total: 12,
+    overdue: 3,
+    inProcess: 6,
+    closed: 3,
+  },
+  {
+    id: "operational",
+    name: "Operasional",
+    icon: Building,
+    total: 18,
+    overdue: 5,
+    inProcess: 8,
+    closed: 5,
+  },
+  {
+    id: "financial",
+    name: "Keuangan",
+    icon: DollarSign,
+    total: 8,
+    overdue: 2,
+    inProcess: 4,
+    closed: 2,
+  },
+  {
+    id: "compliance",
+    name: "Kepatuhan",
+    icon: Gavel,
+    total: 6,
+    overdue: 1,
+    inProcess: 3,
+    closed: 2,
+  },
+  {
+    id: "project",
+    name: "Proyek",
+    icon: FileText,
+    total: 22,
+    overdue: 7,
+    inProcess: 10,
+    closed: 5,
+  },
+  {
+    id: "environment",
+    name: "Lingkungan & Sosial",
+    icon: Leaf,
+    total: 4,
+    overdue: 1,
+    inProcess: 2,
+    closed: 1,
+  },
+  {
+    id: "it",
+    name: "Teknologi Informasi",
+    icon: Cpu,
+    total: 9,
+    overdue: 2,
+    inProcess: 5,
+    closed: 2,
+  },
+  {
+    id: "hr",
+    name: "Sumber Daya Manusia",
+    icon: Users,
+    total: 7,
+    overdue: 1,
+    inProcess: 4,
+    closed: 2,
+  },
+];
+
+const riskCategories2023: RiskCategory[] = [
+  {
+    id: "strategic",
+    name: "Strategis",
+    icon: Target,
+    total: 10,
+    overdue: 2,
+    inProcess: 5,
+    closed: 3,
+  },
+  {
+    id: "operational",
+    name: "Operasional",
+    icon: Building,
+    total: 15,
+    overdue: 4,
+    inProcess: 7,
+    closed: 4,
+  },
+  {
+    id: "financial",
+    name: "Keuangan",
+    icon: DollarSign,
+    total: 6,
+    overdue: 1,
+    inProcess: 3,
+    closed: 2,
+  },
+  {
+    id: "compliance",
+    name: "Kepatuhan",
+    icon: Gavel,
+    total: 4,
+    overdue: 0,
+    inProcess: 2,
+    closed: 2,
+  },
+  {
+    id: "project",
+    name: "Proyek",
+    icon: FileText,
+    total: 18,
+    overdue: 5,
+    inProcess: 8,
+    closed: 5,
+  },
+  {
+    id: "environment",
+    name: "Lingkungan & Sosial",
+    icon: Leaf,
+    total: 3,
+    overdue: 0,
+    inProcess: 2,
+    closed: 1,
+  },
+  {
+    id: "it",
+    name: "Teknologi Informasi",
+    icon: Cpu,
+    total: 7,
+    overdue: 1,
+    inProcess: 4,
+    closed: 2,
+  },
+  {
+    id: "hr",
+    name: "Sumber Daya Manusia",
+    icon: Users,
+    total: 5,
+    overdue: 0,
+    inProcess: 3,
+    closed: 2,
+  },
+];
+
+// Q4 2024 Risk data (fallback)
+const riskCategoriesQ4_2024: RiskCategory[] = [
+  {
+    id: "strategic",
+    name: "Strategis",
+    icon: Target,
+    total: 8,
+    overdue: 2,
+    inProcess: 4,
+    closed: 2,
+  },
+  {
+    id: "operational",
+    name: "Operasional",
+    icon: Building,
+    total: 12,
+    overdue: 3,
+    inProcess: 6,
+    closed: 3,
+  },
+  {
+    id: "financial",
+    name: "Keuangan",
+    icon: DollarSign,
+    total: 5,
+    overdue: 1,
+    inProcess: 3,
+    closed: 1,
+  },
+  {
+    id: "compliance",
+    name: "Kepatuhan",
+    icon: Gavel,
+    total: 4,
+    overdue: 1,
+    inProcess: 2,
+    closed: 1,
+  },
+  {
+    id: "project",
+    name: "Proyek",
+    icon: FileText,
+    total: 15,
+    overdue: 4,
+    inProcess: 7,
+    closed: 4,
+  },
+  {
+    id: "environment",
+    name: "Lingkungan & Sosial",
+    icon: Leaf,
+    total: 3,
+    overdue: 1,
+    inProcess: 1,
+    closed: 1,
+  },
+  {
+    id: "it",
+    name: "Teknologi Informasi",
+    icon: Cpu,
+    total: 6,
+    overdue: 1,
+    inProcess: 3,
+    closed: 2,
+  },
+  {
+    id: "hr",
+    name: "Sumber Daya Manusia",
+    icon: Users,
+    total: 4,
+    overdue: 0,
+    inProcess: 2,
+    closed: 2,
+  },
+];
+
+// Q3 2024 Risk data
+const riskCategoriesQ3_2024: RiskCategory[] = [
+  {
+    id: "strategic",
+    name: "Strategis",
+    icon: Target,
+    total: 9,
+    overdue: 3,
+    inProcess: 4,
+    closed: 2,
+  },
+  {
+    id: "operational",
+    name: "Operasional",
+    icon: Building,
+    total: 14,
+    overdue: 4,
+    inProcess: 6,
+    closed: 4,
+  },
+  {
+    id: "financial",
+    name: "Keuangan",
+    icon: DollarSign,
+    total: 6,
+    overdue: 2,
+    inProcess: 2,
+    closed: 2,
+  },
+  {
+    id: "compliance",
+    name: "Kepatuhan",
+    icon: Gavel,
+    total: 5,
+    overdue: 1,
+    inProcess: 2,
+    closed: 2,
+  },
+  {
+    id: "project",
+    name: "Proyek",
+    icon: FileText,
+    total: 20,
+    overdue: 6,
+    inProcess: 9,
+    closed: 5,
+  },
+  {
+    id: "environment",
+    name: "Lingkungan & Sosial",
+    icon: Leaf,
+    total: 3,
+    overdue: 1,
+    inProcess: 1,
+    closed: 1,
+  },
+  {
+    id: "it",
+    name: "Teknologi Informasi",
+    icon: Cpu,
+    total: 8,
+    overdue: 2,
+    inProcess: 4,
+    closed: 2,
+  },
+  {
+    id: "hr",
+    name: "Sumber Daya Manusia",
+    icon: Users,
+    total: 6,
+    overdue: 1,
+    inProcess: 3,
+    closed: 2,
+  },
+];
+
+const availableRiskPeriods: RiskDataPeriod[] = [
+  {
+    id: '2024',
+    label: '2024 (Tahunan)',
+    type: 'yearly',
+    data: riskCategories2024,
+    isComplete: true,
+  },
+  {
+    id: '2023',
+    label: '2023 (Tahunan)',
+    type: 'yearly',
+    data: riskCategories2023,
+    isComplete: true,
+  },
+  {
+    id: 'q4-2024',
+    label: 'Q4 2024 (Triwulan)',
+    type: 'quarterly',
+    data: riskCategoriesQ4_2024,
+    isComplete: true,
+  },
+  {
+    id: 'q3-2024',
+    label: 'Q3 2024 (Triwulan)',
+    type: 'quarterly',
+    data: riskCategoriesQ3_2024,
+    isComplete: true,
+  },
+];
+
+// Smart detection logic for risk data
+const detectBestRiskPeriod = (): RiskDataPeriod => {
+  const currentYear = new Date().getFullYear().toString();
+
+  // First, try to find complete yearly data for current year
+  const currentYearData = availableRiskPeriods.find(
+    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+  );
+
+  if (currentYearData) {
+    return currentYearData;
+  }
+
+  // If current year is incomplete, find the latest quarterly data
+  const quarterlyData = availableRiskPeriods
+    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .sort((a, b) => b.id.localeCompare(a.id))[0];
+
+  if (quarterlyData) {
+    return quarterlyData;
+  }
+
+  // Fallback to previous year if available
+  const previousYear = (parseInt(currentYear) - 1).toString();
+  const previousYearData = availableRiskPeriods.find(
+    period => period.id === previousYear && period.type === 'yearly'
+  );
+
+  if (previousYearData) {
+    return previousYearData;
+  }
+
+  // Ultimate fallback
+  return availableRiskPeriods[0];
 };
 
 export default function Index() {
