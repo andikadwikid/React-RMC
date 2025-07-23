@@ -201,3 +201,51 @@ export interface ProjectReadiness extends BaseEntity {
 }
 
 export type ReadinessStatus = "lengkap" | "parsial" | "tidak_tersedia";
+
+// Risk Capture types
+export interface RiskItem extends BaseEntity {
+  sasaran: string;
+  kode: string;
+  taksonomi: string;
+  peristiwaRisiko: string;
+  sumberRisiko: string;
+  dampakKualitatif: string;
+  dampakKuantitatif: string;
+  kontrolEksisting: string;
+  risikoAwal: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
+  resikoAkhir: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
+  verifierComment?: string;
+  verifierName?: string;
+  verifiedAt?: string;
+  isVerified?: boolean;
+}
+
+export interface RiskCapture extends BaseEntity {
+  projectId: string;
+  projectName: string;
+  submittedBy: string;
+  submittedAt: string;
+  totalRisks: number;
+  riskLevelDistribution: {
+    sangatRendah: number;
+    rendah: number;
+    sedang: number;
+    tinggi: number;
+    sangatTinggi: number;
+  };
+  status: "submitted" | "under_review" | "verified" | "needs_revision";
+  verifierName?: string;
+  verifiedAt?: string;
+  overallComment?: string;
+  risks: RiskItem[];
+}
+
+export type RiskVerificationStatus = "pending" | "approved" | "rejected";
