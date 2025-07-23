@@ -474,8 +474,20 @@ CREATE INDEX idx_verification_activities_type ON verification_activities(activit
 
 -- Risk indexes
 CREATE INDEX idx_risk_captures_project ON risk_captures(project_id);
+CREATE INDEX idx_risk_captures_status ON risk_captures(status);
+CREATE INDEX idx_risk_captures_verifier ON risk_captures(verifier_name);
 CREATE INDEX idx_risk_items_capture ON risk_items(risk_capture_id);
 CREATE INDEX idx_risk_items_levels ON risk_items(risiko_awal_level, risiko_akhir_level);
+CREATE INDEX idx_risk_items_verified ON risk_items(is_verified);
+
+-- Risk Capture Verification indexes **NEW**
+CREATE INDEX idx_risk_verification_assignments_assigned_to ON risk_capture_verification_assignments(assigned_to);
+CREATE INDEX idx_risk_verification_assignments_status ON risk_capture_verification_assignments(status);
+CREATE INDEX idx_risk_verification_assignments_priority ON risk_capture_verification_assignments(priority);
+CREATE INDEX idx_risk_verification_assignments_due_date ON risk_capture_verification_assignments(due_date);
+CREATE INDEX idx_risk_verification_activities_capture ON risk_capture_verification_activities(risk_capture_id);
+CREATE INDEX idx_risk_verification_activities_verifier ON risk_capture_verification_activities(verifier_id);
+CREATE INDEX idx_risk_verification_activities_type ON risk_capture_verification_activities(activity_type);
 
 -- Performance indexes
 CREATE INDEX idx_performance_period ON performance_metrics(period_type, period_value);
