@@ -417,7 +417,7 @@ CREATE TYPE invoice_status AS ENUM ('draft', 'issued', 'paid', 'overdue', 'cance
 
 ## Performance Analytics Tables
 
-### 16. **performance_metrics**
+### 18. **performance_metrics**
 Tabel untuk metrik performa per periode
 
 ```sql
