@@ -50,7 +50,7 @@
     ├── client
     ├── budget
     ├── province_id → references provinces(id)
-    ├── category_id �� references project_categories(id)
+    ├── category_id → references project_categories(id)
     └── status
 ```
 
@@ -91,7 +91,7 @@
 └── 💰  invoices
     ├── id (PK)
     ├── project_id → references projects(id)
-    ├─�� amount
+    ├── amount
     ├── status
     └── issued_date
 ```
@@ -128,7 +128,7 @@
 │
 ├── 📋  verification_assignments (Assignment to Risk Officers) **NEW**
 │   ├── id (PK)
-│   ├─��� readiness_id → references project_readiness(id) 🔗 CASCADE
+│   ├── readiness_id → references project_readiness(id) 🔗 CASCADE
 │   ├── assigned_to → references users(id) [Risk Officer]
 │   ├── assigned_by → references users(id) [Admin/Manager]
 │   ├── priority (low, medium, high, urgent)
@@ -227,13 +227,21 @@
 7️⃣ project_readiness.status (Final verification status)
 ```
 
-### **3. Risk Management Flow**
+### **3. Risk Management & Verification Flow** ⭐ **UPDATED**
 ```
 1️⃣ projects (Must exist)
     ↓
-2️⃣ risk_captures (Risk Assessment Header)
+2️⃣ risk_captures (Risk Assessment Header) - User submits
     ↓
-3️⃣ risk_items (Individual Risk Details)
+3️⃣ risk_items (Individual Risk Details) - User input
+    ↓
+4️⃣ risk_capture_verification_assignments (Assign to Risk Officer) ⭐ NEW
+    ↓
+5️⃣ risk_capture_verification_activities (Risk Officer actions/audit trail) ⭐ NEW
+    ↓
+6️⃣ risk_items.is_verified (Risk Officer validation per item) ⭐ NEW
+    ↓
+7️⃣ risk_captures.status (Final verification status) ⭐ NEW
 ```
 
 ### **4. Verification Assignment Flow** ⭐ **NEW**
