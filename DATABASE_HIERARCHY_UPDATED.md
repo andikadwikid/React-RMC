@@ -27,7 +27,7 @@
 │   ├── id (PK)
 │   ├── name
 │   ├── icon
-│   └��─ description
+│   └── description
 │
 └── 👤  users (Risk Officers, Verifiers, etc.) **NEW**
     ├── id (PK)
@@ -142,7 +142,7 @@
 │   ├── verifier_id → references users(id)
 │   ├── activity_type (assigned, started_review, verified, etc.)
 │   ├── description
-│   ���── old_status
+│   ├── old_status
 │   ├── new_status
 │   └── activity_at
 │
@@ -248,7 +248,7 @@
 ```
 1️⃣ project_readiness (Submitted by user)
     ↓
-2️⃣ verification_assignments (Admin assigns to Risk Officer)
+2���⃣ verification_assignments (Admin assigns to Risk Officer)
     ↓
 3️⃣ verification_activities (Risk Officer actions logged)
     ↓
@@ -304,12 +304,16 @@ projects DELETE
 │   ├── → verification_assignments (CASCADE) ⭐ NEW
 │   └── → verification_activities (CASCADE) ⭐ NEW
 ├── → risk_captures (CASCADE)
-│   └── → risk_items (CASCADE)
+│   ├── → risk_items (CASCADE)
+│   ├── → risk_capture_verification_assignments (CASCADE) ⭐ NEW
+│   └── → risk_capture_verification_activities (CASCADE) ⭐ NEW
 └── → invoices (CASCADE)
 
 users DELETE (Risk Officers) ⭐ NEW
 ├── → verification_assignments (RESTRICT - cannot delete if active assignments)
-└── → verification_activities (RESTRICT - preserve audit trail)
+├── → verification_activities (RESTRICT - preserve audit trail)
+├── → risk_capture_verification_assignments (RESTRICT - active assignments) ⭐ NEW
+└── → risk_capture_verification_activities (RESTRICT - audit trail preservation) ⭐ NEW
 ```
 
 ### **RESTRICT Deletions** (Cannot delete parent if child exists) ⭐ **UPDATED**
