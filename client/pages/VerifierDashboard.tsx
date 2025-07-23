@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { PageHeader } from "@/components/common/PageHeader";
 import {
@@ -11,10 +10,6 @@ import {
   CheckCircle,
   Clock,
   AlertTriangle,
-  FileX,
-  TrendingUp,
-  Calendar,
-  Award,
   Eye,
   MessageSquare,
   BarChart3,
@@ -22,34 +17,10 @@ import {
 } from "lucide-react";
 import { formatDateTime } from "@/utils/formatters";
 
-// Mock verifier data
-const verifierProfile = {
-  id: "verifier-001",
-  name: "Dr. Ahmad Wijaya",
-  email: "ahmad.wijaya@company.com",
-  role: "Senior Verifier",
-  department: "Quality Assurance",
-  joinDate: "2023-01-15",
-  phone: "+62 821-1234-5678",
-  expertise: [
-    "Legal Documents",
-    "Financial Records",
-    "Technical Specifications",
-  ],
-  certifications: [
-    "ISO 9001 Auditor",
-    "PMP Certified",
-    "Risk Management Professional",
-  ],
-};
-
 const verificationStats = {
   totalVerified: 156,
   thisMonth: 23,
   pending: 8,
-  averageTime: "2.5 jam",
-  accuracyRate: 97.3,
-  completionRate: 94.8,
 };
 
 const recentActivities = [
@@ -185,93 +156,10 @@ export default function VerifierDashboard() {
         icon="UserCheck"
       />
 
-      {/* Verifier Profile Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <UserCheck className="w-5 h-5" />
-            Profil Verifikator
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-start gap-6">
-            <Avatar className="w-20 h-20">
-              <AvatarFallback className="text-xl font-semibold bg-blue-100 text-blue-700">
-                {verifierProfile.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </AvatarFallback>
-            </Avatar>
 
-            <div className="flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {verifierProfile.name}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {verifierProfile.role}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    {verifierProfile.department}
-                  </p>
-                </div>
-
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">Email:</span>
-                    <span className="text-gray-600">
-                      {verifierProfile.email}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">Phone:</span>
-                    <span className="text-gray-600">
-                      {verifierProfile.phone}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-gray-400" />
-                    <span className="font-medium">Bergabung:</span>
-                    <span className="text-gray-600">
-                      {new Date(verifierProfile.joinDate).toLocaleDateString(
-                        "id-ID",
-                      )}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <h4 className="font-medium text-gray-900 mb-2">Keahlian:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {verifierProfile.expertise.map((skill, index) => (
-                    <Badge key={index} variant="secondary">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-3">
-                <h4 className="font-medium text-gray-900 mb-2">Sertifikasi:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {verifierProfile.certifications.map((cert, index) => (
-                    <Badge key={index} className="bg-blue-100 text-blue-800">
-                      <Award className="w-3 h-3 mr-1" />
-                      {cert}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
@@ -311,48 +199,6 @@ export default function VerifierDashboard() {
               {verificationStats.pending}
             </div>
             <p className="text-xs text-gray-500">Menunggu review</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
-              Rata-rata Waktu
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-purple-600">
-              {verificationStats.averageTime}
-            </div>
-            <p className="text-xs text-gray-500">Per verifikasi</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
-              Akurasi
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">
-              {verificationStats.accuracyRate}%
-            </div>
-            <p className="text-xs text-gray-500">Tingkat akurasi</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
-              Completion Rate
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-indigo-600">
-              {verificationStats.completionRate}%
-            </div>
-            <p className="text-xs text-gray-500">Tingkat penyelesaian</p>
           </CardContent>
         </Card>
       </div>
@@ -463,34 +309,25 @@ export default function VerifierDashboard() {
             </CardContent>
           </Card>
 
-          {/* Goals & Targets */}
+          {/* Recent Updates */}
           <Card>
             <CardHeader>
-              <CardTitle>Target Bulanan</CardTitle>
+              <CardTitle>Info Terbaru</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Verifikasi Completed</span>
-                  <span>{verificationStats.thisMonth}/30</span>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="p-3 bg-blue-50 rounded-lg">
+                  <p className="text-sm font-medium text-blue-800">Sistem Pembaruan</p>
+                  <p className="text-xs text-blue-600">Fitur notifikasi real-time telah diaktifkan</p>
                 </div>
-                <Progress value={(verificationStats.thisMonth / 30) * 100} />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Accuracy Rate</span>
-                  <span>{verificationStats.accuracyRate}%/95%</span>
+                <div className="p-3 bg-green-50 rounded-lg">
+                  <p className="text-sm font-medium text-green-800">Performance</p>
+                  <p className="text-xs text-green-600">Waktu loading dashboard berkurang 40%</p>
                 </div>
-                <Progress value={(verificationStats.accuracyRate / 95) * 100} />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Response Time</span>
-                  <span>2.5h/3h target</span>
+                <div className="p-3 bg-yellow-50 rounded-lg">
+                  <p className="text-sm font-medium text-yellow-800">Maintenance</p>
+                  <p className="text-xs text-yellow-600">Maintenance terjadwal Minggu pagi 02:00 - 04:00</p>
                 </div>
-                <Progress value={(2.5 / 3) * 100} />
               </div>
             </CardContent>
           </Card>
