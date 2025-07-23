@@ -960,6 +960,18 @@ export default function Index() {
   const [riskAutoSelected, setRiskAutoSelected] = useState(true);
   const [riskCategories, setRiskCategories] = useState<RiskCategory[]>(detectBestRiskPeriod().data);
 
+  // Geographic data state
+  const [selectedGeographicPeriod, setSelectedGeographicPeriod] = useState<GeographicDataPeriod>(detectBestGeographicPeriod());
+  const [showGeographicDropdown, setShowGeographicDropdown] = useState(false);
+  const [geographicAutoSelected, setGeographicAutoSelected] = useState(true);
+  const [provinceData, setProvinceData] = useState<ProvinceData[]>(detectBestGeographicPeriod().data);
+
+  // Risk capture data state
+  const [selectedRiskCapturePeriod, setSelectedRiskCapturePeriod] = useState<RiskCaptureDataPeriod>(detectBestRiskCapturePeriod());
+  const [showRiskCaptureDropdown, setShowRiskCaptureDropdown] = useState(false);
+  const [riskCaptureAutoSelected, setRiskCaptureAutoSelected] = useState(true);
+  const [riskCaptureData, setRiskCaptureData] = useState(detectBestRiskCapturePeriod().data);
+
   const [invoiceStatus] = useState<InvoiceStatus>({
     completed_no_invoice: 5,
     issued_unpaid: 12,
@@ -1257,6 +1269,67 @@ export default function Index() {
       totalClosed,
       overduePercentage,
       closedPercentage,
+    };
+  };
+
+  const handleGeographicPeriodChange = (period: GeographicDataPeriod) => {
+    setSelectedGeographicPeriod(period);
+    setProvinceData(period.data);
+    setGeographicAutoSelected(false);
+    setShowGeographicDropdown(false);
+  };
+
+  const shouldShowGeographicFallbackMessage = () => {
+    const currentYear = new Date().getFullYear().toString();
+    return geographicAutoSelected &&
+           selectedGeographicPeriod.type === 'quarterly' &&
+           selectedGeographicPeriod.id.includes(currentYear);
+  };
+
+  const handleRiskCapturePeriodChange = (period: RiskCaptureDataPeriod) => {
+    setSelectedRiskCapturePeriod(period);
+    setRiskCaptureData(period.data);
+    setRiskCaptureAutoSelected(false);
+    setShowRiskCaptureDropdown(false);
+  };
+
+  const shouldShowRiskCaptureFallbackMessage = () => {
+    const currentYear = new Date().getFullYear().toString();
+    return riskCaptureAutoSelected &&
+           selectedRiskCapturePeriod.type === 'quarterly' &&
+           selectedRiskCapturePeriod.id.includes(currentYear);
+  };
+
+  // Calculate geographic insights
+  const getGeographicInsights = (data: ProvinceData[]) => {
+    const totalProjects = data.reduce((sum, province) => sum + province.value, 0);
+    const totalRevenue = data.reduce((sum, province) => sum + province.revenue, 0);
+    const avgProjectsPerProvince = data.length > 0 ? Math.round(totalProjects / data.length) : 0;
+    const avgRevenuePerProvince = data.length > 0 ? totalRevenue / data.length : 0;
+
+    return {
+      totalProjects,
+      totalRevenue,
+      totalProvinces: data.length,
+      avgProjectsPerProvince,
+      avgRevenuePerProvince,
+    };
+  };
+
+  // Calculate risk capture insights
+  const getRiskCaptureInsights = (data: Array<{ name: string; y: number; color: string }>) => {
+    const totalItems = data.reduce((sum, item) => sum + item.y, 0);
+    const highRiskItems = data.find(item => item.name === "High")?.y || 0;
+    const lowRiskItems = data.find(item => item.name === "Low")?.y || 0;
+    const highRiskPercentage = totalItems > 0 ? Math.round((highRiskItems / totalItems) * 100) : 0;
+    const lowRiskPercentage = totalItems > 0 ? Math.round((lowRiskItems / totalItems) * 100) : 0;
+
+    return {
+      totalItems,
+      highRiskItems,
+      lowRiskItems,
+      highRiskPercentage,
+      lowRiskPercentage,
     };
   };
 
