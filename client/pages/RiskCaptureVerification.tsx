@@ -118,7 +118,8 @@ const mockRiskCaptureSubmissions: RiskCapture[] = [
     },
     verifierName: "Chief Risk Officer",
     verifiedAt: "2024-01-14T16:45:00Z",
-    overallComment: "Risk assessment comprehensive and mitigation strategies adequate",
+    overallComment:
+      "Risk assessment comprehensive and mitigation strategies adequate",
     createdAt: "2024-01-13T09:15:00Z",
     risks: [],
   },
@@ -139,7 +140,8 @@ const mockRiskCaptureSubmissions: RiskCapture[] = [
     },
     verifierName: "Senior Risk Analyst",
     verifiedAt: "2024-01-13T10:30:00Z",
-    overallComment: "Several high-impact risks need additional mitigation controls",
+    overallComment:
+      "Several high-impact risks need additional mitigation controls",
     createdAt: "2024-01-12T11:00:00Z",
     risks: [],
   },
@@ -184,7 +186,7 @@ function SubmissionsList({
   submissions,
   onOpenModal,
   getStatusBadge,
-  getRiskLevelSummary
+  getRiskLevelSummary,
 }: SubmissionsListProps) {
   if (submissions.length === 0) {
     return (
@@ -209,7 +211,9 @@ function SubmissionsList({
       <CardContent>
         <div className="space-y-4">
           {submissions.map((submission) => {
-            const riskSummary = getRiskLevelSummary(submission.riskLevelDistribution);
+            const riskSummary = getRiskLevelSummary(
+              submission.riskLevelDistribution,
+            );
 
             return (
               <div
@@ -253,7 +257,8 @@ function SubmissionsList({
                         <div className="flex items-center gap-2">
                           <AlertTriangle className="w-4 h-4 text-red-600" />
                           <span className="text-red-600 font-medium">
-                            High Risk: {riskSummary.highRisk} ({riskSummary.percentage}%)
+                            High Risk: {riskSummary.highRisk} (
+                            {riskSummary.percentage}%)
                           </span>
                         </div>
                       )}
@@ -262,13 +267,17 @@ function SubmissionsList({
                     {/* Risk Level Distribution */}
                     <div className="flex gap-2 text-xs">
                       <Badge className="bg-green-100 text-green-800">
-                        Rendah: {submission.riskLevelDistribution.sangatRendah + submission.riskLevelDistribution.rendah}
+                        Rendah:{" "}
+                        {submission.riskLevelDistribution.sangatRendah +
+                          submission.riskLevelDistribution.rendah}
                       </Badge>
                       <Badge className="bg-yellow-100 text-yellow-800">
                         Sedang: {submission.riskLevelDistribution.sedang}
                       </Badge>
                       <Badge className="bg-red-100 text-red-800">
-                        Tinggi: {submission.riskLevelDistribution.tinggi + submission.riskLevelDistribution.sangatTinggi}
+                        Tinggi:{" "}
+                        {submission.riskLevelDistribution.tinggi +
+                          submission.riskLevelDistribution.sangatTinggi}
                       </Badge>
                     </div>
 
@@ -349,10 +358,15 @@ export default function RiskCaptureVerification() {
     );
   };
 
-  const getRiskLevelSummary = (distribution: RiskCapture["riskLevelDistribution"]) => {
-    const total = Object.values(distribution).reduce((sum, count) => sum + count, 0);
+  const getRiskLevelSummary = (
+    distribution: RiskCapture["riskLevelDistribution"],
+  ) => {
+    const total = Object.values(distribution).reduce(
+      (sum, count) => sum + count,
+      0,
+    );
     const highRisk = distribution.tinggi + distribution.sangatTinggi;
-    
+
     return {
       total,
       highRisk,
@@ -410,8 +424,9 @@ export default function RiskCaptureVerification() {
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
               {
-                mockRiskCaptureSubmissions.filter((s) => s.status === "verified")
-                  .length
+                mockRiskCaptureSubmissions.filter(
+                  (s) => s.status === "verified",
+                ).length
               }
             </div>
           </CardContent>
@@ -451,7 +466,11 @@ export default function RiskCaptureVerification() {
       </Card>
 
       {/* Tabs for Status Tracking */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="space-y-6"
+      >
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="all" className="flex items-center gap-2">
             <Shield className="w-4 h-4" />
@@ -459,19 +478,44 @@ export default function RiskCaptureVerification() {
           </TabsTrigger>
           <TabsTrigger value="submitted" className="flex items-center gap-2">
             <Clock className="w-4 h-4" />
-            Menunggu ({mockRiskCaptureSubmissions.filter(s => s.status === "submitted").length})
+            Menunggu (
+            {
+              mockRiskCaptureSubmissions.filter((s) => s.status === "submitted")
+                .length
+            }
+            )
           </TabsTrigger>
           <TabsTrigger value="under_review" className="flex items-center gap-2">
             <Eye className="w-4 h-4" />
-            Review ({mockRiskCaptureSubmissions.filter(s => s.status === "under_review").length})
+            Review (
+            {
+              mockRiskCaptureSubmissions.filter(
+                (s) => s.status === "under_review",
+              ).length
+            }
+            )
           </TabsTrigger>
           <TabsTrigger value="verified" className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4" />
-            Verified ({mockRiskCaptureSubmissions.filter(s => s.status === "verified").length})
+            Verified (
+            {
+              mockRiskCaptureSubmissions.filter((s) => s.status === "verified")
+                .length
+            }
+            )
           </TabsTrigger>
-          <TabsTrigger value="needs_revision" className="flex items-center gap-2">
+          <TabsTrigger
+            value="needs_revision"
+            className="flex items-center gap-2"
+          >
             <AlertTriangle className="w-4 h-4" />
-            Revisi ({mockRiskCaptureSubmissions.filter(s => s.status === "needs_revision").length})
+            Revisi (
+            {
+              mockRiskCaptureSubmissions.filter(
+                (s) => s.status === "needs_revision",
+              ).length
+            }
+            )
           </TabsTrigger>
         </TabsList>
 

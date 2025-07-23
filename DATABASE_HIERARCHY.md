@@ -3,6 +3,7 @@
 ## 📊 **Struktur Hirarki Database - Project Management System**
 
 ### 🌳 **Master Data (Level 0) - Independent Tables**
+
 ```
 📁 Master Data
 ├── 🏛️  provinces
@@ -11,7 +12,7 @@
 │   ├── code
 │   └── region
 │
-├── 📂  project_categories  
+├── 📂  project_categories
 │   ├── id (PK)
 │   ├── name
 │   ├── code
@@ -33,6 +34,7 @@
 ---
 
 ### 🏗️ **Core Project Data (Level 1) - Depends on Master Data**
+
 ```
 📁 Core Projects
 └── 🏢  projects (Parent of all project-related data)
@@ -49,6 +51,7 @@
 ---
 
 ### 📋 **Project Components (Level 2) - Depends on Projects**
+
 ```
 📁 Project Components
 ├── 📅  timeline_milestones
@@ -60,7 +63,7 @@
 │   └── status
 │
 ├── ✅  project_readiness (Header/Parent)
-│   ├── id (PK) 
+│   ├── id (PK)
 │   ├── project_id → references projects(id)
 │   ├── submitted_by
 │   ├── status
@@ -84,6 +87,7 @@
 ---
 
 ### 📝 **Detail/Line Items (Level 3) - Depends on Headers**
+
 ```
 📁 Detail Items
 ├── ✅  readiness_items (Children of project_readiness)
@@ -108,6 +112,7 @@
 ---
 
 ### 📊 **Analytics & Reporting (Level 1) - Independent Analytics**
+
 ```
 📁 Analytics
 ├── 📈  performance_metrics
@@ -133,6 +138,7 @@
 ## 🔄 **Data Flow & Relationships**
 
 ### **1. Project Creation Flow**
+
 ```
 1️⃣ provinces + project_categories + clients (Master Data)
     ↓
@@ -142,6 +148,7 @@
 ```
 
 ### **2. Readiness Assessment Flow**
+
 ```
 1️⃣ projects (Must exist)
     ↓
@@ -151,6 +158,7 @@
 ```
 
 ### **3. Risk Management Flow**
+
 ```
 1️⃣ projects (Must exist)
     ↓
@@ -160,6 +168,7 @@
 ```
 
 ### **4. Financial Flow**
+
 ```
 1️⃣ projects (Must exist)
     ↓
@@ -171,6 +180,7 @@
 ## 🔗 **Relationship Types**
 
 ### **One-to-Many (1:N)**
+
 - `projects` → `timeline_milestones` (1 project has many milestones)
 - `projects` → `project_readiness` (1 project can have multiple assessments)
 - `projects` → `risk_captures` (1 project can have multiple risk assessments)
@@ -179,6 +189,7 @@
 - `risk_captures` → `risk_items` (1 risk capture has many risk items)
 
 ### **Many-to-One (N:1)**
+
 - `projects` → `provinces` (Many projects in 1 province)
 - `projects` → `project_categories` (Many projects in 1 category)
 - `risk_category_stats` → `risk_categories` (Many stats for 1 category)
@@ -188,6 +199,7 @@
 ## 🗂️ **Deletion Cascade Rules**
 
 ### **CASCADE Deletions** (Child deleted when parent deleted)
+
 ```
 projects DELETE
 ├── → timeline_milestones (CASCADE)
@@ -199,6 +211,7 @@ projects DELETE
 ```
 
 ### **RESTRICT Deletions** (Cannot delete parent if child exists)
+
 ```
 provinces DELETE → projects (RESTRICT)
 project_categories DELETE → projects (RESTRICT)
@@ -209,33 +222,37 @@ risk_categories DELETE → risk_category_stats (RESTRICT)
 
 ## 📋 **Summary by Level**
 
-| Level | Tables | Purpose | Dependencies |
-|-------|--------|---------|--------------|
-| **0** | Master Data | Reference/Lookup data | None |
-| **1** | projects, analytics | Core entities | Master Data |
-| **2** | Headers/Parents | Grouping/Header records | projects |
-| **3** | Details/Children | Line items/Details | Headers |
+| Level | Tables              | Purpose                 | Dependencies |
+| ----- | ------------------- | ----------------------- | ------------ |
+| **0** | Master Data         | Reference/Lookup data   | None         |
+| **1** | projects, analytics | Core entities           | Master Data  |
+| **2** | Headers/Parents     | Grouping/Header records | projects     |
+| **3** | Details/Children    | Line items/Details      | Headers      |
 
 ---
 
 ## 🚀 **Implementation Order**
 
 ### **Phase 1: Foundation**
+
 1. Create Master Data tables
 2. Populate Master Data
 3. Create projects table
 
 ### **Phase 2: Core Features**
+
 1. timeline_milestones
 2. project_readiness + readiness_items
 3. risk_captures + risk_items
 4. invoices
 
 ### **Phase 3: Analytics**
+
 1. performance_metrics
 2. risk_category_stats
 
 ### **Phase 4: Optimization**
+
 1. Create indexes
 2. Create views
 3. Add triggers

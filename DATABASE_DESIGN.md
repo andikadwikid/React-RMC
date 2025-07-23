@@ -1,11 +1,13 @@
 # Database Design - Project Management System
 
 ## Overview
+
 Desain database untuk sistem manajemen proyek yang mencakup fitur project, timeline, readiness assessment, dan risk capture management.
 
 ## Core Entities
 
 ### 1. **projects**
+
 Tabel utama untuk menyimpan informasi proyek
 
 ```sql
@@ -35,6 +37,7 @@ CREATE TYPE project_status AS ENUM ('planning', 'running', 'on-hold', 'completed
 ```
 
 ### 2. **timeline_milestones**
+
 Tabel untuk milestone dan timeline proyek
 
 ```sql
@@ -56,6 +59,7 @@ CREATE TYPE milestone_status AS ENUM ('pending', 'in-progress', 'completed', 'bl
 ```
 
 ### 3. **project_readiness**
+
 Tabel untuk project readiness assessments
 
 ```sql
@@ -78,6 +82,7 @@ CREATE TYPE readiness_assessment_status AS ENUM ('submitted', 'under_review', 'v
 ```
 
 ### 4. **readiness_items**
+
 Tabel untuk item-item readiness individual
 
 ```sql
@@ -101,6 +106,7 @@ CREATE TYPE readiness_status AS ENUM ('lengkap', 'parsial', 'tidak_tersedia');
 ```
 
 ### 5. **risk_captures**
+
 Tabel untuk risk capture assessments **ENHANCED WITH VERIFICATION**
 
 ```sql
@@ -125,6 +131,7 @@ CREATE TYPE risk_capture_status AS ENUM ('submitted', 'under_review', 'verified'
 ```
 
 ### 6. **risk_items**
+
 Tabel untuk item-item risk individual **ENHANCED WITH VERIFICATION**
 
 ```sql
@@ -164,6 +171,7 @@ CREATE TABLE risk_items (
 ## Master Data Tables
 
 ### 7. **provinces**
+
 Tabel master untuk provinsi
 
 ```sql
@@ -183,6 +191,7 @@ CREATE TYPE entity_status AS ENUM ('active', 'inactive');
 ```
 
 ### 8. **project_categories**
+
 Tabel master untuk kategori proyek
 
 ```sql
@@ -200,6 +209,7 @@ CREATE TABLE project_categories (
 ```
 
 ### 9. **clients**
+
 Tabel master untuk klien
 
 ```sql
@@ -219,6 +229,7 @@ CREATE TABLE clients (
 ## User Management Tables
 
 ### 10. **users**
+
 Tabel untuk pengguna sistem (Risk Officers, Project Managers, etc.)
 
 ```sql
@@ -239,6 +250,7 @@ CREATE TYPE user_role AS ENUM ('admin', 'risk_officer', 'project_manager', 'user
 ```
 
 ### 11. **verification_assignments**
+
 Tabel untuk assignment verifikasi ke risk officer
 
 ```sql
@@ -267,6 +279,7 @@ CREATE TYPE assignment_status AS ENUM ('assigned', 'in_progress', 'completed', '
 ```
 
 ### 12. **verification_activities**
+
 Tabel untuk tracking aktivitas verifikasi readiness
 
 ```sql
@@ -299,6 +312,7 @@ CREATE TYPE verification_activity_type AS ENUM (
 ```
 
 ### 13. **risk_capture_verification_assignments** **NEW**
+
 Tabel untuk assignment verifikasi risk capture ke risk officer
 
 ```sql
@@ -321,6 +335,7 @@ CREATE TABLE risk_capture_verification_assignments (
 ```
 
 ### 14. **risk_capture_verification_activities** **NEW**
+
 Tabel untuk tracking aktivitas verifikasi risk capture
 
 ```sql
@@ -355,6 +370,7 @@ CREATE TYPE risk_verification_activity_type AS ENUM (
 ## Risk Management Tables
 
 ### 15. **risk_categories**
+
 Tabel master untuk kategori risiko
 
 ```sql
@@ -370,6 +386,7 @@ CREATE TABLE risk_categories (
 ```
 
 ### 16. **risk_category_stats**
+
 Tabel untuk statistik kategori risiko per periode
 
 ```sql
@@ -384,7 +401,7 @@ CREATE TABLE risk_category_stats (
     closed INTEGER DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    
+
     UNIQUE(category_id, period_type, period_value)
 );
 
@@ -395,6 +412,7 @@ CREATE TYPE period_type AS ENUM ('yearly', 'quarterly', 'monthly');
 ## Financial Tables
 
 ### 17. **invoices**
+
 Tabel untuk invoice proyek
 
 ```sql
@@ -418,6 +436,7 @@ CREATE TYPE invoice_status AS ENUM ('draft', 'issued', 'paid', 'overdue', 'cance
 ## Performance Analytics Tables
 
 ### 18. **performance_metrics**
+
 Tabel untuk metrik performa per periode
 
 ```sql
@@ -433,14 +452,14 @@ CREATE TABLE performance_metrics (
     total_risks INTEGER DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    
+
     UNIQUE(period_type, period_value, province_id)
 );
 ```
 
 ## Indexes for Performance
 
-```sql
+````sql
 -- Project indexes
 CREATE INDEX idx_projects_status ON projects(status);
 CREATE INDEX idx_projects_province ON projects(province_id);
@@ -499,7 +518,7 @@ CREATE INDEX idx_performance_province ON performance_metrics(province_id);
 ```sql
 -- Project summary view
 CREATE VIEW project_summary AS
-SELECT 
+SELECT
     p.id,
     p.name,
     p.client,
@@ -519,7 +538,7 @@ GROUP BY p.id, pr.name, pc.name;
 
 -- Risk assessment summary view
 CREATE VIEW risk_assessment_summary AS
-SELECT 
+SELECT
     rc.project_id,
     COUNT(ri.id) as total_risks,
     COUNT(CASE WHEN ri.risiko_awal_level BETWEEN 1 AND 5 THEN 1 END) as sangat_rendah,
@@ -630,7 +649,7 @@ JOIN users u ON vact.verifier_id = u.id
 WHERE vact.activity_at >= CURRENT_DATE - INTERVAL '12 months'
 GROUP BY DATE_TRUNC('month', vact.activity_at), u.full_name
 ORDER BY month DESC, verifier_name;
-```
+````
 
 ## Sample Data Population
 
@@ -697,12 +716,14 @@ INSERT INTO risk_captures (project_id, project_name, submitted_by, submitted_at,
 ## Key Workflows Supported
 
 ### **Readiness Verification Workflow**
+
 1. User submits project readiness
 2. Admin assigns to risk officer
 3. Risk officer verifies each readiness item
 4. Status tracking: submitted → under_review → verified/needs_revision
 
 ### **Risk Capture Verification Workflow** **NEW**
+
 1. User submits risk capture assessment
 2. Admin assigns to risk officer
 3. Risk officer verifies each risk item with comments

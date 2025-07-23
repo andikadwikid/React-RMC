@@ -3,6 +3,7 @@
 ## 📊 **Struktur Hirarki Database - Project Management System**
 
 ### 🌳 **Master Data (Level 0) - Independent Tables**
+
 ```
 📁 Master Data
 ├── 🏛️  provinces
@@ -11,7 +12,7 @@
 │   ├── code
 │   └── region
 │
-├── 📂  project_categories  
+├── 📂  project_categories
 │   ├── id (PK)
 │   ├── name
 │   ├── code
@@ -41,6 +42,7 @@
 ---
 
 ### 🏗️ **Core Project Data (Level 1) - Depends on Master Data**
+
 ```
 📁 Core Projects
 └── 🏢  projects (Parent of all project-related data)
@@ -57,6 +59,7 @@
 ---
 
 ### 📋 **Project Components (Level 2) - Depends on Projects**
+
 ```
 📁 Project Components
 ├── 📅  timeline_milestones
@@ -68,7 +71,7 @@
 │   └── status
 │
 ├── ✅  project_readiness (Header/Parent) **ENHANCED**
-│   ├── id (PK) 
+│   ├── id (PK)
 │   ├── project_id → references projects(id)
 │   ├── submitted_by
 │   ├── status (submitted, under_review, verified, needs_revision)
@@ -99,6 +102,7 @@
 ---
 
 ### 📝 **Detail/Line Items (Level 3) - Depends on Headers**
+
 ```
 📁 Detail Items
 ├── ✅  readiness_items (Children of project_readiness) **ENHANCED**
@@ -170,6 +174,7 @@
 ---
 
 ### 📊 **Analytics & Reporting (Level 1) - Independent Analytics**
+
 ```
 📁 Analytics
 ├── 📈  performance_metrics
@@ -195,6 +200,7 @@
 ## 🔄 **Data Flow & Relationships**
 
 ### **0. User & Role Setup Flow** ⭐ **NEW**
+
 ```
 1️⃣ users (Risk Officers, Admins, etc.) - Master setup
     ↓
@@ -202,6 +208,7 @@
 ```
 
 ### **1. Project Creation Flow**
+
 ```
 1️⃣ provinces + project_categories + clients (Master Data)
     ↓
@@ -211,6 +218,7 @@
 ```
 
 ### **2. Readiness Assessment & Verification Flow** ⭐ **UPDATED**
+
 ```
 1️⃣ projects (Must exist)
     ↓
@@ -228,6 +236,7 @@
 ```
 
 ### **3. Risk Management & Verification Flow** ⭐ **UPDATED**
+
 ```
 1️⃣ projects (Must exist)
     ↓
@@ -245,6 +254,7 @@
 ```
 
 ### **4. Verification Assignment Flow** ⭐ **NEW**
+
 ```
 1️⃣ project_readiness (Submitted by user)
     ↓
@@ -258,6 +268,7 @@
 ```
 
 ### **5. Financial Flow**
+
 ```
 1️⃣ projects (Must exist)
     ↓
@@ -269,6 +280,7 @@
 ## 🔗 **Relationship Types**
 
 ### **One-to-Many (1:N)** ⭐ **UPDATED**
+
 - `projects` → `timeline_milestones` (1 project has many milestones)
 - `projects` → `project_readiness` (1 project can have multiple assessments)
 - `projects` → `risk_captures` (1 project can have multiple risk assessments)
@@ -285,6 +297,7 @@
 - `users` → `risk_capture_verification_activities` (1 risk officer has many risk capture activities) ⭐ **NEW**
 
 ### **Many-to-One (N:1)** ⭐ **UPDATED**
+
 - `projects` → `provinces` (Many projects in 1 province)
 - `projects` → `project_categories` (Many projects in 1 category)
 - `risk_category_stats` → `risk_categories` (Many stats for 1 category)
@@ -296,6 +309,7 @@
 ## 🗂️ **Deletion Cascade Rules**
 
 ### **CASCADE Deletions** (Child deleted when parent deleted) ⭐ **UPDATED**
+
 ```
 projects DELETE
 ├── → timeline_milestones (CASCADE)
@@ -317,6 +331,7 @@ users DELETE (Risk Officers) ⭐ NEW
 ```
 
 ### **RESTRICT Deletions** (Cannot delete parent if child exists) ⭐ **UPDATED**
+
 ```
 provinces DELETE → projects (RESTRICT)
 project_categories DELETE → projects (RESTRICT)
@@ -329,11 +344,11 @@ users DELETE → verification_activities (RESTRICT - audit trail preservation) �
 
 ## 📋 **Summary by Level**
 
-| Level | Tables | Purpose | Dependencies |
-|-------|--------|---------|--------------|
-| **0** | Master Data + Users | Reference/Lookup data + User management | None |
-| **1** | projects, analytics | Core entities | Master Data |
-| **2** | Headers/Parents | Grouping/Header records | projects |
+| Level | Tables                          | Purpose                                    | Dependencies    |
+| ----- | ------------------------------- | ------------------------------------------ | --------------- |
+| **0** | Master Data + Users             | Reference/Lookup data + User management    | None            |
+| **1** | projects, analytics             | Core entities                              | Master Data     |
+| **2** | Headers/Parents                 | Grouping/Header records                    | projects        |
 | **3** | Details/Children + Verification | Line items/Details + Verification workflow | Headers + Users |
 
 ---
@@ -341,6 +356,7 @@ users DELETE → verification_activities (RESTRICT - audit trail preservation) �
 ## 🔍 **Verification Workflow Detail** ⭐ **UPDATED**
 
 ### **Readiness Verification Workflow**
+
 ```
 📝 User Flow:
 1. User submits project_readiness with readiness_items
@@ -351,6 +367,7 @@ users DELETE → verification_activities (RESTRICT - audit trail preservation) �
 ```
 
 ### **Risk Capture Verification Workflow** ⭐ **NEW**
+
 ```
 🛡️ User Flow:
 1. User submits risk_captures with risk_items
@@ -377,27 +394,32 @@ users DELETE → verification_activities (RESTRICT - audit trail preservation) �
 ## 🚀 **Implementation Order**
 
 ### **Phase 1: Foundation**
+
 1. Create Master Data tables (including users)
 2. Populate Master Data
 3. Create projects table
 
 ### **Phase 2: Core Features**
+
 1. timeline_milestones
 2. project_readiness + readiness_items
 3. risk_captures + risk_items
 4. invoices
 
 ### **Phase 2.5: Verification Systems** ⭐ **UPDATED**
+
 1. verification_assignments (readiness)
 2. verification_activities (readiness)
 3. risk_capture_verification_assignments (risk capture) ⭐ **NEW**
 4. risk_capture_verification_activities (risk capture) ⭐ **NEW**
 
 ### **Phase 3: Analytics**
+
 1. performance_metrics
 2. risk_category_stats
 
 ### **Phase 4: Optimization**
+
 1. Create indexes
 2. Create views
 3. Add triggers
@@ -423,6 +445,7 @@ This hierarchy provides a clear understanding of how data flows through the syst
 ## 🎯 **Key Changes Made**
 
 ### **New Tables:**
+
 1. **users** - Risk Officers, Verifiers, Admins
 2. **verification_assignments** - Assign readiness reviews to risk officers
 3. **verification_activities** - Audit trail of readiness verification actions
@@ -430,12 +453,14 @@ This hierarchy provides a clear understanding of how data flows through the syst
 5. **risk_capture_verification_activities** - Audit trail of risk capture verification actions ⭐ **NEW**
 
 ### **Enhanced Tables:**
+
 1. **project_readiness** - Added verifier fields
 2. **readiness_items** - Added verifier validation fields
 3. **risk_captures** - Added verification workflow fields (status, verifier, comments) ⭐ **NEW**
 4. **risk_items** - Added verification fields (is_verified, verifier_comment, verifier_name) ⭐ **NEW**
 
 ### **New Features:**
+
 1. **Role-based access control**
 2. **Assignment workflow for verification (both readiness and risk capture)**
 3. **Complete audit trail (dual workflow tracking)**
@@ -446,5 +471,6 @@ This hierarchy provides a clear understanding of how data flows through the syst
 8. **Status tracking: submitted → under_review → verified/needs_revision** ⭐ **NEW**
 
 This updated design now fully supports both verification workflows:
+
 - **Readiness Verification**: Risk officers validate project readiness items
 - **Risk Capture Verification**: Risk officers validate risk assessments with detailed feedback ⭐ **NEW**

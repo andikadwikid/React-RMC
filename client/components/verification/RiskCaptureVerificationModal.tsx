@@ -135,12 +135,15 @@ export function RiskCaptureVerificationModal({
   };
 
   const getVerificationProgress = () => {
-    const verifiedCount = verificationRisks.filter((risk) => risk.isVerified).length;
+    const verifiedCount = verificationRisks.filter(
+      (risk) => risk.isVerified,
+    ).length;
     const totalCount = verificationRisks.length;
     return {
       verified: verifiedCount,
       total: totalCount,
-      percentage: totalCount > 0 ? Math.round((verifiedCount / totalCount) * 100) : 0,
+      percentage:
+        totalCount > 0 ? Math.round((verifiedCount / totalCount) * 100) : 0,
     };
   };
 
@@ -198,7 +201,8 @@ export function RiskCaptureVerificationModal({
             </div>
             <div className="flex gap-4 text-xs text-gray-600">
               <span>
-                Verified: <strong className="text-green-600">{progress.verified}</strong>
+                Verified:{" "}
+                <strong className="text-green-600">{progress.verified}</strong>
               </span>
               <span>
                 Total: <strong>{progress.total}</strong>
@@ -221,7 +225,8 @@ export function RiskCaptureVerificationModal({
                       className={getRiskColor(risk.risikoAwal.level)}
                       size="sm"
                     >
-                      Level {risk.risikoAwal.level} - {getRiskLabel(risk.risikoAwal.level)}
+                      Level {risk.risikoAwal.level} -{" "}
+                      {getRiskLabel(risk.risikoAwal.level)}
                     </Badge>
                   </div>
                   <div className="flex items-center gap-2">
@@ -229,7 +234,11 @@ export function RiskCaptureVerificationModal({
                       variant={risk.isVerified ? "default" : "outline"}
                       size="sm"
                       onClick={() =>
-                        updateRiskVerification(risk.id, "isVerified", !risk.isVerified)
+                        updateRiskVerification(
+                          risk.id,
+                          "isVerified",
+                          !risk.isVerified,
+                        )
                       }
                     >
                       {risk.isVerified ? (
@@ -251,23 +260,33 @@ export function RiskCaptureVerificationModal({
                 {/* Risk Details */}
                 <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
                   <div>
-                    <Label className="text-xs font-medium text-gray-600">Kode:</Label>
+                    <Label className="text-xs font-medium text-gray-600">
+                      Kode:
+                    </Label>
                     <p className="text-sm">{risk.kode}</p>
                   </div>
                   <div>
-                    <Label className="text-xs font-medium text-gray-600">Taksonomi:</Label>
+                    <Label className="text-xs font-medium text-gray-600">
+                      Taksonomi:
+                    </Label>
                     <p className="text-sm">{risk.taksonomi}</p>
                   </div>
                   <div className="col-span-2">
-                    <Label className="text-xs font-medium text-gray-600">Peristiwa Risiko:</Label>
+                    <Label className="text-xs font-medium text-gray-600">
+                      Peristiwa Risiko:
+                    </Label>
                     <p className="text-sm">{risk.peristiwaRisiko}</p>
                   </div>
                   <div>
-                    <Label className="text-xs font-medium text-gray-600">Sumber Risiko:</Label>
+                    <Label className="text-xs font-medium text-gray-600">
+                      Sumber Risiko:
+                    </Label>
                     <p className="text-sm">{risk.sumberRisiko}</p>
                   </div>
                   <div>
-                    <Label className="text-xs font-medium text-gray-600">Kontrol Eksisting:</Label>
+                    <Label className="text-xs font-medium text-gray-600">
+                      Kontrol Eksisting:
+                    </Label>
                     <p className="text-sm">{risk.kontrolEksisting}</p>
                   </div>
                 </div>
@@ -275,19 +294,53 @@ export function RiskCaptureVerificationModal({
                 {/* Risk Assessment */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 border rounded-lg">
-                    <h5 className="font-medium mb-2 text-blue-600">Risiko Awal</h5>
+                    <h5 className="font-medium mb-2 text-blue-600">
+                      Risiko Awal
+                    </h5>
                     <div className="space-y-1 text-sm">
-                      <div>Kejadian: <span className="font-medium">{risk.risikoAwal.kejadian}</span></div>
-                      <div>Dampak: <span className="font-medium">{risk.risikoAwal.dampak}</span></div>
-                      <div>Level: <span className="font-medium">{risk.risikoAwal.level}</span></div>
+                      <div>
+                        Kejadian:{" "}
+                        <span className="font-medium">
+                          {risk.risikoAwal.kejadian}
+                        </span>
+                      </div>
+                      <div>
+                        Dampak:{" "}
+                        <span className="font-medium">
+                          {risk.risikoAwal.dampak}
+                        </span>
+                      </div>
+                      <div>
+                        Level:{" "}
+                        <span className="font-medium">
+                          {risk.risikoAwal.level}
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <div className="p-3 border rounded-lg">
-                    <h5 className="font-medium mb-2 text-green-600">Risiko Akhir</h5>
+                    <h5 className="font-medium mb-2 text-green-600">
+                      Risiko Akhir
+                    </h5>
                     <div className="space-y-1 text-sm">
-                      <div>Kejadian: <span className="font-medium">{risk.resikoAkhir.kejadian}</span></div>
-                      <div>Dampak: <span className="font-medium">{risk.resikoAkhir.dampak}</span></div>
-                      <div>Level: <span className="font-medium">{risk.resikoAkhir.level}</span></div>
+                      <div>
+                        Kejadian:{" "}
+                        <span className="font-medium">
+                          {risk.resikoAkhir.kejadian}
+                        </span>
+                      </div>
+                      <div>
+                        Dampak:{" "}
+                        <span className="font-medium">
+                          {risk.resikoAkhir.dampak}
+                        </span>
+                      </div>
+                      <div>
+                        Level:{" "}
+                        <span className="font-medium">
+                          {risk.resikoAkhir.level}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -295,18 +348,29 @@ export function RiskCaptureVerificationModal({
                 {/* Dampak Analysis */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-xs font-medium text-gray-600">Dampak Kualitatif:</Label>
-                    <p className="text-sm p-2 bg-gray-50 rounded">{risk.dampakKualitatif}</p>
+                    <Label className="text-xs font-medium text-gray-600">
+                      Dampak Kualitatif:
+                    </Label>
+                    <p className="text-sm p-2 bg-gray-50 rounded">
+                      {risk.dampakKualitatif}
+                    </p>
                   </div>
                   <div>
-                    <Label className="text-xs font-medium text-gray-600">Dampak Kuantitatif:</Label>
-                    <p className="text-sm p-2 bg-gray-50 rounded">{risk.dampakKuantitatif}</p>
+                    <Label className="text-xs font-medium text-gray-600">
+                      Dampak Kuantitatif:
+                    </Label>
+                    <p className="text-sm p-2 bg-gray-50 rounded">
+                      {risk.dampakKuantitatif}
+                    </p>
                   </div>
                 </div>
 
                 {/* Verifier Comment */}
                 <div>
-                  <Label htmlFor={`comment-${risk.id}`} className="flex items-center gap-2">
+                  <Label
+                    htmlFor={`comment-${risk.id}`}
+                    className="flex items-center gap-2"
+                  >
                     <MessageSquare className="w-4 h-4" />
                     Risk Officer Comment
                   </Label>
@@ -314,7 +378,11 @@ export function RiskCaptureVerificationModal({
                     id={`comment-${risk.id}`}
                     value={risk.verifierComment}
                     onChange={(e) =>
-                      updateRiskVerification(risk.id, "verifierComment", e.target.value)
+                      updateRiskVerification(
+                        risk.id,
+                        "verifierComment",
+                        e.target.value,
+                      )
                     }
                     placeholder="Add your verification comment for this risk item..."
                     className="mt-1"
