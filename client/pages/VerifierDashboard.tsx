@@ -142,7 +142,7 @@ const quarterlyStatsQ3_2024 = [
   { period: "Sep 2024", verified: 30, revised: 6 },
 ];
 
-type PeriodType = 'yearly' | 'quarterly';
+type PeriodType = "yearly" | "quarterly";
 type DataPeriod = {
   id: string;
   label: string;
@@ -153,30 +153,30 @@ type DataPeriod = {
 
 const availableDataPeriods: DataPeriod[] = [
   {
-    id: '2024',
-    label: '2024 (Tahunan)',
-    type: 'yearly',
+    id: "2024",
+    label: "2024 (Tahunan)",
+    type: "yearly",
     data: yearlyStats2024,
     isComplete: true, // Set to false to simulate incomplete year
   },
   {
-    id: '2023',
-    label: '2023 (Tahunan)',
-    type: 'yearly',
+    id: "2023",
+    label: "2023 (Tahunan)",
+    type: "yearly",
     data: yearlyStats2023,
     isComplete: true,
   },
   {
-    id: 'q4-2024',
-    label: 'Q4 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q4-2024",
+    label: "Q4 2024 (Triwulan)",
+    type: "quarterly",
     data: quarterlyStatsQ4_2024,
     isComplete: true,
   },
   {
-    id: 'q3-2024',
-    label: 'Q3 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q3-2024",
+    label: "Q3 2024 (Triwulan)",
+    type: "quarterly",
     data: quarterlyStatsQ3_2024,
     isComplete: true,
   },
@@ -188,7 +188,10 @@ const detectBestDataPeriod = (): DataPeriod => {
 
   // First, try to find complete yearly data for current year
   const currentYearData = availableDataPeriods.find(
-    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+    (period) =>
+      period.id === currentYear &&
+      period.type === "yearly" &&
+      period.isComplete,
   );
 
   if (currentYearData) {
@@ -197,7 +200,10 @@ const detectBestDataPeriod = (): DataPeriod => {
 
   // If current year is incomplete, find the latest quarterly data
   const quarterlyData = availableDataPeriods
-    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .filter(
+      (period) =>
+        period.type === "quarterly" && period.id.includes(currentYear),
+    )
     .sort((a, b) => b.id.localeCompare(a.id))[0]; // Get latest quarter
 
   if (quarterlyData) {
@@ -207,7 +213,7 @@ const detectBestDataPeriod = (): DataPeriod => {
   // Fallback to previous year if available
   const previousYear = (parseInt(currentYear) - 1).toString();
   const previousYearData = availableDataPeriods.find(
-    period => period.id === previousYear && period.type === 'yearly'
+    (period) => period.id === previousYear && period.type === "yearly",
   );
 
   if (previousYearData) {
@@ -265,7 +271,9 @@ export default function VerifierDashboard() {
     "overview" | "activities" | "pending"
   >("overview");
   const chartRef = useRef<HTMLDivElement>(null);
-  const [selectedPeriod, setSelectedPeriod] = useState<DataPeriod>(detectBestDataPeriod());
+  const [selectedPeriod, setSelectedPeriod] = useState<DataPeriod>(
+    detectBestDataPeriod(),
+  );
   const [showPeriodDropdown, setShowPeriodDropdown] = useState(false);
   const [autoSelected, setAutoSelected] = useState(true);
 
@@ -273,30 +281,34 @@ export default function VerifierDashboard() {
     if (chartRef.current) {
       Highcharts.chart(chartRef.current, {
         chart: {
-          type: 'column',
+          type: "column",
           height: 300,
-          backgroundColor: 'transparent',
+          backgroundColor: "transparent",
         },
         title: {
-          text: '',
+          text: "",
         },
         xAxis: {
-          categories: dataPeriod.data.map(stat =>
-            dataPeriod.type === 'yearly' ? stat.period.split(' ')[0] : stat.period
+          categories: dataPeriod.data.map((stat) =>
+            dataPeriod.type === "yearly"
+              ? stat.period.split(" ")[0]
+              : stat.period,
           ),
           crosshair: true,
         },
         yAxis: {
           min: 0,
           title: {
-            text: 'Jumlah Verifikasi',
+            text: "Jumlah Verifikasi",
           },
         },
         tooltip: {
-          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+          headerFormat:
+            '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat:
+            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
             '<td style="padding:0"><b>{point.y}</b></td></tr>',
-          footerFormat: '</table>',
+          footerFormat: "</table>",
           shared: true,
           useHTML: true,
         },
@@ -308,23 +320,23 @@ export default function VerifierDashboard() {
         },
         series: [
           {
-            name: 'Verified',
-            data: dataPeriod.data.map(stat => stat.verified),
-            color: '#10b981',
+            name: "Verified",
+            data: dataPeriod.data.map((stat) => stat.verified),
+            color: "#10b981",
           },
           {
-            name: 'Revised',
-            data: dataPeriod.data.map(stat => stat.revised),
-            color: '#ef4444',
+            name: "Revised",
+            data: dataPeriod.data.map((stat) => stat.revised),
+            color: "#ef4444",
           },
         ],
         credits: {
           enabled: false,
         },
         legend: {
-          align: 'center',
-          verticalAlign: 'bottom',
-          layout: 'horizontal',
+          align: "center",
+          verticalAlign: "bottom",
+          layout: "horizontal",
         },
       });
     }
@@ -342,9 +354,11 @@ export default function VerifierDashboard() {
 
   const shouldShowFallbackMessage = () => {
     const currentYear = new Date().getFullYear().toString();
-    return autoSelected &&
-           selectedPeriod.type === 'quarterly' &&
-           selectedPeriod.id.includes(currentYear);
+    return (
+      autoSelected &&
+      selectedPeriod.type === "quarterly" &&
+      selectedPeriod.id.includes(currentYear)
+    );
   };
 
   return (
@@ -354,8 +368,6 @@ export default function VerifierDashboard() {
         description="Panel kontrol untuk verifikator project readiness"
         icon="UserCheck"
       />
-
-
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -414,12 +426,12 @@ export default function VerifierDashboard() {
                   <Badge
                     variant="secondary"
                     className={`ml-2 ${
-                      selectedPeriod.type === 'yearly'
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'bg-orange-100 text-orange-800'
+                      selectedPeriod.type === "yearly"
+                        ? "bg-blue-100 text-blue-800"
+                        : "bg-orange-100 text-orange-800"
                     }`}
                   >
-                    {selectedPeriod.type === 'yearly' ? (
+                    {selectedPeriod.type === "yearly" ? (
                       <>
                         <Calendar className="w-3 h-3 mr-1" />
                         Tahunan
@@ -454,17 +466,21 @@ export default function VerifierDashboard() {
               {showPeriodDropdown && (
                 <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
                   <div className="p-2">
-                    <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                    <div className="text-xs font-medium text-gray-500 mb-2 px-2">
+                      PILIH PERIODE DATA
+                    </div>
                     {availableDataPeriods.map((period) => (
                       <button
                         key={period.id}
                         onClick={() => handlePeriodChange(period)}
                         className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
-                          selectedPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                          selectedPeriod.id === period.id
+                            ? "bg-blue-50 text-blue-700"
+                            : "text-gray-700"
                         }`}
                       >
                         <div className="flex items-center gap-2">
-                          {period.type === 'yearly' ? (
+                          {period.type === "yearly" ? (
                             <Calendar className="w-4 h-4" />
                           ) : (
                             <TrendingUp className="w-4 h-4" />
@@ -493,7 +509,8 @@ export default function VerifierDashboard() {
                   Menampilkan Data Triwulan
                 </p>
                 <p className="text-xs text-amber-700 mt-1">
-                  Data tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.
+                  Data tahun {new Date().getFullYear()} belum lengkap,
+                  menampilkan data triwulan terakhir yang tersedia.
                 </p>
               </div>
             </div>
@@ -502,25 +519,46 @@ export default function VerifierDashboard() {
           {/* Chart Insights */}
           <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="bg-green-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-green-800">Total Verified</div>
+              <div className="text-sm font-medium text-green-800">
+                Total Verified
+              </div>
               <div className="text-lg font-bold text-green-600">
-                {selectedPeriod.data.reduce((sum, item) => sum + item.verified, 0)}
+                {selectedPeriod.data.reduce(
+                  (sum, item) => sum + item.verified,
+                  0,
+                )}
               </div>
             </div>
             <div className="bg-red-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-red-800">Total Revised</div>
+              <div className="text-sm font-medium text-red-800">
+                Total Revised
+              </div>
               <div className="text-lg font-bold text-red-600">
-                {selectedPeriod.data.reduce((sum, item) => sum + item.revised, 0)}
+                {selectedPeriod.data.reduce(
+                  (sum, item) => sum + item.revised,
+                  0,
+                )}
               </div>
             </div>
             <div className="bg-blue-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-blue-800">Success Rate</div>
+              <div className="text-sm font-medium text-blue-800">
+                Success Rate
+              </div>
               <div className="text-lg font-bold text-blue-600">
                 {(() => {
-                  const totalVerified = selectedPeriod.data.reduce((sum, item) => sum + item.verified, 0);
-                  const totalRevised = selectedPeriod.data.reduce((sum, item) => sum + item.revised, 0);
-                  return Math.round((totalVerified / (totalVerified + totalRevised)) * 100);
-                })()}%
+                  const totalVerified = selectedPeriod.data.reduce(
+                    (sum, item) => sum + item.verified,
+                    0,
+                  );
+                  const totalRevised = selectedPeriod.data.reduce(
+                    (sum, item) => sum + item.revised,
+                    0,
+                  );
+                  return Math.round(
+                    (totalVerified / (totalVerified + totalRevised)) * 100,
+                  );
+                })()}
+                %
               </div>
             </div>
           </div>
@@ -601,16 +639,28 @@ export default function VerifierDashboard() {
             <CardContent>
               <div className="space-y-3">
                 <div className="p-3 bg-blue-50 rounded-lg">
-                  <p className="text-sm font-medium text-blue-800">Sistem Pembaruan</p>
-                  <p className="text-xs text-blue-600">Fitur notifikasi real-time telah diaktifkan</p>
+                  <p className="text-sm font-medium text-blue-800">
+                    Sistem Pembaruan
+                  </p>
+                  <p className="text-xs text-blue-600">
+                    Fitur notifikasi real-time telah diaktifkan
+                  </p>
                 </div>
                 <div className="p-3 bg-green-50 rounded-lg">
-                  <p className="text-sm font-medium text-green-800">Performance</p>
-                  <p className="text-xs text-green-600">Waktu loading dashboard berkurang 40%</p>
+                  <p className="text-sm font-medium text-green-800">
+                    Performance
+                  </p>
+                  <p className="text-xs text-green-600">
+                    Waktu loading dashboard berkurang 40%
+                  </p>
                 </div>
                 <div className="p-3 bg-yellow-50 rounded-lg">
-                  <p className="text-sm font-medium text-yellow-800">Maintenance</p>
-                  <p className="text-xs text-yellow-600">Maintenance terjadwal Minggu pagi 02:00 - 04:00</p>
+                  <p className="text-sm font-medium text-yellow-800">
+                    Maintenance
+                  </p>
+                  <p className="text-xs text-yellow-600">
+                    Maintenance terjadwal Minggu pagi 02:00 - 04:00
+                  </p>
                 </div>
               </div>
             </CardContent>

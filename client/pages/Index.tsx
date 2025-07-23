@@ -65,12 +65,17 @@ interface ProvinceData {
 }
 
 // Performance data types
-type PeriodType = 'yearly' | 'quarterly';
+type PeriodType = "yearly" | "quarterly";
 type DataPeriod = {
   id: string;
   label: string;
   type: PeriodType;
-  data: Array<{ period: string; projects: number; revenue: number; risks: number }>;
+  data: Array<{
+    period: string;
+    projects: number;
+    revenue: number;
+    risks: number;
+  }>;
   isComplete: boolean;
 };
 
@@ -148,30 +153,30 @@ const quarterlyPerformanceQ3_2024 = [
 
 const availablePerformancePeriods: DataPeriod[] = [
   {
-    id: '2024',
-    label: '2024 (Tahunan)',
-    type: 'yearly',
+    id: "2024",
+    label: "2024 (Tahunan)",
+    type: "yearly",
     data: yearlyPerformance2024,
     isComplete: true,
   },
   {
-    id: '2023',
-    label: '2023 (Tahunan)',
-    type: 'yearly',
+    id: "2023",
+    label: "2023 (Tahunan)",
+    type: "yearly",
     data: yearlyPerformance2023,
     isComplete: true,
   },
   {
-    id: 'q4-2024',
-    label: 'Q4 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q4-2024",
+    label: "Q4 2024 (Triwulan)",
+    type: "quarterly",
     data: quarterlyPerformanceQ4_2024,
     isComplete: true,
   },
   {
-    id: 'q3-2024',
-    label: 'Q3 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q3-2024",
+    label: "Q3 2024 (Triwulan)",
+    type: "quarterly",
     data: quarterlyPerformanceQ3_2024,
     isComplete: true,
   },
@@ -183,7 +188,10 @@ const detectBestPerformancePeriod = (): DataPeriod => {
 
   // First, try to find complete yearly data for current year
   const currentYearData = availablePerformancePeriods.find(
-    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+    (period) =>
+      period.id === currentYear &&
+      period.type === "yearly" &&
+      period.isComplete,
   );
 
   if (currentYearData) {
@@ -192,7 +200,10 @@ const detectBestPerformancePeriod = (): DataPeriod => {
 
   // If current year is incomplete, find the latest quarterly data
   const quarterlyData = availablePerformancePeriods
-    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .filter(
+      (period) =>
+        period.type === "quarterly" && period.id.includes(currentYear),
+    )
     .sort((a, b) => b.id.localeCompare(a.id))[0];
 
   if (quarterlyData) {
@@ -202,7 +213,7 @@ const detectBestPerformancePeriod = (): DataPeriod => {
   // Fallback to previous year if available
   const previousYear = (parseInt(currentYear) - 1).toString();
   const previousYearData = availablePerformancePeriods.find(
-    period => period.id === previousYear && period.type === 'yearly'
+    (period) => period.id === previousYear && period.type === "yearly",
   );
 
   if (previousYearData) {
@@ -518,30 +529,30 @@ const riskCategoriesQ3_2024: RiskCategory[] = [
 
 const availableRiskPeriods: RiskDataPeriod[] = [
   {
-    id: '2024',
-    label: '2024 (Tahunan)',
-    type: 'yearly',
+    id: "2024",
+    label: "2024 (Tahunan)",
+    type: "yearly",
     data: riskCategories2024,
     isComplete: true,
   },
   {
-    id: '2023',
-    label: '2023 (Tahunan)',
-    type: 'yearly',
+    id: "2023",
+    label: "2023 (Tahunan)",
+    type: "yearly",
     data: riskCategories2023,
     isComplete: true,
   },
   {
-    id: 'q4-2024',
-    label: 'Q4 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q4-2024",
+    label: "Q4 2024 (Triwulan)",
+    type: "quarterly",
     data: riskCategoriesQ4_2024,
     isComplete: true,
   },
   {
-    id: 'q3-2024',
-    label: 'Q3 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q3-2024",
+    label: "Q3 2024 (Triwulan)",
+    type: "quarterly",
     data: riskCategoriesQ3_2024,
     isComplete: true,
   },
@@ -553,7 +564,10 @@ const detectBestRiskPeriod = (): RiskDataPeriod => {
 
   // First, try to find complete yearly data for current year
   const currentYearData = availableRiskPeriods.find(
-    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+    (period) =>
+      period.id === currentYear &&
+      period.type === "yearly" &&
+      period.isComplete,
   );
 
   if (currentYearData) {
@@ -562,7 +576,10 @@ const detectBestRiskPeriod = (): RiskDataPeriod => {
 
   // If current year is incomplete, find the latest quarterly data
   const quarterlyData = availableRiskPeriods
-    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .filter(
+      (period) =>
+        period.type === "quarterly" && period.id.includes(currentYear),
+    )
     .sort((a, b) => b.id.localeCompare(a.id))[0];
 
   if (quarterlyData) {
@@ -572,7 +589,7 @@ const detectBestRiskPeriod = (): RiskDataPeriod => {
   // Fallback to previous year if available
   const previousYear = (parseInt(currentYear) - 1).toString();
   const previousYearData = availableRiskPeriods.find(
-    period => period.id === previousYear && period.type === 'yearly'
+    (period) => period.id === previousYear && period.type === "yearly",
   );
 
   if (previousYearData) {
@@ -677,30 +694,19 @@ const provinceData2023: ProvinceData[] = [
     name: "Jawa Barat",
     value: 6,
     revenue: 7800000000,
-    projects: [
-      "Factory Automation",
-      "Healthcare System",
-      "E-Commerce Backend",
-    ],
+    projects: ["Factory Automation", "Healthcare System", "E-Commerce Backend"],
   },
   {
     name: "Jawa Tengah",
     value: 5,
     revenue: 5200000000,
-    projects: [
-      "Agricultural Portal",
-      "Education Management",
-    ],
+    projects: ["Agricultural Portal", "Education Management"],
   },
   {
     name: "Jawa Timur",
     value: 6,
     revenue: 6900000000,
-    projects: [
-      "Port System V1",
-      "Supply Chain",
-      "Manufacturing IoT",
-    ],
+    projects: ["Port System V1", "Supply Chain", "Manufacturing IoT"],
   },
   {
     name: "Sumatera Utara",
@@ -836,30 +842,30 @@ const riskCaptureDataQ3_2024 = [
 // Available periods for geographic data
 const availableGeographicPeriods: GeographicDataPeriod[] = [
   {
-    id: '2024',
-    label: '2024 (Tahunan)',
-    type: 'yearly',
+    id: "2024",
+    label: "2024 (Tahunan)",
+    type: "yearly",
     data: provinceData2024,
     isComplete: true,
   },
   {
-    id: '2023',
-    label: '2023 (Tahunan)',
-    type: 'yearly',
+    id: "2023",
+    label: "2023 (Tahunan)",
+    type: "yearly",
     data: provinceData2023,
     isComplete: true,
   },
   {
-    id: 'q4-2024',
-    label: 'Q4 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q4-2024",
+    label: "Q4 2024 (Triwulan)",
+    type: "quarterly",
     data: provinceDataQ4_2024,
     isComplete: true,
   },
   {
-    id: 'q3-2024',
-    label: 'Q3 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q3-2024",
+    label: "Q3 2024 (Triwulan)",
+    type: "quarterly",
     data: provinceDataQ3_2024,
     isComplete: true,
   },
@@ -868,30 +874,30 @@ const availableGeographicPeriods: GeographicDataPeriod[] = [
 // Available periods for risk capture data
 const availableRiskCapturePeriods: RiskCaptureDataPeriod[] = [
   {
-    id: '2024',
-    label: '2024 (Tahunan)',
-    type: 'yearly',
+    id: "2024",
+    label: "2024 (Tahunan)",
+    type: "yearly",
     data: riskCaptureData2024,
     isComplete: true,
   },
   {
-    id: '2023',
-    label: '2023 (Tahunan)',
-    type: 'yearly',
+    id: "2023",
+    label: "2023 (Tahunan)",
+    type: "yearly",
     data: riskCaptureData2023,
     isComplete: true,
   },
   {
-    id: 'q4-2024',
-    label: 'Q4 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q4-2024",
+    label: "Q4 2024 (Triwulan)",
+    type: "quarterly",
     data: riskCaptureDataQ4_2024,
     isComplete: true,
   },
   {
-    id: 'q3-2024',
-    label: 'Q3 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q3-2024",
+    label: "Q3 2024 (Triwulan)",
+    type: "quarterly",
     data: riskCaptureDataQ3_2024,
     isComplete: true,
   },
@@ -901,18 +907,24 @@ const availableRiskCapturePeriods: RiskCaptureDataPeriod[] = [
 const detectBestGeographicPeriod = (): GeographicDataPeriod => {
   const currentYear = new Date().getFullYear().toString();
   const currentYearData = availableGeographicPeriods.find(
-    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+    (period) =>
+      period.id === currentYear &&
+      period.type === "yearly" &&
+      period.isComplete,
   );
   if (currentYearData) return currentYearData;
 
   const quarterlyData = availableGeographicPeriods
-    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .filter(
+      (period) =>
+        period.type === "quarterly" && period.id.includes(currentYear),
+    )
     .sort((a, b) => b.id.localeCompare(a.id))[0];
   if (quarterlyData) return quarterlyData;
 
   const previousYear = (parseInt(currentYear) - 1).toString();
   const previousYearData = availableGeographicPeriods.find(
-    period => period.id === previousYear && period.type === 'yearly'
+    (period) => period.id === previousYear && period.type === "yearly",
   );
   if (previousYearData) return previousYearData;
 
@@ -923,18 +935,24 @@ const detectBestGeographicPeriod = (): GeographicDataPeriod => {
 const detectBestRiskCapturePeriod = (): RiskCaptureDataPeriod => {
   const currentYear = new Date().getFullYear().toString();
   const currentYearData = availableRiskCapturePeriods.find(
-    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+    (period) =>
+      period.id === currentYear &&
+      period.type === "yearly" &&
+      period.isComplete,
   );
   if (currentYearData) return currentYearData;
 
   const quarterlyData = availableRiskCapturePeriods
-    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .filter(
+      (period) =>
+        period.type === "quarterly" && period.id.includes(currentYear),
+    )
     .sort((a, b) => b.id.localeCompare(a.id))[0];
   if (quarterlyData) return quarterlyData;
 
   const previousYear = (parseInt(currentYear) - 1).toString();
   const previousYearData = availableRiskCapturePeriods.find(
-    period => period.id === previousYear && period.type === 'yearly'
+    (period) => period.id === previousYear && period.type === "yearly",
   );
   if (previousYearData) return previousYearData;
 
@@ -950,27 +968,38 @@ export default function Index() {
 
   // Performance chart state
   const performanceChartRef = useRef<HTMLDivElement>(null);
-  const [selectedPerformancePeriod, setSelectedPerformancePeriod] = useState<DataPeriod>(detectBestPerformancePeriod());
+  const [selectedPerformancePeriod, setSelectedPerformancePeriod] =
+    useState<DataPeriod>(detectBestPerformancePeriod());
   const [showPerformanceDropdown, setShowPerformanceDropdown] = useState(false);
   const [performanceAutoSelected, setPerformanceAutoSelected] = useState(true);
 
   // Risk categories state with dynamic period management
-  const [selectedRiskPeriod, setSelectedRiskPeriod] = useState<RiskDataPeriod>(detectBestRiskPeriod());
+  const [selectedRiskPeriod, setSelectedRiskPeriod] = useState<RiskDataPeriod>(
+    detectBestRiskPeriod(),
+  );
   const [showRiskDropdown, setShowRiskDropdown] = useState(false);
   const [riskAutoSelected, setRiskAutoSelected] = useState(true);
-  const [riskCategories, setRiskCategories] = useState<RiskCategory[]>(detectBestRiskPeriod().data);
+  const [riskCategories, setRiskCategories] = useState<RiskCategory[]>(
+    detectBestRiskPeriod().data,
+  );
 
   // Geographic data state
-  const [selectedGeographicPeriod, setSelectedGeographicPeriod] = useState<GeographicDataPeriod>(detectBestGeographicPeriod());
+  const [selectedGeographicPeriod, setSelectedGeographicPeriod] =
+    useState<GeographicDataPeriod>(detectBestGeographicPeriod());
   const [showGeographicDropdown, setShowGeographicDropdown] = useState(false);
   const [geographicAutoSelected, setGeographicAutoSelected] = useState(true);
-  const [provinceData, setProvinceData] = useState<ProvinceData[]>(detectBestGeographicPeriod().data);
+  const [provinceData, setProvinceData] = useState<ProvinceData[]>(
+    detectBestGeographicPeriod().data,
+  );
 
   // Risk capture data state
-  const [selectedRiskCapturePeriod, setSelectedRiskCapturePeriod] = useState<RiskCaptureDataPeriod>(detectBestRiskCapturePeriod());
+  const [selectedRiskCapturePeriod, setSelectedRiskCapturePeriod] =
+    useState<RiskCaptureDataPeriod>(detectBestRiskCapturePeriod());
   const [showRiskCaptureDropdown, setShowRiskCaptureDropdown] = useState(false);
   const [riskCaptureAutoSelected, setRiskCaptureAutoSelected] = useState(true);
-  const [riskCaptureData, setRiskCaptureData] = useState(detectBestRiskCapturePeriod().data);
+  const [riskCaptureData, setRiskCaptureData] = useState(
+    detectBestRiskCapturePeriod().data,
+  );
 
   const [invoiceStatus] = useState<InvoiceStatus>({
     completed_no_invoice: 5,
@@ -989,14 +1018,10 @@ export default function Index() {
     { category: ">90 hari", amount: 650000000, color: "red", days: ">90" },
   ]);
 
-
-
   // Dialog state for risk category details
   const [selectedRiskCategory, setSelectedRiskCategory] =
     useState<RiskCategory | null>(null);
   const [isRiskDialogOpen, setIsRiskDialogOpen] = useState(false);
-
-
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -1020,62 +1045,67 @@ export default function Index() {
     if (performanceChartRef.current) {
       Highcharts.chart(performanceChartRef.current, {
         chart: {
-          type: 'column',
+          type: "column",
           height: 350,
-          backgroundColor: 'transparent',
+          backgroundColor: "transparent",
         },
         title: {
-          text: '',
+          text: "",
         },
         xAxis: {
-          categories: dataPeriod.data.map(stat =>
-            dataPeriod.type === 'yearly' ? stat.period.split(' ')[0] : stat.period
+          categories: dataPeriod.data.map((stat) =>
+            dataPeriod.type === "yearly"
+              ? stat.period.split(" ")[0]
+              : stat.period,
           ),
           crosshair: true,
         },
-        yAxis: [{
-          min: 0,
-          title: {
-            text: 'Jumlah Proyek & Risiko',
-            style: {
-              color: '#666'
-            }
-          },
-          labels: {
-            style: {
-              color: '#666'
-            }
-          }
-        }, {
-          title: {
-            text: 'Revenue (Milyar IDR)',
-            style: {
-              color: '#f59e0b'
-            }
-          },
-          labels: {
-            formatter: function() {
-              return (this.value / 1000000000).toFixed(1) + 'B';
+        yAxis: [
+          {
+            min: 0,
+            title: {
+              text: "Jumlah Proyek & Risiko",
+              style: {
+                color: "#666",
+              },
             },
-            style: {
-              color: '#f59e0b'
-            }
+            labels: {
+              style: {
+                color: "#666",
+              },
+            },
           },
-          opposite: true
-        }],
+          {
+            title: {
+              text: "Revenue (Milyar IDR)",
+              style: {
+                color: "#f59e0b",
+              },
+            },
+            labels: {
+              formatter: function () {
+                return (this.value / 1000000000).toFixed(1) + "B";
+              },
+              style: {
+                color: "#f59e0b",
+              },
+            },
+            opposite: true,
+          },
+        ],
         tooltip: {
           shared: true,
-          formatter: function() {
+          formatter: function () {
             let tooltip = `<b>${this.x}</b><br/>`;
-            this.points?.forEach(point => {
-              if (point.series.name === 'Revenue') {
+            this.points?.forEach((point) => {
+              if (point.series.name === "Revenue") {
                 tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${formatCurrency(point.y!)}</b><br/>`;
               } else {
                 tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${point.y}</b><br/>`;
               }
             });
             return tooltip;
-          }
+          },
         },
         plotOptions: {
           column: {
@@ -1085,36 +1115,36 @@ export default function Index() {
         },
         series: [
           {
-            name: 'Proyek',
-            data: dataPeriod.data.map(stat => stat.projects),
-            color: '#3b82f6',
+            name: "Proyek",
+            data: dataPeriod.data.map((stat) => stat.projects),
+            color: "#3b82f6",
             yAxis: 0,
           },
           {
-            name: 'Risiko',
-            data: dataPeriod.data.map(stat => stat.risks),
-            color: '#ef4444',
+            name: "Risiko",
+            data: dataPeriod.data.map((stat) => stat.risks),
+            color: "#ef4444",
             yAxis: 0,
           },
           {
-            name: 'Revenue',
-            data: dataPeriod.data.map(stat => stat.revenue),
-            color: '#f59e0b',
-            type: 'line',
+            name: "Revenue",
+            data: dataPeriod.data.map((stat) => stat.revenue),
+            color: "#f59e0b",
+            type: "line",
             yAxis: 1,
             marker: {
               enabled: true,
-              radius: 4
-            }
+              radius: 4,
+            },
           },
         ],
         credits: {
           enabled: false,
         },
         legend: {
-          align: 'center',
-          verticalAlign: 'bottom',
-          layout: 'horizontal',
+          align: "center",
+          verticalAlign: "bottom",
+          layout: "horizontal",
         },
       });
     }
@@ -1132,9 +1162,11 @@ export default function Index() {
 
   const shouldShowPerformanceFallbackMessage = () => {
     const currentYear = new Date().getFullYear().toString();
-    return performanceAutoSelected &&
-           selectedPerformancePeriod.type === 'quarterly' &&
-           selectedPerformancePeriod.id.includes(currentYear);
+    return (
+      performanceAutoSelected &&
+      selectedPerformancePeriod.type === "quarterly" &&
+      selectedPerformancePeriod.id.includes(currentYear)
+    );
   };
 
   const handleRiskPeriodChange = (period: RiskDataPeriod) => {
@@ -1146,19 +1178,26 @@ export default function Index() {
 
   const shouldShowRiskFallbackMessage = () => {
     const currentYear = new Date().getFullYear().toString();
-    return riskAutoSelected &&
-           selectedRiskPeriod.type === 'quarterly' &&
-           selectedRiskPeriod.id.includes(currentYear);
+    return (
+      riskAutoSelected &&
+      selectedRiskPeriod.type === "quarterly" &&
+      selectedRiskPeriod.id.includes(currentYear)
+    );
   };
 
   // Calculate risk insights
   const getRiskInsights = (categories: RiskCategory[]) => {
     const totalRisks = categories.reduce((sum, cat) => sum + cat.total, 0);
     const totalOverdue = categories.reduce((sum, cat) => sum + cat.overdue, 0);
-    const totalInProcess = categories.reduce((sum, cat) => sum + cat.inProcess, 0);
+    const totalInProcess = categories.reduce(
+      (sum, cat) => sum + cat.inProcess,
+      0,
+    );
     const totalClosed = categories.reduce((sum, cat) => sum + cat.closed, 0);
-    const overduePercentage = totalRisks > 0 ? Math.round((totalOverdue / totalRisks) * 100) : 0;
-    const closedPercentage = totalRisks > 0 ? Math.round((totalClosed / totalRisks) * 100) : 0;
+    const overduePercentage =
+      totalRisks > 0 ? Math.round((totalOverdue / totalRisks) * 100) : 0;
+    const closedPercentage =
+      totalRisks > 0 ? Math.round((totalClosed / totalRisks) * 100) : 0;
 
     return {
       totalRisks,
@@ -1179,9 +1218,11 @@ export default function Index() {
 
   const shouldShowGeographicFallbackMessage = () => {
     const currentYear = new Date().getFullYear().toString();
-    return geographicAutoSelected &&
-           selectedGeographicPeriod.type === 'quarterly' &&
-           selectedGeographicPeriod.id.includes(currentYear);
+    return (
+      geographicAutoSelected &&
+      selectedGeographicPeriod.type === "quarterly" &&
+      selectedGeographicPeriod.id.includes(currentYear)
+    );
   };
 
   const handleRiskCapturePeriodChange = (period: RiskCaptureDataPeriod) => {
@@ -1193,17 +1234,27 @@ export default function Index() {
 
   const shouldShowRiskCaptureFallbackMessage = () => {
     const currentYear = new Date().getFullYear().toString();
-    return riskCaptureAutoSelected &&
-           selectedRiskCapturePeriod.type === 'quarterly' &&
-           selectedRiskCapturePeriod.id.includes(currentYear);
+    return (
+      riskCaptureAutoSelected &&
+      selectedRiskCapturePeriod.type === "quarterly" &&
+      selectedRiskCapturePeriod.id.includes(currentYear)
+    );
   };
 
   // Calculate geographic insights
   const getGeographicInsights = (data: ProvinceData[]) => {
-    const totalProjects = data.reduce((sum, province) => sum + province.value, 0);
-    const totalRevenue = data.reduce((sum, province) => sum + province.revenue, 0);
-    const avgProjectsPerProvince = data.length > 0 ? Math.round(totalProjects / data.length) : 0;
-    const avgRevenuePerProvince = data.length > 0 ? totalRevenue / data.length : 0;
+    const totalProjects = data.reduce(
+      (sum, province) => sum + province.value,
+      0,
+    );
+    const totalRevenue = data.reduce(
+      (sum, province) => sum + province.revenue,
+      0,
+    );
+    const avgProjectsPerProvince =
+      data.length > 0 ? Math.round(totalProjects / data.length) : 0;
+    const avgRevenuePerProvince =
+      data.length > 0 ? totalRevenue / data.length : 0;
 
     return {
       totalProjects,
@@ -1215,12 +1266,16 @@ export default function Index() {
   };
 
   // Calculate risk capture insights
-  const getRiskCaptureInsights = (data: Array<{ name: string; y: number; color: string }>) => {
+  const getRiskCaptureInsights = (
+    data: Array<{ name: string; y: number; color: string }>,
+  ) => {
     const totalItems = data.reduce((sum, item) => sum + item.y, 0);
-    const highRiskItems = data.find(item => item.name === "High")?.y || 0;
-    const lowRiskItems = data.find(item => item.name === "Low")?.y || 0;
-    const highRiskPercentage = totalItems > 0 ? Math.round((highRiskItems / totalItems) * 100) : 0;
-    const lowRiskPercentage = totalItems > 0 ? Math.round((lowRiskItems / totalItems) * 100) : 0;
+    const highRiskItems = data.find((item) => item.name === "High")?.y || 0;
+    const lowRiskItems = data.find((item) => item.name === "Low")?.y || 0;
+    const highRiskPercentage =
+      totalItems > 0 ? Math.round((highRiskItems / totalItems) * 100) : 0;
+    const lowRiskPercentage =
+      totalItems > 0 ? Math.round((lowRiskItems / totalItems) * 100) : 0;
 
     return {
       totalItems,
@@ -1482,12 +1537,12 @@ export default function Index() {
                     <Badge
                       variant="secondary"
                       className={`ml-2 ${
-                        selectedPerformancePeriod.type === 'yearly'
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-orange-100 text-orange-800'
+                        selectedPerformancePeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
                       }`}
                     >
-                      {selectedPerformancePeriod.type === 'yearly' ? (
+                      {selectedPerformancePeriod.type === "yearly" ? (
                         <>
                           <Calendar className="w-3 h-3 mr-1" />
                           Tahunan
@@ -1511,7 +1566,9 @@ export default function Index() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setShowPerformanceDropdown(!showPerformanceDropdown)}
+                  onClick={() =>
+                    setShowPerformanceDropdown(!showPerformanceDropdown)
+                  }
                   className="flex items-center gap-2"
                 >
                   <Calendar className="w-4 h-4" />
@@ -1522,17 +1579,21 @@ export default function Index() {
                 {showPerformanceDropdown && (
                   <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
                     <div className="p-2">
-                      <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                      <div className="text-xs font-medium text-gray-500 mb-2 px-2">
+                        PILIH PERIODE DATA
+                      </div>
                       {availablePerformancePeriods.map((period) => (
                         <button
                           key={period.id}
                           onClick={() => handlePerformancePeriodChange(period)}
                           className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
-                            selectedPerformancePeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                            selectedPerformancePeriod.id === period.id
+                              ? "bg-blue-50 text-blue-700"
+                              : "text-gray-700"
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            {period.type === 'yearly' ? (
+                            {period.type === "yearly" ? (
                               <Calendar className="w-4 h-4" />
                             ) : (
                               <TrendingUp className="w-4 h-4" />
@@ -1561,7 +1622,8 @@ export default function Index() {
                     Menampilkan Data Triwulan
                   </p>
                   <p className="text-xs text-amber-700 mt-1">
-                    Data tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.
+                    Data tahun {new Date().getFullYear()} belum lengkap,
+                    menampilkan data triwulan terakhir yang tersedia.
                   </p>
                 </div>
               </div>
@@ -1570,29 +1632,54 @@ export default function Index() {
             {/* Performance Insights */}
             <div className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3">
               <div className="bg-blue-50 p-3 rounded-lg">
-                <div className="text-sm font-medium text-blue-800">Total Proyek</div>
+                <div className="text-sm font-medium text-blue-800">
+                  Total Proyek
+                </div>
                 <div className="text-lg font-bold text-blue-600">
-                  {selectedPerformancePeriod.data.reduce((sum, item) => sum + item.projects, 0)}
+                  {selectedPerformancePeriod.data.reduce(
+                    (sum, item) => sum + item.projects,
+                    0,
+                  )}
                 </div>
               </div>
               <div className="bg-amber-50 p-3 rounded-lg">
-                <div className="text-sm font-medium text-amber-800">Total Revenue</div>
+                <div className="text-sm font-medium text-amber-800">
+                  Total Revenue
+                </div>
                 <div className="text-lg font-bold text-amber-600">
-                  {formatCurrencyShort(selectedPerformancePeriod.data.reduce((sum, item) => sum + item.revenue, 0))}
+                  {formatCurrencyShort(
+                    selectedPerformancePeriod.data.reduce(
+                      (sum, item) => sum + item.revenue,
+                      0,
+                    ),
+                  )}
                 </div>
               </div>
               <div className="bg-red-50 p-3 rounded-lg">
-                <div className="text-sm font-medium text-red-800">Total Risiko</div>
+                <div className="text-sm font-medium text-red-800">
+                  Total Risiko
+                </div>
                 <div className="text-lg font-bold text-red-600">
-                  {selectedPerformancePeriod.data.reduce((sum, item) => sum + item.risks, 0)}
+                  {selectedPerformancePeriod.data.reduce(
+                    (sum, item) => sum + item.risks,
+                    0,
+                  )}
                 </div>
               </div>
               <div className="bg-green-50 p-3 rounded-lg">
-                <div className="text-sm font-medium text-green-800">Avg Revenue/Proyek</div>
+                <div className="text-sm font-medium text-green-800">
+                  Avg Revenue/Proyek
+                </div>
                 <div className="text-lg font-bold text-green-600">
                   {(() => {
-                    const totalProjects = selectedPerformancePeriod.data.reduce((sum, item) => sum + item.projects, 0);
-                    const totalRevenue = selectedPerformancePeriod.data.reduce((sum, item) => sum + item.revenue, 0);
+                    const totalProjects = selectedPerformancePeriod.data.reduce(
+                      (sum, item) => sum + item.projects,
+                      0,
+                    );
+                    const totalRevenue = selectedPerformancePeriod.data.reduce(
+                      (sum, item) => sum + item.revenue,
+                      0,
+                    );
                     return formatCurrencyShort(totalRevenue / totalProjects);
                   })()}
                 </div>
@@ -1616,12 +1703,12 @@ export default function Index() {
                     <Badge
                       variant="secondary"
                       className={`ml-2 ${
-                        selectedRiskPeriod.type === 'yearly'
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-orange-100 text-orange-800'
+                        selectedRiskPeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
                       }`}
                     >
-                      {selectedRiskPeriod.type === 'yearly' ? (
+                      {selectedRiskPeriod.type === "yearly" ? (
                         <>
                           <Calendar className="w-3 h-3 mr-1" />
                           Tahunan
@@ -1656,17 +1743,21 @@ export default function Index() {
                 {showRiskDropdown && (
                   <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
                     <div className="p-2">
-                      <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                      <div className="text-xs font-medium text-gray-500 mb-2 px-2">
+                        PILIH PERIODE DATA
+                      </div>
                       {availableRiskPeriods.map((period) => (
                         <button
                           key={period.id}
                           onClick={() => handleRiskPeriodChange(period)}
                           className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
-                            selectedRiskPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                            selectedRiskPeriod.id === period.id
+                              ? "bg-blue-50 text-blue-700"
+                              : "text-gray-700"
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            {period.type === 'yearly' ? (
+                            {period.type === "yearly" ? (
                               <Calendar className="w-4 h-4" />
                             ) : (
                               <TrendingUp className="w-4 h-4" />
@@ -1695,7 +1786,8 @@ export default function Index() {
                     Menampilkan Data Risiko Triwulan
                   </p>
                   <p className="text-xs text-amber-700 mt-1">
-                    Data risiko tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.
+                    Data risiko tahun {new Date().getFullYear()} belum lengkap,
+                    menampilkan data triwulan terakhir yang tersedia.
                   </p>
                 </div>
               </div>
@@ -1708,25 +1800,33 @@ export default function Index() {
                 return (
                   <>
                     <div className="bg-gray-50 p-3 rounded-lg">
-                      <div className="text-sm font-medium text-gray-800">Total Risiko</div>
+                      <div className="text-sm font-medium text-gray-800">
+                        Total Risiko
+                      </div>
                       <div className="text-lg font-bold text-gray-600">
                         {insights.totalRisks}
                       </div>
                     </div>
                     <div className="bg-red-50 p-3 rounded-lg">
-                      <div className="text-sm font-medium text-red-800">Overdue</div>
+                      <div className="text-sm font-medium text-red-800">
+                        Overdue
+                      </div>
                       <div className="text-lg font-bold text-red-600">
                         {insights.totalOverdue} ({insights.overduePercentage}%)
                       </div>
                     </div>
                     <div className="bg-yellow-50 p-3 rounded-lg">
-                      <div className="text-sm font-medium text-yellow-800">In Process</div>
+                      <div className="text-sm font-medium text-yellow-800">
+                        In Process
+                      </div>
                       <div className="text-lg font-bold text-yellow-600">
                         {insights.totalInProcess}
                       </div>
                     </div>
                     <div className="bg-green-50 p-3 rounded-lg">
-                      <div className="text-sm font-medium text-green-800">Closed</div>
+                      <div className="text-sm font-medium text-green-800">
+                        Closed
+                      </div>
                       <div className="text-lg font-bold text-green-600">
                         {insights.totalClosed} ({insights.closedPercentage}%)
                       </div>
@@ -1831,12 +1931,12 @@ export default function Index() {
                       <Badge
                         variant="secondary"
                         className={`ml-2 ${
-                          selectedGeographicPeriod.type === 'yearly'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-orange-100 text-orange-800'
+                          selectedGeographicPeriod.type === "yearly"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-orange-100 text-orange-800"
                         }`}
                       >
-                        {selectedGeographicPeriod.type === 'yearly' ? (
+                        {selectedGeographicPeriod.type === "yearly" ? (
                           <>
                             <Calendar className="w-3 h-3 mr-1" />
                             Tahunan
@@ -1860,7 +1960,9 @@ export default function Index() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setShowGeographicDropdown(!showGeographicDropdown)}
+                    onClick={() =>
+                      setShowGeographicDropdown(!showGeographicDropdown)
+                    }
                     className="flex items-center gap-2"
                   >
                     <Calendar className="w-4 h-4" />
@@ -1871,17 +1973,21 @@ export default function Index() {
                   {showGeographicDropdown && (
                     <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
                       <div className="p-2">
-                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">
+                          PILIH PERIODE DATA
+                        </div>
                         {availableGeographicPeriods.map((period) => (
                           <button
                             key={period.id}
                             onClick={() => handleGeographicPeriodChange(period)}
                             className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
-                              selectedGeographicPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                              selectedGeographicPeriod.id === period.id
+                                ? "bg-blue-50 text-blue-700"
+                                : "text-gray-700"
                             }`}
                           >
                             <div className="flex items-center gap-2">
-                              {period.type === 'yearly' ? (
+                              {period.type === "yearly" ? (
                                 <Calendar className="w-4 h-4" />
                               ) : (
                                 <TrendingUp className="w-4 h-4" />
@@ -1910,7 +2016,8 @@ export default function Index() {
                       Menampilkan Data Geografis Triwulan
                     </p>
                     <p className="text-xs text-amber-700 mt-1">
-                      Data distribusi proyek tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.
+                      Data distribusi proyek tahun {new Date().getFullYear()}{" "}
+                      belum lengkap, menampilkan data triwulan terakhir.
                     </p>
                   </div>
                 </div>
@@ -1923,13 +2030,17 @@ export default function Index() {
                   return (
                     <>
                       <div className="bg-blue-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-blue-800">Total Proyek</div>
+                        <div className="text-sm font-medium text-blue-800">
+                          Total Proyek
+                        </div>
                         <div className="text-lg font-bold text-blue-600">
                           {insights.totalProjects}
                         </div>
                       </div>
                       <div className="bg-green-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-green-800">Total Revenue</div>
+                        <div className="text-sm font-medium text-green-800">
+                          Total Revenue
+                        </div>
                         <div className="text-lg font-bold text-green-600">
                           {formatCurrencyShort(insights.totalRevenue)}
                         </div>
@@ -1951,9 +2062,9 @@ export default function Index() {
                 <Badge
                   variant="outline"
                   className={`${
-                    selectedGeographicPeriod.type === 'yearly'
-                      ? 'text-blue-600 border-blue-200'
-                      : 'text-orange-600 border-orange-200'
+                    selectedGeographicPeriod.type === "yearly"
+                      ? "text-blue-600 border-blue-200"
+                      : "text-orange-600 border-orange-200"
                   }`}
                 >
                   {selectedGeographicPeriod.label}
@@ -1983,7 +2094,8 @@ export default function Index() {
                           {formatCurrency(province.revenue)}
                         </div>
                         <div className="text-xs text-gray-500">
-                          {province.value} project{province.value !== 1 ? "s" : ""}
+                          {province.value} project
+                          {province.value !== 1 ? "s" : ""}
                         </div>
                       </div>
                     </div>
@@ -1999,7 +2111,7 @@ export default function Index() {
                     <span>Total Pendapatan:</span>
                     <span className="font-semibold text-green-600">
                       {formatCurrency(
-                        provinceData.reduce((sum, p) => sum + p.revenue, 0)
+                        provinceData.reduce((sum, p) => sum + p.revenue, 0),
                       )}
                     </span>
                   </div>
@@ -2009,8 +2121,8 @@ export default function Index() {
                       {formatCurrency(
                         Math.round(
                           provinceData.reduce((sum, p) => sum + p.revenue, 0) /
-                            provinceData.length
-                        )
+                            provinceData.length,
+                        ),
                       )}
                     </span>
                   </div>
@@ -2031,12 +2143,12 @@ export default function Index() {
                       <Badge
                         variant="secondary"
                         className={`ml-2 ${
-                          selectedRiskCapturePeriod.type === 'yearly'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-orange-100 text-orange-800'
+                          selectedRiskCapturePeriod.type === "yearly"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-orange-100 text-orange-800"
                         }`}
                       >
-                        {selectedRiskCapturePeriod.type === 'yearly' ? (
+                        {selectedRiskCapturePeriod.type === "yearly" ? (
                           <>
                             <Calendar className="w-3 h-3 mr-1" />
                             Tahunan
@@ -2050,7 +2162,8 @@ export default function Index() {
                       </Badge>
                     </CardTitle>
                     <p className="text-sm text-gray-600 mt-1">
-                      {selectedRiskCapturePeriod.label} - Distribusi level risiko berdasarkan severity assessment
+                      {selectedRiskCapturePeriod.label} - Distribusi level
+                      risiko berdasarkan severity assessment
                     </p>
                   </div>
                 </div>
@@ -2060,7 +2173,9 @@ export default function Index() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setShowRiskCaptureDropdown(!showRiskCaptureDropdown)}
+                    onClick={() =>
+                      setShowRiskCaptureDropdown(!showRiskCaptureDropdown)
+                    }
                     className="flex items-center gap-2"
                   >
                     <Calendar className="w-4 h-4" />
@@ -2071,17 +2186,23 @@ export default function Index() {
                   {showRiskCaptureDropdown && (
                     <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
                       <div className="p-2">
-                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">
+                          PILIH PERIODE DATA
+                        </div>
                         {availableRiskCapturePeriods.map((period) => (
                           <button
                             key={period.id}
-                            onClick={() => handleRiskCapturePeriodChange(period)}
+                            onClick={() =>
+                              handleRiskCapturePeriodChange(period)
+                            }
                             className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
-                              selectedRiskCapturePeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                              selectedRiskCapturePeriod.id === period.id
+                                ? "bg-blue-50 text-blue-700"
+                                : "text-gray-700"
                             }`}
                           >
                             <div className="flex items-center gap-2">
-                              {period.type === 'yearly' ? (
+                              {period.type === "yearly" ? (
                                 <Calendar className="w-4 h-4" />
                               ) : (
                                 <TrendingUp className="w-4 h-4" />
@@ -2110,7 +2231,8 @@ export default function Index() {
                       Menampilkan Data Risk Capture Triwulan
                     </p>
                     <p className="text-xs text-amber-700 mt-1">
-                      Data risk capture tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.
+                      Data risk capture tahun {new Date().getFullYear()} belum
+                      lengkap, menampilkan data triwulan terakhir.
                     </p>
                   </div>
                 </div>
@@ -2123,15 +2245,21 @@ export default function Index() {
                   return (
                     <>
                       <div className="bg-red-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-red-800">High Risk</div>
+                        <div className="text-sm font-medium text-red-800">
+                          High Risk
+                        </div>
                         <div className="text-lg font-bold text-red-600">
-                          {insights.highRiskItems} ({insights.highRiskPercentage}%)
+                          {insights.highRiskItems} (
+                          {insights.highRiskPercentage}%)
                         </div>
                       </div>
                       <div className="bg-green-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-green-800">Low Risk</div>
+                        <div className="text-sm font-medium text-green-800">
+                          Low Risk
+                        </div>
                         <div className="text-lg font-bold text-green-600">
-                          {insights.lowRiskItems} ({insights.lowRiskPercentage}%)
+                          {insights.lowRiskItems} ({insights.lowRiskPercentage}
+                          %)
                         </div>
                       </div>
                     </>
