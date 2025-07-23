@@ -960,11 +960,27 @@ const detectBestRiskCapturePeriod = (): RiskCaptureDataPeriod => {
 };
 
 export default function Index() {
-  const [projectSummary] = useState<ProjectSummary>({
-    total: 45,
-    running: 28,
-    completed: 17,
-  });
+  // Dynamic project summary based on performance period
+  const calculateProjectSummary = (performancePeriod: DataPeriod): ProjectSummary => {
+    const totalProjects = performancePeriod.data.reduce((sum, item) => sum + item.projects, 0);
+
+    // Calculate running projects (assume 60-65% of total are running)
+    const runningPercentage = performancePeriod.type === 'yearly' ? 0.62 : 0.65;
+    const running = Math.round(totalProjects * runningPercentage);
+
+    // Calculate completed projects (remaining from total)
+    const completed = totalProjects - running;
+
+    return {
+      total: totalProjects,
+      running: running,
+      completed: completed,
+    };
+  };
+
+  const [projectSummary, setProjectSummary] = useState<ProjectSummary>(
+    calculateProjectSummary(detectBestPerformancePeriod())
+  );
 
   // Performance chart state
   const performanceChartRef = useRef<HTMLDivElement>(null);
@@ -1156,9 +1172,15 @@ export default function Index() {
 
   const handlePerformancePeriodChange = (period: DataPeriod) => {
     setSelectedPerformancePeriod(period);
+    setProjectSummary(calculateProjectSummary(period));
     setPerformanceAutoSelected(false);
     setShowPerformanceDropdown(false);
   };
+
+  // Update project summary when performance period changes
+  useEffect(() => {
+    setProjectSummary(calculateProjectSummary(selectedPerformancePeriod));
+  }, [selectedPerformancePeriod]);
 
   const shouldShowPerformanceFallbackMessage = () => {
     const currentYear = new Date().getFullYear().toString();
