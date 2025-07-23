@@ -617,7 +617,13 @@ export default function VerifierDashboard() {
               <Link to="/verification">
                 <Button className="w-full justify-start" variant="outline">
                   <Eye className="w-4 h-4 mr-2" />
-                  Lihat Semua Verifikasi
+                  Verifikasi Readiness
+                </Button>
+              </Link>
+              <Link to="/risk-capture-verification">
+                <Button className="w-full justify-start" variant="outline">
+                  <Shield className="w-4 h-4 mr-2" />
+                  Verifikasi Risk Capture
                 </Button>
               </Link>
               <Button className="w-full justify-start" variant="outline">
