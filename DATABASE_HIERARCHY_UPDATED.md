@@ -50,7 +50,7 @@
     ├── client
     ├── budget
     ├── province_id → references provinces(id)
-    ├── category_id → references project_categories(id)
+    ├── category_id �� references project_categories(id)
     └── status
 ```
 
@@ -78,7 +78,7 @@
 │
 ├── 🛡️  risk_captures (Header/Parent) **ENHANCED**
 │   ├── id (PK)
-│   ├── project_id �� references projects(id)
+│   ├── project_id → references projects(id)
 │   ├── project_name **NEW**
 │   ├── submitted_by
 │   ├── total_risks
@@ -91,7 +91,7 @@
 └── 💰  invoices
     ├── id (PK)
     ├── project_id → references projects(id)
-    ├── amount
+    ├─�� amount
     ├── status
     └── issued_date
 ```
@@ -128,7 +128,7 @@
 │
 ├── 📋  verification_assignments (Assignment to Risk Officers) **NEW**
 │   ├── id (PK)
-│   ├── readiness_id → references project_readiness(id) 🔗 CASCADE
+│   ├─��� readiness_id → references project_readiness(id) 🔗 CASCADE
 │   ├── assigned_to → references users(id) [Risk Officer]
 │   ├── assigned_by → references users(id) [Admin/Manager]
 │   ├── priority (low, medium, high, urgent)
@@ -136,11 +136,31 @@
 │   ├── due_date
 │   └── estimated_hours
 │
-└── 📊  verification_activities (Audit Trail) **NEW**
+├── 📊  verification_activities (Readiness Audit Trail) **NEW**
+│   ├── id (PK)
+│   ├── readiness_id → references project_readiness(id)
+│   ├── verifier_id → references users(id)
+│   ├── activity_type (assigned, started_review, verified, etc.)
+│   ├── description
+│   ├── old_status
+│   ├── new_status
+│   └── activity_at
+│
+├── 📋  risk_capture_verification_assignments (Risk Capture Assignment) **NEW**
+│   ├── id (PK)
+│   ├── risk_capture_id → references risk_captures(id) 🔗 CASCADE
+│   ├── assigned_to → references users(id) [Risk Officer]
+│   ├── assigned_by → references users(id) [Admin/Manager]
+│   ├── priority (low, medium, high, urgent)
+│   ├── status (assigned, in_progress, completed)
+│   ├── due_date
+│   └── estimated_hours
+│
+└── 📊  risk_capture_verification_activities (Risk Capture Audit Trail) **NEW**
     ├── id (PK)
-    ├── readiness_id → references project_readiness(id)
+    ├── risk_capture_id → references risk_captures(id)
     ├── verifier_id → references users(id)
-    ├── activity_type (assigned, started_review, verified, etc.)
+    ├── activity_type (assigned, started_review, risk_verified, etc.)
     ├── description
     ├── old_status
     ├── new_status
@@ -152,7 +172,7 @@
 ### 📊 **Analytics & Reporting (Level 1) - Independent Analytics**
 ```
 📁 Analytics
-��── 📈  performance_metrics
+├── 📈  performance_metrics
 │   ├── id (PK)
 │   ├── period_type
 │   ├── period_value
