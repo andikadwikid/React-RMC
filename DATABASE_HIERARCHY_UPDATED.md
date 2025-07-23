@@ -33,7 +33,7 @@
     ├── id (PK)
     ├── username
     ├── email
-    ├���─ full_name
+    ├── full_name
     ├── role (risk_officer, verifier, admin, etc.)
     └── department
 ```
@@ -78,7 +78,7 @@
 │
 ├── 🛡️  risk_captures (Header/Parent) **ENHANCED**
 │   ├── id (PK)
-│   ├── project_id → references projects(id)
+│   ├── project_id �� references projects(id)
 │   ├── project_name **NEW**
 │   ├── submitted_by
 │   ├── total_risks
@@ -113,14 +113,18 @@
 │   ├── verifier_name **NEW**
 │   └── verified_at **NEW**
 │
-├── 🛡️  risk_items (Children of risk_captures)
+├── 🛡️  risk_items (Children of risk_captures) **ENHANCED**
 │   ├── id (PK)
 │   ├── risk_capture_id → references risk_captures(id) 🔗 CASCADE
 │   ├── sasaran
 │   ├── peristiwa_risiko
 │   ├── risiko_awal_level
 │   ├── risiko_akhir_level
-│   └── kontrol_eksisting
+│   ├── kontrol_eksisting
+│   ├── verifier_comment (risk officer feedback) **NEW**
+│   ├── verifier_name **NEW**
+│   ├── verified_at **NEW**
+│   └── is_verified **NEW**
 │
 ├── 📋  verification_assignments (Assignment to Risk Officers) **NEW**
 │   ├── id (PK)
@@ -148,12 +152,12 @@
 ### 📊 **Analytics & Reporting (Level 1) - Independent Analytics**
 ```
 📁 Analytics
-├── 📈  performance_metrics
+��── 📈  performance_metrics
 │   ├── id (PK)
 │   ├── period_type
 │   ├── period_value
 │   ├── province_id → references provinces(id) [Optional]
-│   ��── total_projects
+│   ├── total_projects
 │   └── total_revenue
 │
 └── 📊  risk_category_stats
