@@ -101,20 +101,27 @@ CREATE TYPE readiness_status AS ENUM ('lengkap', 'parsial', 'tidak_tersedia');
 ```
 
 ### 5. **risk_captures**
-Tabel untuk risk capture assessments
+Tabel untuk risk capture assessments **ENHANCED WITH VERIFICATION**
 
 ```sql
 CREATE TABLE risk_captures (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+    project_name VARCHAR(255) NOT NULL,
     submitted_by VARCHAR(255) NOT NULL,
     submitted_at TIMESTAMP WITH TIME ZONE NOT NULL,
     total_risks INTEGER DEFAULT 0,
     risk_level_distribution JSONB,
-    status VARCHAR(50) DEFAULT 'active',
+    status risk_capture_status DEFAULT 'submitted',
+    verifier_name VARCHAR(255),
+    verified_at TIMESTAMP WITH TIME ZONE,
+    overall_comment TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Enum for risk capture status
+CREATE TYPE risk_capture_status AS ENUM ('submitted', 'under_review', 'verified', 'needs_revision');
 ```
 
 ### 6. **risk_items**
