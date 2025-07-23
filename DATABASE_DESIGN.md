@@ -203,9 +203,91 @@ CREATE TABLE clients (
 );
 ```
 
+## User Management Tables
+
+### 10. **users**
+Tabel untuk pengguna sistem (Risk Officers, Project Managers, etc.)
+
+```sql
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    username VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    full_name VARCHAR(255) NOT NULL,
+    role user_role NOT NULL,
+    department VARCHAR(100),
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enum for user roles
+CREATE TYPE user_role AS ENUM ('admin', 'risk_officer', 'project_manager', 'user', 'verifier');
+```
+
+### 11. **verification_assignments**
+Tabel untuk assignment verifikasi ke risk officer
+
+```sql
+CREATE TABLE verification_assignments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    readiness_id UUID NOT NULL REFERENCES project_readiness(id) ON DELETE CASCADE,
+    assigned_to UUID NOT NULL REFERENCES users(id),
+    assigned_by UUID NOT NULL REFERENCES users(id),
+    assigned_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    priority verification_priority DEFAULT 'medium',
+    estimated_hours DECIMAL(4,2),
+    due_date TIMESTAMP WITH TIME ZONE,
+    status assignment_status DEFAULT 'assigned',
+    started_at TIMESTAMP WITH TIME ZONE,
+    completed_at TIMESTAMP WITH TIME ZONE,
+    notes TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enum for verification priority
+CREATE TYPE verification_priority AS ENUM ('low', 'medium', 'high', 'urgent');
+
+-- Enum for assignment status
+CREATE TYPE assignment_status AS ENUM ('assigned', 'in_progress', 'completed', 'cancelled');
+```
+
+### 12. **verification_activities**
+Tabel untuk tracking aktivitas verifikasi
+
+```sql
+CREATE TABLE verification_activities (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    readiness_id UUID NOT NULL REFERENCES project_readiness(id),
+    verifier_id UUID NOT NULL REFERENCES users(id),
+    activity_type verification_activity_type NOT NULL,
+    description TEXT,
+    old_status readiness_assessment_status,
+    new_status readiness_assessment_status,
+    items_verified INTEGER DEFAULT 0,
+    total_items INTEGER DEFAULT 0,
+    notes TEXT,
+    activity_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enum for verification activity types
+CREATE TYPE verification_activity_type AS ENUM (
+    'assigned',
+    'started_review',
+    'item_verified',
+    'status_changed',
+    'comment_added',
+    'verification_completed',
+    'revision_requested',
+    'approved'
+);
+```
+
 ## Risk Management Tables
 
-### 10. **risk_categories**
+### 13. **risk_categories**
 Tabel master untuk kategori risiko
 
 ```sql
@@ -220,7 +302,7 @@ CREATE TABLE risk_categories (
 );
 ```
 
-### 11. **risk_category_stats**
+### 14. **risk_category_stats**
 Tabel untuk statistik kategori risiko per periode
 
 ```sql
@@ -245,7 +327,7 @@ CREATE TYPE period_type AS ENUM ('yearly', 'quarterly', 'monthly');
 
 ## Financial Tables
 
-### 12. **invoices**
+### 15. **invoices**
 Tabel untuk invoice proyek
 
 ```sql
@@ -268,7 +350,7 @@ CREATE TYPE invoice_status AS ENUM ('draft', 'issued', 'paid', 'overdue', 'cance
 
 ## Performance Analytics Tables
 
-### 13. **performance_metrics**
+### 16. **performance_metrics**
 Tabel untuk metrik performa per periode
 
 ```sql
@@ -307,6 +389,21 @@ CREATE INDEX idx_timeline_dates ON timeline_milestones(start_date, end_date);
 CREATE INDEX idx_readiness_project ON project_readiness(project_id);
 CREATE INDEX idx_readiness_status ON project_readiness(status);
 CREATE INDEX idx_readiness_items_readiness ON readiness_items(readiness_id);
+CREATE INDEX idx_readiness_verifier ON project_readiness(verifier_name);
+
+-- User indexes
+CREATE INDEX idx_users_role ON users(role);
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_active ON users(is_active);
+
+-- Verification indexes
+CREATE INDEX idx_verification_assignments_assigned_to ON verification_assignments(assigned_to);
+CREATE INDEX idx_verification_assignments_status ON verification_assignments(status);
+CREATE INDEX idx_verification_assignments_priority ON verification_assignments(priority);
+CREATE INDEX idx_verification_assignments_due_date ON verification_assignments(due_date);
+CREATE INDEX idx_verification_activities_readiness ON verification_activities(readiness_id);
+CREATE INDEX idx_verification_activities_verifier ON verification_activities(verifier_id);
+CREATE INDEX idx_verification_activities_type ON verification_activities(activity_type);
 
 -- Risk indexes
 CREATE INDEX idx_risk_captures_project ON risk_captures(project_id);
@@ -357,26 +454,78 @@ GROUP BY rc.project_id;
 
 -- Readiness status view
 CREATE VIEW readiness_status_summary AS
-SELECT 
+SELECT
     pr.project_id,
     pr.status as overall_status,
+    pr.verifier_name,
+    pr.verified_at,
     COUNT(ri.id) as total_items,
     COUNT(CASE WHEN ri.user_status = 'lengkap' THEN 1 END) as lengkap,
     COUNT(CASE WHEN ri.user_status = 'parsial' THEN 1 END) as parsial,
     COUNT(CASE WHEN ri.user_status = 'tidak_tersedia' THEN 1 END) as tidak_tersedia,
+    COUNT(CASE WHEN ri.verifier_status = 'lengkap' THEN 1 END) as verified_lengkap,
+    COUNT(CASE WHEN ri.verifier_status = 'parsial' THEN 1 END) as verified_parsial,
+    COUNT(CASE WHEN ri.verifier_status = 'tidak_tersedia' THEN 1 END) as verified_tidak_tersedia,
     ROUND(
-        (COUNT(CASE WHEN ri.user_status = 'lengkap' THEN 1 END) * 100.0 + 
-         COUNT(CASE WHEN ri.user_status = 'parsial' THEN 1 END) * 50.0) / 
+        (COUNT(CASE WHEN ri.user_status = 'lengkap' THEN 1 END) * 100.0 +
+         COUNT(CASE WHEN ri.user_status = 'parsial' THEN 1 END) * 50.0) /
         NULLIF(COUNT(ri.id), 0), 2
-    ) as completion_percentage
+    ) as user_completion_percentage,
+    ROUND(
+        (COUNT(CASE WHEN ri.verifier_status = 'lengkap' THEN 1 END) * 100.0 +
+         COUNT(CASE WHEN ri.verifier_status = 'parsial' THEN 1 END) * 50.0) /
+        NULLIF(COUNT(ri.id), 0), 2
+    ) as verifier_completion_percentage
 FROM project_readiness pr
 LEFT JOIN readiness_items ri ON pr.id = ri.readiness_id
-GROUP BY pr.project_id, pr.status;
+GROUP BY pr.project_id, pr.status, pr.verifier_name, pr.verified_at;
+
+-- Verification workload view
+CREATE VIEW verifier_workload AS
+SELECT
+    u.id as verifier_id,
+    u.full_name as verifier_name,
+    u.department,
+    COUNT(va.id) as total_assigned,
+    COUNT(CASE WHEN va.status = 'assigned' THEN 1 END) as pending_assignments,
+    COUNT(CASE WHEN va.status = 'in_progress' THEN 1 END) as in_progress_assignments,
+    COUNT(CASE WHEN va.status = 'completed' THEN 1 END) as completed_assignments,
+    AVG(CASE WHEN va.completed_at IS NOT NULL THEN
+        EXTRACT(EPOCH FROM (va.completed_at - va.assigned_at))/3600
+    END) as avg_completion_hours,
+    COUNT(CASE WHEN va.priority = 'high' OR va.priority = 'urgent' THEN 1 END) as high_priority_count
+FROM users u
+LEFT JOIN verification_assignments va ON u.id = va.assigned_to
+WHERE u.role = 'risk_officer' AND u.is_active = true
+GROUP BY u.id, u.full_name, u.department;
+
+-- Verification performance view
+CREATE VIEW verification_performance AS
+SELECT
+    DATE_TRUNC('month', vact.activity_at) as month,
+    u.full_name as verifier_name,
+    COUNT(CASE WHEN vact.activity_type = 'verification_completed' THEN 1 END) as verifications_completed,
+    COUNT(CASE WHEN vact.activity_type = 'approved' THEN 1 END) as approvals_given,
+    COUNT(CASE WHEN vact.activity_type = 'revision_requested' THEN 1 END) as revisions_requested,
+    AVG(vact.items_verified::DECIMAL / NULLIF(vact.total_items, 0) * 100) as avg_completion_rate
+FROM verification_activities vact
+JOIN users u ON vact.verifier_id = u.id
+WHERE vact.activity_at >= CURRENT_DATE - INTERVAL '12 months'
+GROUP BY DATE_TRUNC('month', vact.activity_at), u.full_name
+ORDER BY month DESC, verifier_name;
 ```
 
 ## Sample Data Population
 
 ```sql
+-- Insert sample users (Risk Officers, etc.)
+INSERT INTO users (username, email, full_name, role, department) VALUES
+('admin', 'admin@company.com', 'System Administrator', 'admin', 'IT'),
+('risk_officer_1', 'risk1@company.com', 'John Risk Officer', 'risk_officer', 'Risk Management'),
+('risk_officer_2', 'risk2@company.com', 'Jane Risk Analyst', 'risk_officer', 'Risk Management'),
+('pm_1', 'pm1@company.com', 'Bob Project Manager', 'project_manager', 'Project Management'),
+('verifier_1', 'verifier1@company.com', 'Senior Verifier', 'verifier', 'Quality Assurance');
+
 -- Insert sample provinces
 INSERT INTO provinces (name, code, capital, region) VALUES
 ('DKI Jakarta', 'JKT', 'Jakarta', 'Jawa'),
