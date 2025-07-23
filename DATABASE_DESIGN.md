@@ -531,6 +531,44 @@ FROM risk_captures rc
 LEFT JOIN risk_items ri ON rc.id = ri.risk_capture_id
 GROUP BY rc.project_id;
 
+-- Risk capture verification summary view **NEW**
+CREATE VIEW risk_capture_verification_summary AS
+SELECT
+    rc.project_id,
+    rc.id as risk_capture_id,
+    rc.status as overall_status,
+    rc.verifier_name,
+    rc.verified_at,
+    COUNT(ri.id) as total_risks,
+    COUNT(CASE WHEN ri.is_verified = true THEN 1 END) as verified_risks,
+    ROUND(
+        COUNT(CASE WHEN ri.is_verified = true THEN 1 END) * 100.0 /
+        NULLIF(COUNT(ri.id), 0), 2
+    ) as verification_percentage,
+    COUNT(CASE WHEN ri.verifier_comment IS NOT NULL AND ri.verifier_comment != '' THEN 1 END) as commented_risks
+FROM risk_captures rc
+LEFT JOIN risk_items ri ON rc.id = ri.risk_capture_id
+GROUP BY rc.project_id, rc.id, rc.status, rc.verifier_name, rc.verified_at;
+
+-- Risk verification workload view **NEW**
+CREATE VIEW risk_verifier_workload AS
+SELECT
+    u.id as verifier_id,
+    u.full_name as verifier_name,
+    u.department,
+    COUNT(rcva.id) as total_assigned,
+    COUNT(CASE WHEN rcva.status = 'assigned' THEN 1 END) as pending_assignments,
+    COUNT(CASE WHEN rcva.status = 'in_progress' THEN 1 END) as in_progress_assignments,
+    COUNT(CASE WHEN rcva.status = 'completed' THEN 1 END) as completed_assignments,
+    AVG(CASE WHEN rcva.completed_at IS NOT NULL THEN
+        EXTRACT(EPOCH FROM (rcva.completed_at - rcva.assigned_at))/3600
+    END) as avg_completion_hours,
+    COUNT(CASE WHEN rcva.priority = 'high' OR rcva.priority = 'urgent' THEN 1 END) as high_priority_count
+FROM users u
+LEFT JOIN risk_capture_verification_assignments rcva ON u.id = rcva.assigned_to
+WHERE u.role = 'risk_officer' AND u.is_active = true
+GROUP BY u.id, u.full_name, u.department;
+
 -- Readiness status view
 CREATE VIEW readiness_status_summary AS
 SELECT
