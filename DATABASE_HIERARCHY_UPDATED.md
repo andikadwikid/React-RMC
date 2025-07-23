@@ -7,7 +7,7 @@
 📁 Master Data
 ├── 🏛️  provinces
 │   ├── id (PK)
-│   ├── name
+│   ├���─ name
 │   ├── code
 │   └── region
 │
@@ -132,7 +132,7 @@
 │   ├── assigned_to → references users(id) [Risk Officer]
 │   ├── assigned_by → references users(id) [Admin/Manager]
 │   ├── priority (low, medium, high, urgent)
-│   ├── status (assigned, in_progress, completed)
+│   ��── status (assigned, in_progress, completed)
 │   ├── due_date
 │   └── estimated_hours
 │
@@ -156,12 +156,12 @@
 │   ├── due_date
 │   └── estimated_hours
 │
-└── ��  risk_capture_verification_activities (Risk Capture Audit Trail) **NEW**
+└── 📊  risk_capture_verification_activities (Risk Capture Audit Trail) **NEW**
     ├── id (PK)
     ├── risk_capture_id → references risk_captures(id)
     ├── verifier_id → references users(id)
     ├── activity_type (assigned, started_review, risk_verified, etc.)
-    ├── description
+    ���── description
     ├── old_status
     ├── new_status
     └── activity_at
@@ -338,8 +338,9 @@ users DELETE → verification_activities (RESTRICT - audit trail preservation) �
 
 ---
 
-## 🔍 **Verification Workflow Detail** ⭐ **NEW**
+## 🔍 **Verification Workflow Detail** ⭐ **UPDATED**
 
+### **Readiness Verification Workflow**
 ```
 📝 User Flow:
 1. User submits project_readiness with readiness_items
@@ -347,6 +348,20 @@ users DELETE → verification_activities (RESTRICT - audit trail preservation) �
 3. Risk Officer reviews and updates verifier_status in readiness_items
 4. All verification_activities are logged for audit trail
 5. Risk Officer changes project_readiness.status to final state
+```
+
+### **Risk Capture Verification Workflow** ⭐ **NEW**
+```
+🛡️ User Flow:
+1. User submits risk_captures with risk_items
+2. Admin/Manager creates risk_capture_verification_assignment → Risk Officer
+3. Risk Officer reviews each risk_item individually:
+   - Toggle is_verified status per risk item
+   - Add verifier_comment for feedback/revision
+   - Verify risk assessment calculations
+4. All risk_capture_verification_activities are logged for audit trail
+5. Risk Officer changes risk_captures.status to final state
+6. Tab-based UI organization by status (submitted/under_review/verified/needs_revision)
 ```
 
 ## 👥 **User Roles & Permissions** ⭐ **NEW**
