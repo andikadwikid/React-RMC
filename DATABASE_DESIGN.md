@@ -125,7 +125,7 @@ CREATE TYPE risk_capture_status AS ENUM ('submitted', 'under_review', 'verified'
 ```
 
 ### 6. **risk_items**
-Tabel untuk item-item risk individual
+Tabel untuk item-item risk individual **ENHANCED WITH VERIFICATION**
 
 ```sql
 CREATE TABLE risk_items (
@@ -139,17 +139,23 @@ CREATE TABLE risk_items (
     dampak_kualitatif TEXT NOT NULL,
     dampak_kuantitatif TEXT NOT NULL,
     kontrol_eksisting TEXT NOT NULL,
-    
+
     -- Risiko Awal
     risiko_awal_kejadian INTEGER CHECK (risiko_awal_kejadian >= 1 AND risiko_awal_kejadian <= 25),
     risiko_awal_dampak INTEGER CHECK (risiko_awal_dampak >= 1 AND risiko_awal_dampak <= 25),
     risiko_awal_level INTEGER CHECK (risiko_awal_level >= 1 AND risiko_awal_level <= 25),
-    
+
     -- Risiko Akhir
     risiko_akhir_kejadian INTEGER CHECK (risiko_akhir_kejadian >= 1 AND risiko_akhir_kejadian <= 25),
     risiko_akhir_dampak INTEGER CHECK (risiko_akhir_dampak >= 1 AND risiko_akhir_dampak <= 25),
     risiko_akhir_level INTEGER CHECK (risiko_akhir_level >= 1 AND risiko_akhir_level <= 25),
-    
+
+    -- Verification fields **NEW**
+    verifier_comment TEXT,
+    verifier_name VARCHAR(255),
+    verified_at TIMESTAMP WITH TIME ZONE,
+    is_verified BOOLEAN DEFAULT false,
+
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
