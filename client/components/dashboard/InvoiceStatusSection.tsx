@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DollarSign, Calendar, TrendingUp } from "lucide-react";
-import { 
+import {
   InvoiceStatus,
   InvoiceStatusDataPeriod,
   AgingReceivable,
-  availableInvoiceStatusPeriods 
+  availableInvoiceStatusPeriods,
 } from "@/hooks/useDashboardData";
 import { PeriodSelector } from "./PeriodSelector";
 import { FallbackMessage } from "./FallbackMessage";
@@ -113,9 +113,12 @@ export function InvoiceStatusSection({
           show={shouldShowFallbackMessage()}
         />
 
-        <InsightCardsGrid insights={insightCardsData} className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3" />
+        <InsightCardsGrid
+          insights={insightCardsData}
+          className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3"
+        />
       </CardHeader>
-      
+
       <CardContent>
         <div className="space-y-4">
           <div className="flex items-center justify-between p-4 border rounded-lg bg-red-50 border-red-200">
@@ -142,9 +145,7 @@ export function InvoiceStatusSection({
                 <p className="font-medium text-yellow-800">
                   Invoice Issued, Belum Dibayar
                 </p>
-                <p className="text-sm text-yellow-600">
-                  Menunggu pembayaran
-                </p>
+                <p className="text-sm text-yellow-600">Menunggu pembayaran</p>
               </div>
             </div>
             <span className="text-2xl font-bold text-yellow-700">
@@ -159,9 +160,7 @@ export function InvoiceStatusSection({
                 <p className="font-medium text-green-800">
                   Invoice Sudah Dibayar
                 </p>
-                <p className="text-sm text-green-600">
-                  Pembayaran completed
-                </p>
+                <p className="text-sm text-green-600">Pembayaran completed</p>
               </div>
             </div>
             <span className="text-2xl font-bold text-green-700">

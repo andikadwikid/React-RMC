@@ -1,10 +1,10 @@
-import { 
-  ProjectSummary, 
-  DataPeriod, 
-  RiskCategory, 
-  InvoiceStatus, 
-  AgingReceivable, 
-  ProvinceData 
+import {
+  ProjectSummary,
+  DataPeriod,
+  RiskCategory,
+  InvoiceStatus,
+  AgingReceivable,
+  ProvinceData,
 } from "./useDashboardData";
 
 // Calculate project summary based on performance period
@@ -89,10 +89,7 @@ export const getFinancialInsights = (
 
 // Calculate geographic insights
 export const getGeographicInsights = (data: ProvinceData[]) => {
-  const totalProjects = data.reduce(
-    (sum, province) => sum + province.value,
-    0,
-  );
+  const totalProjects = data.reduce((sum, province) => sum + province.value, 0);
   const totalRevenue = data.reduce(
     (sum, province) => sum + province.revenue,
     0,

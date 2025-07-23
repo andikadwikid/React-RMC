@@ -334,7 +334,7 @@ export default function Dashboard() {
             onPeriodChange={handleInvoiceStatusPeriodChange}
             autoSelected={invoiceStatusAutoSelected}
           />
-          
+
           <AgingReceivablesSection
             selectedPeriod={selectedAgingReceivablesPeriod}
             agingReceivables={agingReceivables}
@@ -601,7 +601,10 @@ export default function Dashboard() {
             <FallbackMessage
               title="Menampilkan Data Risiko Triwulan"
               description={`Data risiko tahun ${new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.`}
-              show={shouldShowFallbackMessage(riskAutoSelected, selectedRiskPeriod)}
+              show={shouldShowFallbackMessage(
+                riskAutoSelected,
+                selectedRiskPeriod,
+              )}
             />
 
             {/* Risk Insights Summary */}

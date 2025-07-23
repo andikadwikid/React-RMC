@@ -6,7 +6,11 @@ interface FallbackMessageProps {
   show: boolean;
 }
 
-export function FallbackMessage({ title, description, show }: FallbackMessageProps) {
+export function FallbackMessage({
+  title,
+  description,
+  show,
+}: FallbackMessageProps) {
   if (!show) return null;
 
   return (

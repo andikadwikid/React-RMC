@@ -1,6 +1,12 @@
-import { 
-  Target, Building, DollarSign, Gavel, FileText, 
-  Leaf, Cpu, Users 
+import {
+  Target,
+  Building,
+  DollarSign,
+  Gavel,
+  FileText,
+  Leaf,
+  Cpu,
+  Users,
 } from "lucide-react";
 
 // Types

@@ -182,29 +182,30 @@ export const detectBestInvoiceStatusPeriod = (): InvoiceStatusDataPeriod => {
 };
 
 // Smart detection for aging receivables
-export const detectBestAgingReceivablesPeriod = (): AgingReceivablesDataPeriod => {
-  const currentYear = new Date().getFullYear().toString();
-  const currentYearData = availableAgingReceivablesPeriods.find(
-    (period) =>
-      period.id === currentYear &&
-      period.type === "yearly" &&
-      period.isComplete,
-  );
-  if (currentYearData) return currentYearData;
-
-  const quarterlyData = availableAgingReceivablesPeriods
-    .filter(
+export const detectBestAgingReceivablesPeriod =
+  (): AgingReceivablesDataPeriod => {
+    const currentYear = new Date().getFullYear().toString();
+    const currentYearData = availableAgingReceivablesPeriods.find(
       (period) =>
-        period.type === "quarterly" && period.id.includes(currentYear),
-    )
-    .sort((a, b) => b.id.localeCompare(a.id))[0];
-  if (quarterlyData) return quarterlyData;
+        period.id === currentYear &&
+        period.type === "yearly" &&
+        period.isComplete,
+    );
+    if (currentYearData) return currentYearData;
 
-  const previousYear = (parseInt(currentYear) - 1).toString();
-  const previousYearData = availableAgingReceivablesPeriods.find(
-    (period) => period.id === previousYear && period.type === "yearly",
-  );
-  if (previousYearData) return previousYearData;
+    const quarterlyData = availableAgingReceivablesPeriods
+      .filter(
+        (period) =>
+          period.type === "quarterly" && period.id.includes(currentYear),
+      )
+      .sort((a, b) => b.id.localeCompare(a.id))[0];
+    if (quarterlyData) return quarterlyData;
 
-  return availableAgingReceivablesPeriods[0];
-};
+    const previousYear = (parseInt(currentYear) - 1).toString();
+    const previousYearData = availableAgingReceivablesPeriods.find(
+      (period) => period.id === previousYear && period.type === "yearly",
+    );
+    if (previousYearData) return previousYearData;
+
+    return availableAgingReceivablesPeriods[0];
+  };

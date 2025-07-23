@@ -1,20 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Calendar, TrendingUp } from "lucide-react";
-import { 
+import {
   AgingReceivable,
   AgingReceivablesDataPeriod,
   InvoiceStatus,
-  availableAgingReceivablesPeriods 
+  availableAgingReceivablesPeriods,
 } from "@/hooks/useDashboardData";
 import { PeriodSelector } from "./PeriodSelector";
 import { FallbackMessage } from "./FallbackMessage";
 import { InsightCardsGrid } from "./InsightCards";
-import { 
-  getFinancialInsights, 
-  formatCurrency, 
+import {
+  getFinancialInsights,
+  formatCurrency,
   formatCurrencyShort,
-  getAgingColor 
+  getAgingColor,
 } from "@/hooks/useDashboardCalculations";
 
 interface AgingReceivablesSectionProps {
@@ -53,7 +53,7 @@ export function AgingReceivablesSection({
     {
       title: "31-90 Hari",
       value: formatCurrencyShort(
-        agingReceivables.find((item) => item.days === "31-90")?.amount || 0
+        agingReceivables.find((item) => item.days === "31-90")?.amount || 0,
       ),
       bgColor: "bg-yellow-50",
       textColor: "text-yellow-800",
@@ -120,9 +120,12 @@ export function AgingReceivablesSection({
           show={shouldShowFallbackMessage()}
         />
 
-        <InsightCardsGrid insights={insightCardsData} className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3" />
+        <InsightCardsGrid
+          insights={insightCardsData}
+          className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3"
+        />
       </CardHeader>
-      
+
       <CardContent>
         <div className="space-y-4">
           {agingReceivables.map((item, index) => (
@@ -133,9 +136,7 @@ export function AgingReceivablesSection({
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">{item.category}</p>
-                  <p className="text-sm opacity-75">
-                    Outstanding piutang
-                  </p>
+                  <p className="text-sm opacity-75">Outstanding piutang</p>
                 </div>
                 <div className="text-right">
                   <p className="text-lg font-bold">
@@ -154,10 +155,7 @@ export function AgingReceivablesSection({
               </span>
               <span className="text-xl font-bold text-gray-900">
                 {formatCurrency(
-                  agingReceivables.reduce(
-                    (sum, item) => sum + item.amount,
-                    0,
-                  ),
+                  agingReceivables.reduce((sum, item) => sum + item.amount, 0),
                 )}
               </span>
             </div>
