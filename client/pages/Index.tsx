@@ -1005,13 +1005,23 @@ const invoiceStatusQ3_2024: InvoiceStatus = {
 // Aging Receivables data for different periods
 const agingReceivables2024: AgingReceivable[] = [
   { category: "0-30 hari", amount: 3200000000, color: "green", days: "0-30" },
-  { category: "31-90 hari", amount: 2100000000, color: "yellow", days: "31-90" },
+  {
+    category: "31-90 hari",
+    amount: 2100000000,
+    color: "yellow",
+    days: "31-90",
+  },
   { category: ">90 hari", amount: 850000000, color: "red", days: ">90" },
 ];
 
 const agingReceivables2023: AgingReceivable[] = [
   { category: "0-30 hari", amount: 2800000000, color: "green", days: "0-30" },
-  { category: "31-90 hari", amount: 1900000000, color: "yellow", days: "31-90" },
+  {
+    category: "31-90 hari",
+    amount: 1900000000,
+    color: "yellow",
+    days: "31-90",
+  },
   { category: ">90 hari", amount: 700000000, color: "red", days: ">90" },
 ];
 
@@ -1030,30 +1040,30 @@ const agingReceivablesQ3_2024: AgingReceivable[] = [
 // Available periods for invoice status
 const availableInvoiceStatusPeriods: InvoiceStatusDataPeriod[] = [
   {
-    id: '2024',
-    label: '2024 (Tahunan)',
-    type: 'yearly',
+    id: "2024",
+    label: "2024 (Tahunan)",
+    type: "yearly",
     data: invoiceStatus2024,
     isComplete: true,
   },
   {
-    id: '2023',
-    label: '2023 (Tahunan)',
-    type: 'yearly',
+    id: "2023",
+    label: "2023 (Tahunan)",
+    type: "yearly",
     data: invoiceStatus2023,
     isComplete: true,
   },
   {
-    id: 'q4-2024',
-    label: 'Q4 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q4-2024",
+    label: "Q4 2024 (Triwulan)",
+    type: "quarterly",
     data: invoiceStatusQ4_2024,
     isComplete: true,
   },
   {
-    id: 'q3-2024',
-    label: 'Q3 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q3-2024",
+    label: "Q3 2024 (Triwulan)",
+    type: "quarterly",
     data: invoiceStatusQ3_2024,
     isComplete: true,
   },
@@ -1062,30 +1072,30 @@ const availableInvoiceStatusPeriods: InvoiceStatusDataPeriod[] = [
 // Available periods for aging receivables
 const availableAgingReceivablesPeriods: AgingReceivablesDataPeriod[] = [
   {
-    id: '2024',
-    label: '2024 (Tahunan)',
-    type: 'yearly',
+    id: "2024",
+    label: "2024 (Tahunan)",
+    type: "yearly",
     data: agingReceivables2024,
     isComplete: true,
   },
   {
-    id: '2023',
-    label: '2023 (Tahunan)',
-    type: 'yearly',
+    id: "2023",
+    label: "2023 (Tahunan)",
+    type: "yearly",
     data: agingReceivables2023,
     isComplete: true,
   },
   {
-    id: 'q4-2024',
-    label: 'Q4 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q4-2024",
+    label: "Q4 2024 (Triwulan)",
+    type: "quarterly",
     data: agingReceivablesQ4_2024,
     isComplete: true,
   },
   {
-    id: 'q3-2024',
-    label: 'Q3 2024 (Triwulan)',
-    type: 'quarterly',
+    id: "q3-2024",
+    label: "Q3 2024 (Triwulan)",
+    type: "quarterly",
     data: agingReceivablesQ3_2024,
     isComplete: true,
   },
@@ -1095,18 +1105,24 @@ const availableAgingReceivablesPeriods: AgingReceivablesDataPeriod[] = [
 const detectBestInvoiceStatusPeriod = (): InvoiceStatusDataPeriod => {
   const currentYear = new Date().getFullYear().toString();
   const currentYearData = availableInvoiceStatusPeriods.find(
-    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+    (period) =>
+      period.id === currentYear &&
+      period.type === "yearly" &&
+      period.isComplete,
   );
   if (currentYearData) return currentYearData;
 
   const quarterlyData = availableInvoiceStatusPeriods
-    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .filter(
+      (period) =>
+        period.type === "quarterly" && period.id.includes(currentYear),
+    )
     .sort((a, b) => b.id.localeCompare(a.id))[0];
   if (quarterlyData) return quarterlyData;
 
   const previousYear = (parseInt(currentYear) - 1).toString();
   const previousYearData = availableInvoiceStatusPeriods.find(
-    period => period.id === previousYear && period.type === 'yearly'
+    (period) => period.id === previousYear && period.type === "yearly",
   );
   if (previousYearData) return previousYearData;
 
@@ -1117,18 +1133,24 @@ const detectBestInvoiceStatusPeriod = (): InvoiceStatusDataPeriod => {
 const detectBestAgingReceivablesPeriod = (): AgingReceivablesDataPeriod => {
   const currentYear = new Date().getFullYear().toString();
   const currentYearData = availableAgingReceivablesPeriods.find(
-    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+    (period) =>
+      period.id === currentYear &&
+      period.type === "yearly" &&
+      period.isComplete,
   );
   if (currentYearData) return currentYearData;
 
   const quarterlyData = availableAgingReceivablesPeriods
-    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .filter(
+      (period) =>
+        period.type === "quarterly" && period.id.includes(currentYear),
+    )
     .sort((a, b) => b.id.localeCompare(a.id))[0];
   if (quarterlyData) return quarterlyData;
 
   const previousYear = (parseInt(currentYear) - 1).toString();
   const previousYearData = availableAgingReceivablesPeriods.find(
-    period => period.id === previousYear && period.type === 'yearly'
+    (period) => period.id === previousYear && period.type === "yearly",
   );
   if (previousYearData) return previousYearData;
 
@@ -1199,16 +1221,26 @@ export default function Index() {
   );
 
   // Invoice status state with dynamic period management
-  const [selectedInvoiceStatusPeriod, setSelectedInvoiceStatusPeriod] = useState<InvoiceStatusDataPeriod>(detectBestInvoiceStatusPeriod());
-  const [showInvoiceStatusDropdown, setShowInvoiceStatusDropdown] = useState(false);
-  const [invoiceStatusAutoSelected, setInvoiceStatusAutoSelected] = useState(true);
-  const [invoiceStatus, setInvoiceStatus] = useState<InvoiceStatus>(detectBestInvoiceStatusPeriod().data);
+  const [selectedInvoiceStatusPeriod, setSelectedInvoiceStatusPeriod] =
+    useState<InvoiceStatusDataPeriod>(detectBestInvoiceStatusPeriod());
+  const [showInvoiceStatusDropdown, setShowInvoiceStatusDropdown] =
+    useState(false);
+  const [invoiceStatusAutoSelected, setInvoiceStatusAutoSelected] =
+    useState(true);
+  const [invoiceStatus, setInvoiceStatus] = useState<InvoiceStatus>(
+    detectBestInvoiceStatusPeriod().data,
+  );
 
   // Aging receivables state with dynamic period management
-  const [selectedAgingReceivablesPeriod, setSelectedAgingReceivablesPeriod] = useState<AgingReceivablesDataPeriod>(detectBestAgingReceivablesPeriod());
-  const [showAgingReceivablesDropdown, setShowAgingReceivablesDropdown] = useState(false);
-  const [agingReceivablesAutoSelected, setAgingReceivablesAutoSelected] = useState(true);
-  const [agingReceivables, setAgingReceivables] = useState<AgingReceivable[]>(detectBestAgingReceivablesPeriod().data);
+  const [selectedAgingReceivablesPeriod, setSelectedAgingReceivablesPeriod] =
+    useState<AgingReceivablesDataPeriod>(detectBestAgingReceivablesPeriod());
+  const [showAgingReceivablesDropdown, setShowAgingReceivablesDropdown] =
+    useState(false);
+  const [agingReceivablesAutoSelected, setAgingReceivablesAutoSelected] =
+    useState(true);
+  const [agingReceivables, setAgingReceivables] = useState<AgingReceivable[]>(
+    detectBestAgingReceivablesPeriod().data,
+  );
 
   // Dialog state for risk category details
   const [selectedRiskCategory, setSelectedRiskCategory] =
@@ -1416,12 +1448,16 @@ export default function Index() {
 
   const shouldShowInvoiceStatusFallbackMessage = () => {
     const currentYear = new Date().getFullYear().toString();
-    return invoiceStatusAutoSelected &&
-           selectedInvoiceStatusPeriod.type === 'quarterly' &&
-           selectedInvoiceStatusPeriod.id.includes(currentYear);
+    return (
+      invoiceStatusAutoSelected &&
+      selectedInvoiceStatusPeriod.type === "quarterly" &&
+      selectedInvoiceStatusPeriod.id.includes(currentYear)
+    );
   };
 
-  const handleAgingReceivablesPeriodChange = (period: AgingReceivablesDataPeriod) => {
+  const handleAgingReceivablesPeriodChange = (
+    period: AgingReceivablesDataPeriod,
+  ) => {
     setSelectedAgingReceivablesPeriod(period);
     setAgingReceivables(period.data);
     setAgingReceivablesAutoSelected(false);
@@ -1430,18 +1466,36 @@ export default function Index() {
 
   const shouldShowAgingReceivablesFallbackMessage = () => {
     const currentYear = new Date().getFullYear().toString();
-    return agingReceivablesAutoSelected &&
-           selectedAgingReceivablesPeriod.type === 'quarterly' &&
-           selectedAgingReceivablesPeriod.id.includes(currentYear);
+    return (
+      agingReceivablesAutoSelected &&
+      selectedAgingReceivablesPeriod.type === "quarterly" &&
+      selectedAgingReceivablesPeriod.id.includes(currentYear)
+    );
   };
 
   // Calculate financial insights
-  const getFinancialInsights = (invoiceData: InvoiceStatus, agingData: AgingReceivable[]) => {
-    const totalInvoices = invoiceData.completed_no_invoice + invoiceData.issued_unpaid + invoiceData.paid;
-    const totalOutstanding = agingData.reduce((sum, item) => sum + item.amount, 0);
-    const paidPercentage = totalInvoices > 0 ? Math.round((invoiceData.paid / totalInvoices) * 100) : 0;
-    const overdueAmount = agingData.find(item => item.days === ">90")?.amount || 0;
-    const overduePercentage = totalOutstanding > 0 ? Math.round((overdueAmount / totalOutstanding) * 100) : 0;
+  const getFinancialInsights = (
+    invoiceData: InvoiceStatus,
+    agingData: AgingReceivable[],
+  ) => {
+    const totalInvoices =
+      invoiceData.completed_no_invoice +
+      invoiceData.issued_unpaid +
+      invoiceData.paid;
+    const totalOutstanding = agingData.reduce(
+      (sum, item) => sum + item.amount,
+      0,
+    );
+    const paidPercentage =
+      totalInvoices > 0
+        ? Math.round((invoiceData.paid / totalInvoices) * 100)
+        : 0;
+    const overdueAmount =
+      agingData.find((item) => item.days === ">90")?.amount || 0;
+    const overduePercentage =
+      totalOutstanding > 0
+        ? Math.round((overdueAmount / totalOutstanding) * 100)
+        : 0;
 
     return {
       totalInvoices,
@@ -1609,12 +1663,12 @@ export default function Index() {
                       <Badge
                         variant="secondary"
                         className={`ml-2 ${
-                          selectedInvoiceStatusPeriod.type === 'yearly'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-orange-100 text-orange-800'
+                          selectedInvoiceStatusPeriod.type === "yearly"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-orange-100 text-orange-800"
                         }`}
                       >
-                        {selectedInvoiceStatusPeriod.type === 'yearly' ? (
+                        {selectedInvoiceStatusPeriod.type === "yearly" ? (
                           <>
                             <Calendar className="w-3 h-3 mr-1" />
                             Tahunan
@@ -1638,7 +1692,9 @@ export default function Index() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setShowInvoiceStatusDropdown(!showInvoiceStatusDropdown)}
+                    onClick={() =>
+                      setShowInvoiceStatusDropdown(!showInvoiceStatusDropdown)
+                    }
                     className="flex items-center gap-2"
                   >
                     <Calendar className="w-4 h-4" />
@@ -1649,17 +1705,23 @@ export default function Index() {
                   {showInvoiceStatusDropdown && (
                     <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
                       <div className="p-2">
-                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">
+                          PILIH PERIODE DATA
+                        </div>
                         {availableInvoiceStatusPeriods.map((period) => (
                           <button
                             key={period.id}
-                            onClick={() => handleInvoiceStatusPeriodChange(period)}
+                            onClick={() =>
+                              handleInvoiceStatusPeriodChange(period)
+                            }
                             className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
-                              selectedInvoiceStatusPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                              selectedInvoiceStatusPeriod.id === period.id
+                                ? "bg-blue-50 text-blue-700"
+                                : "text-gray-700"
                             }`}
                           >
                             <div className="flex items-center gap-2">
-                              {period.type === 'yearly' ? (
+                              {period.type === "yearly" ? (
                                 <Calendar className="w-4 h-4" />
                               ) : (
                                 <TrendingUp className="w-4 h-4" />
@@ -1688,7 +1750,8 @@ export default function Index() {
                       Menampilkan Data Invoice Triwulan
                     </p>
                     <p className="text-xs text-amber-700 mt-1">
-                      Data invoice tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.
+                      Data invoice tahun {new Date().getFullYear()} belum
+                      lengkap, menampilkan data triwulan terakhir.
                     </p>
                   </div>
                 </div>
@@ -1697,23 +1760,32 @@ export default function Index() {
               {/* Invoice Insights */}
               <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
                 {(() => {
-                  const insights = getFinancialInsights(invoiceStatus, agingReceivables);
+                  const insights = getFinancialInsights(
+                    invoiceStatus,
+                    agingReceivables,
+                  );
                   return (
                     <>
                       <div className="bg-blue-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-blue-800">Total Invoice</div>
+                        <div className="text-sm font-medium text-blue-800">
+                          Total Invoice
+                        </div>
                         <div className="text-lg font-bold text-blue-600">
                           {insights.totalInvoices}
                         </div>
                       </div>
                       <div className="bg-green-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-green-800">Paid Rate</div>
+                        <div className="text-sm font-medium text-green-800">
+                          Paid Rate
+                        </div>
                         <div className="text-lg font-bold text-green-600">
                           {insights.paidPercentage}%
                         </div>
                       </div>
                       <div className="bg-red-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-red-800">Overdue</div>
+                        <div className="text-sm font-medium text-red-800">
+                          Overdue
+                        </div>
                         <div className="text-lg font-bold text-red-600">
                           {insights.overduePercentage}%
                         </div>
@@ -1791,12 +1863,12 @@ export default function Index() {
                       <Badge
                         variant="secondary"
                         className={`ml-2 ${
-                          selectedAgingReceivablesPeriod.type === 'yearly'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-orange-100 text-orange-800'
+                          selectedAgingReceivablesPeriod.type === "yearly"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-orange-100 text-orange-800"
                         }`}
                       >
-                        {selectedAgingReceivablesPeriod.type === 'yearly' ? (
+                        {selectedAgingReceivablesPeriod.type === "yearly" ? (
                           <>
                             <Calendar className="w-3 h-3 mr-1" />
                             Tahunan
@@ -1820,7 +1892,11 @@ export default function Index() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setShowAgingReceivablesDropdown(!showAgingReceivablesDropdown)}
+                    onClick={() =>
+                      setShowAgingReceivablesDropdown(
+                        !showAgingReceivablesDropdown,
+                      )
+                    }
                     className="flex items-center gap-2"
                   >
                     <Calendar className="w-4 h-4" />
@@ -1831,17 +1907,23 @@ export default function Index() {
                   {showAgingReceivablesDropdown && (
                     <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
                       <div className="p-2">
-                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">
+                          PILIH PERIODE DATA
+                        </div>
                         {availableAgingReceivablesPeriods.map((period) => (
                           <button
                             key={period.id}
-                            onClick={() => handleAgingReceivablesPeriodChange(period)}
+                            onClick={() =>
+                              handleAgingReceivablesPeriodChange(period)
+                            }
                             className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
-                              selectedAgingReceivablesPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                              selectedAgingReceivablesPeriod.id === period.id
+                                ? "bg-blue-50 text-blue-700"
+                                : "text-gray-700"
                             }`}
                           >
                             <div className="flex items-center gap-2">
-                              {period.type === 'yearly' ? (
+                              {period.type === "yearly" ? (
                                 <Calendar className="w-4 h-4" />
                               ) : (
                                 <TrendingUp className="w-4 h-4" />
@@ -1870,7 +1952,8 @@ export default function Index() {
                       Menampilkan Data Piutang Triwulan
                     </p>
                     <p className="text-xs text-amber-700 mt-1">
-                      Data aging piutang tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.
+                      Data aging piutang tahun {new Date().getFullYear()} belum
+                      lengkap, menampilkan data triwulan terakhir.
                     </p>
                   </div>
                 </div>
@@ -1879,23 +1962,36 @@ export default function Index() {
               {/* Aging Insights */}
               <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
                 {(() => {
-                  const insights = getFinancialInsights(invoiceStatus, agingReceivables);
+                  const insights = getFinancialInsights(
+                    invoiceStatus,
+                    agingReceivables,
+                  );
                   return (
                     <>
                       <div className="bg-gray-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-gray-800">Total Outstanding</div>
+                        <div className="text-sm font-medium text-gray-800">
+                          Total Outstanding
+                        </div>
                         <div className="text-lg font-bold text-gray-600">
                           {formatCurrencyShort(insights.totalOutstanding)}
                         </div>
                       </div>
                       <div className="bg-yellow-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-yellow-800">31-90 Hari</div>
+                        <div className="text-sm font-medium text-yellow-800">
+                          31-90 Hari
+                        </div>
                         <div className="text-lg font-bold text-yellow-600">
-                          {formatCurrencyShort(agingReceivables.find(item => item.days === "31-90")?.amount || 0)}
+                          {formatCurrencyShort(
+                            agingReceivables.find(
+                              (item) => item.days === "31-90",
+                            )?.amount || 0,
+                          )}
                         </div>
                       </div>
                       <div className="bg-red-50 p-3 rounded-lg">
-                        <div className="text-sm font-medium text-red-800">&gt;90 Hari</div>
+                        <div className="text-sm font-medium text-red-800">
+                          &gt;90 Hari
+                        </div>
                         <div className="text-lg font-bold text-red-600">
                           {formatCurrencyShort(insights.overdueAmount)}
                         </div>
