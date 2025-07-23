@@ -989,116 +989,14 @@ export default function Index() {
     { category: ">90 hari", amount: 650000000, color: "red", days: ">90" },
   ]);
 
-  // Risk Capture data for pie chart
-  const [riskCaptureData] = useState([
-    {
-      name: "Low",
-      y: 45,
-      color: "#166534", // Dark green
-    },
-    {
-      name: "Low to Moderate",
-      y: 32,
-      color: "#22C55E", // Light green
-    },
-    {
-      name: "Moderate",
-      y: 28,
-      color: "#EAB308", // Yellow
-    },
-    {
-      name: "Moderate to High",
-      y: 18,
-      color: "#F97316", // Orange
-    },
-    {
-      name: "High",
-      y: 12,
-      color: "#DC2626", // Red
-    },
-  ]);
+
 
   // Dialog state for risk category details
   const [selectedRiskCategory, setSelectedRiskCategory] =
     useState<RiskCategory | null>(null);
   const [isRiskDialogOpen, setIsRiskDialogOpen] = useState(false);
 
-  const [provinceData] = useState<ProvinceData[]>([
-    {
-      name: "DKI Jakarta",
-      value: 12,
-      revenue: 15800000000, // 15.8 Billion IDR
-      projects: [
-        "ERP System Bank Central",
-        "Mobile Banking App",
-        "E-Government Portal",
-        "Smart City Dashboard",
-        "Fintech Integration",
-      ],
-    },
-    {
-      name: "Jawa Barat",
-      value: 8,
-      revenue: 9200000000, // 9.2 Billion IDR
-      projects: [
-        "Manufacturing ERP",
-        "Supply Chain Management",
-        "Hospital Information System",
-        "E-Commerce Platform",
-      ],
-    },
-    {
-      name: "Jawa Tengah",
-      value: 6,
-      revenue: 6500000000, // 6.5 Billion IDR
-      projects: [
-        "Agricultural Management System",
-        "Tourism Portal",
-        "Educational Platform",
-      ],
-    },
-    {
-      name: "Jawa Timur",
-      value: 7,
-      revenue: 8100000000, // 8.1 Billion IDR
-      projects: [
-        "Port Management System",
-        "Logistics Platform",
-        "Industrial IoT",
-        "Smart Factory",
-      ],
-    },
-    {
-      name: "Sumatera Utara",
-      value: 4,
-      revenue: 4300000000, // 4.3 Billion IDR
-      projects: ["Palm Oil Tracking", "Mining Management System"],
-    },
-    {
-      name: "Sumatera Barat",
-      value: 3,
-      revenue: 2800000000, // 2.8 Billion IDR
-      projects: ["Tourism Management", "Cultural Heritage Portal"],
-    },
-    {
-      name: "Kalimantan Timur",
-      value: 2,
-      revenue: 3200000000, // 3.2 Billion IDR
-      projects: ["Coal Mining System"],
-    },
-    {
-      name: "Sulawesi Selatan",
-      value: 2,
-      revenue: 2100000000, // 2.1 Billion IDR
-      projects: ["Fisheries Management"],
-    },
-    {
-      name: "Bali",
-      value: 1,
-      revenue: 1500000000, // 1.5 Billion IDR
-      projects: ["Resort Management System"],
-    },
-  ]);
+
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("id-ID", {
