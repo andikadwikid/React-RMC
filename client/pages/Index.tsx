@@ -1502,43 +1502,80 @@ export default function Index() {
 
         {/* Project Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white relative overflow-hidden">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-blue-100 text-sm font-medium">
-                    Total Proyek
-                  </p>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-blue-100 text-sm font-medium">
+                      Total Proyek
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className={`text-xs px-2 py-0.5 ${
+                        selectedPerformancePeriod.type === 'yearly'
+                          ? 'bg-blue-200 text-blue-800'
+                          : 'bg-orange-200 text-orange-800'
+                      }`}
+                    >
+                      {selectedPerformancePeriod.type === 'yearly' ? 'Tahunan' : 'Triwulan'}
+                    </Badge>
+                  </div>
                   <p className="text-3xl font-bold">{projectSummary.total}</p>
+                  <p className="text-blue-200 text-xs mt-1">
+                    Periode: {selectedPerformancePeriod.label}
+                  </p>
                 </div>
                 <BarChart3 className="h-12 w-12 text-blue-200" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
+          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white relative overflow-hidden">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-green-100 text-sm font-medium">
-                    Proyek Berjalan
-                  </p>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-green-100 text-sm font-medium">
+                      Proyek Berjalan
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className="text-xs px-2 py-0.5 bg-green-200 text-green-800"
+                    >
+                      {Math.round((projectSummary.running / projectSummary.total) * 100)}%
+                    </Badge>
+                  </div>
                   <p className="text-3xl font-bold">{projectSummary.running}</p>
+                  <p className="text-green-200 text-xs mt-1">
+                    Dari {projectSummary.total} total proyek
+                  </p>
                 </div>
                 <TrendingUp className="h-12 w-12 text-green-200" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white">
+          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white relative overflow-hidden">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-purple-100 text-sm font-medium">
-                    Proyek Selesai
-                  </p>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-purple-100 text-sm font-medium">
+                      Proyek Selesai
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className="text-xs px-2 py-0.5 bg-purple-200 text-purple-800"
+                    >
+                      {Math.round((projectSummary.completed / projectSummary.total) * 100)}%
+                    </Badge>
+                  </div>
                   <p className="text-3xl font-bold">
                     {projectSummary.completed}
+                  </p>
+                  <p className="text-purple-200 text-xs mt-1">
+                    Completion rate
                   </p>
                 </div>
                 <CheckCircle className="h-12 w-12 text-purple-200" />
