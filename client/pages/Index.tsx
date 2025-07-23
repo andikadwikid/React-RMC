@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,11 @@ import {
   FileText,
   Calendar,
   PieChart,
+  ChevronDown,
+  Info,
+  Activity,
 } from "lucide-react";
+import * as Highcharts from "highcharts";
 
 interface ProjectSummary {
   total: number;
@@ -60,12 +64,140 @@ interface ProvinceData {
   projects: string[];
 }
 
+// Performance data types
+type PeriodType = 'yearly' | 'quarterly';
+type DataPeriod = {
+  id: string;
+  label: string;
+  type: PeriodType;
+  data: Array<{ period: string; projects: number; revenue: number; risks: number }>;
+  isComplete: boolean;
+};
+
+// Mock performance data
+const yearlyPerformance2024 = [
+  { period: "Jan 2024", projects: 4, revenue: 2800000000, risks: 12 },
+  { period: "Feb 2024", projects: 6, revenue: 3200000000, risks: 8 },
+  { period: "Mar 2024", projects: 5, revenue: 4100000000, risks: 15 },
+  { period: "Apr 2024", projects: 3, revenue: 2200000000, risks: 6 },
+  { period: "May 2024", projects: 7, revenue: 4800000000, risks: 18 },
+  { period: "Jun 2024", projects: 8, revenue: 5500000000, risks: 14 },
+  { period: "Jul 2024", projects: 6, revenue: 3900000000, risks: 11 },
+  { period: "Aug 2024", projects: 9, revenue: 6200000000, risks: 22 },
+  { period: "Sep 2024", projects: 7, revenue: 4700000000, risks: 16 },
+  { period: "Oct 2024", projects: 5, revenue: 3800000000, risks: 13 },
+  { period: "Nov 2024", projects: 8, revenue: 5100000000, risks: 19 },
+  { period: "Dec 2024", projects: 4, revenue: 3000000000, risks: 9 },
+];
+
+const yearlyPerformance2023 = [
+  { period: "Jan 2023", projects: 3, revenue: 2100000000, risks: 8 },
+  { period: "Feb 2023", projects: 5, revenue: 2800000000, risks: 12 },
+  { period: "Mar 2023", projects: 4, revenue: 3200000000, risks: 10 },
+  { period: "Apr 2023", projects: 6, revenue: 3800000000, risks: 14 },
+  { period: "May 2023", projects: 7, revenue: 4200000000, risks: 16 },
+  { period: "Jun 2023", projects: 5, revenue: 3500000000, risks: 11 },
+  { period: "Jul 2023", projects: 8, revenue: 4800000000, risks: 18 },
+  { period: "Aug 2023", projects: 6, revenue: 4100000000, risks: 13 },
+  { period: "Sep 2023", projects: 4, revenue: 2900000000, risks: 9 },
+  { period: "Oct 2023", projects: 7, revenue: 4500000000, risks: 15 },
+  { period: "Nov 2023", projects: 5, revenue: 3600000000, risks: 12 },
+  { period: "Dec 2023", projects: 3, revenue: 2400000000, risks: 7 },
+];
+
+// Q4 2024 data (fallback when current year is incomplete)
+const quarterlyPerformanceQ4_2024 = [
+  { period: "Oct 2024", projects: 5, revenue: 3800000000, risks: 13 },
+  { period: "Nov 2024", projects: 8, revenue: 5100000000, risks: 19 },
+  { period: "Dec 2024", projects: 4, revenue: 3000000000, risks: 9 },
+];
+
+// Q3 2024 data
+const quarterlyPerformanceQ3_2024 = [
+  { period: "Jul 2024", projects: 6, revenue: 3900000000, risks: 11 },
+  { period: "Aug 2024", projects: 9, revenue: 6200000000, risks: 22 },
+  { period: "Sep 2024", projects: 7, revenue: 4700000000, risks: 16 },
+];
+
+const availablePerformancePeriods: DataPeriod[] = [
+  {
+    id: '2024',
+    label: '2024 (Tahunan)',
+    type: 'yearly',
+    data: yearlyPerformance2024,
+    isComplete: true,
+  },
+  {
+    id: '2023',
+    label: '2023 (Tahunan)',
+    type: 'yearly',
+    data: yearlyPerformance2023,
+    isComplete: true,
+  },
+  {
+    id: 'q4-2024',
+    label: 'Q4 2024 (Triwulan)',
+    type: 'quarterly',
+    data: quarterlyPerformanceQ4_2024,
+    isComplete: true,
+  },
+  {
+    id: 'q3-2024',
+    label: 'Q3 2024 (Triwulan)',
+    type: 'quarterly',
+    data: quarterlyPerformanceQ3_2024,
+    isComplete: true,
+  },
+];
+
+// Smart detection logic for performance data
+const detectBestPerformancePeriod = (): DataPeriod => {
+  const currentYear = new Date().getFullYear().toString();
+
+  // First, try to find complete yearly data for current year
+  const currentYearData = availablePerformancePeriods.find(
+    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+  );
+
+  if (currentYearData) {
+    return currentYearData;
+  }
+
+  // If current year is incomplete, find the latest quarterly data
+  const quarterlyData = availablePerformancePeriods
+    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .sort((a, b) => b.id.localeCompare(a.id))[0];
+
+  if (quarterlyData) {
+    return quarterlyData;
+  }
+
+  // Fallback to previous year if available
+  const previousYear = (parseInt(currentYear) - 1).toString();
+  const previousYearData = availablePerformancePeriods.find(
+    period => period.id === previousYear && period.type === 'yearly'
+  );
+
+  if (previousYearData) {
+    return previousYearData;
+  }
+
+  // Ultimate fallback
+  return availablePerformancePeriods[0];
+};
+
 export default function Index() {
   const [projectSummary] = useState<ProjectSummary>({
     total: 45,
     running: 28,
     completed: 17,
   });
+
+  // Performance chart state
+  const performanceChartRef = useRef<HTMLDivElement>(null);
+  const [selectedPerformancePeriod, setSelectedPerformancePeriod] = useState<DataPeriod>(detectBestPerformancePeriod());
+  const [showPerformanceDropdown, setShowPerformanceDropdown] = useState(false);
+  const [performanceAutoSelected, setPerformanceAutoSelected] = useState(true);
 
   const [riskCategories] = useState<RiskCategory[]>([
     {
@@ -277,6 +409,136 @@ export default function Index() {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
+  };
+
+  const formatCurrencyShort = (amount: number) => {
+    if (amount >= 1000000000) {
+      return `${(amount / 1000000000).toFixed(1)}B`;
+    } else if (amount >= 1000000) {
+      return `${(amount / 1000000).toFixed(1)}M`;
+    }
+    return formatCurrency(amount);
+  };
+
+  const updatePerformanceChart = (dataPeriod: DataPeriod) => {
+    if (performanceChartRef.current) {
+      Highcharts.chart(performanceChartRef.current, {
+        chart: {
+          type: 'column',
+          height: 350,
+          backgroundColor: 'transparent',
+        },
+        title: {
+          text: '',
+        },
+        xAxis: {
+          categories: dataPeriod.data.map(stat =>
+            dataPeriod.type === 'yearly' ? stat.period.split(' ')[0] : stat.period
+          ),
+          crosshair: true,
+        },
+        yAxis: [{
+          min: 0,
+          title: {
+            text: 'Jumlah Proyek & Risiko',
+            style: {
+              color: '#666'
+            }
+          },
+          labels: {
+            style: {
+              color: '#666'
+            }
+          }
+        }, {
+          title: {
+            text: 'Revenue (Milyar IDR)',
+            style: {
+              color: '#f59e0b'
+            }
+          },
+          labels: {
+            formatter: function() {
+              return (this.value / 1000000000).toFixed(1) + 'B';
+            },
+            style: {
+              color: '#f59e0b'
+            }
+          },
+          opposite: true
+        }],
+        tooltip: {
+          shared: true,
+          formatter: function() {
+            let tooltip = `<b>${this.x}</b><br/>`;
+            this.points?.forEach(point => {
+              if (point.series.name === 'Revenue') {
+                tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${formatCurrency(point.y!)}</b><br/>`;
+              } else {
+                tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${point.y}</b><br/>`;
+              }
+            });
+            return tooltip;
+          }
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+          },
+        },
+        series: [
+          {
+            name: 'Proyek',
+            data: dataPeriod.data.map(stat => stat.projects),
+            color: '#3b82f6',
+            yAxis: 0,
+          },
+          {
+            name: 'Risiko',
+            data: dataPeriod.data.map(stat => stat.risks),
+            color: '#ef4444',
+            yAxis: 0,
+          },
+          {
+            name: 'Revenue',
+            data: dataPeriod.data.map(stat => stat.revenue),
+            color: '#f59e0b',
+            type: 'line',
+            yAxis: 1,
+            marker: {
+              enabled: true,
+              radius: 4
+            }
+          },
+        ],
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          align: 'center',
+          verticalAlign: 'bottom',
+          layout: 'horizontal',
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    updatePerformanceChart(selectedPerformancePeriod);
+  }, [selectedPerformancePeriod]);
+
+  const handlePerformancePeriodChange = (period: DataPeriod) => {
+    setSelectedPerformancePeriod(period);
+    setPerformanceAutoSelected(false);
+    setShowPerformanceDropdown(false);
+  };
+
+  const shouldShowPerformanceFallbackMessage = () => {
+    const currentYear = new Date().getFullYear().toString();
+    return performanceAutoSelected &&
+           selectedPerformancePeriod.type === 'quarterly' &&
+           selectedPerformancePeriod.id.includes(currentYear);
   };
 
   const getStatusColor = (status: "overdue" | "inProcess" | "closed") => {
@@ -517,6 +779,140 @@ export default function Index() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Performance Overview Chart */}
+        <Card className="mb-8">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Activity className="w-5 h-5" />
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    Performance Overview
+                    <Badge
+                      variant="secondary"
+                      className={`ml-2 ${
+                        selectedPerformancePeriod.type === 'yearly'
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'bg-orange-100 text-orange-800'
+                      }`}
+                    >
+                      {selectedPerformancePeriod.type === 'yearly' ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
+                  </CardTitle>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {selectedPerformancePeriod.label}
+                  </p>
+                </div>
+              </div>
+
+              {/* Period Selector */}
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowPerformanceDropdown(!showPerformanceDropdown)}
+                  className="flex items-center gap-2"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Ubah Periode
+                  <ChevronDown className="w-4 h-4" />
+                </Button>
+
+                {showPerformanceDropdown && (
+                  <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
+                    <div className="p-2">
+                      <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                      {availablePerformancePeriods.map((period) => (
+                        <button
+                          key={period.id}
+                          onClick={() => handlePerformancePeriodChange(period)}
+                          className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
+                            selectedPerformancePeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            {period.type === 'yearly' ? (
+                              <Calendar className="w-4 h-4" />
+                            ) : (
+                              <TrendingUp className="w-4 h-4" />
+                            )}
+                            <span>{period.label}</span>
+                          </div>
+                          {!period.isComplete && (
+                            <Badge variant="secondary" className="text-xs">
+                              Parsial
+                            </Badge>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Fallback Message */}
+            {shouldShowPerformanceFallbackMessage() && (
+              <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+                <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-amber-800">
+                    Menampilkan Data Triwulan
+                  </p>
+                  <p className="text-xs text-amber-700 mt-1">
+                    Data tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Performance Insights */}
+            <div className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3">
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <div className="text-sm font-medium text-blue-800">Total Proyek</div>
+                <div className="text-lg font-bold text-blue-600">
+                  {selectedPerformancePeriod.data.reduce((sum, item) => sum + item.projects, 0)}
+                </div>
+              </div>
+              <div className="bg-amber-50 p-3 rounded-lg">
+                <div className="text-sm font-medium text-amber-800">Total Revenue</div>
+                <div className="text-lg font-bold text-amber-600">
+                  {formatCurrencyShort(selectedPerformancePeriod.data.reduce((sum, item) => sum + item.revenue, 0))}
+                </div>
+              </div>
+              <div className="bg-red-50 p-3 rounded-lg">
+                <div className="text-sm font-medium text-red-800">Total Risiko</div>
+                <div className="text-lg font-bold text-red-600">
+                  {selectedPerformancePeriod.data.reduce((sum, item) => sum + item.risks, 0)}
+                </div>
+              </div>
+              <div className="bg-green-50 p-3 rounded-lg">
+                <div className="text-sm font-medium text-green-800">Avg Revenue/Proyek</div>
+                <div className="text-lg font-bold text-green-600">
+                  {(() => {
+                    const totalProjects = selectedPerformancePeriod.data.reduce((sum, item) => sum + item.projects, 0);
+                    const totalRevenue = selectedPerformancePeriod.data.reduce((sum, item) => sum + item.revenue, 0);
+                    return formatCurrencyShort(totalRevenue / totalProjects);
+                  })()}
+                </div>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div ref={performanceChartRef} className="w-full" />
+          </CardContent>
+        </Card>
 
         {/* Risk Status by RMC Categories */}
         <Card className="mb-8">
