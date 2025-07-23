@@ -259,7 +259,7 @@ export function RiskCaptureForm({
                                 {getRiskLabel(risk.risikoAwal.level)}
                               </Badge>
                             )}
-                            {isValidRange(risk.resikoAkhir.kejadian) && (
+                            {/* {isValidRange(risk.resikoAkhir.kejadian) && (
                               <Badge
                                 className={getRiskColor(
                                   risk.resikoAkhir.kejadian,
@@ -292,7 +292,7 @@ export function RiskCaptureForm({
                                 Final L{risk.resikoAkhir.level} -{" "}
                                 {getRiskLabel(risk.resikoAkhir.level)}
                               </Badge>
-                            )}
+                            )} */}
                             <Button
                               variant="ghost"
                               size="sm"

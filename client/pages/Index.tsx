@@ -157,7 +157,7 @@ export default function Index() {
       days: "31-90",
     },
     { category: ">90 hari", amount: 650000000, color: "red", days: ">90" },
-    ]);
+  ]);
 
   // Risk Capture data for pie chart
   const [riskCaptureData] = useState([
@@ -189,10 +189,11 @@ export default function Index() {
   ]);
 
   // Dialog state for risk category details
-  const [selectedRiskCategory, setSelectedRiskCategory] = useState<RiskCategory | null>(null);
+  const [selectedRiskCategory, setSelectedRiskCategory] =
+    useState<RiskCategory | null>(null);
   const [isRiskDialogOpen, setIsRiskDialogOpen] = useState(false);
 
-    const [provinceData] = useState<ProvinceData[]>([
+  const [provinceData] = useState<ProvinceData[]>([
     {
       name: "DKI Jakarta",
       value: 12,
@@ -345,305 +346,7 @@ export default function Index() {
       </div>
 
       <div className="p-6">
-        {/* Project Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-blue-100 text-sm font-medium">
-                    Total Proyek
-                  </p>
-                  <p className="text-3xl font-bold">{projectSummary.total}</p>
-                </div>
-                <BarChart3 className="h-12 w-12 text-blue-200" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-green-100 text-sm font-medium">
-                    Proyek Berjalan
-                  </p>
-                  <p className="text-3xl font-bold">{projectSummary.running}</p>
-                </div>
-                <TrendingUp className="h-12 w-12 text-green-200" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-purple-100 text-sm font-medium">
-                    Proyek Selesai
-                  </p>
-                  <p className="text-3xl font-bold">
-                    {projectSummary.completed}
-                  </p>
-                </div>
-                <CheckCircle className="h-12 w-12 text-purple-200" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Risk Status by RMC Categories */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Shield className="h-6 w-6 text-red-500" />
-              Status Risiko Proyek (Kategori RMC)
-            </CardTitle>
-            <div className="flex flex-wrap gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <span>Belum ditindaklanjuti &gt;14 hari</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <span>Dalam proses mitigasi</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span>Closed dengan bukti mitigasi</span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 mt-2">
-              💡 <strong>Klik pada card</strong> untuk melihat detail risiko per kategori
-            </p>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {riskCategories.map((category) => {
-                const IconComponent = category.icon;
-                return (
-                  <div
-                    key={category.id}
-                    className="border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer hover:border-blue-300 hover:bg-blue-50"
-                    onClick={() => handleRiskCategoryClick(category)}
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <IconComponent className="h-5 w-5 text-gray-600" />
-                      <h3 className="font-medium text-sm">{category.name}</h3>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>Total:</span>
-                        <span className="font-semibold">{category.total}</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <div
-                              className={`w-2 h-2 rounded-full ${getStatusColor("overdue")}`}
-                            ></div>
-                            <span className="text-xs">Overdue</span>
-                          </div>
-                          <span className="text-xs font-medium">
-                            {category.overdue}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <div
-                              className={`w-2 h-2 rounded-full ${getStatusColor("inProcess")}`}
-                            ></div>
-                            <span className="text-xs">In Process</span>
-                          </div>
-                          <span className="text-xs font-medium">
-                            {category.inProcess}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <div
-                              className={`w-2 h-2 rounded-full ${getStatusColor("closed")}`}
-                            ></div>
-                            <span className="text-xs">Closed</span>
-                          </div>
-                          <span className="text-xs font-medium">
-                            {category.closed}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
-
-                {/* Charts Section - Geographic Distribution and Risk Capture */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                    {/* Geographic Distribution Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-6 w-6 text-blue-500" />
-                Distribusi Project per Provinsi
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ProjectDistributionChart data={provinceData} title="" />
-            </CardContent>
-          </Card>
-
-          
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Ringkasan Geografis</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-3">
-                  {provinceData
-                    .sort((a, b) => b.value - a.value)
-                    .slice(0, 5)
-                    .map((province, index) => (
-                      <div
-                        key={province.name}
-                        className="flex items-center justify-between"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs font-semibold text-blue-700">
-                            {index + 1}
-                          </div>
-                          <span className="text-sm font-medium text-gray-900">
-                            {province.name}
-                          </span>
-                        </div>
-                        <Badge variant="outline" className="text-xs">
-                          {province.value} project
-                          {province.value !== 1 ? "s" : ""}
-                        </Badge>
-                      </div>
-                    ))}
-                </div>
-                <div className="pt-4 border-t">
-                  <div className="text-sm text-gray-600">
-                    <div className="flex justify-between mb-2">
-                      <span>Total Provinsi:</span>
-                      <span className="font-semibold">
-                        {provinceData.length}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Rata-rata per Provinsi:</span>
-                      <span className="font-semibold">
-                        {Math.round(
-                          provinceData.reduce((sum, p) => sum + p.value, 0) /
-                            provinceData.length,
-                        )}{" "}
-                        projects
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                            </CardContent>
-            </Card>
-
-                        {/* Risk Capture Pie Chart */}
-            <Card>
-              <CardHeader>
-                                <CardTitle className="flex items-center gap-2">
-                  <PieChart className="h-6 w-6 text-blue-500" />
-                  Risk Capture Distribution
-                </CardTitle>
-                <p className="text-sm text-gray-600">
-                  Distribusi level risiko berdasarkan severity assessment
-                </p>
-              </CardHeader>
-              <CardContent>
-                <RiskCapturePieChart
-                  data={riskCaptureData}
-                  title=""
-                />
-                <div className="mt-4 space-y-2">
-                  <div className="text-sm text-gray-600">
-                    <div className="flex justify-between mb-1">
-                      <span>Total Risk Items:</span>
-                      <span className="font-semibold">
-                        {riskCaptureData.reduce((sum, item) => sum + item.y, 0)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>High Risk Items:</span>
-                      <span className="font-semibold text-red-600">
-                        {riskCaptureData.find(item => item.name === "High")?.y || 0}
-                        {" "}({Math.round((riskCaptureData.find(item => item.name === "High")?.y || 0) / riskCaptureData.reduce((sum, item) => sum + item.y, 0) * 100)}%)
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                            </CardContent>
-            </Card>
-                </div>
-
-                        {/* Geographic Summary */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-lg">Ringkasan Geografis</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-              {provinceData
-                .sort((a, b) => b.revenue - a.revenue)
-                .slice(0, 5)
-                .map((province, index) => (
-                  <div
-                    key={province.name}
-                    className="flex flex-col items-center p-4 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-sm font-semibold text-blue-700 mb-2">
-                      {index + 1}
-                    </div>
-                    <span className="text-sm font-medium text-gray-900 text-center mb-2">
-                      {province.name}
-                    </span>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-blue-700">
-                        {formatCurrency(province.revenue)}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-            </div>
-            <div className="mt-6 pt-4 border-t">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-                <div className="flex justify-between">
-                  <span>Total Provinsi:</span>
-                  <span className="font-semibold">
-                    {provinceData.length}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Total Pendapatan:</span>
-                  <span className="font-semibold text-blue-600">
-                    {formatCurrency(provinceData.reduce((sum, p) => sum + p.revenue, 0))}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Rata-rata per Provinsi:</span>
-                  <span className="font-semibold">
-                    {formatCurrency(
-                      Math.round(
-                        provinceData.reduce((sum, p) => sum + p.revenue, 0) /
-                          provinceData.length,
-                      )
-                    )}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Revenue & Invoice Status */}
           <Card>
             <CardHeader>
@@ -760,6 +463,251 @@ export default function Index() {
                           0,
                         ),
                       )}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Project Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-blue-100 text-sm font-medium">
+                    Total Proyek
+                  </p>
+                  <p className="text-3xl font-bold">{projectSummary.total}</p>
+                </div>
+                <BarChart3 className="h-12 w-12 text-blue-200" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-green-100 text-sm font-medium">
+                    Proyek Berjalan
+                  </p>
+                  <p className="text-3xl font-bold">{projectSummary.running}</p>
+                </div>
+                <TrendingUp className="h-12 w-12 text-green-200" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-purple-100 text-sm font-medium">
+                    Proyek Selesai
+                  </p>
+                  <p className="text-3xl font-bold">
+                    {projectSummary.completed}
+                  </p>
+                </div>
+                <CheckCircle className="h-12 w-12 text-purple-200" />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Risk Status by RMC Categories */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Shield className="h-6 w-6 text-red-500" />
+              Status Risiko Proyek (Kategori RMC)
+            </CardTitle>
+            <div className="flex flex-wrap gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <span>Belum ditindaklanjuti &gt;14 hari</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <span>Dalam proses mitigasi</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span>Closed dengan bukti mitigasi</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 mt-2">
+              💡 <strong>Klik pada card</strong> untuk melihat detail risiko per
+              kategori
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {riskCategories.map((category) => {
+                const IconComponent = category.icon;
+                return (
+                  <div
+                    key={category.id}
+                    className="border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer hover:border-blue-300 hover:bg-blue-50"
+                    onClick={() => handleRiskCategoryClick(category)}
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <IconComponent className="h-5 w-5 text-gray-600" />
+                      <h3 className="font-medium text-sm">{category.name}</h3>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Total:</span>
+                        <span className="font-semibold">{category.total}</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-2 h-2 rounded-full ${getStatusColor("overdue")}`}
+                            ></div>
+                            <span className="text-xs">Overdue</span>
+                          </div>
+                          <span className="text-xs font-medium">
+                            {category.overdue}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-2 h-2 rounded-full ${getStatusColor("inProcess")}`}
+                            ></div>
+                            <span className="text-xs">In Process</span>
+                          </div>
+                          <span className="text-xs font-medium">
+                            {category.inProcess}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-2 h-2 rounded-full ${getStatusColor("closed")}`}
+                            ></div>
+                            <span className="text-xs">Closed</span>
+                          </div>
+                          <span className="text-xs font-medium">
+                            {category.closed}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Charts Section - Geographic Distribution and Risk Capture */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          {/* Geographic Distribution Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="h-6 w-6 text-blue-500" />
+                Distribusi Project per Provinsi
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ProjectDistributionChart data={provinceData} title="" />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Ringkasan Geografis</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                {provinceData
+                  .sort((a, b) => b.value - a.value)
+                  .slice(0, 5)
+                  .map((province, index) => (
+                    <div
+                      key={province.name}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs font-semibold text-blue-700">
+                          {index + 1}
+                        </div>
+                        <span className="text-sm font-medium text-gray-900">
+                          {province.name}
+                        </span>
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {province.value} project
+                        {province.value !== 1 ? "s" : ""}
+                      </Badge>
+                    </div>
+                  ))}
+              </div>
+              <div className="pt-4 border-t">
+                <div className="text-sm text-gray-600">
+                  <div className="flex justify-between mb-2">
+                    <span>Total Provinsi:</span>
+                    <span className="font-semibold">{provinceData.length}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Rata-rata per Provinsi:</span>
+                    <span className="font-semibold">
+                      {Math.round(
+                        provinceData.reduce((sum, p) => sum + p.value, 0) /
+                          provinceData.length,
+                      )}{" "}
+                      projects
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Risk Capture Pie Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <PieChart className="h-6 w-6 text-blue-500" />
+                Risk Capture Distribution
+              </CardTitle>
+              <p className="text-sm text-gray-600">
+                Distribusi level risiko berdasarkan severity assessment
+              </p>
+            </CardHeader>
+            <CardContent>
+              <RiskCapturePieChart data={riskCaptureData} title="" />
+              <div className="mt-4 space-y-2">
+                <div className="text-sm text-gray-600">
+                  <div className="flex justify-between mb-1">
+                    <span>Total Risk Items:</span>
+                    <span className="font-semibold">
+                      {riskCaptureData.reduce((sum, item) => sum + item.y, 0)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>High Risk Items:</span>
+                    <span className="font-semibold text-red-600">
+                      {riskCaptureData.find((item) => item.name === "High")
+                        ?.y || 0}{" "}
+                      (
+                      {Math.round(
+                        ((riskCaptureData.find((item) => item.name === "High")
+                          ?.y || 0) /
+                          riskCaptureData.reduce(
+                            (sum, item) => sum + item.y,
+                            0,
+                          )) *
+                          100,
+                      )}
+                      %)
                     </span>
                   </div>
                 </div>
