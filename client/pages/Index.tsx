@@ -1963,7 +1963,7 @@ export default function Index() {
             <CardContent className="space-y-4">
               <div className="space-y-3">
                 {provinceData
-                  .sort((a, b) => b.value - a.value)
+                  .sort((a, b) => b.revenue - a.revenue)
                   .slice(0, 5)
                   .map((province, index) => (
                     <div
@@ -1971,17 +1971,21 @@ export default function Index() {
                       className="flex items-center justify-between"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs font-semibold text-blue-700">
+                        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-xs font-semibold text-green-700">
                           {index + 1}
                         </div>
                         <span className="text-sm font-medium text-gray-900">
                           {province.name}
                         </span>
                       </div>
-                      <Badge variant="outline" className="text-xs">
-                        {province.value} project
-                        {province.value !== 1 ? "s" : ""}
-                      </Badge>
+                      <div className="text-right">
+                        <div className="text-sm font-semibold text-green-600">
+                          {formatCurrency(province.revenue)}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {province.value} project{province.value !== 1 ? "s" : ""}
+                        </div>
+                      </div>
                     </div>
                   ))}
               </div>
@@ -1991,14 +1995,23 @@ export default function Index() {
                     <span>Total Provinsi:</span>
                     <span className="font-semibold">{provinceData.length}</span>
                   </div>
+                  <div className="flex justify-between mb-2">
+                    <span>Total Pendapatan:</span>
+                    <span className="font-semibold text-green-600">
+                      {formatCurrency(
+                        provinceData.reduce((sum, p) => sum + p.revenue, 0)
+                      )}
+                    </span>
+                  </div>
                   <div className="flex justify-between">
                     <span>Rata-rata per Provinsi:</span>
-                    <span className="font-semibold">
-                      {Math.round(
-                        provinceData.reduce((sum, p) => sum + p.value, 0) /
-                          provinceData.length,
-                      )}{" "}
-                      projects
+                    <span className="font-semibold text-green-600">
+                      {formatCurrency(
+                        Math.round(
+                          provinceData.reduce((sum, p) => sum + p.revenue, 0) /
+                            provinceData.length
+                        )
+                      )}
                     </span>
                   </div>
                 </div>
