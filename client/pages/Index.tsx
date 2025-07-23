@@ -1323,7 +1323,7 @@ export default function Index() {
             let tooltip = `<b>${this.x}</b><br/>`;
             this.points?.forEach((point) => {
               if (point.series.name === "Revenue") {
-                tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${formatCurrency(point.y!)}</b><br/>`;
+                tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${formatCurrency(point.y as number)}</b><br/>`;
               } else {
                 tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${point.y}</b><br/>`;
               }
