@@ -14,6 +14,7 @@ import CreateProject from "./pages/CreateProject";
 import ProjectDetail from "./pages/ProjectDetail";
 import ProjectTimeline from "./pages/ProjectTimeline";
 import Verification from "./pages/Verification";
+import RiskCaptureVerification from "./pages/RiskCaptureVerification";
 import VerifierDashboard from "./pages/VerifierDashboard";
 import MasterProvinces from "./pages/MasterProvinces";
 import MasterCategories from "./pages/MasterCategories";
