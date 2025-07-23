@@ -354,7 +354,7 @@ CREATE TYPE risk_verification_activity_type AS ENUM (
 
 ## Risk Management Tables
 
-### 13. **risk_categories**
+### 15. **risk_categories**
 Tabel master untuk kategori risiko
 
 ```sql
