@@ -14,6 +14,10 @@ import {
   MessageSquare,
   BarChart3,
   Target,
+  Calendar,
+  ChevronDown,
+  Info,
+  TrendingUp,
 } from "lucide-react";
 import { formatDateTime } from "@/utils/formatters";
 import * as Highcharts from "highcharts";
@@ -93,14 +97,126 @@ const pendingAssignments = [
   },
 ];
 
-const monthlyStats = [
-  { month: "Jan", verified: 23, revised: 5 },
-  { month: "Feb", verified: 28, revised: 3 },
-  { month: "Mar", verified: 31, revised: 7 },
-  { month: "Apr", verified: 25, revised: 4 },
-  { month: "May", verified: 29, revised: 6 },
-  { month: "Jun", verified: 33, revised: 2 },
+// Mock data for different periods
+const yearlyStats2024 = [
+  { period: "Jan 2024", verified: 23, revised: 5 },
+  { period: "Feb 2024", verified: 28, revised: 3 },
+  { period: "Mar 2024", verified: 31, revised: 7 },
+  { period: "Apr 2024", verified: 25, revised: 4 },
+  { period: "May 2024", verified: 29, revised: 6 },
+  { period: "Jun 2024", verified: 33, revised: 2 },
+  { period: "Jul 2024", verified: 27, revised: 4 },
+  { period: "Aug 2024", verified: 35, revised: 3 },
+  { period: "Sep 2024", verified: 30, revised: 6 },
+  { period: "Oct 2024", verified: 32, revised: 5 },
+  { period: "Nov 2024", verified: 28, revised: 2 },
+  { period: "Dec 2024", verified: 26, revised: 4 },
 ];
+
+const yearlyStats2023 = [
+  { period: "Jan 2023", verified: 18, revised: 7 },
+  { period: "Feb 2023", verified: 22, revised: 4 },
+  { period: "Mar 2023", verified: 25, revised: 8 },
+  { period: "Apr 2023", verified: 20, revised: 5 },
+  { period: "May 2023", verified: 24, revised: 6 },
+  { period: "Jun 2023", verified: 28, revised: 3 },
+  { period: "Jul 2023", verified: 23, revised: 5 },
+  { period: "Aug 2023", verified: 30, revised: 4 },
+  { period: "Sep 2023", verified: 27, revised: 7 },
+  { period: "Oct 2023", verified: 29, revised: 6 },
+  { period: "Nov 2023", verified: 25, revised: 3 },
+  { period: "Dec 2023", verified: 22, revised: 5 },
+];
+
+// Q4 2024 data (fallback when current year is incomplete)
+const quarterlyStatsQ4_2024 = [
+  { period: "Oct 2024", verified: 32, revised: 5 },
+  { period: "Nov 2024", verified: 28, revised: 2 },
+  { period: "Dec 2024", verified: 26, revised: 4 },
+];
+
+// Q3 2024 data (another fallback example)
+const quarterlyStatsQ3_2024 = [
+  { period: "Jul 2024", verified: 27, revised: 4 },
+  { period: "Aug 2024", verified: 35, revised: 3 },
+  { period: "Sep 2024", verified: 30, revised: 6 },
+];
+
+type PeriodType = 'yearly' | 'quarterly';
+type DataPeriod = {
+  id: string;
+  label: string;
+  type: PeriodType;
+  data: Array<{ period: string; verified: number; revised: number }>;
+  isComplete: boolean;
+};
+
+const availableDataPeriods: DataPeriod[] = [
+  {
+    id: '2024',
+    label: '2024 (Tahunan)',
+    type: 'yearly',
+    data: yearlyStats2024,
+    isComplete: true, // Set to false to simulate incomplete year
+  },
+  {
+    id: '2023',
+    label: '2023 (Tahunan)',
+    type: 'yearly',
+    data: yearlyStats2023,
+    isComplete: true,
+  },
+  {
+    id: 'q4-2024',
+    label: 'Q4 2024 (Triwulan)',
+    type: 'quarterly',
+    data: quarterlyStatsQ4_2024,
+    isComplete: true,
+  },
+  {
+    id: 'q3-2024',
+    label: 'Q3 2024 (Triwulan)',
+    type: 'quarterly',
+    data: quarterlyStatsQ3_2024,
+    isComplete: true,
+  },
+];
+
+// Smart detection logic
+const detectBestDataPeriod = (): DataPeriod => {
+  const currentYear = new Date().getFullYear().toString();
+
+  // First, try to find complete yearly data for current year
+  const currentYearData = availableDataPeriods.find(
+    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+  );
+
+  if (currentYearData) {
+    return currentYearData;
+  }
+
+  // If current year is incomplete, find the latest quarterly data
+  const quarterlyData = availableDataPeriods
+    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .sort((a, b) => b.id.localeCompare(a.id))[0]; // Get latest quarter
+
+  if (quarterlyData) {
+    return quarterlyData;
+  }
+
+  // Fallback to previous year if available
+  const previousYear = (parseInt(currentYear) - 1).toString();
+  const previousYearData = availableDataPeriods.find(
+    period => period.id === previousYear && period.type === 'yearly'
+  );
+
+  if (previousYearData) {
+    return previousYearData;
+  }
+
+  // Ultimate fallback - return first available data
+  return availableDataPeriods[0];
+};
 
 const getStatusBadge = (status: string) => {
   const config = {
@@ -149,8 +265,11 @@ export default function VerifierDashboard() {
     "overview" | "activities" | "pending"
   >("overview");
   const chartRef = useRef<HTMLDivElement>(null);
+  const [selectedPeriod, setSelectedPeriod] = useState<DataPeriod>(detectBestDataPeriod());
+  const [showPeriodDropdown, setShowPeriodDropdown] = useState(false);
+  const [autoSelected, setAutoSelected] = useState(true);
 
-  useEffect(() => {
+  const updateChart = (dataPeriod: DataPeriod) => {
     if (chartRef.current) {
       Highcharts.chart(chartRef.current, {
         chart: {
@@ -162,7 +281,9 @@ export default function VerifierDashboard() {
           text: '',
         },
         xAxis: {
-          categories: monthlyStats.map(stat => stat.month),
+          categories: dataPeriod.data.map(stat =>
+            dataPeriod.type === 'yearly' ? stat.period.split(' ')[0] : stat.period
+          ),
           crosshair: true,
         },
         yAxis: {
@@ -188,12 +309,12 @@ export default function VerifierDashboard() {
         series: [
           {
             name: 'Verified',
-            data: monthlyStats.map(stat => stat.verified),
+            data: dataPeriod.data.map(stat => stat.verified),
             color: '#10b981',
           },
           {
             name: 'Revised',
-            data: monthlyStats.map(stat => stat.revised),
+            data: dataPeriod.data.map(stat => stat.revised),
             color: '#ef4444',
           },
         ],
@@ -207,7 +328,24 @@ export default function VerifierDashboard() {
         },
       });
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    updateChart(selectedPeriod);
+  }, [selectedPeriod]);
+
+  const handlePeriodChange = (period: DataPeriod) => {
+    setSelectedPeriod(period);
+    setAutoSelected(false);
+    setShowPeriodDropdown(false);
+  };
+
+  const shouldShowFallbackMessage = () => {
+    const currentYear = new Date().getFullYear().toString();
+    return autoSelected &&
+           selectedPeriod.type === 'quarterly' &&
+           selectedPeriod.id.includes(currentYear);
+  };
 
   return (
     <div className="space-y-6">
@@ -267,10 +405,125 @@ export default function VerifierDashboard() {
       {/* Performance Chart */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5" />
-            Performance 6 Bulan Terakhir
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <BarChart3 className="w-5 h-5" />
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  Performance Data
+                  <Badge
+                    variant="secondary"
+                    className={`ml-2 ${
+                      selectedPeriod.type === 'yearly'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-orange-100 text-orange-800'
+                    }`}
+                  >
+                    {selectedPeriod.type === 'yearly' ? (
+                      <>
+                        <Calendar className="w-3 h-3 mr-1" />
+                        Tahunan
+                      </>
+                    ) : (
+                      <>
+                        <TrendingUp className="w-3 h-3 mr-1" />
+                        Triwulan
+                      </>
+                    )}
+                  </Badge>
+                </CardTitle>
+                <p className="text-sm text-gray-600 mt-1">
+                  {selectedPeriod.label}
+                </p>
+              </div>
+            </div>
+
+            {/* Period Selector */}
+            <div className="relative">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowPeriodDropdown(!showPeriodDropdown)}
+                className="flex items-center gap-2"
+              >
+                <Calendar className="w-4 h-4" />
+                Ubah Periode
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+
+              {showPeriodDropdown && (
+                <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
+                  <div className="p-2">
+                    <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                    {availableDataPeriods.map((period) => (
+                      <button
+                        key={period.id}
+                        onClick={() => handlePeriodChange(period)}
+                        className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
+                          selectedPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          {period.type === 'yearly' ? (
+                            <Calendar className="w-4 h-4" />
+                          ) : (
+                            <TrendingUp className="w-4 h-4" />
+                          )}
+                          <span>{period.label}</span>
+                        </div>
+                        {!period.isComplete && (
+                          <Badge variant="secondary" className="text-xs">
+                            Parsial
+                          </Badge>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Fallback Message */}
+          {shouldShowFallbackMessage() && (
+            <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+              <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-amber-800">
+                  Menampilkan Data Triwulan
+                </p>
+                <p className="text-xs text-amber-700 mt-1">
+                  Data tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Chart Insights */}
+          <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <div className="text-sm font-medium text-green-800">Total Verified</div>
+              <div className="text-lg font-bold text-green-600">
+                {selectedPeriod.data.reduce((sum, item) => sum + item.verified, 0)}
+              </div>
+            </div>
+            <div className="bg-red-50 p-3 rounded-lg">
+              <div className="text-sm font-medium text-red-800">Total Revised</div>
+              <div className="text-lg font-bold text-red-600">
+                {selectedPeriod.data.reduce((sum, item) => sum + item.revised, 0)}
+              </div>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <div className="text-sm font-medium text-blue-800">Success Rate</div>
+              <div className="text-lg font-bold text-blue-600">
+                {(() => {
+                  const totalVerified = selectedPeriod.data.reduce((sum, item) => sum + item.verified, 0);
+                  const totalRevised = selectedPeriod.data.reduce((sum, item) => sum + item.revised, 0);
+                  return Math.round((totalVerified / (totalVerified + totalRevised)) * 100);
+                })()}%
+              </div>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <div ref={chartRef} className="w-full" />
