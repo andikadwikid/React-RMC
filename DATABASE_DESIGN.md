@@ -369,7 +369,7 @@ CREATE TABLE risk_categories (
 );
 ```
 
-### 14. **risk_category_stats**
+### 16. **risk_category_stats**
 Tabel untuk statistik kategori risiko per periode
 
 ```sql
