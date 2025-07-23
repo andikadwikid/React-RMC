@@ -83,6 +83,24 @@ type RiskDataPeriod = {
   isComplete: boolean;
 };
 
+// Geographic data types
+type GeographicDataPeriod = {
+  id: string;
+  label: string;
+  type: PeriodType;
+  data: ProvinceData[];
+  isComplete: boolean;
+};
+
+// Risk Capture data types
+type RiskCaptureDataPeriod = {
+  id: string;
+  label: string;
+  type: PeriodType;
+  data: Array<{ name: string; y: number; color: string }>;
+  isComplete: boolean;
+};
+
 // Mock performance data
 const yearlyPerformance2024 = [
   { period: "Jan 2024", projects: 4, revenue: 2800000000, risks: 12 },
@@ -563,6 +581,364 @@ const detectBestRiskPeriod = (): RiskDataPeriod => {
 
   // Ultimate fallback
   return availableRiskPeriods[0];
+};
+
+// Geographic data for different periods
+const provinceData2024: ProvinceData[] = [
+  {
+    name: "DKI Jakarta",
+    value: 12,
+    revenue: 15800000000,
+    projects: [
+      "ERP System Bank Central",
+      "Mobile Banking App",
+      "E-Government Portal",
+      "Smart City Dashboard",
+      "Fintech Integration",
+    ],
+  },
+  {
+    name: "Jawa Barat",
+    value: 8,
+    revenue: 9200000000,
+    projects: [
+      "Manufacturing ERP",
+      "Supply Chain Management",
+      "Hospital Information System",
+      "E-Commerce Platform",
+    ],
+  },
+  {
+    name: "Jawa Tengah",
+    value: 6,
+    revenue: 6500000000,
+    projects: [
+      "Agricultural Management System",
+      "Tourism Portal",
+      "Educational Platform",
+    ],
+  },
+  {
+    name: "Jawa Timur",
+    value: 7,
+    revenue: 8100000000,
+    projects: [
+      "Port Management System",
+      "Logistics Platform",
+      "Industrial IoT",
+      "Smart Factory",
+    ],
+  },
+  {
+    name: "Sumatera Utara",
+    value: 4,
+    revenue: 4300000000,
+    projects: ["Palm Oil Tracking", "Mining Management System"],
+  },
+  {
+    name: "Sumatera Barat",
+    value: 3,
+    revenue: 2800000000,
+    projects: ["Tourism Management", "Cultural Heritage Portal"],
+  },
+  {
+    name: "Kalimantan Timur",
+    value: 2,
+    revenue: 3200000000,
+    projects: ["Coal Mining System"],
+  },
+  {
+    name: "Sulawesi Selatan",
+    value: 2,
+    revenue: 2100000000,
+    projects: ["Fisheries Management"],
+  },
+  {
+    name: "Bali",
+    value: 1,
+    revenue: 1500000000,
+    projects: ["Resort Management System"],
+  },
+];
+
+const provinceData2023: ProvinceData[] = [
+  {
+    name: "DKI Jakarta",
+    value: 10,
+    revenue: 13200000000,
+    projects: [
+      "Banking Core System",
+      "Government Portal V1",
+      "Digital Payment Platform",
+      "Smart Transport",
+    ],
+  },
+  {
+    name: "Jawa Barat",
+    value: 6,
+    revenue: 7800000000,
+    projects: [
+      "Factory Automation",
+      "Healthcare System",
+      "E-Commerce Backend",
+    ],
+  },
+  {
+    name: "Jawa Tengah",
+    value: 5,
+    revenue: 5200000000,
+    projects: [
+      "Agricultural Portal",
+      "Education Management",
+    ],
+  },
+  {
+    name: "Jawa Timur",
+    value: 6,
+    revenue: 6900000000,
+    projects: [
+      "Port System V1",
+      "Supply Chain",
+      "Manufacturing IoT",
+    ],
+  },
+  {
+    name: "Sumatera Utara",
+    value: 3,
+    revenue: 3500000000,
+    projects: ["Mining System", "Plantation Management"],
+  },
+  {
+    name: "Sumatera Barat",
+    value: 2,
+    revenue: 2100000000,
+    projects: ["Tourism Portal V1"],
+  },
+  {
+    name: "Kalimantan Timur",
+    value: 2,
+    revenue: 2800000000,
+    projects: ["Coal Management"],
+  },
+  {
+    name: "Sulawesi Selatan",
+    value: 1,
+    revenue: 1600000000,
+    projects: ["Marine System"],
+  },
+  {
+    name: "Bali",
+    value: 1,
+    revenue: 1200000000,
+    projects: ["Hotel Management"],
+  },
+];
+
+const provinceDataQ4_2024: ProvinceData[] = [
+  {
+    name: "DKI Jakarta",
+    value: 4,
+    revenue: 5800000000,
+    projects: ["Smart City Phase 2", "Fintech Integration"],
+  },
+  {
+    name: "Jawa Barat",
+    value: 3,
+    revenue: 3200000000,
+    projects: ["E-Commerce Platform", "Hospital System"],
+  },
+  {
+    name: "Jawa Tengah",
+    value: 2,
+    revenue: 2500000000,
+    projects: ["Educational Platform"],
+  },
+  {
+    name: "Jawa Timur",
+    value: 2,
+    revenue: 2100000000,
+    projects: ["Smart Factory"],
+  },
+  {
+    name: "Sumatera Utara",
+    value: 1,
+    revenue: 1300000000,
+    projects: ["Mining Management Phase 2"],
+  },
+];
+
+const provinceDataQ3_2024: ProvinceData[] = [
+  {
+    name: "DKI Jakarta",
+    value: 3,
+    revenue: 4200000000,
+    projects: ["E-Government Portal", "Banking App"],
+  },
+  {
+    name: "Jawa Barat",
+    value: 2,
+    revenue: 2800000000,
+    projects: ["Supply Chain Management"],
+  },
+  {
+    name: "Jawa Tengah",
+    value: 2,
+    revenue: 2000000000,
+    projects: ["Agricultural System"],
+  },
+  {
+    name: "Jawa Timur",
+    value: 3,
+    revenue: 3800000000,
+    projects: ["Port Management", "Industrial IoT"],
+  },
+  {
+    name: "Sumatera Utara",
+    value: 1,
+    revenue: 1500000000,
+    projects: ["Palm Oil Tracking"],
+  },
+];
+
+// Risk Capture data for different periods
+const riskCaptureData2024 = [
+  { name: "Low", y: 45, color: "#166534" },
+  { name: "Low to Moderate", y: 32, color: "#22C55E" },
+  { name: "Moderate", y: 28, color: "#EAB308" },
+  { name: "Moderate to High", y: 18, color: "#F97316" },
+  { name: "High", y: 12, color: "#DC2626" },
+];
+
+const riskCaptureData2023 = [
+  { name: "Low", y: 38, color: "#166534" },
+  { name: "Low to Moderate", y: 28, color: "#22C55E" },
+  { name: "Moderate", y: 25, color: "#EAB308" },
+  { name: "Moderate to High", y: 22, color: "#F97316" },
+  { name: "High", y: 15, color: "#DC2626" },
+];
+
+const riskCaptureDataQ4_2024 = [
+  { name: "Low", y: 35, color: "#166534" },
+  { name: "Low to Moderate", y: 25, color: "#22C55E" },
+  { name: "Moderate", y: 20, color: "#EAB308" },
+  { name: "Moderate to High", y: 15, color: "#F97316" },
+  { name: "High", y: 8, color: "#DC2626" },
+];
+
+const riskCaptureDataQ3_2024 = [
+  { name: "Low", y: 42, color: "#166534" },
+  { name: "Low to Moderate", y: 30, color: "#22C55E" },
+  { name: "Moderate", y: 25, color: "#EAB308" },
+  { name: "Moderate to High", y: 20, color: "#F97316" },
+  { name: "High", y: 10, color: "#DC2626" },
+];
+
+// Available periods for geographic data
+const availableGeographicPeriods: GeographicDataPeriod[] = [
+  {
+    id: '2024',
+    label: '2024 (Tahunan)',
+    type: 'yearly',
+    data: provinceData2024,
+    isComplete: true,
+  },
+  {
+    id: '2023',
+    label: '2023 (Tahunan)',
+    type: 'yearly',
+    data: provinceData2023,
+    isComplete: true,
+  },
+  {
+    id: 'q4-2024',
+    label: 'Q4 2024 (Triwulan)',
+    type: 'quarterly',
+    data: provinceDataQ4_2024,
+    isComplete: true,
+  },
+  {
+    id: 'q3-2024',
+    label: 'Q3 2024 (Triwulan)',
+    type: 'quarterly',
+    data: provinceDataQ3_2024,
+    isComplete: true,
+  },
+];
+
+// Available periods for risk capture data
+const availableRiskCapturePeriods: RiskCaptureDataPeriod[] = [
+  {
+    id: '2024',
+    label: '2024 (Tahunan)',
+    type: 'yearly',
+    data: riskCaptureData2024,
+    isComplete: true,
+  },
+  {
+    id: '2023',
+    label: '2023 (Tahunan)',
+    type: 'yearly',
+    data: riskCaptureData2023,
+    isComplete: true,
+  },
+  {
+    id: 'q4-2024',
+    label: 'Q4 2024 (Triwulan)',
+    type: 'quarterly',
+    data: riskCaptureDataQ4_2024,
+    isComplete: true,
+  },
+  {
+    id: 'q3-2024',
+    label: 'Q3 2024 (Triwulan)',
+    type: 'quarterly',
+    data: riskCaptureDataQ3_2024,
+    isComplete: true,
+  },
+];
+
+// Smart detection for geographic data
+const detectBestGeographicPeriod = (): GeographicDataPeriod => {
+  const currentYear = new Date().getFullYear().toString();
+  const currentYearData = availableGeographicPeriods.find(
+    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+  );
+  if (currentYearData) return currentYearData;
+
+  const quarterlyData = availableGeographicPeriods
+    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .sort((a, b) => b.id.localeCompare(a.id))[0];
+  if (quarterlyData) return quarterlyData;
+
+  const previousYear = (parseInt(currentYear) - 1).toString();
+  const previousYearData = availableGeographicPeriods.find(
+    period => period.id === previousYear && period.type === 'yearly'
+  );
+  if (previousYearData) return previousYearData;
+
+  return availableGeographicPeriods[0];
+};
+
+// Smart detection for risk capture data
+const detectBestRiskCapturePeriod = (): RiskCaptureDataPeriod => {
+  const currentYear = new Date().getFullYear().toString();
+  const currentYearData = availableRiskCapturePeriods.find(
+    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+  );
+  if (currentYearData) return currentYearData;
+
+  const quarterlyData = availableRiskCapturePeriods
+    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .sort((a, b) => b.id.localeCompare(a.id))[0];
+  if (quarterlyData) return quarterlyData;
+
+  const previousYear = (parseInt(currentYear) - 1).toString();
+  const previousYearData = availableRiskCapturePeriods.find(
+    period => period.id === previousYear && period.type === 'yearly'
+  );
+  if (previousYearData) return previousYearData;
+
+  return availableRiskCapturePeriods[0];
 };
 
 export default function Index() {
