@@ -1198,22 +1198,17 @@ export default function Index() {
     detectBestRiskCapturePeriod().data,
   );
 
-  const [invoiceStatus] = useState<InvoiceStatus>({
-    completed_no_invoice: 5,
-    issued_unpaid: 12,
-    paid: 28,
-  });
+  // Invoice status state with dynamic period management
+  const [selectedInvoiceStatusPeriod, setSelectedInvoiceStatusPeriod] = useState<InvoiceStatusDataPeriod>(detectBestInvoiceStatusPeriod());
+  const [showInvoiceStatusDropdown, setShowInvoiceStatusDropdown] = useState(false);
+  const [invoiceStatusAutoSelected, setInvoiceStatusAutoSelected] = useState(true);
+  const [invoiceStatus, setInvoiceStatus] = useState<InvoiceStatus>(detectBestInvoiceStatusPeriod().data);
 
-  const [agingReceivables] = useState<AgingReceivable[]>([
-    { category: "0-30 hari", amount: 2500000000, color: "green", days: "0-30" },
-    {
-      category: "31-90 hari",
-      amount: 1800000000,
-      color: "yellow",
-      days: "31-90",
-    },
-    { category: ">90 hari", amount: 650000000, color: "red", days: ">90" },
-  ]);
+  // Aging receivables state with dynamic period management
+  const [selectedAgingReceivablesPeriod, setSelectedAgingReceivablesPeriod] = useState<AgingReceivablesDataPeriod>(detectBestAgingReceivablesPeriod());
+  const [showAgingReceivablesDropdown, setShowAgingReceivablesDropdown] = useState(false);
+  const [agingReceivablesAutoSelected, setAgingReceivablesAutoSelected] = useState(true);
+  const [agingReceivables, setAgingReceivables] = useState<AgingReceivable[]>(detectBestAgingReceivablesPeriod().data);
 
   // Dialog state for risk category details
   const [selectedRiskCategory, setSelectedRiskCategory] =
@@ -1409,6 +1404,51 @@ export default function Index() {
       totalClosed,
       overduePercentage,
       closedPercentage,
+    };
+  };
+
+  const handleInvoiceStatusPeriodChange = (period: InvoiceStatusDataPeriod) => {
+    setSelectedInvoiceStatusPeriod(period);
+    setInvoiceStatus(period.data);
+    setInvoiceStatusAutoSelected(false);
+    setShowInvoiceStatusDropdown(false);
+  };
+
+  const shouldShowInvoiceStatusFallbackMessage = () => {
+    const currentYear = new Date().getFullYear().toString();
+    return invoiceStatusAutoSelected &&
+           selectedInvoiceStatusPeriod.type === 'quarterly' &&
+           selectedInvoiceStatusPeriod.id.includes(currentYear);
+  };
+
+  const handleAgingReceivablesPeriodChange = (period: AgingReceivablesDataPeriod) => {
+    setSelectedAgingReceivablesPeriod(period);
+    setAgingReceivables(period.data);
+    setAgingReceivablesAutoSelected(false);
+    setShowAgingReceivablesDropdown(false);
+  };
+
+  const shouldShowAgingReceivablesFallbackMessage = () => {
+    const currentYear = new Date().getFullYear().toString();
+    return agingReceivablesAutoSelected &&
+           selectedAgingReceivablesPeriod.type === 'quarterly' &&
+           selectedAgingReceivablesPeriod.id.includes(currentYear);
+  };
+
+  // Calculate financial insights
+  const getFinancialInsights = (invoiceData: InvoiceStatus, agingData: AgingReceivable[]) => {
+    const totalInvoices = invoiceData.completed_no_invoice + invoiceData.issued_unpaid + invoiceData.paid;
+    const totalOutstanding = agingData.reduce((sum, item) => sum + item.amount, 0);
+    const paidPercentage = totalInvoices > 0 ? Math.round((invoiceData.paid / totalInvoices) * 100) : 0;
+    const overdueAmount = agingData.find(item => item.days === ">90")?.amount || 0;
+    const overduePercentage = totalOutstanding > 0 ? Math.round((overdueAmount / totalOutstanding) * 100) : 0;
+
+    return {
+      totalInvoices,
+      totalOutstanding,
+      paidPercentage,
+      overdueAmount,
+      overduePercentage,
     };
   };
 
