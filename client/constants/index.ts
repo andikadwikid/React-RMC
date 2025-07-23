@@ -115,10 +115,17 @@ export const NAVIGATION_ITEMS: MenuItem[] = [
       },
       {
         id: "verification-list",
-        label: "List Verifikasi",
+        label: "Verifikasi Readiness",
         href: "/verification",
         icon: "CheckCircle",
         badge: "5",
+      },
+      {
+        id: "risk-verification-list",
+        label: "Verifikasi Risk Capture",
+        href: "/risk-capture-verification",
+        icon: "Shield",
+        badge: "3",
       },
     ],
   },
