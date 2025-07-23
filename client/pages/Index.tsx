@@ -1600,10 +1600,128 @@ export default function Index() {
           {/* Revenue & Invoice Status */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <DollarSign className="h-6 w-6 text-green-500" />
-                Status Pendapatan & Invoice
-              </CardTitle>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <DollarSign className="h-6 w-6 text-green-500" />
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      Status Pendapatan & Invoice
+                      <Badge
+                        variant="secondary"
+                        className={`ml-2 ${
+                          selectedInvoiceStatusPeriod.type === 'yearly'
+                            ? 'bg-blue-100 text-blue-800'
+                            : 'bg-orange-100 text-orange-800'
+                        }`}
+                      >
+                        {selectedInvoiceStatusPeriod.type === 'yearly' ? (
+                          <>
+                            <Calendar className="w-3 h-3 mr-1" />
+                            Tahunan
+                          </>
+                        ) : (
+                          <>
+                            <TrendingUp className="w-3 h-3 mr-1" />
+                            Triwulan
+                          </>
+                        )}
+                      </Badge>
+                    </CardTitle>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedInvoiceStatusPeriod.label}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Period Selector */}
+                <div className="relative">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowInvoiceStatusDropdown(!showInvoiceStatusDropdown)}
+                    className="flex items-center gap-2"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    Ubah Periode
+                    <ChevronDown className="w-4 h-4" />
+                  </Button>
+
+                  {showInvoiceStatusDropdown && (
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
+                      <div className="p-2">
+                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                        {availableInvoiceStatusPeriods.map((period) => (
+                          <button
+                            key={period.id}
+                            onClick={() => handleInvoiceStatusPeriodChange(period)}
+                            className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
+                              selectedInvoiceStatusPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {period.type === 'yearly' ? (
+                                <Calendar className="w-4 h-4" />
+                              ) : (
+                                <TrendingUp className="w-4 h-4" />
+                              )}
+                              <span>{period.label}</span>
+                            </div>
+                            {!period.isComplete && (
+                              <Badge variant="secondary" className="text-xs">
+                                Parsial
+                              </Badge>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Fallback Message */}
+              {shouldShowInvoiceStatusFallbackMessage() && (
+                <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+                  <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-amber-800">
+                      Menampilkan Data Invoice Triwulan
+                    </p>
+                    <p className="text-xs text-amber-700 mt-1">
+                      Data invoice tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Invoice Insights */}
+              <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+                {(() => {
+                  const insights = getFinancialInsights(invoiceStatus, agingReceivables);
+                  return (
+                    <>
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-blue-800">Total Invoice</div>
+                        <div className="text-lg font-bold text-blue-600">
+                          {insights.totalInvoices}
+                        </div>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-green-800">Paid Rate</div>
+                        <div className="text-lg font-bold text-green-600">
+                          {insights.paidPercentage}%
+                        </div>
+                      </div>
+                      <div className="bg-red-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-red-800">Overdue</div>
+                        <div className="text-lg font-bold text-red-600">
+                          {insights.overduePercentage}%
+                        </div>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
