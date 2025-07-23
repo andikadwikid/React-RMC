@@ -7,7 +7,7 @@
 📁 Master Data
 ├── 🏛️  provinces
 │   ├── id (PK)
-│   ├���─ name
+│   ├── name
 │   ├── code
 │   └── region
 │
@@ -132,7 +132,7 @@
 │   ├── assigned_to → references users(id) [Risk Officer]
 │   ├── assigned_by → references users(id) [Admin/Manager]
 │   ├── priority (low, medium, high, urgent)
-│   ��── status (assigned, in_progress, completed)
+│   ├── status (assigned, in_progress, completed)
 │   ├── due_date
 │   └── estimated_hours
 │
@@ -161,7 +161,7 @@
     ├── risk_capture_id → references risk_captures(id)
     ├── verifier_id → references users(id)
     ├── activity_type (assigned, started_review, risk_verified, etc.)
-    ���── description
+    ├── description
     ├── old_status
     ├── new_status
     └── activity_at
@@ -177,7 +177,7 @@
 │   ├── period_type
 │   ├── period_value
 │   ├── province_id → references provinces(id) [Optional]
-│   ├── total_projects
+��   ├── total_projects
 │   └── total_revenue
 │
 └── 📊  risk_category_stats
@@ -313,7 +313,7 @@ users DELETE (Risk Officers) ⭐ NEW
 ├── → verification_assignments (RESTRICT - cannot delete if active assignments)
 ├── → verification_activities (RESTRICT - preserve audit trail)
 ├── → risk_capture_verification_assignments (RESTRICT - active assignments) ⭐ NEW
-└── → risk_capture_verification_activities (RESTRICT - audit trail preservation) ⭐ NEW
+└── → risk_capture_verification_activities (RESTRICT - audit trail preservation) �� NEW
 ```
 
 ### **RESTRICT Deletions** (Cannot delete parent if child exists) ⭐ **UPDATED**
@@ -425,17 +425,26 @@ This hierarchy provides a clear understanding of how data flows through the syst
 ### **New Tables:**
 1. **users** - Risk Officers, Verifiers, Admins
 2. **verification_assignments** - Assign readiness reviews to risk officers
-3. **verification_activities** - Audit trail of all verification actions
+3. **verification_activities** - Audit trail of readiness verification actions
+4. **risk_capture_verification_assignments** - Assign risk capture reviews to risk officers ⭐ **NEW**
+5. **risk_capture_verification_activities** - Audit trail of risk capture verification actions ⭐ **NEW**
 
 ### **Enhanced Tables:**
 1. **project_readiness** - Added verifier fields
 2. **readiness_items** - Added verifier validation fields
+3. **risk_captures** - Added verification workflow fields (status, verifier, comments) ⭐ **NEW**
+4. **risk_items** - Added verification fields (is_verified, verifier_comment, verifier_name) ⭐ **NEW**
 
 ### **New Features:**
 1. **Role-based access control**
-2. **Assignment workflow for verification**
-3. **Complete audit trail**
-4. **Risk officer validation process**
+2. **Assignment workflow for verification (both readiness and risk capture)**
+3. **Complete audit trail (dual workflow tracking)**
+4. **Risk officer validation process (both readiness and risk capture)**
 5. **Performance tracking for verifiers**
+6. **Tab-based status organization for Risk Capture Verification** ⭐ **NEW**
+7. **Individual risk item verification with comments** ⭐ **NEW**
+8. **Status tracking: submitted → under_review → verified/needs_revision** ⭐ **NEW**
 
-This updated design now fully supports the verification workflow where risk officers validate user submissions and provide feedback on each readiness item.
+This updated design now fully supports both verification workflows:
+- **Readiness Verification**: Risk officers validate project readiness items
+- **Risk Capture Verification**: Risk officers validate risk assessments with detailed feedback ⭐ **NEW**
