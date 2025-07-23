@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +16,7 @@ import {
   Target,
 } from "lucide-react";
 import { formatDateTime } from "@/utils/formatters";
+import * as Highcharts from "highcharts";
 
 const verificationStats = {
   totalVerified: 156,
@@ -147,6 +148,66 @@ export default function VerifierDashboard() {
   const [activeTab, setActiveTab] = useState<
     "overview" | "activities" | "pending"
   >("overview");
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chartRef.current) {
+      Highcharts.chart(chartRef.current, {
+        chart: {
+          type: 'column',
+          height: 300,
+          backgroundColor: 'transparent',
+        },
+        title: {
+          text: '',
+        },
+        xAxis: {
+          categories: monthlyStats.map(stat => stat.month),
+          crosshair: true,
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Jumlah Verifikasi',
+          },
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true,
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+          },
+        },
+        series: [
+          {
+            name: 'Verified',
+            data: monthlyStats.map(stat => stat.verified),
+            color: '#10b981',
+          },
+          {
+            name: 'Revised',
+            data: monthlyStats.map(stat => stat.revised),
+            color: '#ef4444',
+          },
+        ],
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          align: 'center',
+          verticalAlign: 'bottom',
+          layout: 'horizontal',
+        },
+      });
+    }
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -212,37 +273,7 @@ export default function VerifierDashboard() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {monthlyStats.map((stat, index) => (
-              <div key={index} className="flex items-center gap-4">
-                <div className="w-12 text-sm font-medium text-gray-600">
-                  {stat.month}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm text-green-700">
-                      Verified: {stat.verified}
-                    </span>
-                    <span className="text-sm text-red-700">
-                      Revised: {stat.revised}
-                    </span>
-                  </div>
-                  <div className="flex gap-1">
-                    <Progress
-                      value={(stat.verified / 35) * 100}
-                      className="flex-1 h-2"
-                    />
-                    <div className="w-12 text-xs text-gray-500">
-                      {Math.round(
-                        (stat.verified / (stat.verified + stat.revised)) * 100,
-                      )}
-                      %
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <div ref={chartRef} className="w-full" />
         </CardContent>
       </Card>
 
