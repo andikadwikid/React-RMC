@@ -141,9 +141,9 @@ export const formatCurrency = (amount: number) => {
 
 export const formatCurrencyShort = (amount: number) => {
   if (amount >= 1000000000) {
-    return `${(amount / 1000000000).toFixed(1)}B`;
+    return `${(amount / 1000000000).toFixed(1)}M`;
   } else if (amount >= 1000000) {
-    return `${(amount / 1000000).toFixed(1)}M`;
+    return `${(amount / 1000000).toFixed(1)}JT`;
   }
   return formatCurrency(amount);
 };
