@@ -33,7 +33,7 @@
     ├── id (PK)
     ├── username
     ├── email
-    ├── full_name
+    ├���─ full_name
     ├── role (risk_officer, verifier, admin, etc.)
     └── department
 ```
@@ -76,12 +76,17 @@
 │   ├── verifier_name **NEW**
 │   └── verified_at **NEW**
 │
-├── 🛡️  risk_captures (Header/Parent)
+├── 🛡️  risk_captures (Header/Parent) **ENHANCED**
 │   ├── id (PK)
 │   ├── project_id → references projects(id)
+│   ├── project_name **NEW**
 │   ├── submitted_by
 │   ├── total_risks
-│   └── submitted_at
+│   ├── submitted_at
+│   ├── status (submitted, under_review, verified, needs_revision) **NEW**
+│   ├── verifier_name **NEW**
+│   ├── verified_at **NEW**
+│   └── overall_comment **NEW**
 │
 └── 💰  invoices
     ├── id (PK)
@@ -148,7 +153,7 @@
 │   ├── period_type
 │   ├── period_value
 │   ├── province_id → references provinces(id) [Optional]
-│   ├── total_projects
+│   ��── total_projects
 │   └── total_revenue
 │
 └── 📊  risk_category_stats
