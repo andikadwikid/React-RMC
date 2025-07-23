@@ -669,6 +669,15 @@ INSERT INTO risk_categories (name, icon, description) VALUES
 ('Lingkungan & Sosial', 'Leaf', 'Environmental and social risks'),
 ('Teknologi Informasi', 'Cpu', 'IT and technology risks'),
 ('Sumber Daya Manusia', 'Users', 'Human resource risks');
+
+-- Insert sample risk capture submissions **NEW**
+INSERT INTO risk_captures (project_id, project_name, submitted_by, submitted_at, total_risks, risk_level_distribution, status) VALUES
+('proj-001', 'Sistem ERP PT. ABC Manufacturing', 'John Doe', '2024-01-15T10:30:00Z', 8,
+ '{"sangatRendah": 2, "rendah": 3, "sedang": 2, "tinggi": 1, "sangatTinggi": 0}', 'submitted'),
+('proj-002', 'Portal E-Commerce Fashion', 'Jane Smith', '2024-01-14T14:20:00Z', 6,
+ '{"sangatRendah": 1, "rendah": 2, "sedang": 2, "tinggi": 1, "sangatTinggi": 0}', 'under_review'),
+('proj-003', 'Aplikasi Mobile Banking', 'Robert Johnson', '2024-01-13T09:15:00Z', 12,
+ '{"sangatRendah": 4, "rendah": 5, "sedang": 2, "tinggi": 1, "sangatTinggi": 0}', 'verified');
 ```
 
 ## Key Features of This Design
