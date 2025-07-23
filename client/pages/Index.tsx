@@ -1822,10 +1822,122 @@ export default function Index() {
           {/* Geographic Distribution Chart */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-6 w-6 text-blue-500" />
-                Distribusi Project per Provinsi
-              </CardTitle>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <BarChart3 className="h-6 w-6 text-blue-500" />
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      Distribusi Project per Provinsi
+                      <Badge
+                        variant="secondary"
+                        className={`ml-2 ${
+                          selectedGeographicPeriod.type === 'yearly'
+                            ? 'bg-blue-100 text-blue-800'
+                            : 'bg-orange-100 text-orange-800'
+                        }`}
+                      >
+                        {selectedGeographicPeriod.type === 'yearly' ? (
+                          <>
+                            <Calendar className="w-3 h-3 mr-1" />
+                            Tahunan
+                          </>
+                        ) : (
+                          <>
+                            <TrendingUp className="w-3 h-3 mr-1" />
+                            Triwulan
+                          </>
+                        )}
+                      </Badge>
+                    </CardTitle>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedGeographicPeriod.label}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Period Selector */}
+                <div className="relative">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowGeographicDropdown(!showGeographicDropdown)}
+                    className="flex items-center gap-2"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    Ubah Periode
+                    <ChevronDown className="w-4 h-4" />
+                  </Button>
+
+                  {showGeographicDropdown && (
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
+                      <div className="p-2">
+                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                        {availableGeographicPeriods.map((period) => (
+                          <button
+                            key={period.id}
+                            onClick={() => handleGeographicPeriodChange(period)}
+                            className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
+                              selectedGeographicPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {period.type === 'yearly' ? (
+                                <Calendar className="w-4 h-4" />
+                              ) : (
+                                <TrendingUp className="w-4 h-4" />
+                              )}
+                              <span>{period.label}</span>
+                            </div>
+                            {!period.isComplete && (
+                              <Badge variant="secondary" className="text-xs">
+                                Parsial
+                              </Badge>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Fallback Message */}
+              {shouldShowGeographicFallbackMessage() && (
+                <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+                  <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-amber-800">
+                      Menampilkan Data Geografis Triwulan
+                    </p>
+                    <p className="text-xs text-amber-700 mt-1">
+                      Data distribusi proyek tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Geographic Insights */}
+              <div className="mb-4 grid grid-cols-2 gap-3">
+                {(() => {
+                  const insights = getGeographicInsights(provinceData);
+                  return (
+                    <>
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-blue-800">Total Proyek</div>
+                        <div className="text-lg font-bold text-blue-600">
+                          {insights.totalProjects}
+                        </div>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-green-800">Total Revenue</div>
+                        <div className="text-lg font-bold text-green-600">
+                          {formatCurrencyShort(insights.totalRevenue)}
+                        </div>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
             </CardHeader>
             <CardContent>
               <ProjectDistributionChart data={provinceData} title="" />
@@ -1834,7 +1946,19 @@ export default function Index() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Ringkasan Geografis</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg">Ringkasan Geografis</CardTitle>
+                <Badge
+                  variant="outline"
+                  className={`${
+                    selectedGeographicPeriod.type === 'yearly'
+                      ? 'text-blue-600 border-blue-200'
+                      : 'text-orange-600 border-orange-200'
+                  }`}
+                >
+                  {selectedGeographicPeriod.label}
+                </Badge>
+              </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-3">
@@ -1885,13 +2009,122 @@ export default function Index() {
           {/* Risk Capture Pie Chart */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <PieChart className="h-6 w-6 text-blue-500" />
-                Risk Capture Distribution
-              </CardTitle>
-              <p className="text-sm text-gray-600">
-                Distribusi level risiko berdasarkan severity assessment
-              </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <PieChart className="h-6 w-6 text-blue-500" />
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      Risk Capture Distribution
+                      <Badge
+                        variant="secondary"
+                        className={`ml-2 ${
+                          selectedRiskCapturePeriod.type === 'yearly'
+                            ? 'bg-blue-100 text-blue-800'
+                            : 'bg-orange-100 text-orange-800'
+                        }`}
+                      >
+                        {selectedRiskCapturePeriod.type === 'yearly' ? (
+                          <>
+                            <Calendar className="w-3 h-3 mr-1" />
+                            Tahunan
+                          </>
+                        ) : (
+                          <>
+                            <TrendingUp className="w-3 h-3 mr-1" />
+                            Triwulan
+                          </>
+                        )}
+                      </Badge>
+                    </CardTitle>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedRiskCapturePeriod.label} - Distribusi level risiko berdasarkan severity assessment
+                    </p>
+                  </div>
+                </div>
+
+                {/* Period Selector */}
+                <div className="relative">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowRiskCaptureDropdown(!showRiskCaptureDropdown)}
+                    className="flex items-center gap-2"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    Ubah Periode
+                    <ChevronDown className="w-4 h-4" />
+                  </Button>
+
+                  {showRiskCaptureDropdown && (
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
+                      <div className="p-2">
+                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                        {availableRiskCapturePeriods.map((period) => (
+                          <button
+                            key={period.id}
+                            onClick={() => handleRiskCapturePeriodChange(period)}
+                            className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
+                              selectedRiskCapturePeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {period.type === 'yearly' ? (
+                                <Calendar className="w-4 h-4" />
+                              ) : (
+                                <TrendingUp className="w-4 h-4" />
+                              )}
+                              <span>{period.label}</span>
+                            </div>
+                            {!period.isComplete && (
+                              <Badge variant="secondary" className="text-xs">
+                                Parsial
+                              </Badge>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Fallback Message */}
+              {shouldShowRiskCaptureFallbackMessage() && (
+                <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+                  <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-amber-800">
+                      Menampilkan Data Risk Capture Triwulan
+                    </p>
+                    <p className="text-xs text-amber-700 mt-1">
+                      Data risk capture tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Risk Capture Insights */}
+              <div className="mb-4 grid grid-cols-2 gap-3">
+                {(() => {
+                  const insights = getRiskCaptureInsights(riskCaptureData);
+                  return (
+                    <>
+                      <div className="bg-red-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-red-800">High Risk</div>
+                        <div className="text-lg font-bold text-red-600">
+                          {insights.highRiskItems} ({insights.highRiskPercentage}%)
+                        </div>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-green-800">Low Risk</div>
+                        <div className="text-lg font-bold text-green-600">
+                          {insights.lowRiskItems} ({insights.lowRiskPercentage}%)
+                        </div>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
             </CardHeader>
             <CardContent>
               <RiskCapturePieChart data={riskCaptureData} title="" />
