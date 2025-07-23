@@ -106,6 +106,24 @@ type RiskCaptureDataPeriod = {
   isComplete: boolean;
 };
 
+// Invoice Status data types
+type InvoiceStatusDataPeriod = {
+  id: string;
+  label: string;
+  type: PeriodType;
+  data: InvoiceStatus;
+  isComplete: boolean;
+};
+
+// Aging Receivables data types
+type AgingReceivablesDataPeriod = {
+  id: string;
+  label: string;
+  type: PeriodType;
+  data: AgingReceivable[];
+  isComplete: boolean;
+};
+
 // Mock performance data
 const yearlyPerformance2024 = [
   { period: "Jan 2024", projects: 4, revenue: 2800000000, risks: 12 },
@@ -957,6 +975,164 @@ const detectBestRiskCapturePeriod = (): RiskCaptureDataPeriod => {
   if (previousYearData) return previousYearData;
 
   return availableRiskCapturePeriods[0];
+};
+
+// Invoice Status data for different periods
+const invoiceStatus2024: InvoiceStatus = {
+  completed_no_invoice: 8,
+  issued_unpaid: 15,
+  paid: 49,
+};
+
+const invoiceStatus2023: InvoiceStatus = {
+  completed_no_invoice: 5,
+  issued_unpaid: 12,
+  paid: 39,
+};
+
+const invoiceStatusQ4_2024: InvoiceStatus = {
+  completed_no_invoice: 2,
+  issued_unpaid: 4,
+  paid: 6,
+};
+
+const invoiceStatusQ3_2024: InvoiceStatus = {
+  completed_no_invoice: 3,
+  issued_unpaid: 5,
+  paid: 7,
+};
+
+// Aging Receivables data for different periods
+const agingReceivables2024: AgingReceivable[] = [
+  { category: "0-30 hari", amount: 3200000000, color: "green", days: "0-30" },
+  { category: "31-90 hari", amount: 2100000000, color: "yellow", days: "31-90" },
+  { category: ">90 hari", amount: 850000000, color: "red", days: ">90" },
+];
+
+const agingReceivables2023: AgingReceivable[] = [
+  { category: "0-30 hari", amount: 2800000000, color: "green", days: "0-30" },
+  { category: "31-90 hari", amount: 1900000000, color: "yellow", days: "31-90" },
+  { category: ">90 hari", amount: 700000000, color: "red", days: ">90" },
+];
+
+const agingReceivablesQ4_2024: AgingReceivable[] = [
+  { category: "0-30 hari", amount: 1200000000, color: "green", days: "0-30" },
+  { category: "31-90 hari", amount: 800000000, color: "yellow", days: "31-90" },
+  { category: ">90 hari", amount: 300000000, color: "red", days: ">90" },
+];
+
+const agingReceivablesQ3_2024: AgingReceivable[] = [
+  { category: "0-30 hari", amount: 1500000000, color: "green", days: "0-30" },
+  { category: "31-90 hari", amount: 900000000, color: "yellow", days: "31-90" },
+  { category: ">90 hari", amount: 400000000, color: "red", days: ">90" },
+];
+
+// Available periods for invoice status
+const availableInvoiceStatusPeriods: InvoiceStatusDataPeriod[] = [
+  {
+    id: '2024',
+    label: '2024 (Tahunan)',
+    type: 'yearly',
+    data: invoiceStatus2024,
+    isComplete: true,
+  },
+  {
+    id: '2023',
+    label: '2023 (Tahunan)',
+    type: 'yearly',
+    data: invoiceStatus2023,
+    isComplete: true,
+  },
+  {
+    id: 'q4-2024',
+    label: 'Q4 2024 (Triwulan)',
+    type: 'quarterly',
+    data: invoiceStatusQ4_2024,
+    isComplete: true,
+  },
+  {
+    id: 'q3-2024',
+    label: 'Q3 2024 (Triwulan)',
+    type: 'quarterly',
+    data: invoiceStatusQ3_2024,
+    isComplete: true,
+  },
+];
+
+// Available periods for aging receivables
+const availableAgingReceivablesPeriods: AgingReceivablesDataPeriod[] = [
+  {
+    id: '2024',
+    label: '2024 (Tahunan)',
+    type: 'yearly',
+    data: agingReceivables2024,
+    isComplete: true,
+  },
+  {
+    id: '2023',
+    label: '2023 (Tahunan)',
+    type: 'yearly',
+    data: agingReceivables2023,
+    isComplete: true,
+  },
+  {
+    id: 'q4-2024',
+    label: 'Q4 2024 (Triwulan)',
+    type: 'quarterly',
+    data: agingReceivablesQ4_2024,
+    isComplete: true,
+  },
+  {
+    id: 'q3-2024',
+    label: 'Q3 2024 (Triwulan)',
+    type: 'quarterly',
+    data: agingReceivablesQ3_2024,
+    isComplete: true,
+  },
+];
+
+// Smart detection for invoice status
+const detectBestInvoiceStatusPeriod = (): InvoiceStatusDataPeriod => {
+  const currentYear = new Date().getFullYear().toString();
+  const currentYearData = availableInvoiceStatusPeriods.find(
+    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+  );
+  if (currentYearData) return currentYearData;
+
+  const quarterlyData = availableInvoiceStatusPeriods
+    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .sort((a, b) => b.id.localeCompare(a.id))[0];
+  if (quarterlyData) return quarterlyData;
+
+  const previousYear = (parseInt(currentYear) - 1).toString();
+  const previousYearData = availableInvoiceStatusPeriods.find(
+    period => period.id === previousYear && period.type === 'yearly'
+  );
+  if (previousYearData) return previousYearData;
+
+  return availableInvoiceStatusPeriods[0];
+};
+
+// Smart detection for aging receivables
+const detectBestAgingReceivablesPeriod = (): AgingReceivablesDataPeriod => {
+  const currentYear = new Date().getFullYear().toString();
+  const currentYearData = availableAgingReceivablesPeriods.find(
+    period => period.id === currentYear && period.type === 'yearly' && period.isComplete
+  );
+  if (currentYearData) return currentYearData;
+
+  const quarterlyData = availableAgingReceivablesPeriods
+    .filter(period => period.type === 'quarterly' && period.id.includes(currentYear))
+    .sort((a, b) => b.id.localeCompare(a.id))[0];
+  if (quarterlyData) return quarterlyData;
+
+  const previousYear = (parseInt(currentYear) - 1).toString();
+  const previousYearData = availableAgingReceivablesPeriods.find(
+    period => period.id === previousYear && period.type === 'yearly'
+  );
+  if (previousYearData) return previousYearData;
+
+  return availableAgingReceivablesPeriods[0];
 };
 
 export default function Index() {
