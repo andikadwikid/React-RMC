@@ -267,7 +267,7 @@ CREATE TYPE assignment_status AS ENUM ('assigned', 'in_progress', 'completed', '
 ```
 
 ### 12. **verification_activities**
-Tabel untuk tracking aktivitas verifikasi
+Tabel untuk tracking aktivitas verifikasi readiness
 
 ```sql
 CREATE TABLE verification_activities (
@@ -290,6 +290,60 @@ CREATE TYPE verification_activity_type AS ENUM (
     'assigned',
     'started_review',
     'item_verified',
+    'status_changed',
+    'comment_added',
+    'verification_completed',
+    'revision_requested',
+    'approved'
+);
+```
+
+### 13. **risk_capture_verification_assignments** **NEW**
+Tabel untuk assignment verifikasi risk capture ke risk officer
+
+```sql
+CREATE TABLE risk_capture_verification_assignments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    risk_capture_id UUID NOT NULL REFERENCES risk_captures(id) ON DELETE CASCADE,
+    assigned_to UUID NOT NULL REFERENCES users(id),
+    assigned_by UUID NOT NULL REFERENCES users(id),
+    assigned_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    priority verification_priority DEFAULT 'medium',
+    estimated_hours DECIMAL(4,2),
+    due_date TIMESTAMP WITH TIME ZONE,
+    status assignment_status DEFAULT 'assigned',
+    started_at TIMESTAMP WITH TIME ZONE,
+    completed_at TIMESTAMP WITH TIME ZONE,
+    notes TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
+
+### 14. **risk_capture_verification_activities** **NEW**
+Tabel untuk tracking aktivitas verifikasi risk capture
+
+```sql
+CREATE TABLE risk_capture_verification_activities (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    risk_capture_id UUID NOT NULL REFERENCES risk_captures(id),
+    verifier_id UUID NOT NULL REFERENCES users(id),
+    activity_type risk_verification_activity_type NOT NULL,
+    description TEXT,
+    old_status risk_capture_status,
+    new_status risk_capture_status,
+    risks_verified INTEGER DEFAULT 0,
+    total_risks INTEGER DEFAULT 0,
+    notes TEXT,
+    activity_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enum for risk verification activity types
+CREATE TYPE risk_verification_activity_type AS ENUM (
+    'assigned',
+    'started_review',
+    'risk_verified',
     'status_changed',
     'comment_added',
     'verification_completed',
