@@ -578,80 +578,11 @@ export default function Index() {
   const [showPerformanceDropdown, setShowPerformanceDropdown] = useState(false);
   const [performanceAutoSelected, setPerformanceAutoSelected] = useState(true);
 
-  const [riskCategories] = useState<RiskCategory[]>([
-    {
-      id: "strategic",
-      name: "Strategis",
-      icon: Target,
-      total: 12,
-      overdue: 3,
-      inProcess: 6,
-      closed: 3,
-    },
-    {
-      id: "operational",
-      name: "Operasional",
-      icon: Building,
-      total: 18,
-      overdue: 5,
-      inProcess: 8,
-      closed: 5,
-    },
-    {
-      id: "financial",
-      name: "Keuangan",
-      icon: DollarSign,
-      total: 8,
-      overdue: 2,
-      inProcess: 4,
-      closed: 2,
-    },
-    {
-      id: "compliance",
-      name: "Kepatuhan",
-      icon: Gavel,
-      total: 6,
-      overdue: 1,
-      inProcess: 3,
-      closed: 2,
-    },
-    {
-      id: "project",
-      name: "Proyek",
-      icon: FileText,
-      total: 22,
-      overdue: 7,
-      inProcess: 10,
-      closed: 5,
-    },
-    {
-      id: "environment",
-      name: "Lingkungan & Sosial",
-      icon: Leaf,
-      total: 4,
-      overdue: 1,
-      inProcess: 2,
-      closed: 1,
-    },
-    {
-      id: "it",
-      name: "Teknologi Informasi",
-      icon: Cpu,
-      total: 9,
-      overdue: 2,
-      inProcess: 5,
-      closed: 2,
-    },
-    {
-      id: "hr",
-      name: "Sumber Daya Manusia",
-      icon: Users,
-      total: 7,
-      overdue: 1,
-      inProcess: 4,
-      closed: 2,
-    },
-  ]);
+  // Risk categories state with dynamic period management
+  const [selectedRiskPeriod, setSelectedRiskPeriod] = useState<RiskDataPeriod>(detectBestRiskPeriod());
+  const [showRiskDropdown, setShowRiskDropdown] = useState(false);
+  const [riskAutoSelected, setRiskAutoSelected] = useState(true);
+  const [riskCategories, setRiskCategories] = useState<RiskCategory[]>(detectBestRiskPeriod().data);
 
   const [invoiceStatus] = useState<InvoiceStatus>({
     completed_no_invoice: 5,
@@ -918,6 +849,39 @@ export default function Index() {
     return performanceAutoSelected &&
            selectedPerformancePeriod.type === 'quarterly' &&
            selectedPerformancePeriod.id.includes(currentYear);
+  };
+
+  const handleRiskPeriodChange = (period: RiskDataPeriod) => {
+    setSelectedRiskPeriod(period);
+    setRiskCategories(period.data);
+    setRiskAutoSelected(false);
+    setShowRiskDropdown(false);
+  };
+
+  const shouldShowRiskFallbackMessage = () => {
+    const currentYear = new Date().getFullYear().toString();
+    return riskAutoSelected &&
+           selectedRiskPeriod.type === 'quarterly' &&
+           selectedRiskPeriod.id.includes(currentYear);
+  };
+
+  // Calculate risk insights
+  const getRiskInsights = (categories: RiskCategory[]) => {
+    const totalRisks = categories.reduce((sum, cat) => sum + cat.total, 0);
+    const totalOverdue = categories.reduce((sum, cat) => sum + cat.overdue, 0);
+    const totalInProcess = categories.reduce((sum, cat) => sum + cat.inProcess, 0);
+    const totalClosed = categories.reduce((sum, cat) => sum + cat.closed, 0);
+    const overduePercentage = totalRisks > 0 ? Math.round((totalOverdue / totalRisks) * 100) : 0;
+    const closedPercentage = totalRisks > 0 ? Math.round((totalClosed / totalRisks) * 100) : 0;
+
+    return {
+      totalRisks,
+      totalOverdue,
+      totalInProcess,
+      totalClosed,
+      overduePercentage,
+      closedPercentage,
+    };
   };
 
   const getStatusColor = (status: "overdue" | "inProcess" | "closed") => {
