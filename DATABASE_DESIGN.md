@@ -690,14 +690,34 @@ INSERT INTO risk_captures (project_id, project_name, submitted_by, submitted_at,
 6. **Normalization**: Proper separation of concerns and master data
 7. **Extensibility**: Easy to add new risk categories, provinces, etc.
 8. **Analytics Ready**: Performance metrics tables for reporting
+9. **Dual Verification Workflow**: Separate verification for readiness and risk capture **NEW**
+10. **Status-based Organization**: Tab-friendly status tracking for better UX **NEW**
+11. **Complete Audit Trail**: Track all verification activities for both workflows **NEW**
+
+## Key Workflows Supported
+
+### **Readiness Verification Workflow**
+1. User submits project readiness
+2. Admin assigns to risk officer
+3. Risk officer verifies each readiness item
+4. Status tracking: submitted → under_review → verified/needs_revision
+
+### **Risk Capture Verification Workflow** **NEW**
+1. User submits risk capture assessment
+2. Admin assigns to risk officer
+3. Risk officer verifies each risk item with comments
+4. Status tracking: submitted → under_review → verified/needs_revision
+5. Tab-based status organization for better UX
 
 ## Migration Strategy
 
 1. Create tables in dependency order (master data first)
 2. Populate master data
 3. Migrate existing project data
-4. Create indexes after data migration
-5. Create views and materialized views
-6. Set up triggers for automatic updates
+4. Create readiness verification tables
+5. Create risk capture verification tables **NEW**
+6. Create indexes after data migration
+7. Create views and materialized views
+8. Set up triggers for automatic updates
 
-This design supports all current features while providing a foundation for future enhancements like user management, notifications, advanced analytics, and integration with external systems.
+This design supports all current features including the new Risk Capture Verification workflow with tab-based status tracking, while providing a foundation for future enhancements like advanced analytics, notifications, and integration with external systems.
