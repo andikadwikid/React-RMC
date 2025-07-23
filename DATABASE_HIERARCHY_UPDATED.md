@@ -156,7 +156,7 @@
 │   ├── due_date
 │   └── estimated_hours
 │
-└── 📊  risk_capture_verification_activities (Risk Capture Audit Trail) **NEW**
+└── ��  risk_capture_verification_activities (Risk Capture Audit Trail) **NEW**
     ├── id (PK)
     ├── risk_capture_id → references risk_captures(id)
     ├── verifier_id → references users(id)
@@ -248,7 +248,7 @@
 ```
 1️⃣ project_readiness (Submitted by user)
     ↓
-2���⃣ verification_assignments (Admin assigns to Risk Officer)
+2️⃣ verification_assignments (Admin assigns to Risk Officer)
     ↓
 3️⃣ verification_activities (Risk Officer actions logged)
     ↓
@@ -372,9 +372,11 @@ users DELETE → verification_activities (RESTRICT - audit trail preservation) �
 3. risk_captures + risk_items
 4. invoices
 
-### **Phase 2.5: Verification System** ⭐ **NEW**
-1. verification_assignments
-2. verification_activities
+### **Phase 2.5: Verification Systems** ⭐ **UPDATED**
+1. verification_assignments (readiness)
+2. verification_activities (readiness)
+3. risk_capture_verification_assignments (risk capture) ⭐ **NEW**
+4. risk_capture_verification_activities (risk capture) ⭐ **NEW**
 
 ### **Phase 3: Analytics**
 1. performance_metrics
