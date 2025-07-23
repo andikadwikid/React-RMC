@@ -27,7 +27,7 @@
 │   ├── id (PK)
 │   ├── name
 │   ├── icon
-│   └── description
+│   └��─ description
 │
 └── 👤  users (Risk Officers, Verifiers, etc.) **NEW**
     ├── id (PK)
@@ -142,7 +142,7 @@
 │   ├── verifier_id → references users(id)
 │   ├── activity_type (assigned, started_review, verified, etc.)
 │   ├── description
-│   ├── old_status
+│   ���── old_status
 │   ├── new_status
 │   └── activity_at
 │
@@ -274,11 +274,15 @@
 - `projects` → `risk_captures` (1 project can have multiple risk assessments)
 - `projects` → `invoices` (1 project can have multiple invoices)
 - `project_readiness` → `readiness_items` (1 assessment has many items)
-- `project_readiness` → `verification_assignments` (1 assessment can be assigned multiple times) ⭐ **NEW**
-- `project_readiness` → `verification_activities` (1 assessment has many verification activities) ⭐ **NEW**
+- `project_readiness` → `verification_assignments` (1 readiness assessment can be assigned multiple times) ⭐ **NEW**
+- `project_readiness` → `verification_activities` (1 readiness assessment has many verification activities) ⭐ **NEW**
 - `risk_captures` → `risk_items` (1 risk capture has many risk items)
-- `users` → `verification_assignments` (1 risk officer has many assignments) ⭐ **NEW**
-- `users` → `verification_activities` (1 risk officer has many activities) ⭐ **NEW**
+- `risk_captures` → `risk_capture_verification_assignments` (1 risk capture can be assigned multiple times) ⭐ **NEW**
+- `risk_captures` → `risk_capture_verification_activities` (1 risk capture has many verification activities) ⭐ **NEW**
+- `users` → `verification_assignments` (1 risk officer has many readiness assignments) ⭐ **NEW**
+- `users` → `verification_activities` (1 risk officer has many readiness activities) ⭐ **NEW**
+- `users` → `risk_capture_verification_assignments` (1 risk officer has many risk capture assignments) ⭐ **NEW**
+- `users` → `risk_capture_verification_activities` (1 risk officer has many risk capture activities) ⭐ **NEW**
 
 ### **Many-to-One (N:1)** ⭐ **UPDATED**
 - `projects` → `provinces` (Many projects in 1 province)
