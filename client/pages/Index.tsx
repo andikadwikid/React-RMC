@@ -1782,11 +1782,130 @@ export default function Index() {
           {/* Aging Receivables */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="h-6 w-6 text-orange-500" />
-                Aging Piutang Proyek
-              </CardTitle>
-              <div className="flex gap-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Clock className="h-6 w-6 text-orange-500" />
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      Aging Piutang Proyek
+                      <Badge
+                        variant="secondary"
+                        className={`ml-2 ${
+                          selectedAgingReceivablesPeriod.type === 'yearly'
+                            ? 'bg-blue-100 text-blue-800'
+                            : 'bg-orange-100 text-orange-800'
+                        }`}
+                      >
+                        {selectedAgingReceivablesPeriod.type === 'yearly' ? (
+                          <>
+                            <Calendar className="w-3 h-3 mr-1" />
+                            Tahunan
+                          </>
+                        ) : (
+                          <>
+                            <TrendingUp className="w-3 h-3 mr-1" />
+                            Triwulan
+                          </>
+                        )}
+                      </Badge>
+                    </CardTitle>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedAgingReceivablesPeriod.label}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Period Selector */}
+                <div className="relative">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAgingReceivablesDropdown(!showAgingReceivablesDropdown)}
+                    className="flex items-center gap-2"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    Ubah Periode
+                    <ChevronDown className="w-4 h-4" />
+                  </Button>
+
+                  {showAgingReceivablesDropdown && (
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
+                      <div className="p-2">
+                        <div className="text-xs font-medium text-gray-500 mb-2 px-2">PILIH PERIODE DATA</div>
+                        {availableAgingReceivablesPeriods.map((period) => (
+                          <button
+                            key={period.id}
+                            onClick={() => handleAgingReceivablesPeriodChange(period)}
+                            className={`w-full text-left px-3 py-2 rounded-md text-sm hover:bg-gray-50 flex items-center justify-between ${
+                              selectedAgingReceivablesPeriod.id === period.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {period.type === 'yearly' ? (
+                                <Calendar className="w-4 h-4" />
+                              ) : (
+                                <TrendingUp className="w-4 h-4" />
+                              )}
+                              <span>{period.label}</span>
+                            </div>
+                            {!period.isComplete && (
+                              <Badge variant="secondary" className="text-xs">
+                                Parsial
+                              </Badge>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Fallback Message */}
+              {shouldShowAgingReceivablesFallbackMessage() && (
+                <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+                  <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-amber-800">
+                      Menampilkan Data Piutang Triwulan
+                    </p>
+                    <p className="text-xs text-amber-700 mt-1">
+                      Data aging piutang tahun {new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Aging Insights */}
+              <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+                {(() => {
+                  const insights = getFinancialInsights(invoiceStatus, agingReceivables);
+                  return (
+                    <>
+                      <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-gray-800">Total Outstanding</div>
+                        <div className="text-lg font-bold text-gray-600">
+                          {formatCurrencyShort(insights.totalOutstanding)}
+                        </div>
+                      </div>
+                      <div className="bg-yellow-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-yellow-800">31-90 Hari</div>
+                        <div className="text-lg font-bold text-yellow-600">
+                          {formatCurrencyShort(agingReceivables.find(item => item.days === "31-90")?.amount || 0)}
+                        </div>
+                      </div>
+                      <div className="bg-red-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-red-800">&gt;90 Hari</div>
+                        <div className="text-lg font-bold text-red-600">
+                          {formatCurrencyShort(insights.overdueAmount)}
+                        </div>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+
+              <div className="flex gap-2 mb-4">
                 <Button variant="outline" size="sm">
                   Urutkan: Nilai Terbesar
                 </Button>
