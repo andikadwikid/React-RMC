@@ -170,7 +170,7 @@ const STATUS_CONFIG = {
 
 export default function RiskCaptureVerification() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [activeTab, setActiveTab] = useState("all");
   const [selectedSubmission, setSelectedSubmission] =
     useState<RiskCapture | null>(null);
   const [verificationModal, setVerificationModal] = useState(false);
