@@ -1654,36 +1654,40 @@ export default function Index() {
           {/* Revenue & Invoice Status */}
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <DollarSign className="h-6 w-6 text-green-500" />
+              <div className="flex flex-col md:flex-row items-start justify-between">
+                <div className="flex flex-col items-start gap-2">
                   <div>
-                    <CardTitle className="flex items-center gap-2">
-                      Status Pendapatan & Invoice
-                      <Badge
-                        variant="secondary"
-                        className={`ml-2 ${
-                          selectedInvoiceStatusPeriod.type === "yearly"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-orange-100 text-orange-800"
-                        }`}
-                      >
-                        {selectedInvoiceStatusPeriod.type === "yearly" ? (
-                          <>
-                            <Calendar className="w-3 h-3 mr-1" />
-                            Tahunan
-                          </>
-                        ) : (
-                          <>
-                            <TrendingUp className="w-3 h-3 mr-1" />
-                            Triwulan
-                          </>
-                        )}
-                      </Badge>
-                    </CardTitle>
+                    <div className="flex items-center space-x-2">
+                      <DollarSign className="h-6 w-6 text-green-500" />
+                      <CardTitle className="flex items-center gap-2">
+                        <span>Status Pendapatan & Invoice</span>
+                      </CardTitle>
+                    </div>
+                  </div>
+                  <div className="flex my-3">
                     <p className="text-sm text-gray-600 mt-1">
                       {selectedInvoiceStatusPeriod.label}
                     </p>
+                    <Badge
+                      variant="secondary"
+                      className={`ml-2 ${
+                        selectedInvoiceStatusPeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
+                      }`}
+                    >
+                      {selectedInvoiceStatusPeriod.type === "yearly" ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
                   </div>
                 </div>
 
@@ -1695,7 +1699,7 @@ export default function Index() {
                     onClick={() =>
                       setShowInvoiceStatusDropdown(!showInvoiceStatusDropdown)
                     }
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 mb-3 md:mb-0"
                   >
                     <Calendar className="w-4 h-4" />
                     Ubah Periode
@@ -1854,36 +1858,40 @@ export default function Index() {
           {/* Aging Receivables */}
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Clock className="h-6 w-6 text-orange-500" />
+              <div className="flex flex-col md:flex-row items-start justify-between">
+                <div className="flex flex-col items-start gap-2">
                   <div>
-                    <CardTitle className="flex items-center gap-2">
-                      Aging Piutang Proyek
-                      <Badge
-                        variant="secondary"
-                        className={`ml-2 ${
-                          selectedAgingReceivablesPeriod.type === "yearly"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-orange-100 text-orange-800"
-                        }`}
-                      >
-                        {selectedAgingReceivablesPeriod.type === "yearly" ? (
-                          <>
-                            <Calendar className="w-3 h-3 mr-1" />
-                            Tahunan
-                          </>
-                        ) : (
-                          <>
-                            <TrendingUp className="w-3 h-3 mr-1" />
-                            Triwulan
-                          </>
-                        )}
-                      </Badge>
-                    </CardTitle>
+                    <div className="flex items-center gap-3">
+                      <Clock className="h-6 w-6 text-orange-500" />
+                      <CardTitle>
+                        <span>Aging Piutang Proyek</span>
+                      </CardTitle>
+                    </div>
+                  </div>
+                  <div className="flex my-2">
                     <p className="text-sm text-gray-600 mt-1">
                       {selectedAgingReceivablesPeriod.label}
                     </p>
+                    <Badge
+                      variant="secondary"
+                      className={`ml-2 ${
+                        selectedAgingReceivablesPeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
+                      }`}
+                    >
+                      {selectedAgingReceivablesPeriod.type === "yearly" ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
                   </div>
                 </div>
 
@@ -1897,7 +1905,7 @@ export default function Index() {
                         !showAgingReceivablesDropdown,
                       )
                     }
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 mb-3"
                   >
                     <Calendar className="w-4 h-4" />
                     Ubah Periode
@@ -2001,14 +2009,14 @@ export default function Index() {
                 })()}
               </div>
 
-              <div className="flex gap-2 mb-4">
+              {/* <div className="flex gap-2 mb-4">
                 <Button variant="outline" size="sm">
                   Urutkan: Nilai Terbesar
                 </Button>
                 <Button variant="outline" size="sm">
                   Urutkan: Risiko Proyek
                 </Button>
-              </div>
+              </div> */}
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -2149,12 +2157,17 @@ export default function Index() {
         {/* Performance Overview Chart */}
         <Card className="mb-8">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row items-start justify-between gap-5">
               <div className="flex items-center gap-2">
                 <Activity className="w-5 h-5" />
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     Performance Overview
+                  </CardTitle>
+                  <div className="flex items-center my-2">
+                    <p className="text-sm text-gray-600">
+                      {selectedPerformancePeriod.label}
+                    </p>
                     <Badge
                       variant="secondary"
                       className={`ml-2 ${
@@ -2175,10 +2188,7 @@ export default function Index() {
                         </>
                       )}
                     </Badge>
-                  </CardTitle>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {selectedPerformancePeriod.label}
-                  </p>
+                  </div>
                 </div>
               </div>
 
@@ -2190,7 +2200,7 @@ export default function Index() {
                   onClick={() =>
                     setShowPerformanceDropdown(!showPerformanceDropdown)
                   }
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 mb-3"
                 >
                   <Calendar className="w-4 h-4" />
                   Ubah Periode
@@ -2315,12 +2325,17 @@ export default function Index() {
         {/* Risk Status by RMC Categories */}
         <Card className="mb-8">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row items-start justify-between gap-5">
               <div className="flex items-center gap-2">
                 <Shield className="h-6 w-6 text-red-500" />
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     Status Risiko Proyek (Kategori RMC)
+                  </CardTitle>
+                  <div className="flex items-center my-2">
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedRiskPeriod.label}
+                    </p>
                     <Badge
                       variant="secondary"
                       className={`ml-2 ${
@@ -2341,10 +2356,7 @@ export default function Index() {
                         </>
                       )}
                     </Badge>
-                  </CardTitle>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {selectedRiskPeriod.label}
-                  </p>
+                  </div>
                 </div>
               </div>
 
@@ -2354,7 +2366,7 @@ export default function Index() {
                   variant="outline"
                   size="sm"
                   onClick={() => setShowRiskDropdown(!showRiskDropdown)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 mb-3"
                 >
                   <Calendar className="w-4 h-4" />
                   Ubah Periode
@@ -2543,12 +2555,19 @@ export default function Index() {
           {/* Geographic Distribution Chart */}
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row items-start justify-between gap-5">
                 <div className="flex items-center gap-2">
-                  <BarChart3 className="h-6 w-6 text-blue-500" />
                   <div>
-                    <CardTitle className="flex items-center gap-2">
-                      Distribusi Project per Provinsi
+                    <div className="flex gap-3">
+                      <BarChart3 className="h-6 w-6 text-blue-500" />
+                      <CardTitle className="flex items-center gap-2">
+                        Distribusi Project per Provinsi
+                      </CardTitle>
+                    </div>
+                    <div className="flex items-center my-2">
+                      <p className="text-sm text-gray-600">
+                        {selectedGeographicPeriod.label}
+                      </p>
                       <Badge
                         variant="secondary"
                         className={`ml-2 ${
@@ -2569,10 +2588,7 @@ export default function Index() {
                           </>
                         )}
                       </Badge>
-                    </CardTitle>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {selectedGeographicPeriod.label}
-                    </p>
+                    </div>
                   </div>
                 </div>
 
@@ -2584,7 +2600,7 @@ export default function Index() {
                     onClick={() =>
                       setShowGeographicDropdown(!showGeographicDropdown)
                     }
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 mb-3"
                   >
                     <Calendar className="w-4 h-4" />
                     Ubah Periode
@@ -2755,12 +2771,20 @@ export default function Index() {
           {/* Risk Capture Pie Chart */}
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row items-start justify-between gap-5">
                 <div className="flex items-center gap-2">
-                  <PieChart className="h-6 w-6 text-blue-500" />
                   <div>
-                    <CardTitle className="flex items-center gap-2">
-                      Risk Capture Distribution
+                    <div className="flex gap-3">
+                      <PieChart className="h-6 w-6 text-blue-500" />
+                      <CardTitle className="flex items-center gap-2">
+                        Risk Capture Distribution
+                      </CardTitle>
+                    </div>
+                    <div className="flex items-center my-2">
+                      <p className="text-sm text-gray-600 mt-1">
+                        {selectedRiskCapturePeriod.label} - Distribusi level
+                        risiko berdasarkan severity assessment
+                      </p>
                       <Badge
                         variant="secondary"
                         className={`ml-2 ${
@@ -2781,11 +2805,7 @@ export default function Index() {
                           </>
                         )}
                       </Badge>
-                    </CardTitle>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {selectedRiskCapturePeriod.label} - Distribusi level
-                      risiko berdasarkan severity assessment
-                    </p>
+                    </div>
                   </div>
                 </div>
 
