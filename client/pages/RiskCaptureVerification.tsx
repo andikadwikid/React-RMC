@@ -168,6 +168,138 @@ const STATUS_CONFIG = {
   },
 };
 
+// Submissions List Component
+interface SubmissionsListProps {
+  submissions: RiskCapture[];
+  onOpenModal: (submission: RiskCapture) => void;
+  getStatusBadge: (status: string) => JSX.Element | null;
+  getRiskLevelSummary: (distribution: RiskCapture["riskLevelDistribution"]) => {
+    total: number;
+    highRisk: number;
+    percentage: number;
+  };
+}
+
+function SubmissionsList({
+  submissions,
+  onOpenModal,
+  getStatusBadge,
+  getRiskLevelSummary
+}: SubmissionsListProps) {
+  if (submissions.length === 0) {
+    return (
+      <Card>
+        <CardContent className="py-12">
+          <div className="text-center">
+            <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-500">
+              Tidak ada risk capture submission yang ditemukan
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Risk Capture Submissions ({submissions.length})</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          {submissions.map((submission) => {
+            const riskSummary = getRiskLevelSummary(submission.riskLevelDistribution);
+
+            return (
+              <div
+                key={submission.id}
+                className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="font-semibold text-gray-900">
+                        {submission.projectName}
+                      </h3>
+                      {getStatusBadge(submission.status)}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 mb-3">
+                      <div>
+                        <span className="font-medium">Submitter:</span>{" "}
+                        {submission.submittedBy}
+                      </div>
+                      <div>
+                        <span className="font-medium">Tanggal Submit:</span>{" "}
+                        {formatDateTime(submission.submittedAt)}
+                      </div>
+                      {submission.verifierName && (
+                        <div>
+                          <span className="font-medium">Verifier:</span>{" "}
+                          {submission.verifierName}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Risk Distribution Summary */}
+                    <div className="flex items-center gap-4 text-sm mb-3">
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-4 h-4 text-blue-600" />
+                        <span className="font-medium">Total Risks:</span>
+                        <Badge variant="outline">{submission.totalRisks}</Badge>
+                      </div>
+                      {riskSummary.highRisk > 0 && (
+                        <div className="flex items-center gap-2">
+                          <AlertTriangle className="w-4 h-4 text-red-600" />
+                          <span className="text-red-600 font-medium">
+                            High Risk: {riskSummary.highRisk} ({riskSummary.percentage}%)
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Risk Level Distribution */}
+                    <div className="flex gap-2 text-xs">
+                      <Badge className="bg-green-100 text-green-800">
+                        Rendah: {submission.riskLevelDistribution.sangatRendah + submission.riskLevelDistribution.rendah}
+                      </Badge>
+                      <Badge className="bg-yellow-100 text-yellow-800">
+                        Sedang: {submission.riskLevelDistribution.sedang}
+                      </Badge>
+                      <Badge className="bg-red-100 text-red-800">
+                        Tinggi: {submission.riskLevelDistribution.tinggi + submission.riskLevelDistribution.sangatTinggi}
+                      </Badge>
+                    </div>
+
+                    {submission.overallComment && (
+                      <div className="mt-3 p-3 bg-gray-100 rounded text-sm">
+                        <span className="font-medium">Komentar:</span>{" "}
+                        {submission.overallComment}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="ml-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onOpenModal(submission)}
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      Review
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function RiskCaptureVerification() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("all");
