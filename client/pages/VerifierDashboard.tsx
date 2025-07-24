@@ -852,7 +852,11 @@ export default function VerifierDashboard() {
           </div>
         </CardHeader>
         <CardContent>
-          <div ref={chartRef} className="w-full" />
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <div ref={chartRef} className="w-full" />
+          )}
         </CardContent>
       </Card>
 
