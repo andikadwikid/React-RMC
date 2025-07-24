@@ -354,18 +354,18 @@ export default function Dashboard() {
         </div>
 
         {/* Project Overview Cards - Row 2 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white relative overflow-hidden">
-            <CardContent className="p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
                     <p className="text-blue-100 text-sm font-medium">
                       Total Proyek
                     </p>
                     <Badge
                       variant="secondary"
-                      className={`text-xs px-2 py-0.5 ${
+                      className={`text-xs px-2 py-0.5 w-fit ${
                         selectedPerformancePeriod.type === "yearly"
                           ? "bg-blue-200 text-blue-800"
                           : "bg-orange-200 text-orange-800"
@@ -376,12 +376,12 @@ export default function Dashboard() {
                         : "Triwulan"}
                     </Badge>
                   </div>
-                  <p className="text-3xl font-bold">{projectSummary.total}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">{projectSummary.total}</p>
                   <p className="text-blue-200 text-xs mt-1">
                     Periode: {selectedPerformancePeriod.label}
                   </p>
                 </div>
-                <BarChart3 className="h-12 w-12 text-blue-200" />
+                <BarChart3 className="h-10 w-10 sm:h-12 sm:w-12 text-blue-200 flex-shrink-0" />
               </div>
             </CardContent>
           </Card>
