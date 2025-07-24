@@ -151,15 +151,17 @@ export function RiskCaptureForm({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-blue-600" />
-            Risk Capture Assessment - {projectName}
+      <DialogContent className="w-[95vw] max-w-6xl max-h-[90vh] overflow-y-auto sm:w-full">
+        <DialogHeader className="space-y-3">
+          <DialogTitle className="flex items-start gap-2 text-lg sm:text-xl">
+            <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 flex-shrink-0 mt-0.5" />
+            <span className="leading-tight break-words">
+              Risk Capture Assessment - {projectName}
+            </span>
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Risk Items */}
           <Card>
             <CardHeader>
