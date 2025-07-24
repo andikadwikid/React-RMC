@@ -11,7 +11,7 @@ interface ExtendedProjectDistributionChartProps extends ProjectDistributionChart
 export default function ProjectDistributionChart({
   data,
   title = "Distribusi Project per Provinsi",
-}: ProjectDistributionChartProps) {
+}: ExtendedProjectDistributionChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<Highcharts.Chart | null>(null);
 
