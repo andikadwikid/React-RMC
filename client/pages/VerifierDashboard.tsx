@@ -863,36 +863,79 @@ export default function VerifierDashboard() {
             </CardContent>
           </Card>
 
-          {/* Recent Updates */}
+          {/* Verification Summary */}
           <Card>
             <CardHeader>
-              <CardTitle>Info Terbaru</CardTitle>
+              <CardTitle>Ringkasan Verifikasi</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <p className="text-sm font-medium text-blue-800">
-                    Sistem Pembaruan
-                  </p>
-                  <p className="text-xs text-blue-600">
-                    Fitur notifikasi real-time telah diaktifkan
-                  </p>
+              <div className="space-y-4">
+                {/* Risk Capture Summary */}
+                <div className="p-3 bg-red-50 rounded-lg border border-red-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-red-600" />
+                      <p className="text-sm font-medium text-red-800">
+                        Risk Capture
+                      </p>
+                    </div>
+                    <Badge className="bg-red-100 text-red-800">
+                      {verificationStats.riskCapture.total} submissions
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="text-red-600">
+                      Total Risks: {verificationStats.riskCapture.totalRisks}
+                    </div>
+                    <div className="text-red-600">
+                      Success Rate: {verificationStats.riskCapture.total > 0 ? Math.round((verificationStats.riskCapture.verified / verificationStats.riskCapture.total) * 100) : 0}%
+                    </div>
+                  </div>
                 </div>
-                <div className="p-3 bg-green-50 rounded-lg">
-                  <p className="text-sm font-medium text-green-800">
-                    Performance
-                  </p>
-                  <p className="text-xs text-green-600">
-                    Waktu loading dashboard berkurang 40%
-                  </p>
+
+                {/* Readiness Summary */}
+                <div className="p-3 bg-green-50 rounded-lg border border-green-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-600" />
+                      <p className="text-sm font-medium text-green-800">
+                        Project Readiness
+                      </p>
+                    </div>
+                    <Badge className="bg-green-100 text-green-800">
+                      {verificationStats.readiness.total} submissions
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="text-green-600">
+                      Total Items: {verificationStats.readiness.totalItems}
+                    </div>
+                    <div className="text-green-600">
+                      Success Rate: {verificationStats.readiness.total > 0 ? Math.round((verificationStats.readiness.verified / verificationStats.readiness.total) * 100) : 0}%
+                    </div>
+                  </div>
                 </div>
-                <div className="p-3 bg-yellow-50 rounded-lg">
-                  <p className="text-sm font-medium text-yellow-800">
-                    Maintenance
-                  </p>
-                  <p className="text-xs text-yellow-600">
-                    Maintenance terjadwal Minggu pagi 02:00 - 04:00
-                  </p>
+
+                {/* Overall Performance */}
+                <div className="p-3 bg-purple-50 rounded-lg border border-purple-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <Target className="w-4 h-4 text-purple-600" />
+                      <p className="text-sm font-medium text-purple-800">
+                        Overall Performance
+                      </p>
+                    </div>
+                    <Badge className="bg-purple-100 text-purple-800">
+                      {(() => {
+                        const total = verificationStats.riskCapture.total + verificationStats.readiness.total;
+                        const verified = verificationStats.overall.totalVerified;
+                        return total > 0 ? Math.round((verified / total) * 100) : 0;
+                      })()}% success rate
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-purple-600">
+                    {verificationStats.overall.totalVerified} terverifikasi dari {verificationStats.riskCapture.total + verificationStats.readiness.total} total submissions
+                  </div>
                 </div>
               </div>
             </CardContent>
