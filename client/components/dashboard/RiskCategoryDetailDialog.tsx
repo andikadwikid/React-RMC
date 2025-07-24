@@ -867,8 +867,9 @@ export function RiskCategoryDetailDialog({
             </DialogDescription>
           </DialogHeader>
 
-          {/* Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div className="flex-1 overflow-y-auto p-4 lg:p-6">
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-4 lg:mb-6">
             <Card className="border-l-4 border-l-blue-500">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
@@ -1099,8 +1100,9 @@ export function RiskCategoryDetailDialog({
               </Table>
             </CardContent>
           </Card>
+          </div>
 
-          <DialogFooter className="bg-gray-50 pt-6">
+          <DialogFooter className="bg-gray-50 p-4 lg:p-6 border-t flex-shrink-0">
             <div className="flex flex-col sm:flex-row gap-3 w-full">
               <Button variant="outline" onClick={onClose} className="flex-1">
                 Tutup
