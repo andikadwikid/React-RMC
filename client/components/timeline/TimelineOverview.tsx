@@ -24,7 +24,7 @@ export function TimelineOverview({
   projectStartDate,
   projectEndDate,
   className = "",
-}: TimelineOverviewProps) {
+}: ExtendedTimelineOverviewProps) {
   const completedMilestones = timeline.filter(
     (m) => m.status === "completed",
   ).length;
