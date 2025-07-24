@@ -726,17 +726,18 @@ export function RiskCaptureForm({
           {/* Summary */}
           {risks.length > 0 && (
             <Card className="border-blue-200 bg-blue-50">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
+              <CardContent className="p-3 sm:p-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="flex items-center gap-2 text-blue-800">
-                    <CheckCircle className="w-4 h-4" />
-                    <span className="font-medium">
+                    <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                    <span className="font-medium text-sm sm:text-base">
                       Total: {risks.length} Risk Capture
                     </span>
                   </div>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 text-xs sm:text-sm">
                     <div>
-                      Sangat Rendah (1-5):{" "}
+                      <span className="hidden sm:inline">Sangat Rendah (1-5): </span>
+                      <span className="sm:hidden">SR: </span>
                       {
                         risks.filter(
                           (r) =>
@@ -745,7 +746,8 @@ export function RiskCaptureForm({
                       }
                     </div>
                     <div>
-                      Rendah (6-10):{" "}
+                      <span className="hidden sm:inline">Rendah (6-10): </span>
+                      <span className="sm:hidden">R: </span>
                       {
                         risks.filter(
                           (r) =>
@@ -754,7 +756,8 @@ export function RiskCaptureForm({
                       }
                     </div>
                     <div>
-                      Sedang (11-15):{" "}
+                      <span className="hidden sm:inline">Sedang (11-15): </span>
+                      <span className="sm:hidden">S: </span>
                       {
                         risks.filter(
                           (r) =>
@@ -764,7 +767,8 @@ export function RiskCaptureForm({
                       }
                     </div>
                     <div>
-                      Tinggi (16-20):{" "}
+                      <span className="hidden sm:inline">Tinggi (16-20): </span>
+                      <span className="sm:hidden">T: </span>
                       {
                         risks.filter(
                           (r) =>
@@ -774,7 +778,8 @@ export function RiskCaptureForm({
                       }
                     </div>
                     <div>
-                      Sangat Tinggi (21-25):{" "}
+                      <span className="hidden sm:inline">Sangat Tinggi (21-25): </span>
+                      <span className="sm:hidden">ST: </span>
                       {
                         risks.filter(
                           (r) =>
@@ -790,18 +795,23 @@ export function RiskCaptureForm({
           )}
 
           {/* Actions */}
-          <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={onClose}>
+          <div className="flex flex-col sm:flex-row justify-end gap-2">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              className="w-full sm:w-auto order-2 sm:order-1"
+            >
               <X className="w-4 h-4 mr-2" />
               Cancel
             </Button>
             <Button
               onClick={handleSave}
               disabled={risks.length === 0}
-              className="bg-green-600 hover:bg-green-700"
+              className="bg-green-600 hover:bg-green-700 w-full sm:w-auto order-1 sm:order-2"
             >
               <Save className="w-4 h-4 mr-2" />
-              Simpan Risk Capture ({risks.length})
+              <span className="hidden sm:inline">Simpan Risk Capture ({risks.length})</span>
+              <span className="sm:hidden">Simpan ({risks.length})</span>
             </Button>
           </div>
         </div>
