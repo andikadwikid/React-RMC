@@ -336,7 +336,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <Calendar className="w-4 h-4 text-gray-400" />
                       <span className="text-gray-600">Start Date:</span>
                       <span className="font-medium">
-                        {new Date(project.startDate).toLocaleDateString(
+                        {new Date(startDate).toLocaleDateString(
                           "id-ID",
                         )}
                       </span>
@@ -345,7 +345,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <Target className="w-4 h-4 text-gray-400" />
                       <span className="text-gray-600">End Date:</span>
                       <span className="font-medium">
-                        {new Date(project.endDate).toLocaleDateString("id-ID")}
+                        {new Date(endDate).toLocaleDateString("id-ID")}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
