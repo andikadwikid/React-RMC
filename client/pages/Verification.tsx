@@ -295,7 +295,7 @@ export default function Verification() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {mockReadinessSubmissions.length}
+              {getReadinessSubmissions().length}
             </div>
           </CardContent>
         </Card>
