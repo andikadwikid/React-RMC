@@ -182,24 +182,25 @@ export function RiskCaptureForm({
             </CardHeader>
             <CardContent className="p-3 sm:p-6">
               {risks.length === 0 ? (
-                <div className="text-center py-8">
-                  <Shield className="mx-auto h-12 w-12 text-gray-400" />
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">
+                <div className="text-center py-6 sm:py-8">
+                  <Shield className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400" />
+                  <h3 className="mt-2 text-sm sm:text-base font-medium text-gray-900">
                     Belum ada risk capture
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-xs sm:text-sm text-gray-500 px-4">
                     Mulai dengan menambahkan risk capture pertama untuk project
                     ini.
                   </p>
-                  <div className="mt-6">
-                    <Button onClick={addRiskItem}>
+                  <div className="mt-4 sm:mt-6">
+                    <Button onClick={addRiskItem} className="w-full sm:w-auto">
                       <Plus className="w-4 h-4 mr-2" />
-                      Tambah Risk Capture Pertama
+                      <span className="hidden sm:inline">Tambah Risk Capture Pertama</span>
+                      <span className="sm:hidden">Tambah Risk Capture</span>
                     </Button>
                   </div>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {risks.map((risk, index) => (
                     <Card key={risk.id} className="border border-gray-200">
                       <CardHeader className="pb-3">
