@@ -173,7 +173,7 @@ export default function Dashboard() {
             let tooltip = `<b>${this.x}</b><br/>`;
             this.points?.forEach((point) => {
               if (point.series.name === "Revenue") {
-                tooltip += `<span style="color:${point.color}">��</span> ${point.series.name}: <b>${formatCurrency(point.y as number)}</b><br/>`;
+                tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${formatCurrency(point.y as number)}</b><br/>`;
               } else {
                 tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${point.y}</b><br/>`;
               }
@@ -553,7 +553,7 @@ export default function Dashboard() {
                   textColor: "text-green-800",
                 },
               ]}
-              className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3"
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
             />
           </CardHeader>
           <CardContent>
