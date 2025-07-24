@@ -27,9 +27,7 @@ import {
   Globe,
 } from "lucide-react";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
+import type { LayoutProps } from "@/types";
 
 interface MenuItem {
   id: string;
