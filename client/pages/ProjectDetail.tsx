@@ -121,7 +121,7 @@ export default function ProjectDetail() {
     // Here you would typically send the data to your API
     closeRiskCaptureForm();
     // Show success message
-    alert("Risk Assessment berhasil disimpan!");
+    toast.success("Risk Assessment berhasil disimpan!");
   };
 
   const generateReport = async () => {
