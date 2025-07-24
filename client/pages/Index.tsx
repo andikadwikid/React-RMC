@@ -1017,36 +1017,36 @@ export default function Dashboard() {
         </Card>
 
         {/* Quick Actions - Row 7 */}
-        <Card className="mt-8">
+        <Card className="mt-6 sm:mt-8">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle className="text-lg sm:text-xl">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Button className="h-20 flex flex-col items-center justify-center gap-2">
-                <AlertTriangle className="h-6 w-6" />
-                <span>Laporan Risiko</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <Button className="h-16 sm:h-20 flex flex-col items-center justify-center gap-2 hover:shadow-md transition-shadow">
+                <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="text-sm sm:text-base">Laporan Risiko</span>
               </Button>
               <Button
                 variant="outline"
-                className="h-20 flex flex-col items-center justify-center gap-2"
+                className="h-16 sm:h-20 flex flex-col items-center justify-center gap-2 hover:shadow-md transition-shadow"
               >
-                <FileText className="h-6 w-6" />
-                <span>Generate Invoice</span>
+                <FileText className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="text-sm sm:text-base">Generate Invoice</span>
               </Button>
               <Button
                 variant="outline"
-                className="h-20 flex flex-col items-center justify-center gap-2"
+                className="h-16 sm:h-20 flex flex-col items-center justify-center gap-2 hover:shadow-md transition-shadow"
               >
-                <BarChart3 className="h-6 w-6" />
-                <span>Analytics</span>
+                <BarChart3 className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="text-sm sm:text-base">Analytics</span>
               </Button>
               <Button
                 variant="outline"
-                className="h-20 flex flex-col items-center justify-center gap-2"
+                className="h-16 sm:h-20 flex flex-col items-center justify-center gap-2 hover:shadow-md transition-shadow"
               >
-                <Users className="h-6 w-6" />
-                <span>Manage Users</span>
+                <Users className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="text-sm sm:text-base">Manage Users</span>
               </Button>
             </div>
           </CardContent>
