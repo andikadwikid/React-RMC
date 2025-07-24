@@ -119,18 +119,7 @@ export const getProjectById = (projectId: string) => {
   return null;
 };
 
-// Helper function to map new UUID to old project ID for backwards compatibility
-const getOldProjectId = (newId: string): string | null => {
-  const mapping: Record<string, string> = {
-    "550e8400-e29b-41d4-a716-446655440001": "PRJ-001",
-    "550e8400-e29b-41d4-a716-446655440002": "PRJ-002",
-    "550e8400-e29b-41d4-a716-446655440003": "PRJ-003",
-    "550e8400-e29b-41d4-a716-446655440004": "PRJ-004",
-    "550e8400-e29b-41d4-a716-446655440005": "PRJ-005",
-    "550e8400-e29b-41d4-a716-446655440006": "PRJ-006"
-  };
-  return mapping[newId] || null;
-};
+
 
 // Helper function to get all projects list
 export const getAllProjects = () => {
