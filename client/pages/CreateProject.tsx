@@ -29,6 +29,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { loadProjectCategoriesData } from "@/utils/dataLoader";
 
 interface TimelineMilestone {
   id: string;
@@ -74,56 +75,12 @@ export default function CreateProject() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
 
-  const provinces = [
-    "Aceh",
-    "Bali",
-    "Bangka Belitung",
-    "Bengkulu",
-    "DKI Jakarta",
-    "Gorontalo",
-    "Jambi",
-    "Jawa Barat",
-    "Jawa Tengah",
-    "Jawa Timur",
-    "Kalimantan Barat",
-    "Kalimantan Selatan",
-    "Kalimantan Tengah",
-    "Kalimantan Timur",
-    "Kalimantan Utara",
-    "Kepulauan Riau",
-    "Lampung",
-    "Maluku",
-    "Maluku Utara",
-    "Nusa Tenggara Barat",
-    "Nusa Tenggara Timur",
-    "Papua",
-    "Papua Barat",
-    "Riau",
-    "Sulawesi Barat",
-    "Sulawesi Selatan",
-    "Sulawesi Tengah",
-    "Sulawesi Tenggara",
-    "Sulawesi Utara",
-    "Sumatera Barat",
-    "Sumatera Selatan",
-    "Sumatera Utara",
-  ];
+  // Load categories and provinces from JSON
+  const categoriesData = loadProjectCategoriesData();
+  const provinces = categoriesData.provinces;
+  const projectCategories = categoriesData.categories;
 
-  const projectCategories = [
-    "Web Development",
-    "Mobile Development",
-    "Desktop Application",
-    "ERP System",
-    "E-Commerce Platform",
-    "Management System",
-    "Analytics Dashboard",
-    "IoT Solutions",
-    "AI/ML Implementation",
-    "Database Migration",
-    "System Integration",
-    "API Development",
-    "Other",
-  ];
+
 
   const handleInputChange = (field: keyof ProjectFormData, value: string) => {
     setFormData((prev) => ({
