@@ -1,0 +1,125 @@
+{
+  "users": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445001",
+      "username": "admin",
+      "email": "admin@company.com",
+      "full_name": "System Administrator",
+      "role": "admin",
+      "department": "IT",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445002",
+      "username": "risk_officer_1",
+      "email": "risk1@company.com",
+      "full_name": "John Risk Officer",
+      "role": "risk_officer",
+      "department": "Risk Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445003",
+      "username": "risk_officer_2",
+      "email": "risk2@company.com",
+      "full_name": "Jane Risk Analyst",
+      "role": "risk_officer",
+      "department": "Risk Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445004",
+      "username": "pm_1",
+      "email": "pm1@company.com",
+      "full_name": "Bob Project Manager",
+      "role": "project_manager",
+      "department": "Project Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445005",
+      "username": "verifier_1",
+      "email": "verifier1@company.com",
+      "full_name": "Senior Verifier",
+      "role": "verifier",
+      "department": "Quality Assurance",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445006",
+      "username": "budi.santoso",
+      "email": "budi.santoso@company.com",
+      "full_name": "Budi Santoso",
+      "role": "project_manager",
+      "department": "Project Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445007",
+      "username": "sari.wijaya",
+      "email": "sari.wijaya@company.com",
+      "full_name": "Sari Wijaya",
+      "role": "project_manager",
+      "department": "Project Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445008",
+      "username": "dewi.sartika",
+      "email": "dewi.sartika@company.com",
+      "full_name": "Dewi Sartika",
+      "role": "project_manager",
+      "department": "Project Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445009",
+      "username": "rudi.hartono",
+      "email": "rudi.hartono@company.com",
+      "full_name": "Rudi Hartono",
+      "role": "project_manager",
+      "department": "Project Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445010",
+      "username": "chief.risk",
+      "email": "chief.risk@company.com",
+      "full_name": "Chief Risk Officer",
+      "role": "risk_officer",
+      "department": "Risk Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655445011",
+      "username": "senior.risk",
+      "email": "senior.risk@company.com",
+      "full_name": "Senior Risk Analyst",
+      "role": "risk_officer",
+      "department": "Risk Management",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
