@@ -313,6 +313,15 @@ const getPriorityBadge = (priority: string) => {
   return <Badge className={priorityConfig.color}>{priorityConfig.label}</Badge>;
 };
 
+// Loading component
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center py-8">
+      <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+    </div>
+  );
+}
+
 export default function VerifierDashboard() {
   const [activeTab, setActiveTab] = useState<
     "overview" | "activities" | "pending"
@@ -323,6 +332,7 @@ export default function VerifierDashboard() {
   );
   const [showPeriodDropdown, setShowPeriodDropdown] = useState(false);
   const [autoSelected, setAutoSelected] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const updateChart = (dataPeriod: DataPeriod) => {
     if (chartRef.current) {
