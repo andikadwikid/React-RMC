@@ -120,7 +120,7 @@ export default function Dashboard() {
       (Highcharts as any).chart(performanceChartRef.current, {
         chart: {
           type: "column",
-          height: 350,
+          height: window.innerWidth < 768 ? 280 : 350,
           backgroundColor: "transparent",
         },
         title: {
