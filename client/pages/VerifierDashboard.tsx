@@ -394,7 +394,7 @@ export default function VerifierDashboard() {
     <div className="space-y-6">
       <PageHeader
         title="Dashboard Verifikator"
-        description="Panel kontrol untuk verifikator project readiness"
+        description="Panel kontrol untuk verifikasi Risk Capture dan Project Readiness"
         icon="UserCheck"
       />
 
