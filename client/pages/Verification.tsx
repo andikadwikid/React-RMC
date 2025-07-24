@@ -218,12 +218,12 @@ function SubmissionsList({
 
 export default function Verification() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [activeTab, setActiveTab] = useState("all");
   const [selectedSubmission, setSelectedSubmission] =
     useState<ProjectReadiness | null>(null);
   const [verificationModal, setVerificationModal] = useState(false);
 
-  const filteredSubmissions = useMemo(() => {
+  const getFilteredSubmissions = (status: string) => {
     return mockReadinessSubmissions.filter((submission) => {
       const matchesSearch =
         submission.projectName
@@ -231,12 +231,11 @@ export default function Verification() {
           .includes(searchTerm.toLowerCase()) ||
         submission.submittedBy.toLowerCase().includes(searchTerm.toLowerCase());
 
-      const matchesStatus =
-        statusFilter === "all" || submission.status === statusFilter;
+      const matchesStatus = status === "all" || submission.status === status;
 
       return matchesSearch && matchesStatus;
     });
-  }, [searchTerm, statusFilter]);
+  };
 
   const openVerificationModal = (submission: ProjectReadiness) => {
     setSelectedSubmission(submission);
