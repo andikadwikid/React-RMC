@@ -540,7 +540,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       Start Date
                     </label>
                     <p className="text-gray-900">
-                      {new Date(project.startDate).toLocaleDateString("id-ID")}
+                      {new Date(startDate).toLocaleDateString("id-ID")}
                     </p>
                   </div>
                   <div>
@@ -548,7 +548,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       End Date
                     </label>
                     <p className="text-gray-900">
-                      {new Date(project.endDate).toLocaleDateString("id-ID")}
+                      {new Date(endDate).toLocaleDateString("id-ID")}
                     </p>
                   </div>
                 </div>
