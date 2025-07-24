@@ -14,6 +14,8 @@ import {
 import { NAVIGATION_ITEMS, ICON_MAP } from "@/constants";
 import type { MenuItem } from "@/types";
 
+import type { MenuItem } from "@/types";
+
 interface SidebarProps {
   isOpen: boolean;
   isMinimized: boolean;
