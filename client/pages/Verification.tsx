@@ -408,7 +408,7 @@ export default function Verification() {
             <AlertTriangle className="w-4 h-4" />
             Revisi (
             {
-              mockReadinessSubmissions.filter(
+              getReadinessSubmissions().filter(
                 (s) => s.status === "needs_revision",
               ).length
             }
