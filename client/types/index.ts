@@ -509,7 +509,15 @@ export interface FallbackMessageProps {
 export interface RiskCategoryDetailDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  category: RiskCategory;
+  category: {
+    id: string;
+    name: string;
+    icon: React.ComponentType<any>;
+    total: number;
+    overdue: number;
+    inProcess: number;
+    closed: number;
+  } | null;
 }
 
 // =============================================================================
