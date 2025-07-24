@@ -1,8 +1,10 @@
 # Dashboard Data Structure
 
-This folder contains JSON files that store all the dashboard data, separated from the components for better maintainability and data management.
+This folder contains JSON files that store all the dashboard and project data, separated from the components for better maintainability and data management.
 
 ## File Structure
+
+### Dashboard Data Files
 
 ### `performance.json`
 Contains project performance data including projects count, revenue, and risks for different periods.
@@ -108,31 +110,126 @@ Contains accounts receivable aging data categorized by time periods.
 }
 ```
 
+### Project Data Files
+
+### `projects.json`
+Contains project list data for the projects overview page.
+
+**Structure:**
+```json
+{
+  "projects": [
+    {
+      "id": "PRJ-001",
+      "name": "Sistem ERP Perusahaan",
+      "client": "PT. Teknologi Maju",
+      "budget": 2500000000,
+      "spent": 1800000000,
+      "startDate": "2024-01-15",
+      "endDate": "2024-06-30",
+      "progress": 72,
+      "readinessStatus": "in-progress",
+      "riskCaptureStatus": "not-started"
+    }
+  ]
+}
+```
+
+### `project-details.json`
+Contains detailed project information including timeline milestones.
+
+**Structure:**
+```json
+{
+  "projectDetails": {
+    "PRJ-001": {
+      "id": "PRJ-001",
+      "name": "Sistem ERP Perusahaan",
+      "description": "Detailed project description...",
+      "clientEmail": "contact@teknologimaju.com",
+      "clientPhone": "+62 21 1234 5678",
+      "province": "DKI Jakarta",
+      "projectManager": "Budi Santoso",
+      "category": "ERP System",
+      "timeline": [
+        {
+          "id": "1",
+          "title": "Requirements Analysis",
+          "description": "Analysis and mapping",
+          "startDate": "2024-01-15",
+          "endDate": "2024-02-15"
+        }
+      ]
+    }
+  }
+}
+```
+
+### `project-categories.json`
+Contains project categories and provinces for form dropdowns.
+
+**Structure:**
+```json
+{
+  "categories": [
+    "Web Development",
+    "Mobile Development",
+    "ERP System"
+  ],
+  "provinces": [
+    "DKI Jakarta",
+    "Jawa Barat",
+    "Jawa Tengah"
+  ]
+}
+```
+
 ## Usage
 
-Data is loaded through the `dataLoader.ts` utility which imports these JSON files and processes them for use in dashboard components. The data loader handles:
+Data is loaded through the `dataLoader.ts` utility which imports these JSON files and processes them for use in dashboard and project components. The data loader handles:
 
 - Static imports of JSON files
 - Icon mapping for risk categories
 - Type safety through TypeScript interfaces
+- Project data retrieval by ID
+- Project list filtering and processing
 
 ## Adding New Data
 
-To add new periods or modify existing data:
+### Dashboard Data
+To add new periods or modify existing dashboard data:
 
 1. Update the respective JSON file
 2. Ensure the data structure matches the TypeScript interfaces
 3. The dashboard will automatically reflect the changes
+
+### Project Data
+To add new projects or modify existing project data:
+
+1. **For new projects**: Add to both `projects.json` (list view) and `project-details.json` (detail view)
+2. **For new categories/provinces**: Update `project-categories.json`
+3. Ensure all project IDs are consistent between files
+4. The project pages will automatically reflect the changes
 
 ## Icons
 
 Risk category icons use Lucide React icons. Available icons are mapped in `dataLoader.ts`:
 - Target, Building, DollarSign, Gavel, FileText, Leaf, Cpu, Users
 
+## Helper Functions
+
+The data loader provides several helper functions:
+
+- `getAllProjects()` - Get all projects for the list view
+- `getProjectById(id)` - Get detailed project data by ID
+- `loadProjectCategoriesData()` - Get categories and provinces for forms
+
 ## Benefits of This Structure
 
 - **Separation of Concerns**: Data is separated from UI components
 - **Easy Maintenance**: Data can be updated without touching component code
-- **Scalability**: Easy to add new periods or data sources
+- **Scalability**: Easy to add new periods, projects, or data sources
 - **Performance**: Static imports allow for efficient bundling
 - **Type Safety**: Full TypeScript support with interface validation
+- **Consistency**: Single source of truth for project data across all components
+- **Modularity**: Separate files for different data concerns (list vs details vs metadata)
