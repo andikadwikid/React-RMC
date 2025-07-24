@@ -114,7 +114,7 @@ export const getReadinessTemplate = () => {
 };
 
 export const getProjectReadiness = (projectId: string) => {
-  return projectReadinessData.projectReadiness[projectId] || null;
+  return projectReadinessData.project_readiness.find(readiness => readiness.project_id === projectId) || null;
 };
 
 // Risk capture data loaders
