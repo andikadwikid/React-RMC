@@ -29,35 +29,7 @@ import {
 } from "lucide-react";
 import { getProjectRiskCapture } from "@/utils/dataLoader";
 
-interface RiskItem {
-  id: string;
-  sasaran: string;
-  kode: string;
-  taksonomi: string;
-  peristiwaRisiko: string;
-  sumberRisiko: string;
-  dampakKualitatif: string;
-  dampakKuantitatif: string;
-  kontrolEksisting: string;
-  risikoAwal: {
-    kejadian: number;
-    dampak: number;
-    level: number;
-  };
-  resikoAkhir: {
-    kejadian: number;
-    dampak: number;
-    level: number;
-  };
-}
-
-interface RiskCaptureFormProps {
-  isOpen: boolean;
-  onClose: () => void;
-  projectId: string;
-  projectName: string;
-  onSave: (data: any) => void;
-}
+import type { RiskItem, RiskCaptureFormProps } from "@/types";
 
 const getRiskColor = (value: number) => {
   if (value >= 1 && value <= 5) return "bg-green-100 text-green-800";
