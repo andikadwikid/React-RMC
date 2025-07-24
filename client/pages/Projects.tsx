@@ -39,7 +39,7 @@ import {
 import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
 import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
 import { formatCurrency } from "@/utils/formatters";
-import { getAllProjects } from "@/utils/dataLoader";
+import { getProjectsWithStatus } from "@/utils/dataLoader";
 
 interface Project {
   id: string;
@@ -73,7 +73,7 @@ export default function Projects() {
     projectName: string;
   }>({ isOpen: false, projectId: "", projectName: "" });
 
-  const [projects] = useState<Project[]>(getAllProjects());
+  const [projects] = useState<Project[]>(getProjectsWithStatus());
 
   const openReadinessForm = (projectId: string, projectName: string) => {
     setReadinessForm({ isOpen: true, projectId, projectName });
