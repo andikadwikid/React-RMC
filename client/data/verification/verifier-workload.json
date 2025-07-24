@@ -1,0 +1,94 @@
+{
+  "verifier_workload": [
+    {
+      "verifier_id": "550e8400-e29b-41d4-a716-446655445002",
+      "verifier_name": "John Risk Officer",
+      "department": "Risk Management",
+      "total_assigned": 3,
+      "pending_assignments": 1,
+      "in_progress_assignments": 1,
+      "completed_assignments": 1,
+      "avg_completion_hours": 18.5,
+      "high_priority_count": 1
+    },
+    {
+      "verifier_id": "550e8400-e29b-41d4-a716-446655445003",
+      "verifier_name": "Jane Risk Analyst",
+      "department": "Risk Management",
+      "total_assigned": 2,
+      "pending_assignments": 1,
+      "in_progress_assignments": 0,
+      "completed_assignments": 1,
+      "avg_completion_hours": 12.0,
+      "high_priority_count": 0
+    },
+    {
+      "verifier_id": "550e8400-e29b-41d4-a716-446655445005",
+      "verifier_name": "Senior Verifier",
+      "department": "Quality Assurance",
+      "total_assigned": 1,
+      "pending_assignments": 0,
+      "in_progress_assignments": 0,
+      "completed_assignments": 1,
+      "avg_completion_hours": 17.25,
+      "high_priority_count": 1
+    },
+    {
+      "verifier_id": "550e8400-e29b-41d4-a716-446655445010",
+      "verifier_name": "Chief Risk Officer",
+      "department": "Risk Management",
+      "total_assigned": 2,
+      "pending_assignments": 0,
+      "in_progress_assignments": 1,
+      "completed_assignments": 1,
+      "avg_completion_hours": 18.25,
+      "high_priority_count": 2
+    }
+  ],
+  "risk_verifier_workload": [
+    {
+      "verifier_id": "550e8400-e29b-41d4-a716-446655445010",
+      "verifier_name": "Chief Risk Officer",
+      "department": "Risk Management",
+      "total_assigned": 2,
+      "pending_assignments": 0,
+      "in_progress_assignments": 1,
+      "completed_assignments": 1,
+      "avg_completion_hours": 18.75,
+      "high_priority_count": 2
+    },
+    {
+      "verifier_id": "550e8400-e29b-41d4-a716-446655445011",
+      "verifier_name": "Senior Risk Analyst",
+      "department": "Risk Management",
+      "total_assigned": 1,
+      "pending_assignments": 0,
+      "in_progress_assignments": 0,
+      "completed_assignments": 1,
+      "avg_completion_hours": 27.5,
+      "high_priority_count": 0
+    },
+    {
+      "verifier_id": "550e8400-e29b-41d4-a716-446655445002",
+      "verifier_name": "John Risk Officer",
+      "department": "Risk Management",
+      "total_assigned": 1,
+      "pending_assignments": 1,
+      "in_progress_assignments": 0,
+      "completed_assignments": 0,
+      "avg_completion_hours": null,
+      "high_priority_count": 0
+    },
+    {
+      "verifier_id": "550e8400-e29b-41d4-a716-446655445003",
+      "verifier_name": "Jane Risk Analyst",
+      "department": "Risk Management",
+      "total_assigned": 1,
+      "pending_assignments": 0,
+      "in_progress_assignments": 0,
+      "completed_assignments": 0,
+      "avg_completion_hours": null,
+      "high_priority_count": 1
+    }
+  ]
+}
