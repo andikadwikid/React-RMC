@@ -377,7 +377,7 @@ export default function Verification() {
             <Clock className="w-4 h-4" />
             Menunggu (
             {
-              mockReadinessSubmissions.filter((s) => s.status === "submitted")
+              getReadinessSubmissions().filter((s) => s.status === "submitted")
                 .length
             }
             )
