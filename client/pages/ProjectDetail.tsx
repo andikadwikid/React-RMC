@@ -645,14 +645,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-gray-700">
-                      Project ID
-                    </label>
-                    <p className="text-gray-900 font-mono text-sm">
-                      {project.id}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">
                       Project Name
                     </label>
                     <p className="text-gray-900">{project.name}</p>
