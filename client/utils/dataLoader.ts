@@ -1,6 +1,6 @@
 // Data loader utility for dashboard and project JSON files
 import performanceData from "../data/dashboard/performance.json";
-import riskCategoriesData from "../data/risk-categories.json";
+import riskCategoriesData from "../data/dashboard/risk-categories.json";
 import geographicData from "../data/dashboard/geographic.json";
 import dashboardRiskCaptureData from "../data/dashboard/dashboard-risk-capture.json";
 import invoiceStatusData from "../data/dashboard/invoice-status.json";
