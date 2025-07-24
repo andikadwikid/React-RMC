@@ -1,10 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, AlertCircle, Clock } from "lucide-react";
-import type { TimelineMilestone } from "@/types";
+import type { TimelineMilestone, TimelinePreviewProps } from "@/types";
 
-interface TimelinePreviewProps {
-  timeline: TimelineMilestone[];
+// Extended props for specific implementation
+interface ExtendedTimelinePreviewProps extends TimelinePreviewProps {
   className?: string;
 }
 
