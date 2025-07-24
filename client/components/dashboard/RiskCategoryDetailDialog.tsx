@@ -853,13 +853,15 @@ export function RiskCategoryDetailDialog({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-3">
-              <IconComponent className="h-6 w-6 text-blue-600" />
-              Detail Risiko: {category.name}
+        <DialogContent className="max-w-[95vw] lg:max-w-7xl max-h-[95vh] overflow-hidden flex flex-col p-0">
+          <DialogHeader className="p-4 lg:p-6 border-b">
+            <DialogTitle className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-lg lg:text-xl">
+              <div className="flex items-center gap-2">
+                <IconComponent className="h-5 w-5 lg:h-6 lg:w-6 text-blue-600" />
+                <span>Detail Risiko: {category.name}</span>
+              </div>
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-sm lg:text-base">
               Daftar lengkap risiko dalam kategori {category.name} dengan level
               detail dan status mitigasi
             </DialogDescription>
