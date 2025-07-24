@@ -417,7 +417,7 @@ export default function VerifierDashboard() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 800);
+    }, 300); // Reduced from 800ms to 300ms
 
     return () => clearTimeout(timer);
   }, []);
@@ -428,7 +428,7 @@ export default function VerifierDashboard() {
       // Small delay to ensure DOM is ready
       setTimeout(() => {
         updateChart(selectedPeriod);
-      }, 100);
+      }, 50);
     }
   }, [isLoading]);
 
