@@ -597,63 +597,63 @@ const RiskDetailModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6">
+        <div className="space-y-4 lg:space-y-6">
           {/* Status dan Level */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <BarChart3 className="w-5 h-5" />
+            <CardHeader className="pb-3 lg:pb-6">
+              <CardTitle className="text-base lg:text-lg flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 lg:w-5 lg:h-5 flex-shrink-0" />
                 Status & Risk Level
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className="pt-0">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-2">
                     Status Saat Ini:
                   </p>
                   {getStatusBadge(riskItem.status)}
 
                   <div className="mt-4">
-                    <p className="text-sm font-medium text-gray-700 mb-2">
+                    <p className="text-xs lg:text-sm font-medium text-gray-700 mb-2">
                       Taksonomi:
                     </p>
-                    <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">
+                    <p className="text-xs lg:text-sm text-gray-600 bg-gray-50 p-2 lg:p-3 rounded break-words">
                       {riskItem.taksonomi}
                     </p>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-3">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-3">
                     Risk Assessment:
                   </p>
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <span className="text-xs lg:text-sm text-gray-600">
                         Risiko Awal:
                       </span>
-                      <div className="flex gap-1">
+                      <div className="flex flex-wrap gap-1">
                         {getRiskBadge(riskItem.risikoAwal.kejadian)}
                         {getRiskBadge(riskItem.risikoAwal.dampak)}
                         {getRiskBadge(riskItem.risikoAwal.level)}
                       </div>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <span className="text-xs lg:text-sm text-gray-600">
                         Risiko Akhir:
                       </span>
-                      <div className="flex gap-1">
+                      <div className="flex flex-wrap gap-1">
                         {getRiskBadge(riskItem.resikoAkhir.kejadian)}
                         {getRiskBadge(riskItem.resikoAkhir.dampak)}
                         {getRiskBadge(riskItem.resikoAkhir.level)}
                       </div>
                     </div>
-                    <div className="flex justify-between items-center pt-2 border-t">
-                      <span className="text-sm font-medium text-green-600">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 pt-2 border-t">
+                      <span className="text-xs lg:text-sm font-medium text-green-600">
                         Improvement:
                       </span>
-                      <span className="text-sm font-bold text-green-600">
+                      <span className="text-xs lg:text-sm font-bold text-green-600">
                         -
                         {riskItem.risikoAwal.level - riskItem.resikoAkhir.level}{" "}
                         point
