@@ -7,9 +7,11 @@ This folder contains JSON files that store all the dashboard and project data, s
 ### Dashboard Data Files
 
 ### `performance.json`
+
 Contains project performance data including projects count, revenue, and risks for different periods.
 
 **Structure:**
+
 ```json
 {
   "yearly": {
@@ -24,9 +26,11 @@ Contains project performance data including projects count, revenue, and risks f
 ```
 
 ### `risk-categories.json`
+
 Contains risk management categories with their status counts (overdue, in process, closed).
 
 **Structure:**
+
 ```json
 {
   "yearly": {
@@ -46,9 +50,11 @@ Contains risk management categories with their status counts (overdue, in proces
 ```
 
 ### `geographic.json`
+
 Contains project distribution data across Indonesian provinces.
 
 **Structure:**
+
 ```json
 {
   "yearly": {
@@ -65,9 +71,11 @@ Contains project distribution data across Indonesian provinces.
 ```
 
 ### `risk-capture.json`
+
 Contains risk severity level distribution data for pie charts.
 
 **Structure:**
+
 ```json
 {
   "yearly": {
@@ -80,9 +88,11 @@ Contains risk severity level distribution data for pie charts.
 ```
 
 ### `invoice-status.json`
+
 Contains invoice and payment status data.
 
 **Structure:**
+
 ```json
 {
   "yearly": {
@@ -96,15 +106,27 @@ Contains invoice and payment status data.
 ```
 
 ### `aging-receivables.json`
+
 Contains accounts receivable aging data categorized by time periods.
 
 **Structure:**
+
 ```json
 {
   "yearly": {
     "2024": [
-      { "category": "0-30 hari", "amount": 3200000000, "color": "green", "days": "0-30" },
-      { "category": ">90 hari", "amount": 850000000, "color": "red", "days": ">90" }
+      {
+        "category": "0-30 hari",
+        "amount": 3200000000,
+        "color": "green",
+        "days": "0-30"
+      },
+      {
+        "category": ">90 hari",
+        "amount": 850000000,
+        "color": "red",
+        "days": ">90"
+      }
     ]
   }
 }
@@ -113,9 +135,11 @@ Contains accounts receivable aging data categorized by time periods.
 ### Project Data Files
 
 ### `projects.json`
+
 Contains project list data for the projects overview page.
 
 **Structure:**
+
 ```json
 {
   "projects": [
@@ -136,9 +160,11 @@ Contains project list data for the projects overview page.
 ```
 
 ### `project-details.json`
+
 Contains detailed project information including timeline milestones.
 
 **Structure:**
+
 ```json
 {
   "projectDetails": {
@@ -166,28 +192,24 @@ Contains detailed project information including timeline milestones.
 ```
 
 ### `project-categories.json`
+
 Contains project categories and provinces for form dropdowns.
 
 **Structure:**
+
 ```json
 {
-  "categories": [
-    "Web Development",
-    "Mobile Development",
-    "ERP System"
-  ],
-  "provinces": [
-    "DKI Jakarta",
-    "Jawa Barat",
-    "Jawa Tengah"
-  ]
+  "categories": ["Web Development", "Mobile Development", "ERP System"],
+  "provinces": ["DKI Jakarta", "Jawa Barat", "Jawa Tengah"]
 }
 ```
 
 ### `project-readiness.json`
+
 Contains project readiness assessment data and templates.
 
 **Structure:**
+
 ```json
 {
   "readinessTemplate": {
@@ -230,9 +252,11 @@ Contains project readiness assessment data and templates.
 ```
 
 ### `risk-capture.json`
+
 Contains risk capture assessment data for projects.
 
 **Structure:**
+
 ```json
 {
   "riskCapture": {
@@ -277,6 +301,7 @@ Data is loaded through the `dataLoader.ts` utility which imports these JSON file
 ## Adding New Data
 
 ### Dashboard Data
+
 To add new periods or modify existing dashboard data:
 
 1. Update the respective JSON file
@@ -284,6 +309,7 @@ To add new periods or modify existing dashboard data:
 3. The dashboard will automatically reflect the changes
 
 ### Project Data
+
 To add new projects or modify existing project data:
 
 1. **For new projects**: Add to both `projects.json` (list view) and `project-details.json` (detail view)
@@ -294,6 +320,7 @@ To add new projects or modify existing project data:
 6. The project pages will automatically reflect the changes
 
 ### Readiness & Risk Capture Data
+
 To manage readiness and risk capture assessments:
 
 1. **Readiness template**: Modify `readinessTemplate` section to change assessment categories
@@ -305,6 +332,7 @@ To manage readiness and risk capture assessments:
 ## Icons
 
 Risk category icons use Lucide React icons. Available icons are mapped in `dataLoader.ts`:
+
 - Target, Building, DollarSign, Gavel, FileText, Leaf, Cpu, Users
 
 ## Helper Functions

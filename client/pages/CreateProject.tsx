@@ -80,8 +80,6 @@ export default function CreateProject() {
   const provinces = categoriesData.provinces;
   const projectCategories = categoriesData.categories;
 
-
-
   const handleInputChange = (field: keyof ProjectFormData, value: string) => {
     setFormData((prev) => ({
       ...prev,

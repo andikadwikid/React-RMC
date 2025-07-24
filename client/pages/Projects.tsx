@@ -248,9 +248,22 @@ export default function Projects() {
     const matchesSearch =
       project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.client.toLowerCase().includes(searchTerm.toLowerCase());
-    const projectStatus = project.progress === 100 ? "completed" : project.progress > 0 ? "running" : "planning";
-    const matchesStatus = statusFilter === "all" || projectStatus === statusFilter;
-    const projectRisk = !project.riskCaptureScore || project.riskCaptureScore === 0 ? "not_assessed" : project.riskCaptureScore >= 80 ? "low" : project.riskCaptureScore >= 60 ? "medium" : "high";
+    const projectStatus =
+      project.progress === 100
+        ? "completed"
+        : project.progress > 0
+          ? "running"
+          : "planning";
+    const matchesStatus =
+      statusFilter === "all" || projectStatus === statusFilter;
+    const projectRisk =
+      !project.riskCaptureScore || project.riskCaptureScore === 0
+        ? "not_assessed"
+        : project.riskCaptureScore >= 80
+          ? "low"
+          : project.riskCaptureScore >= 60
+            ? "medium"
+            : "high";
     const matchesRisk = riskFilter === "all" || projectRisk === riskFilter;
 
     return matchesSearch && matchesStatus && matchesRisk;
@@ -261,7 +274,9 @@ export default function Projects() {
     0,
   );
   const totalSpent = projects.reduce((sum, project) => sum + project.spent, 0);
-  const activeProjects = projects.filter((p) => p.progress > 0 && p.progress < 100).length;
+  const activeProjects = projects.filter(
+    (p) => p.progress > 0 && p.progress < 100,
+  ).length;
   const completedProjects = projects.filter((p) => p.progress === 100).length;
 
   return (

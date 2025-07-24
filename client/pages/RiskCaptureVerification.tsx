@@ -194,7 +194,9 @@ export default function RiskCaptureVerification() {
     useState<RiskCapture | null>(null);
   const [verificationModal, setVerificationModal] = useState(false);
 
-  const [riskCaptureSubmissions] = useState<RiskCapture[]>(getRiskCaptureSubmissions());
+  const [riskCaptureSubmissions] = useState<RiskCapture[]>(
+    getRiskCaptureSubmissions(),
+  );
 
   const getFilteredSubmissions = (status: string) => {
     return riskCaptureSubmissions.filter((submission) => {
@@ -304,9 +306,8 @@ export default function RiskCaptureVerification() {
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
               {
-                riskCaptureSubmissions.filter(
-                  (s) => s.status === "verified",
-                ).length
+                riskCaptureSubmissions.filter((s) => s.status === "verified")
+                  .length
               }
             </div>
           </CardContent>
@@ -369,9 +370,8 @@ export default function RiskCaptureVerification() {
             <Eye className="w-4 h-4" />
             Review (
             {
-              riskCaptureSubmissions.filter(
-                (s) => s.status === "under_review",
-              ).length
+              riskCaptureSubmissions.filter((s) => s.status === "under_review")
+                .length
             }
             )
           </TabsTrigger>

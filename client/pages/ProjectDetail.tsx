@@ -37,8 +37,6 @@ import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm"
 import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
 import { TimelineCard } from "@/components/timeline/TimelineCard";
 
-
-
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();

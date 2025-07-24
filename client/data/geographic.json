@@ -92,7 +92,11 @@
         "name": "Jawa Barat",
         "value": 6,
         "revenue": 7800000000,
-        "projects": ["Factory Automation", "Healthcare System", "E-Commerce Backend"]
+        "projects": [
+          "Factory Automation",
+          "Healthcare System",
+          "E-Commerce Backend"
+        ]
       },
       {
         "name": "Jawa Tengah",

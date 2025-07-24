@@ -71,13 +71,13 @@ const iconMap = {
 
 const getDefaultReadinessData = (): ReadinessCategory[] => {
   const template = getReadinessTemplate();
-  return template.categories.map(category => ({
+  return template.categories.map((category) => ({
     ...category,
     icon: iconMap[category.icon as keyof typeof iconMap],
-    items: category.items.map(item => ({
+    items: category.items.map((item) => ({
       ...item,
-      status: "tidak-tersedia" as ReadinessStatus
-    }))
+      status: "tidak-tersedia" as ReadinessStatus,
+    })),
   }));
 };
 
@@ -87,9 +87,9 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
     return getDefaultReadinessData();
   }
 
-  return existingData.categories.map(category => ({
+  return existingData.categories.map((category) => ({
     ...category,
-    icon: iconMap[category.icon as keyof typeof iconMap]
+    icon: iconMap[category.icon as keyof typeof iconMap],
   }));
 };
 
@@ -154,8 +154,9 @@ export function ProjectReadinessForm({
   projectName,
   onSave,
 }: ProjectReadinessFormProps) {
-  const [readinessData, setReadinessData] =
-    useState<ReadinessCategory[]>(() => loadExistingReadinessData(projectId));
+  const [readinessData, setReadinessData] = useState<ReadinessCategory[]>(() =>
+    loadExistingReadinessData(projectId),
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateItemStatus = (
