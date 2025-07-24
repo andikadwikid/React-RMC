@@ -245,12 +245,14 @@ export default function RiskCaptureVerification() {
   const [riskCaptureSubmissions, setRiskCaptureSubmissions] = useState<RiskCapture[]>([]);
 
   // Simulate loading data
-  useState(() => {
-    setTimeout(() => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
       setRiskCaptureSubmissions(getRiskCaptureSubmissions());
       setIsLoading(false);
     }, 800);
-  });
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const getFilteredSubmissions = (status: string) => {
     return riskCaptureSubmissions.filter((submission) => {
