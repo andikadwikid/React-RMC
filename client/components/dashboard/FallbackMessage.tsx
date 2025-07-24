@@ -1,8 +1,9 @@
 import { Info } from "lucide-react";
 
-interface FallbackMessageProps {
-  title: string;
-  description: string;
+import type { FallbackMessageProps } from "@/types";
+
+// Extended props for this specific implementation
+interface ExtendedFallbackMessageProps extends FallbackMessageProps {
   show: boolean;
 }
 
