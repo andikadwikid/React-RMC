@@ -425,7 +425,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       Project Manager
                     </span>
                     <span className="text-sm font-medium">
-                      {project.projectManager}
+                      {project.project_manager || project.projectManager}
                     </span>
                   </div>
 
