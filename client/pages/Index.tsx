@@ -580,7 +580,11 @@ export default function Dashboard() {
             />
           </CardHeader>
           <CardContent>
-            <div ref={performanceChartRef} className="w-full" />
+            {isLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <div ref={performanceChartRef} className="w-full" />
+            )}
           </CardContent>
         </Card>
 
