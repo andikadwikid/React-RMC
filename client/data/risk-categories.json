@@ -1,0 +1,302 @@
+{
+  "yearly": {
+    "2024": [
+      {
+        "id": "strategic",
+        "name": "Strategis",
+        "icon": "Target",
+        "total": 12,
+        "overdue": 3,
+        "inProcess": 6,
+        "closed": 3
+      },
+      {
+        "id": "operational",
+        "name": "Operasional",
+        "icon": "Building",
+        "total": 18,
+        "overdue": 5,
+        "inProcess": 8,
+        "closed": 5
+      },
+      {
+        "id": "financial",
+        "name": "Keuangan",
+        "icon": "DollarSign",
+        "total": 8,
+        "overdue": 2,
+        "inProcess": 4,
+        "closed": 2
+      },
+      {
+        "id": "compliance",
+        "name": "Kepatuhan",
+        "icon": "Gavel",
+        "total": 6,
+        "overdue": 1,
+        "inProcess": 3,
+        "closed": 2
+      },
+      {
+        "id": "project",
+        "name": "Proyek",
+        "icon": "FileText",
+        "total": 22,
+        "overdue": 7,
+        "inProcess": 10,
+        "closed": 5
+      },
+      {
+        "id": "environment",
+        "name": "Lingkungan & Sosial",
+        "icon": "Leaf",
+        "total": 4,
+        "overdue": 1,
+        "inProcess": 2,
+        "closed": 1
+      },
+      {
+        "id": "it",
+        "name": "Teknologi Informasi",
+        "icon": "Cpu",
+        "total": 9,
+        "overdue": 2,
+        "inProcess": 5,
+        "closed": 2
+      },
+      {
+        "id": "hr",
+        "name": "Sumber Daya Manusia",
+        "icon": "Users",
+        "total": 7,
+        "overdue": 1,
+        "inProcess": 4,
+        "closed": 2
+      }
+    ],
+    "2023": [
+      {
+        "id": "strategic",
+        "name": "Strategis",
+        "icon": "Target",
+        "total": 10,
+        "overdue": 2,
+        "inProcess": 5,
+        "closed": 3
+      },
+      {
+        "id": "operational",
+        "name": "Operasional",
+        "icon": "Building",
+        "total": 15,
+        "overdue": 4,
+        "inProcess": 7,
+        "closed": 4
+      },
+      {
+        "id": "financial",
+        "name": "Keuangan",
+        "icon": "DollarSign",
+        "total": 6,
+        "overdue": 1,
+        "inProcess": 3,
+        "closed": 2
+      },
+      {
+        "id": "compliance",
+        "name": "Kepatuhan",
+        "icon": "Gavel",
+        "total": 4,
+        "overdue": 0,
+        "inProcess": 2,
+        "closed": 2
+      },
+      {
+        "id": "project",
+        "name": "Proyek",
+        "icon": "FileText",
+        "total": 18,
+        "overdue": 5,
+        "inProcess": 8,
+        "closed": 5
+      },
+      {
+        "id": "environment",
+        "name": "Lingkungan & Sosial",
+        "icon": "Leaf",
+        "total": 3,
+        "overdue": 0,
+        "inProcess": 2,
+        "closed": 1
+      },
+      {
+        "id": "it",
+        "name": "Teknologi Informasi",
+        "icon": "Cpu",
+        "total": 7,
+        "overdue": 1,
+        "inProcess": 4,
+        "closed": 2
+      },
+      {
+        "id": "hr",
+        "name": "Sumber Daya Manusia",
+        "icon": "Users",
+        "total": 5,
+        "overdue": 0,
+        "inProcess": 3,
+        "closed": 2
+      }
+    ]
+  },
+  "quarterly": {
+    "q4-2024": [
+      {
+        "id": "strategic",
+        "name": "Strategis",
+        "icon": "Target",
+        "total": 8,
+        "overdue": 2,
+        "inProcess": 4,
+        "closed": 2
+      },
+      {
+        "id": "operational",
+        "name": "Operasional",
+        "icon": "Building",
+        "total": 12,
+        "overdue": 3,
+        "inProcess": 6,
+        "closed": 3
+      },
+      {
+        "id": "financial",
+        "name": "Keuangan",
+        "icon": "DollarSign",
+        "total": 5,
+        "overdue": 1,
+        "inProcess": 3,
+        "closed": 1
+      },
+      {
+        "id": "compliance",
+        "name": "Kepatuhan",
+        "icon": "Gavel",
+        "total": 4,
+        "overdue": 1,
+        "inProcess": 2,
+        "closed": 1
+      },
+      {
+        "id": "project",
+        "name": "Proyek",
+        "icon": "FileText",
+        "total": 15,
+        "overdue": 4,
+        "inProcess": 7,
+        "closed": 4
+      },
+      {
+        "id": "environment",
+        "name": "Lingkungan & Sosial",
+        "icon": "Leaf",
+        "total": 3,
+        "overdue": 1,
+        "inProcess": 1,
+        "closed": 1
+      },
+      {
+        "id": "it",
+        "name": "Teknologi Informasi",
+        "icon": "Cpu",
+        "total": 6,
+        "overdue": 1,
+        "inProcess": 3,
+        "closed": 2
+      },
+      {
+        "id": "hr",
+        "name": "Sumber Daya Manusia",
+        "icon": "Users",
+        "total": 4,
+        "overdue": 0,
+        "inProcess": 2,
+        "closed": 2
+      }
+    ],
+    "q3-2024": [
+      {
+        "id": "strategic",
+        "name": "Strategis",
+        "icon": "Target",
+        "total": 9,
+        "overdue": 3,
+        "inProcess": 4,
+        "closed": 2
+      },
+      {
+        "id": "operational",
+        "name": "Operasional",
+        "icon": "Building",
+        "total": 14,
+        "overdue": 4,
+        "inProcess": 6,
+        "closed": 4
+      },
+      {
+        "id": "financial",
+        "name": "Keuangan",
+        "icon": "DollarSign",
+        "total": 6,
+        "overdue": 2,
+        "inProcess": 2,
+        "closed": 2
+      },
+      {
+        "id": "compliance",
+        "name": "Kepatuhan",
+        "icon": "Gavel",
+        "total": 5,
+        "overdue": 1,
+        "inProcess": 2,
+        "closed": 2
+      },
+      {
+        "id": "project",
+        "name": "Proyek",
+        "icon": "FileText",
+        "total": 20,
+        "overdue": 6,
+        "inProcess": 9,
+        "closed": 5
+      },
+      {
+        "id": "environment",
+        "name": "Lingkungan & Sosial",
+        "icon": "Leaf",
+        "total": 3,
+        "overdue": 1,
+        "inProcess": 1,
+        "closed": 1
+      },
+      {
+        "id": "it",
+        "name": "Teknologi Informasi",
+        "icon": "Cpu",
+        "total": 8,
+        "overdue": 2,
+        "inProcess": 4,
+        "closed": 2
+      },
+      {
+        "id": "hr",
+        "name": "Sumber Daya Manusia",
+        "icon": "Users",
+        "total": 6,
+        "overdue": 1,
+        "inProcess": 3,
+        "closed": 2
+      }
+    ]
+  }
+}

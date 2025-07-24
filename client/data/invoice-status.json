@@ -1,0 +1,26 @@
+{
+  "yearly": {
+    "2024": {
+      "completed_no_invoice": 8,
+      "issued_unpaid": 15,
+      "paid": 49
+    },
+    "2023": {
+      "completed_no_invoice": 5,
+      "issued_unpaid": 12,
+      "paid": 39
+    }
+  },
+  "quarterly": {
+    "q4-2024": {
+      "completed_no_invoice": 2,
+      "issued_unpaid": 4,
+      "paid": 6
+    },
+    "q3-2024": {
+      "completed_no_invoice": 3,
+      "issued_unpaid": 5,
+      "paid": 7
+    }
+  }
+}

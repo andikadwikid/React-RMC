@@ -1,0 +1,207 @@
+{
+  "yearly": {
+    "2024": [
+      {
+        "name": "DKI Jakarta",
+        "value": 12,
+        "revenue": 15800000000,
+        "projects": [
+          "ERP System Bank Central",
+          "Mobile Banking App",
+          "E-Government Portal",
+          "Smart City Dashboard",
+          "Fintech Integration"
+        ]
+      },
+      {
+        "name": "Jawa Barat",
+        "value": 8,
+        "revenue": 9200000000,
+        "projects": [
+          "Manufacturing ERP",
+          "Supply Chain Management",
+          "Hospital Information System",
+          "E-Commerce Platform"
+        ]
+      },
+      {
+        "name": "Jawa Tengah",
+        "value": 6,
+        "revenue": 6500000000,
+        "projects": [
+          "Agricultural Management System",
+          "Tourism Portal",
+          "Educational Platform"
+        ]
+      },
+      {
+        "name": "Jawa Timur",
+        "value": 7,
+        "revenue": 8100000000,
+        "projects": [
+          "Port Management System",
+          "Logistics Platform",
+          "Industrial IoT",
+          "Smart Factory"
+        ]
+      },
+      {
+        "name": "Sumatera Utara",
+        "value": 4,
+        "revenue": 4300000000,
+        "projects": ["Palm Oil Tracking", "Mining Management System"]
+      },
+      {
+        "name": "Sumatera Barat",
+        "value": 3,
+        "revenue": 2800000000,
+        "projects": ["Tourism Management", "Cultural Heritage Portal"]
+      },
+      {
+        "name": "Kalimantan Timur",
+        "value": 2,
+        "revenue": 3200000000,
+        "projects": ["Coal Mining System"]
+      },
+      {
+        "name": "Sulawesi Selatan",
+        "value": 2,
+        "revenue": 2100000000,
+        "projects": ["Fisheries Management"]
+      },
+      {
+        "name": "Bali",
+        "value": 1,
+        "revenue": 1500000000,
+        "projects": ["Resort Management System"]
+      }
+    ],
+    "2023": [
+      {
+        "name": "DKI Jakarta",
+        "value": 10,
+        "revenue": 13200000000,
+        "projects": [
+          "Banking Core System",
+          "Government Portal V1",
+          "Digital Payment Platform",
+          "Smart Transport"
+        ]
+      },
+      {
+        "name": "Jawa Barat",
+        "value": 6,
+        "revenue": 7800000000,
+        "projects": ["Factory Automation", "Healthcare System", "E-Commerce Backend"]
+      },
+      {
+        "name": "Jawa Tengah",
+        "value": 5,
+        "revenue": 5200000000,
+        "projects": ["Agricultural Portal", "Education Management"]
+      },
+      {
+        "name": "Jawa Timur",
+        "value": 6,
+        "revenue": 6900000000,
+        "projects": ["Port System V1", "Supply Chain", "Manufacturing IoT"]
+      },
+      {
+        "name": "Sumatera Utara",
+        "value": 3,
+        "revenue": 3500000000,
+        "projects": ["Mining System", "Plantation Management"]
+      },
+      {
+        "name": "Sumatera Barat",
+        "value": 2,
+        "revenue": 2100000000,
+        "projects": ["Tourism Portal V1"]
+      },
+      {
+        "name": "Kalimantan Timur",
+        "value": 2,
+        "revenue": 2800000000,
+        "projects": ["Coal Management"]
+      },
+      {
+        "name": "Sulawesi Selatan",
+        "value": 1,
+        "revenue": 1600000000,
+        "projects": ["Marine System"]
+      },
+      {
+        "name": "Bali",
+        "value": 1,
+        "revenue": 1200000000,
+        "projects": ["Hotel Management"]
+      }
+    ]
+  },
+  "quarterly": {
+    "q4-2024": [
+      {
+        "name": "DKI Jakarta",
+        "value": 4,
+        "revenue": 5800000000,
+        "projects": ["Smart City Phase 2", "Fintech Integration"]
+      },
+      {
+        "name": "Jawa Barat",
+        "value": 3,
+        "revenue": 3200000000,
+        "projects": ["E-Commerce Platform", "Hospital System"]
+      },
+      {
+        "name": "Jawa Tengah",
+        "value": 2,
+        "revenue": 2500000000,
+        "projects": ["Educational Platform"]
+      },
+      {
+        "name": "Jawa Timur",
+        "value": 2,
+        "revenue": 2100000000,
+        "projects": ["Smart Factory"]
+      },
+      {
+        "name": "Sumatera Utara",
+        "value": 1,
+        "revenue": 1300000000,
+        "projects": ["Mining Management Phase 2"]
+      }
+    ],
+    "q3-2024": [
+      {
+        "name": "DKI Jakarta",
+        "value": 3,
+        "revenue": 4200000000,
+        "projects": ["E-Government Portal", "Banking App"]
+      },
+      {
+        "name": "Jawa Barat",
+        "value": 2,
+        "revenue": 2800000000,
+        "projects": ["Supply Chain Management"]
+      },
+      {
+        "name": "Jawa Tengah",
+        "value": 2,
+        "revenue": 2000000000,
+        "projects": ["Agricultural System"]
+      },
+      {
+        "name": "Jawa Timur",
+        "value": 3,
+        "revenue": 3800000000,
+        "projects": ["Port Management", "Industrial IoT"]
+      },
+      {
+        "name": "Sumatera Utara",
+        "value": 1,
+        "revenue": 1500000000,
+        "projects": ["Palm Oil Tracking"]
+      }
+    ]
+  }
+}

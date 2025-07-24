@@ -1,0 +1,26 @@
+{
+  "yearly": {
+    "2024": [
+      { "category": "0-30 hari", "amount": 3200000000, "color": "green", "days": "0-30" },
+      { "category": "31-90 hari", "amount": 2100000000, "color": "yellow", "days": "31-90" },
+      { "category": ">90 hari", "amount": 850000000, "color": "red", "days": ">90" }
+    ],
+    "2023": [
+      { "category": "0-30 hari", "amount": 2800000000, "color": "green", "days": "0-30" },
+      { "category": "31-90 hari", "amount": 1900000000, "color": "yellow", "days": "31-90" },
+      { "category": ">90 hari", "amount": 700000000, "color": "red", "days": ">90" }
+    ]
+  },
+  "quarterly": {
+    "q4-2024": [
+      { "category": "0-30 hari", "amount": 1200000000, "color": "green", "days": "0-30" },
+      { "category": "31-90 hari", "amount": 800000000, "color": "yellow", "days": "31-90" },
+      { "category": ">90 hari", "amount": 300000000, "color": "red", "days": ">90" }
+    ],
+    "q3-2024": [
+      { "category": "0-30 hari", "amount": 1500000000, "color": "green", "days": "0-30" },
+      { "category": "31-90 hari", "amount": 900000000, "color": "yellow", "days": "31-90" },
+      { "category": ">90 hari", "amount": 400000000, "color": "red", "days": ">90" }
+    ]
+  }
+}

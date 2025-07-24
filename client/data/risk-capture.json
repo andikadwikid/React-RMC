@@ -1,0 +1,34 @@
+{
+  "yearly": {
+    "2024": [
+      { "name": "Low", "y": 45, "color": "#166534" },
+      { "name": "Low to Moderate", "y": 32, "color": "#22C55E" },
+      { "name": "Moderate", "y": 28, "color": "#EAB308" },
+      { "name": "Moderate to High", "y": 18, "color": "#F97316" },
+      { "name": "High", "y": 12, "color": "#DC2626" }
+    ],
+    "2023": [
+      { "name": "Low", "y": 38, "color": "#166534" },
+      { "name": "Low to Moderate", "y": 28, "color": "#22C55E" },
+      { "name": "Moderate", "y": 25, "color": "#EAB308" },
+      { "name": "Moderate to High", "y": 22, "color": "#F97316" },
+      { "name": "High", "y": 15, "color": "#DC2626" }
+    ]
+  },
+  "quarterly": {
+    "q4-2024": [
+      { "name": "Low", "y": 35, "color": "#166534" },
+      { "name": "Low to Moderate", "y": 25, "color": "#22C55E" },
+      { "name": "Moderate", "y": 20, "color": "#EAB308" },
+      { "name": "Moderate to High", "y": 15, "color": "#F97316" },
+      { "name": "High", "y": 8, "color": "#DC2626" }
+    ],
+    "q3-2024": [
+      { "name": "Low", "y": 42, "color": "#166534" },
+      { "name": "Low to Moderate", "y": 30, "color": "#22C55E" },
+      { "name": "Moderate", "y": 25, "color": "#EAB308" },
+      { "name": "Moderate to High", "y": 20, "color": "#F97316" },
+      { "name": "High", "y": 10, "color": "#DC2626" }
+    ]
+  }
+}
