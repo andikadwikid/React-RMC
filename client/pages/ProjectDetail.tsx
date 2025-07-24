@@ -526,7 +526,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <label className="text-sm font-medium text-gray-700">
                       Project Manager
                     </label>
-                    <p className="text-gray-900">{project.projectManager}</p>
+                    <p className="text-gray-900">{project.project_manager || project.projectManager}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">
