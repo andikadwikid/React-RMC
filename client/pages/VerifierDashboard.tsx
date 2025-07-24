@@ -400,8 +400,11 @@ export default function VerifierDashboard() {
   };
 
   useEffect(() => {
-    updateChart(selectedPeriod);
-  }, [selectedPeriod]);
+    // Initialize chart after loading is complete
+    if (!isLoading) {
+      updateChart(selectedPeriod);
+    }
+  }, [selectedPeriod, isLoading]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
