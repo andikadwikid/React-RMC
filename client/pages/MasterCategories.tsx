@@ -12,17 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Folder, Plus, Search, Edit, Trash2, Tag } from "lucide-react";
-
-interface Category {
-  id: string;
-  name: string;
-  code: string;
-  description: string;
-  type: string;
-  status: "active" | "inactive";
-  projectCount: number;
-  createdAt: string;
-}
+import type { Category } from "@/types";
 
 export default function MasterCategories() {
   const [searchTerm, setSearchTerm] = useState("");
