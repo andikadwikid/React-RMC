@@ -333,7 +333,10 @@ export default function Dashboard() {
               </p>
             </div>
             <div className="flex items-center">
-              <Badge variant="outline" className="px-2 sm:px-3 py-1 text-xs sm:text-sm">
+              <Badge
+                variant="outline"
+                className="px-2 sm:px-3 py-1 text-xs sm:text-sm"
+              >
                 <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">
                   {new Date().toLocaleDateString("id-ID", {
@@ -399,7 +402,9 @@ export default function Dashboard() {
                         : "Triwulan"}
                     </Badge>
                   </div>
-                  <p className="text-2xl sm:text-3xl font-bold">{projectSummary.total}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">
+                    {projectSummary.total}
+                  </p>
                   <p className="text-blue-200 text-xs mt-1">
                     Periode: {selectedPerformancePeriod.label}
                   </p>
@@ -427,7 +432,9 @@ export default function Dashboard() {
                       %
                     </Badge>
                   </div>
-                  <p className="text-2xl sm:text-3xl font-bold">{projectSummary.running}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">
+                    {projectSummary.running}
+                  </p>
                   <p className="text-green-200 text-xs mt-1">
                     Dari {projectSummary.total} total proyek
                   </p>
@@ -710,12 +717,16 @@ export default function Dashboard() {
                   >
                     <div className="flex items-center gap-3 mb-3">
                       <IconComponent className="h-5 w-5 text-gray-600 flex-shrink-0" />
-                      <h3 className="font-medium text-sm leading-tight">{category.name}</h3>
+                      <h3 className="font-medium text-sm leading-tight">
+                        {category.name}
+                      </h3>
                     </div>
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Total:</span>
-                        <span className="font-semibold text-gray-900">{category.total}</span>
+                        <span className="font-semibold text-gray-900">
+                          {category.total}
+                        </span>
                       </div>
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
@@ -723,7 +734,9 @@ export default function Dashboard() {
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("overdue")}`}
                             ></div>
-                            <span className="text-xs text-gray-600">Overdue</span>
+                            <span className="text-xs text-gray-600">
+                              Overdue
+                            </span>
                           </div>
                           <span className="text-xs font-medium text-red-600">
                             {category.overdue}
@@ -734,7 +747,9 @@ export default function Dashboard() {
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("inProcess")}`}
                             ></div>
-                            <span className="text-xs text-gray-600">In Process</span>
+                            <span className="text-xs text-gray-600">
+                              In Process
+                            </span>
                           </div>
                           <span className="text-xs font-medium text-yellow-600">
                             {category.inProcess}
@@ -745,7 +760,9 @@ export default function Dashboard() {
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("closed")}`}
                             ></div>
-                            <span className="text-xs text-gray-600">Closed</span>
+                            <span className="text-xs text-gray-600">
+                              Closed
+                            </span>
                           </div>
                           <span className="text-xs font-medium text-green-600">
                             {category.closed}

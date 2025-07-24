@@ -335,7 +335,7 @@ export default function VerifierDashboard() {
   const [isLoading, setIsLoading] = useState(false);
 
   const updateChart = (dataPeriod: DataPeriod) => {
-    if (chartRef.current && typeof Highcharts !== 'undefined') {
+    if (chartRef.current && typeof Highcharts !== "undefined") {
       try {
         Highcharts.chart(chartRef.current, {
           chart: {
@@ -398,10 +398,11 @@ export default function VerifierDashboard() {
           },
         });
       } catch (error) {
-        console.error('Error creating chart:', error);
+        console.error("Error creating chart:", error);
         // Fallback: show message instead of chart
         if (chartRef.current) {
-          chartRef.current.innerHTML = '<div class="text-center py-8 text-gray-500">Chart gagal dimuat</div>';
+          chartRef.current.innerHTML =
+            '<div class="text-center py-8 text-gray-500">Chart gagal dimuat</div>';
         }
       }
     }
@@ -463,7 +464,9 @@ export default function VerifierDashboard() {
             <div className="text-2xl font-bold text-green-600">
               {verificationStats.overall.totalVerified}
             </div>
-            <p className="text-xs text-green-600 mt-1">Risk Capture + Readiness</p>
+            <p className="text-xs text-green-600 mt-1">
+              Risk Capture + Readiness
+            </p>
           </CardContent>
         </Card>
 
@@ -548,7 +551,9 @@ export default function VerifierDashboard() {
 
             <div className="space-y-3">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <span className="text-sm text-gray-600 font-medium">Terverifikasi</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Terverifikasi
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-green-600">
                     {verificationStats.riskCapture.verified}
@@ -565,7 +570,9 @@ export default function VerifierDashboard() {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <span className="text-sm text-gray-600 font-medium">Under Review</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Under Review
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-blue-600">
                     {verificationStats.riskCapture.underReview}
@@ -582,7 +589,9 @@ export default function VerifierDashboard() {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <span className="text-sm text-gray-600 font-medium">Needs Revision</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Needs Revision
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-red-600">
                     {verificationStats.riskCapture.needsRevision}
@@ -599,7 +608,9 @@ export default function VerifierDashboard() {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <span className="text-sm text-gray-600 font-medium">Pending</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Pending
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-yellow-600">
                     {verificationStats.riskCapture.pending}
@@ -644,7 +655,9 @@ export default function VerifierDashboard() {
 
             <div className="space-y-3">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <span className="text-sm text-gray-600 font-medium">Terverifikasi</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Terverifikasi
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-green-600">
                     {verificationStats.readiness.verified}
@@ -661,7 +674,9 @@ export default function VerifierDashboard() {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <span className="text-sm text-gray-600 font-medium">Under Review</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Under Review
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-blue-600">
                     {verificationStats.readiness.underReview}
@@ -678,7 +693,9 @@ export default function VerifierDashboard() {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <span className="text-sm text-gray-600 font-medium">Needs Revision</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Needs Revision
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-red-600">
                     {verificationStats.readiness.needsRevision}
@@ -695,7 +712,9 @@ export default function VerifierDashboard() {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <span className="text-sm text-gray-600 font-medium">Pending</span>
+                <span className="text-sm text-gray-600 font-medium">
+                  Pending
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-yellow-600">
                     {verificationStats.readiness.pending}
@@ -908,7 +927,9 @@ export default function VerifierDashboard() {
             }`}
           >
             <AlertTriangle className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1 lg:mr-2" />
-            <span className="hidden sm:inline">Pending ({pendingAssignments.length})</span>
+            <span className="hidden sm:inline">
+              Pending ({pendingAssignments.length})
+            </span>
             <span className="sm:hidden">Pending</span>
           </button>
         </div>
@@ -1074,22 +1095,36 @@ export default function VerifierDashboard() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600">
                         <div className="flex flex-col">
-                          <span className="font-medium text-gray-700">Action:</span>
-                          <span className="text-gray-900">{activity.action}</span>
+                          <span className="font-medium text-gray-700">
+                            Action:
+                          </span>
+                          <span className="text-gray-900">
+                            {activity.action}
+                          </span>
                         </div>
                         <div className="flex flex-col">
-                          <span className="font-medium text-gray-700">Items:</span>
-                          <span className="text-gray-900">{activity.items} item</span>
+                          <span className="font-medium text-gray-700">
+                            Items:
+                          </span>
+                          <span className="text-gray-900">
+                            {activity.items} item
+                          </span>
                         </div>
                         <div className="flex flex-col">
-                          <span className="font-medium text-gray-700">Waktu:</span>
-                          <span className="text-gray-900">{formatDateTime(activity.timestamp)}</span>
+                          <span className="font-medium text-gray-700">
+                            Waktu:
+                          </span>
+                          <span className="text-gray-900">
+                            {formatDateTime(activity.timestamp)}
+                          </span>
                         </div>
                       </div>
 
                       {activity.notes && (
                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
-                          <span className="font-medium text-blue-900">Notes:</span>
+                          <span className="font-medium text-blue-900">
+                            Notes:
+                          </span>
                           <p className="mt-1 text-blue-800">{activity.notes}</p>
                         </div>
                       )}
@@ -1131,27 +1166,47 @@ export default function VerifierDashboard() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm text-gray-600">
                           <div className="flex flex-col">
-                            <span className="font-medium text-gray-700">Submitter:</span>
-                            <span className="text-gray-900">{assignment.submittedBy}</span>
+                            <span className="font-medium text-gray-700">
+                              Submitter:
+                            </span>
+                            <span className="text-gray-900">
+                              {assignment.submittedBy}
+                            </span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="font-medium text-gray-700">Category:</span>
-                            <span className="text-gray-900">{assignment.category}</span>
+                            <span className="font-medium text-gray-700">
+                              Category:
+                            </span>
+                            <span className="text-gray-900">
+                              {assignment.category}
+                            </span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="font-medium text-gray-700">Est. Time:</span>
-                            <span className="text-gray-900">{assignment.estimatedTime}</span>
+                            <span className="font-medium text-gray-700">
+                              Est. Time:
+                            </span>
+                            <span className="text-gray-900">
+                              {assignment.estimatedTime}
+                            </span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="font-medium text-gray-700">Submitted:</span>
-                            <span className="text-gray-900">{formatDateTime(assignment.submittedAt)}</span>
+                            <span className="font-medium text-gray-700">
+                              Submitted:
+                            </span>
+                            <span className="text-gray-900">
+                              {formatDateTime(assignment.submittedAt)}
+                            </span>
                           </div>
                         </div>
                       </div>
 
                       <div className="flex justify-end lg:ml-4">
                         <Link to="/verification">
-                          <Button variant="outline" size="sm" className="w-full sm:w-auto hover:bg-blue-50 hover:border-blue-300">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full sm:w-auto hover:bg-blue-50 hover:border-blue-300"
+                          >
                             <Eye className="w-4 h-4 mr-2" />
                             Review
                           </Button>

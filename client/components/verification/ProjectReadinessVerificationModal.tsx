@@ -208,13 +208,17 @@ export function ProjectReadinessVerificationModal({
                   <Label className="text-sm font-medium text-gray-600">
                     Nama Project
                   </Label>
-                  <p className="text-sm font-semibold text-gray-900 mt-1">{submission.projectName}</p>
+                  <p className="text-sm font-semibold text-gray-900 mt-1">
+                    {submission.projectName}
+                  </p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium text-gray-600">
                     Project ID
                   </Label>
-                  <p className="text-sm text-gray-900 mt-1 font-mono">{submission.projectId}</p>
+                  <p className="text-sm text-gray-900 mt-1 font-mono">
+                    {submission.projectId}
+                  </p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium text-gray-600">

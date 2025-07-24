@@ -169,21 +169,27 @@ export function RiskCaptureVerificationModal({
                     <User className="w-4 h-4 text-gray-500" />
                     <span className="font-medium">Submitted by:</span>
                   </div>
-                  <span className="text-gray-900">{submission.submittedBy}</span>
+                  <span className="text-gray-900">
+                    {submission.submittedBy}
+                  </span>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-gray-500" />
                     <span className="font-medium">Submitted at:</span>
                   </div>
-                  <span className="text-gray-900">{formatDateTime(submission.submittedAt)}</span>
+                  <span className="text-gray-900">
+                    {formatDateTime(submission.submittedAt)}
+                  </span>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                   <div className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-gray-500" />
                     <span className="font-medium">Total Risks:</span>
                   </div>
-                  <span className="text-gray-900 font-semibold">{submission.totalRisks}</span>
+                  <span className="text-gray-900 font-semibold">
+                    {submission.totalRisks}
+                  </span>
                 </div>
               </div>
             </CardContent>
@@ -209,7 +215,10 @@ export function RiskCaptureVerificationModal({
               <div className="flex flex-wrap gap-4 text-sm text-gray-600">
                 <span className="flex items-center gap-1">
                   <CheckCircle className="w-4 h-4 text-green-600" />
-                  Verified: <strong className="text-green-600">{progress.verified}</strong>
+                  Verified:{" "}
+                  <strong className="text-green-600">
+                    {progress.verified}
+                  </strong>
                 </span>
                 <span className="flex items-center gap-1">
                   <Shield className="w-4 h-4 text-gray-600" />
@@ -222,7 +231,10 @@ export function RiskCaptureVerificationModal({
           {/* Risk Items for Verification */}
           <div className="space-y-6">
             {verificationRisks.map((risk, index) => (
-              <Card key={risk.id} className="border border-gray-200 hover:border-gray-300 transition-colors">
+              <Card
+                key={risk.id}
+                className="border border-gray-200 hover:border-gray-300 transition-colors"
+              >
                 <CardHeader className="pb-3">
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -278,25 +290,33 @@ export function RiskCaptureVerificationModal({
                       <Label className="text-xs font-medium text-gray-600">
                         Taksonomi:
                       </Label>
-                      <p className="text-sm text-gray-900 mt-1">{risk.taksonomi}</p>
+                      <p className="text-sm text-gray-900 mt-1">
+                        {risk.taksonomi}
+                      </p>
                     </div>
                     <div className="lg:col-span-2">
                       <Label className="text-xs font-medium text-gray-600">
                         Peristiwa Risiko:
                       </Label>
-                      <p className="text-sm text-gray-900 mt-1">{risk.peristiwaRisiko}</p>
+                      <p className="text-sm text-gray-900 mt-1">
+                        {risk.peristiwaRisiko}
+                      </p>
                     </div>
                     <div>
                       <Label className="text-xs font-medium text-gray-600">
                         Sumber Risiko:
                       </Label>
-                      <p className="text-sm text-gray-900 mt-1">{risk.sumberRisiko}</p>
+                      <p className="text-sm text-gray-900 mt-1">
+                        {risk.sumberRisiko}
+                      </p>
                     </div>
                     <div>
                       <Label className="text-xs font-medium text-gray-600">
                         Kontrol Eksisting:
                       </Label>
-                      <p className="text-sm text-gray-900 mt-1">{risk.kontrolEksisting}</p>
+                      <p className="text-sm text-gray-900 mt-1">
+                        {risk.kontrolEksisting}
+                      </p>
                     </div>
                   </div>
 
@@ -426,13 +446,18 @@ export function RiskCaptureVerificationModal({
                     <SelectItem value="submitted">Submitted</SelectItem>
                     <SelectItem value="under_review">Under Review</SelectItem>
                     <SelectItem value="verified">Verified</SelectItem>
-                    <SelectItem value="needs_revision">Needs Revision</SelectItem>
+                    <SelectItem value="needs_revision">
+                      Needs Revision
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
-                <Label htmlFor="overall-comment" className="text-sm font-medium">
+                <Label
+                  htmlFor="overall-comment"
+                  className="text-sm font-medium"
+                >
                   Overall Comment
                 </Label>
                 <Textarea
@@ -446,7 +471,6 @@ export function RiskCaptureVerificationModal({
               </div>
             </CardContent>
           </Card>
-
         </div>
 
         <DialogFooter className="p-4 lg:p-6 border-t bg-gray-50 flex-shrink-0">

@@ -586,7 +586,9 @@ const RiskDetailModal = ({
           <DialogTitle className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-lg lg:text-xl">
             <div className="flex items-center gap-2">
               <Shield className="h-5 w-5 lg:h-6 lg:w-6 text-blue-600 flex-shrink-0" />
-              <span className="break-words">Detail Risiko: [{riskItem.kode}]</span>
+              <span className="break-words">
+                Detail Risiko: [{riskItem.kode}]
+              </span>
             </div>
             <span className="text-base lg:text-lg font-normal text-gray-700 break-words">
               {riskItem.sasaran}
@@ -683,8 +685,12 @@ const RiskDetailModal = ({
                     {riskItem.project}
                   </p>
 
-                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-1">PIC:</p>
-                  <p className="text-xs lg:text-sm text-gray-600">{riskItem.assignee}</p>
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-1">
+                    PIC:
+                  </p>
+                  <p className="text-xs lg:text-sm text-gray-600">
+                    {riskItem.assignee}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs lg:text-sm font-medium text-gray-700 mb-1">
@@ -788,7 +794,11 @@ const RiskDetailModal = ({
         </div>
 
         <DialogFooter className="flex-col sm:flex-row gap-3 pt-4 lg:pt-6">
-          <Button variant="outline" onClick={onClose} className="w-full sm:w-auto">
+          <Button
+            variant="outline"
+            onClick={onClose}
+            className="w-full sm:w-auto"
+          >
             Tutup
           </Button>
           <Button className="w-full sm:w-auto">
@@ -875,240 +885,252 @@ export function RiskCategoryDetailDialog({
           <div className="flex-1 overflow-y-auto p-4 lg:p-6">
             {/* Summary Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-4 lg:mb-6">
-            <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
-              <CardContent className="p-3 lg:p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs lg:text-sm font-medium text-gray-600">
-                      Total Risiko
-                    </p>
-                    <p className="text-xl lg:text-2xl font-bold text-gray-900">
-                      {category.total}
-                    </p>
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+                <CardContent className="p-3 lg:p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs lg:text-sm font-medium text-gray-600">
+                        Total Risiko
+                      </p>
+                      <p className="text-xl lg:text-2xl font-bold text-gray-900">
+                        {category.total}
+                      </p>
+                    </div>
+                    <BarChart3 className="w-6 h-6 lg:w-8 lg:h-8 text-blue-500 flex-shrink-0" />
                   </div>
-                  <BarChart3 className="w-6 h-6 lg:w-8 lg:h-8 text-blue-500 flex-shrink-0" />
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            <Card className="border-l-4 border-l-red-500 hover:shadow-md transition-shadow">
-              <CardContent className="p-3 lg:p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs lg:text-sm font-medium text-gray-600">Overdue</p>
-                    <p className="text-xl lg:text-2xl font-bold text-red-600">
-                      {category.overdue}
-                    </p>
+              <Card className="border-l-4 border-l-red-500 hover:shadow-md transition-shadow">
+                <CardContent className="p-3 lg:p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs lg:text-sm font-medium text-gray-600">
+                        Overdue
+                      </p>
+                      <p className="text-xl lg:text-2xl font-bold text-red-600">
+                        {category.overdue}
+                      </p>
+                    </div>
+                    <XCircle className="w-6 h-6 lg:w-8 lg:h-8 text-red-500 flex-shrink-0" />
                   </div>
-                  <XCircle className="w-6 h-6 lg:w-8 lg:h-8 text-red-500 flex-shrink-0" />
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            <Card className="border-l-4 border-l-yellow-500 hover:shadow-md transition-shadow">
-              <CardContent className="p-3 lg:p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs lg:text-sm font-medium text-gray-600">
-                      Dalam Mitigasi
-                    </p>
-                    <p className="text-xl lg:text-2xl font-bold text-yellow-600">
-                      {category.inProcess}
-                    </p>
+              <Card className="border-l-4 border-l-yellow-500 hover:shadow-md transition-shadow">
+                <CardContent className="p-3 lg:p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs lg:text-sm font-medium text-gray-600">
+                        Dalam Mitigasi
+                      </p>
+                      <p className="text-xl lg:text-2xl font-bold text-yellow-600">
+                        {category.inProcess}
+                      </p>
+                    </div>
+                    <Activity className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-500 flex-shrink-0" />
                   </div>
-                  <Activity className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-500 flex-shrink-0" />
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            <Card className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
-              <CardContent className="p-3 lg:p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs lg:text-sm font-medium text-gray-600">Selesai</p>
-                    <p className="text-xl lg:text-2xl font-bold text-green-600">
-                      {category.closed}
-                    </p>
+              <Card className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
+                <CardContent className="p-3 lg:p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs lg:text-sm font-medium text-gray-600">
+                        Selesai
+                      </p>
+                      <p className="text-xl lg:text-2xl font-bold text-green-600">
+                        {category.closed}
+                      </p>
+                    </div>
+                    <CheckCircle className="w-6 h-6 lg:w-8 lg:h-8 text-green-500 flex-shrink-0" />
                   </div>
-                  <CheckCircle className="w-6 h-6 lg:w-8 lg:h-8 text-green-500 flex-shrink-0" />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Filter and Actions */}
-          <div className="flex flex-col gap-4 mb-4 lg:mb-6">
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              {/* Status Filter */}
-              <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                <select
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  className="border border-gray-300 rounded-md px-3 py-2 text-sm w-full sm:w-auto min-w-0 sm:min-w-[140px]"
-                >
-                  <option value="all">Semua Status</option>
-                  <option value="overdue">Overdue</option>
-                  <option value="inProcess">Dalam Mitigasi</option>
-                  <option value="closed">Closed</option>
-                </select>
-              </div>
-
-              {/* Search Input */}
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <Input
-                  placeholder="Cari kode, sasaran, taksonomi, atau project..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 text-sm w-full"
-                />
-              </div>
+                </CardContent>
+              </Card>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2">
-              {/* Clear Search Button */}
-              {searchQuery && (
+            {/* Filter and Actions */}
+            <div className="flex flex-col gap-4 mb-4 lg:mb-6">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                {/* Status Filter */}
+                <div className="flex items-center gap-2">
+                  <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="border border-gray-300 rounded-md px-3 py-2 text-sm w-full sm:w-auto min-w-0 sm:min-w-[140px]"
+                  >
+                    <option value="all">Semua Status</option>
+                    <option value="overdue">Overdue</option>
+                    <option value="inProcess">Dalam Mitigasi</option>
+                    <option value="closed">Closed</option>
+                  </select>
+                </div>
+
+                {/* Search Input */}
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Input
+                    placeholder="Cari kode, sasaran, taksonomi, atau project..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 pr-4 py-2 text-sm w-full"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-2">
+                {/* Clear Search Button */}
+                {searchQuery && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSearchQuery("")}
+                    className="w-full sm:w-auto"
+                  >
+                    Clear Search
+                  </Button>
+                )}
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setSearchQuery("")}
                   className="w-full sm:w-auto"
                 >
-                  Clear Search
+                  <Download className="w-4 h-4 mr-2" />
+                  Export Excel
                 </Button>
-              )}
-              <Button variant="outline" size="sm" className="w-full sm:w-auto">
-                <Download className="w-4 h-4 mr-2" />
-                Export Excel
-              </Button>
+              </div>
             </div>
-          </div>
 
-          {/* Search Results Info */}
-          {(searchQuery || statusFilter !== "all") && (
-            <div className="mb-4 p-3 bg-gray-50 rounded-lg border">
-              <div className="flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-600">
-                    Menampilkan {filteredRiskItems.length} dari{" "}
-                    {riskItems.length} risiko
-                  </span>
-                  {searchQuery && (
-                    <span className="text-blue-600">
-                      untuk pencarian "{searchQuery}"
+            {/* Search Results Info */}
+            {(searchQuery || statusFilter !== "all") && (
+              <div className="mb-4 p-3 bg-gray-50 rounded-lg border">
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">
+                      Menampilkan {filteredRiskItems.length} dari{" "}
+                      {riskItems.length} risiko
                     </span>
-                  )}
-                  {statusFilter !== "all" && (
-                    <span className="text-green-600">
-                      dengan status "{statusFilter}"
-                    </span>
+                    {searchQuery && (
+                      <span className="text-blue-600">
+                        untuk pencarian "{searchQuery}"
+                      </span>
+                    )}
+                    {statusFilter !== "all" && (
+                      <span className="text-green-600">
+                        dengan status "{statusFilter}"
+                      </span>
+                    )}
+                  </div>
+                  {(searchQuery || statusFilter !== "all") && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setSearchQuery("");
+                        setStatusFilter("all");
+                      }}
+                      className="text-xs"
+                    >
+                      Reset Filter
+                    </Button>
                   )}
                 </div>
-                {(searchQuery || statusFilter !== "all") && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      setSearchQuery("");
-                      setStatusFilter("all");
-                    }}
-                    className="text-xs"
-                  >
-                    Reset Filter
-                  </Button>
-                )}
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Risk Table */}
-          <Card>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <Table className="min-w-[600px]">
-                  <TableHeader>
-                    <TableRow className="bg-gray-50">
-                      <TableHead className="w-20 lg:w-24">Kode</TableHead>
-                      <TableHead className="min-w-[200px] lg:min-w-[250px]">Sasaran</TableHead>
-                      <TableHead className="w-32 lg:w-36">Status</TableHead>
-                      <TableHead className="w-24 lg:w-28">Level</TableHead>
-                      <TableHead className="w-32 lg:w-36">PIC</TableHead>
-                      <TableHead className="w-20 lg:w-24">Aksi</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredRiskItems.length === 0 ? (
-                      <TableRow>
-                        <TableCell colSpan={6} className="text-center py-8">
-                          <div className="flex flex-col items-center gap-2">
-                            <Search className="w-8 h-8 text-gray-400" />
-                            <p className="text-gray-500 text-sm lg:text-base">
-                              {searchQuery
-                                ? `Tidak ada risiko yang ditemukan untuk "${searchQuery}"`
-                                : "Tidak ada risiko dengan status yang dipilih"}
-                            </p>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => {
-                                setSearchQuery("");
-                                setStatusFilter("all");
-                              }}
-                            >
-                              Reset Filter
-                            </Button>
-                          </div>
-                        </TableCell>
+            {/* Risk Table */}
+            <Card>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <Table className="min-w-[600px]">
+                    <TableHeader>
+                      <TableRow className="bg-gray-50">
+                        <TableHead className="w-20 lg:w-24">Kode</TableHead>
+                        <TableHead className="min-w-[200px] lg:min-w-[250px]">
+                          Sasaran
+                        </TableHead>
+                        <TableHead className="w-32 lg:w-36">Status</TableHead>
+                        <TableHead className="w-24 lg:w-28">Level</TableHead>
+                        <TableHead className="w-32 lg:w-36">PIC</TableHead>
+                        <TableHead className="w-20 lg:w-24">Aksi</TableHead>
                       </TableRow>
-                    ) : (
-                      filteredRiskItems.map((item) => (
-                        <TableRow key={item.id} className="hover:bg-gray-50">
-                          <TableCell className="font-mono text-xs lg:text-sm">
-                            {item.kode}
-                          </TableCell>
-                          <TableCell>
-                            <div>
-                              <p className="font-medium text-sm lg:text-base">
-                                {item.sasaran}
+                    </TableHeader>
+                    <TableBody>
+                      {filteredRiskItems.length === 0 ? (
+                        <TableRow>
+                          <TableCell colSpan={6} className="text-center py-8">
+                            <div className="flex flex-col items-center gap-2">
+                              <Search className="w-8 h-8 text-gray-400" />
+                              <p className="text-gray-500 text-sm lg:text-base">
+                                {searchQuery
+                                  ? `Tidak ada risiko yang ditemukan untuk "${searchQuery}"`
+                                  : "Tidak ada risiko dengan status yang dipilih"}
                               </p>
-                              <p className="text-xs lg:text-sm text-gray-500 mt-1">
-                                {item.project}
-                              </p>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  setSearchQuery("");
+                                  setStatusFilter("all");
+                                }}
+                              >
+                                Reset Filter
+                              </Button>
                             </div>
-                          </TableCell>
-                          <TableCell>{getStatusBadge(item.status)}</TableCell>
-                          <TableCell>
-                            <div className="space-y-1">
-                              <div className="text-xs lg:text-sm text-gray-500">
-                                Awal: {item.risikoAwal.level}
-                              </div>
-                              <div className="text-xs lg:text-sm font-medium">
-                                Akhir: {item.resikoAkhir.level}
-                              </div>
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <p className="text-xs lg:text-sm">{item.assignee}</p>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleViewDetail(item)}
-                              className="p-1 lg:p-2"
-                            >
-                              <Eye className="w-4 h-4" />
-                            </Button>
                           </TableCell>
                         </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-            </CardContent>
-          </Card>
+                      ) : (
+                        filteredRiskItems.map((item) => (
+                          <TableRow key={item.id} className="hover:bg-gray-50">
+                            <TableCell className="font-mono text-xs lg:text-sm">
+                              {item.kode}
+                            </TableCell>
+                            <TableCell>
+                              <div>
+                                <p className="font-medium text-sm lg:text-base">
+                                  {item.sasaran}
+                                </p>
+                                <p className="text-xs lg:text-sm text-gray-500 mt-1">
+                                  {item.project}
+                                </p>
+                              </div>
+                            </TableCell>
+                            <TableCell>{getStatusBadge(item.status)}</TableCell>
+                            <TableCell>
+                              <div className="space-y-1">
+                                <div className="text-xs lg:text-sm text-gray-500">
+                                  Awal: {item.risikoAwal.level}
+                                </div>
+                                <div className="text-xs lg:text-sm font-medium">
+                                  Akhir: {item.resikoAkhir.level}
+                                </div>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <p className="text-xs lg:text-sm">
+                                {item.assignee}
+                              </p>
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleViewDetail(item)}
+                                className="p-1 lg:p-2"
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           <DialogFooter className="bg-gray-50 p-4 lg:p-6 border-t flex-shrink-0">

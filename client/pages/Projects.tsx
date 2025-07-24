@@ -268,7 +268,9 @@ export default function Projects() {
           <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div className="min-w-0 flex-1">
-                <p className="text-xs lg:text-sm font-medium text-gray-600">Aktif</p>
+                <p className="text-xs lg:text-sm font-medium text-gray-600">
+                  Aktif
+                </p>
                 <p className="text-xl lg:text-2xl font-bold text-green-600">
                   {activeProjects}
                 </p>
@@ -282,7 +284,9 @@ export default function Projects() {
           <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
               <div className="min-w-0 flex-1">
-                <p className="text-xs lg:text-sm font-medium text-gray-600">Selesai</p>
+                <p className="text-xs lg:text-sm font-medium text-gray-600">
+                  Selesai
+                </p>
                 <p className="text-xl lg:text-2xl font-bold text-blue-600">
                   {completedProjects}
                 </p>
@@ -373,15 +377,33 @@ export default function Projects() {
             <Table className="min-w-[800px]">
               <TableHeader>
                 <TableRow className="bg-gray-50">
-                  <TableHead className="min-w-[200px] lg:min-w-[250px]">Project</TableHead>
-                  <TableHead className="min-w-[120px] lg:min-w-[150px]">Client</TableHead>
-                  <TableHead className="min-w-[100px] lg:min-w-[120px]">Progress</TableHead>
-                  <TableHead className="min-w-[120px] lg:min-w-[140px]">Budget</TableHead>
-                  <TableHead className="min-w-[120px] lg:min-w-[140px] hidden sm:table-cell">Timeline</TableHead>
-                  <TableHead className="min-w-[100px] lg:min-w-[120px] hidden md:table-cell">Readiness</TableHead>
-                  <TableHead className="min-w-[100px] lg:min-w-[120px] hidden md:table-cell">Risk Capture</TableHead>
-                  <TableHead className="min-w-[120px] lg:min-w-[140px] hidden lg:table-cell">Verifikasi</TableHead>
-                  <TableHead className="min-w-[100px] lg:min-w-[120px]">Actions</TableHead>
+                  <TableHead className="min-w-[200px] lg:min-w-[250px]">
+                    Project
+                  </TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[150px]">
+                    Client
+                  </TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px]">
+                    Progress
+                  </TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px]">
+                    Budget
+                  </TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px] hidden sm:table-cell">
+                    Timeline
+                  </TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px] hidden md:table-cell">
+                    Readiness
+                  </TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px] hidden md:table-cell">
+                    Risk Capture
+                  </TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px] hidden lg:table-cell">
+                    Verifikasi
+                  </TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px]">
+                    Actions
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -391,11 +413,15 @@ export default function Projects() {
                       <div className="flex flex-col items-center gap-2">
                         <Search className="w-8 h-8 text-gray-400" />
                         <p className="text-gray-500 text-sm lg:text-base">
-                          {searchTerm || statusFilter !== "all" || riskFilter !== "all"
+                          {searchTerm ||
+                          statusFilter !== "all" ||
+                          riskFilter !== "all"
                             ? "Tidak ada project yang ditemukan dengan filter yang dipilih"
                             : "Belum ada project yang terdaftar"}
                         </p>
-                        {(searchTerm || statusFilter !== "all" || riskFilter !== "all") && (
+                        {(searchTerm ||
+                          statusFilter !== "all" ||
+                          riskFilter !== "all") && (
                           <Button
                             variant="outline"
                             size="sm"
@@ -419,7 +445,9 @@ export default function Projects() {
                           <p className="font-medium text-sm lg:text-base text-gray-900 break-words">
                             {project.name}
                           </p>
-                          <p className="text-xs lg:text-sm text-gray-500">{project.id}</p>
+                          <p className="text-xs lg:text-sm text-gray-500">
+                            {project.id}
+                          </p>
                           {/* Show client on mobile when client column is hidden */}
                           <p className="text-xs text-gray-600 mt-1 sm:hidden">
                             Client: {project.client}
@@ -427,7 +455,9 @@ export default function Projects() {
                         </div>
                       </TableCell>
                       <TableCell className="hidden sm:table-cell">
-                        <p className="text-xs lg:text-sm text-gray-900 break-words">{project.client}</p>
+                        <p className="text-xs lg:text-sm text-gray-900 break-words">
+                          {project.client}
+                        </p>
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">

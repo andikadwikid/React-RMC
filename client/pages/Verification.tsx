@@ -205,17 +205,29 @@ function SubmissionsList({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600">
                     <div className="flex flex-col">
-                      <span className="font-medium text-gray-700">Submitter:</span>
-                      <span className="text-gray-900">{submission.submittedBy}</span>
+                      <span className="font-medium text-gray-700">
+                        Submitter:
+                      </span>
+                      <span className="text-gray-900">
+                        {submission.submittedBy}
+                      </span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-medium text-gray-700">Tanggal Submit:</span>
-                      <span className="text-gray-900">{formatDateTime(submission.submittedAt)}</span>
+                      <span className="font-medium text-gray-700">
+                        Tanggal Submit:
+                      </span>
+                      <span className="text-gray-900">
+                        {formatDateTime(submission.submittedAt)}
+                      </span>
                     </div>
                     {submission.verifierName && (
                       <div className="flex flex-col">
-                        <span className="font-medium text-gray-700">Verifier:</span>
-                        <span className="text-gray-900">{submission.verifierName}</span>
+                        <span className="font-medium text-gray-700">
+                          Verifier:
+                        </span>
+                        <span className="text-gray-900">
+                          {submission.verifierName}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -233,8 +245,12 @@ function SubmissionsList({
 
                   {submission.overallComment && (
                     <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm">
-                      <span className="font-medium text-blue-900">Komentar:</span>
-                      <p className="mt-1 text-blue-800">{submission.overallComment}</p>
+                      <span className="font-medium text-blue-900">
+                        Komentar:
+                      </span>
+                      <p className="mt-1 text-blue-800">
+                        {submission.overallComment}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -321,23 +337,19 @@ export default function Verification() {
   };
 
   const getPendingCount = () => {
-    return submissions.filter((s) => s.status === "submitted")
-      .length;
+    return submissions.filter((s) => s.status === "submitted").length;
   };
 
   const getVerifiedCount = () => {
-    return submissions.filter((s) => s.status === "verified")
-      .length;
+    return submissions.filter((s) => s.status === "verified").length;
   };
 
   const getRevisionCount = () => {
-    return submissions.filter((s) => s.status === "needs_revision")
-      .length;
+    return submissions.filter((s) => s.status === "needs_revision").length;
   };
 
   const getUnderReviewCount = () => {
-    return submissions.filter((s) => s.status === "under_review")
-      .length;
+    return submissions.filter((s) => s.status === "under_review").length;
   };
 
   return (
@@ -434,25 +446,39 @@ export default function Verification() {
       >
         <div className="overflow-x-auto">
           <TabsList className="grid w-full grid-cols-5 min-w-[600px] lg:min-w-0">
-            <TabsTrigger value="all" className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm">
+            <TabsTrigger
+              value="all"
+              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
+            >
               <Shield className="w-3 h-3 lg:w-4 lg:h-4" />
               <span className="hidden sm:inline">Semua</span>
               <span className="sm:hidden">All</span>
               <span className="hidden lg:inline">({submissions.length})</span>
             </TabsTrigger>
-            <TabsTrigger value="submitted" className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm">
+            <TabsTrigger
+              value="submitted"
+              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
+            >
               <Clock className="w-3 h-3 lg:w-4 lg:h-4" />
               <span className="hidden sm:inline">Menunggu</span>
               <span className="sm:hidden">Wait</span>
               <span className="hidden lg:inline">({getPendingCount()})</span>
             </TabsTrigger>
-            <TabsTrigger value="under_review" className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm">
+            <TabsTrigger
+              value="under_review"
+              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
+            >
               <Eye className="w-3 h-3 lg:w-4 lg:h-4" />
               <span className="hidden sm:inline">Review</span>
               <span className="sm:hidden">Rev</span>
-              <span className="hidden lg:inline">({getUnderReviewCount()})</span>
+              <span className="hidden lg:inline">
+                ({getUnderReviewCount()})
+              </span>
             </TabsTrigger>
-            <TabsTrigger value="verified" className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm">
+            <TabsTrigger
+              value="verified"
+              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
+            >
               <CheckCircle className="w-3 h-3 lg:w-4 lg:h-4" />
               <span className="hidden sm:inline">Verified</span>
               <span className="sm:hidden">Ver</span>
