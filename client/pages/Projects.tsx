@@ -374,7 +374,7 @@ export default function Projects() {
         </CardHeader>
         <CardContent className="p-0">
           <div className="overflow-x-auto">
-            <Table className="min-w-[800px]">
+            <Table className="min-w-[600px] sm:min-w-[800px]">
               <TableHeader>
                 <TableRow className="bg-gray-50">
                   <TableHead className="min-w-[200px] lg:min-w-[250px]">
