@@ -38,22 +38,7 @@ import {
 } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
 import { getProjectsWithStatus } from "@/utils/dataLoader";
-
-interface Project {
-  id: string;
-  name: string;
-  client: string;
-  budget: number;
-  spent: number;
-  startDate: string;
-  endDate: string;
-  progress: number;
-  lastUpdate: string;
-  readinessStatus?: "not-started" | "in-progress" | "completed";
-  readinessScore?: number;
-  riskCaptureStatus?: "not-started" | "in-progress" | "completed";
-  riskCaptureScore?: number;
-}
+import type { Project } from "@/types";
 
 export default function Projects() {
   const [searchTerm, setSearchTerm] = useState("");
