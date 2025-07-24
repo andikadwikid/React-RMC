@@ -43,7 +43,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -248,9 +250,10 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
           </div>
         </div>
 
-        {/* Action Buttons - Mobile Responsive */}
+        {/* Action Buttons - Enhanced with Quick Actions */}
         <div className="flex items-center gap-2">
-          <div className="hidden sm:flex items-center gap-2">
+          {/* Desktop Actions */}
+          <div className="hidden lg:flex items-center gap-2">
             <Link to={`/projects/${project.id}/edit`}>
               <Button variant="outline" size="sm">
                 <Edit className="w-4 h-4 mr-2" />
@@ -263,9 +266,68 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 Timeline
               </Button>
             </Link>
+
+            {/* Primary Quick Actions */}
+            <div className="h-6 w-px bg-gray-300 mx-1" />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={openReadinessForm}
+              className="text-blue-600 border-blue-200 hover:bg-blue-50"
+            >
+              <ClipboardCheck className="w-4 h-4 mr-2" />
+              Readiness
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={openRiskCaptureForm}
+              className="text-orange-600 border-orange-200 hover:bg-orange-50"
+            >
+              <Shield className="w-4 h-4 mr-2" />
+              Risk Assessment
+            </Button>
           </div>
 
-          {/* Mobile Dropdown Menu */}
+          {/* Tablet Actions */}
+          <div className="hidden sm:flex lg:hidden items-center gap-2">
+            <Link to={`/projects/${project.id}/edit`}>
+              <Button variant="outline" size="sm">
+                <Edit className="w-4 h-4 mr-2" />
+                Edit
+              </Button>
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <MoreHorizontal className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem asChild>
+                  <Link to={`/projects/${project.id}/timeline`}>
+                    <GitBranch className="w-4 h-4 mr-2" />
+                    Timeline
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={openReadinessForm}>
+                  <ClipboardCheck className="w-4 h-4 mr-2" />
+                  Project Readiness
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={openRiskCaptureForm}>
+                  <Shield className="w-4 h-4 mr-2" />
+                  Risk Assessment
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={generateReport}>
+                  <FileText className="w-4 h-4 mr-2" />
+                  Generate Report
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          {/* Mobile Actions */}
           <div className="sm:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -285,6 +347,19 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <GitBranch className="w-4 h-4 mr-2" />
                     Timeline
                   </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={openReadinessForm}>
+                  <ClipboardCheck className="w-4 h-4 mr-2" />
+                  Project Readiness
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={openRiskCaptureForm}>
+                  <Shield className="w-4 h-4 mr-2" />
+                  Risk Assessment
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={generateReport}>
+                  <FileText className="w-4 h-4 mr-2" />
+                  Generate Report
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
