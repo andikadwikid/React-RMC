@@ -414,6 +414,16 @@ export default function VerifierDashboard() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Initialize chart once loading is complete
+  useEffect(() => {
+    if (!isLoading && chartRef.current) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        updateChart(selectedPeriod);
+      }, 100);
+    }
+  }, [isLoading]);
+
   const handlePeriodChange = (period: DataPeriod) => {
     setSelectedPeriod(period);
     setAutoSelected(false);
