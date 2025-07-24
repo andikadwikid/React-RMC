@@ -4,12 +4,11 @@ import { Search } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useEffect } from "react";
 
-interface SearchBarProps {
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
+import type { SearchBarProps } from "@/types";
+
+// Extended props for this implementation
+interface ExtendedSearchBarProps extends SearchBarProps {
   delay?: number;
-  className?: string;
 }
 
 export function SearchBar({
