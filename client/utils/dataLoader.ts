@@ -96,7 +96,41 @@ export const loadProjectCategoriesData = () => {
 
 // Helper function to get a single project by ID
 export const getProjectById = (projectId: string) => {
-  return projectDetailsData.projectDetails[projectId] || null;
+  // First try to find in projects.json (which has the updated structure)
+  const projectFromList = projectsData.projects.find(project => project.id === projectId);
+
+  if (projectFromList) {
+    // Look for additional details in project-details.json using old ID mapping
+    const oldProjectId = getOldProjectId(projectId);
+    const additionalDetails = oldProjectId ? projectDetailsData.projectDetails[oldProjectId] : null;
+
+    // Merge data if additional details exist
+    if (additionalDetails) {
+      return {
+        ...projectFromList,
+        ...additionalDetails,
+        // Ensure UUID takes precedence over old ID
+        id: projectFromList.id
+      };
+    }
+
+    return projectFromList;
+  }
+
+  return null;
+};
+
+// Helper function to map new UUID to old project ID for backwards compatibility
+const getOldProjectId = (newId: string): string | null => {
+  const mapping: Record<string, string> = {
+    "550e8400-e29b-41d4-a716-446655440001": "PRJ-001",
+    "550e8400-e29b-41d4-a716-446655440002": "PRJ-002",
+    "550e8400-e29b-41d4-a716-446655440003": "PRJ-003",
+    "550e8400-e29b-41d4-a716-446655440004": "PRJ-004",
+    "550e8400-e29b-41d4-a716-446655440005": "PRJ-005",
+    "550e8400-e29b-41d4-a716-446655440006": "PRJ-006"
+  };
+  return mapping[newId] || null;
 };
 
 // Helper function to get all projects list
