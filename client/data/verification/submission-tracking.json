@@ -91,7 +91,60 @@
       },
       "notes": "Integration risks need additional controls",
       "createdAt": "2024-01-22T11:15:00Z",
-      "risks": []
+      "risks": [
+        {
+          "id": "risk-001",
+          "sasaran": "Keamanan Data",
+          "kode": "IT-SEC-001",
+          "taksonomi": "Teknologi Informasi",
+          "peristiwaRisiko": "Kebocoran data pelanggan saat integrasi sistem",
+          "sumberRisiko": "Proses integrasi yang tidak aman",
+          "dampakKualitatif": "Kehilangan kepercayaan pelanggan dan reputasi perusahaan",
+          "dampakKuantitatif": "Kerugian finansial hingga 500 juta rupiah",
+          "kontrolEksisting": "Enkripsi data, access control, monitoring log",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "verifierComment": "",
+          "verifierName": "",
+          "verifiedAt": "",
+          "isVerified": false,
+          "createdAt": "2024-01-22T11:15:00Z"
+        },
+        {
+          "id": "risk-002",
+          "sasaran": "Operasional Sistem",
+          "kode": "IT-OP-001",
+          "taksonomi": "Operasional",
+          "peristiwaRisiko": "Downtime sistem saat migrasi data",
+          "sumberRisiko": "Proses migrasi yang kompleks",
+          "dampakKualitatif": "Gangguan operasional bisnis selama 2-4 jam",
+          "dampakKuantitatif": "Kerugian produktivitas 50 juta rupiah",
+          "kontrolEksisting": "Backup system, rollback plan, testing environment",
+          "risikoAwal": {
+            "kejadian": 4,
+            "dampak": 3,
+            "level": 12
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "verifierComment": "",
+          "verifierName": "",
+          "verifiedAt": "",
+          "isVerified": false,
+          "createdAt": "2024-01-22T11:15:00Z"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655443002",
