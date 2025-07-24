@@ -2,20 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, ChevronDown, TrendingUp } from "lucide-react";
-
-interface Period {
-  id: string;
-  label: string;
-  type: "yearly" | "quarterly";
-  isComplete: boolean;
-}
-
-interface PeriodSelectorProps<T extends Period> {
-  periods: T[];
-  selectedPeriod: T;
-  onPeriodChange: (period: T) => void;
-  className?: string;
-}
+import type { Period, PeriodSelectorProps } from "@/types";
 
 export function PeriodSelector<T extends Period>({
   periods,
