@@ -480,6 +480,7 @@ export default function RiskCaptureVerification() {
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
             getRiskLevelSummary={getRiskLevelSummary}
+            isLoading={isLoading}
           />
         </TabsContent>
 
@@ -490,6 +491,7 @@ export default function RiskCaptureVerification() {
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
             getRiskLevelSummary={getRiskLevelSummary}
+            isLoading={isLoading}
           />
         </TabsContent>
 
@@ -500,6 +502,7 @@ export default function RiskCaptureVerification() {
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
             getRiskLevelSummary={getRiskLevelSummary}
+            isLoading={isLoading}
           />
         </TabsContent>
 
@@ -510,6 +513,7 @@ export default function RiskCaptureVerification() {
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
             getRiskLevelSummary={getRiskLevelSummary}
+            isLoading={isLoading}
           />
         </TabsContent>
 
@@ -520,6 +524,7 @@ export default function RiskCaptureVerification() {
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
             getRiskLevelSummary={getRiskLevelSummary}
+            isLoading={isLoading}
           />
         </TabsContent>
       </Tabs>
