@@ -282,7 +282,34 @@
       },
       "notes": "Initial submission awaiting assignment",
       "createdAt": "2024-01-28T08:30:00Z",
-      "risks": []
+      "risks": [
+        {
+          "id": "risk-005",
+          "sasaran": "Integrasi CRM",
+          "kode": "CRM-INT-001",
+          "taksonomi": "Operasional",
+          "peristiwaRisiko": "Kehilangan data customer saat migrasi CRM",
+          "sumberRisiko": "Proses migrasi yang tidak terstandar",
+          "dampakKualitatif": "Kehilangan history customer dan sales pipeline",
+          "dampakKuantitatif": "Kerugian opportunity 100 juta rupiah",
+          "kontrolEksisting": "Data backup, staged migration, validation script",
+          "risikoAwal": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 2,
+            "level": 2
+          },
+          "verifierComment": "",
+          "verifierName": "",
+          "verifiedAt": "",
+          "isVerified": false,
+          "createdAt": "2024-01-28T08:30:00Z"
+        }
+      ]
     }
   ]
 }
