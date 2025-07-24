@@ -839,40 +839,45 @@ export default function VerifierDashboard() {
       </Card>
 
       {/* Tab Navigation */}
-      <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
-        <button
-          onClick={() => setActiveTab("overview")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-            activeTab === "overview"
-              ? "bg-white text-gray-900 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          <Target className="w-4 h-4 inline mr-2" />
-          Overview
-        </button>
-        <button
-          onClick={() => setActiveTab("activities")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-            activeTab === "activities"
-              ? "bg-white text-gray-900 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          <Clock className="w-4 h-4 inline mr-2" />
-          Aktivitas Terbaru
-        </button>
-        <button
-          onClick={() => setActiveTab("pending")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-            activeTab === "pending"
-              ? "bg-white text-gray-900 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          <AlertTriangle className="w-4 h-4 inline mr-2" />
-          Pending ({pendingAssignments.length})
-        </button>
+      <div className="overflow-x-auto">
+        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit min-w-full sm:min-w-0">
+          <button
+            onClick={() => setActiveTab("overview")}
+            className={`px-3 lg:px-4 py-2 rounded-md text-xs lg:text-sm font-medium transition-colors whitespace-nowrap ${
+              activeTab === "overview"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <Target className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1 lg:mr-2" />
+            <span className="hidden sm:inline">Overview</span>
+            <span className="sm:hidden">Info</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("activities")}
+            className={`px-3 lg:px-4 py-2 rounded-md text-xs lg:text-sm font-medium transition-colors whitespace-nowrap ${
+              activeTab === "activities"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <Clock className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1 lg:mr-2" />
+            <span className="hidden sm:inline">Aktivitas Terbaru</span>
+            <span className="sm:hidden">Activity</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("pending")}
+            className={`px-3 lg:px-4 py-2 rounded-md text-xs lg:text-sm font-medium transition-colors whitespace-nowrap ${
+              activeTab === "pending"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <AlertTriangle className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1 lg:mr-2" />
+            <span className="hidden sm:inline">Pending ({pendingAssignments.length})</span>
+            <span className="sm:hidden">Pending</span>
+          </button>
+        </div>
       </div>
 
       {/* Tab Content */}
