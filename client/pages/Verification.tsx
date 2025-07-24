@@ -322,7 +322,7 @@ export default function Verification() {
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
               {
-                mockReadinessSubmissions.filter((s) => s.status === "verified")
+                getReadinessSubmissions().filter((s) => s.status === "verified")
                   .length
               }
             </div>
