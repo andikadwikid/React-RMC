@@ -31,6 +31,7 @@ import {
   Calendar,
   AlertTriangle,
 } from "lucide-react";
+import { getReadinessTemplate, getProjectReadiness } from "@/utils/dataLoader";
 
 type ReadinessStatus = "lengkap" | "parsial" | "tidak-tersedia";
 
@@ -60,106 +61,37 @@ interface ProjectReadinessFormProps {
   onSave: (data: ReadinessCategory[]) => void;
 }
 
-const defaultReadinessData: ReadinessCategory[] = [
-  {
-    id: "administrative",
-    title: "Dokumen Administratif Lengkap",
-    icon: FileText,
-    items: [
-      {
-        id: "contract",
-        title: "Kontrak atau PO dari user",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "handover",
-        title: "BA serah terima awal (jika ada)",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "schedule",
-        title: "Jadwal kerja disetujui",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "weekly-plan",
-        title: "Rencana kerja mingguan disampaikan",
-        status: "tidak-tersedia",
-      },
-    ],
-  },
-  {
-    id: "user-data",
-    title: "Data dari User Tersedia",
-    icon: Database,
-    items: [
-      {
-        id: "drawings",
-        title: "Drawing atau layout teknis terkini",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "specifications",
-        title: "Spesifikasi teknis atau SOW rinci",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "location-data",
-        title: "Data lokasi dan akses kerja",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "coordinates",
-        title: "Informasi titik koordinat (jika applicable)",
-        status: "tidak-tersedia",
-      },
-    ],
-  },
-  {
-    id: "personnel",
-    title: "Personel Proyek Siap",
-    icon: Users,
-    items: [
-      {
-        id: "personnel-list",
-        title: "Daftar personel dan penanggung jawab teknis",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "certifications",
-        title: "Sertifikasi yang relevan (jika dibutuhkan)",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "hr-approval",
-        title: "Approval SDM internal/outsourcing",
-        status: "tidak-tersedia",
-      },
-    ],
-  },
-  {
-    id: "legal-financial",
-    title: "Legal & Finansial",
-    icon: DollarSign,
-    items: [
-      {
-        id: "erp-tagging",
-        title: "Proses tagging ke ERP proyek",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "contract-number",
-        title: "No. kontrak dan cost center disiapkan",
-        status: "tidak-tersedia",
-      },
-      {
-        id: "payment-scheme",
-        title: "Verifikasi skema pembayaran dan milestone",
-        status: "tidak-tersedia",
-      },
-    ],
-  },
-];
+// Icon mapping for JSON data
+const iconMap = {
+  FileText,
+  Database,
+  Users,
+  DollarSign,
+};
+
+const getDefaultReadinessData = (): ReadinessCategory[] => {
+  const template = getReadinessTemplate();
+  return template.categories.map(category => ({
+    ...category,
+    icon: iconMap[category.icon as keyof typeof iconMap],
+    items: category.items.map(item => ({
+      ...item,
+      status: "tidak-tersedia" as ReadinessStatus
+    }))
+  }));
+};
+
+const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
+  const existingData = getProjectReadiness(projectId);
+  if (!existingData) {
+    return getDefaultReadinessData();
+  }
+
+  return existingData.categories.map(category => ({
+    ...category,
+    icon: iconMap[category.icon as keyof typeof iconMap]
+  }));
+};
 
 const getStatusBadge = (status: ReadinessStatus) => {
   switch (status) {
@@ -223,7 +155,7 @@ export function ProjectReadinessForm({
   onSave,
 }: ProjectReadinessFormProps) {
   const [readinessData, setReadinessData] =
-    useState<ReadinessCategory[]>(defaultReadinessData);
+    useState<ReadinessCategory[]>(() => loadExistingReadinessData(projectId));
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateItemStatus = (
