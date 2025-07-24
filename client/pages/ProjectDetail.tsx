@@ -386,10 +386,10 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <div className="flex items-center gap-2 text-sm">
                     <Mail className="w-4 h-4 text-gray-400" />
                     <a
-                      href={`mailto:${project.clientEmail}`}
+                      href={`mailto:${project.client_email || project.clientEmail}`}
                       className="text-blue-600 hover:underline"
                     >
-                      {project.clientEmail}
+                      {project.client_email || project.clientEmail}
                     </a>
                   </div>
                   {project.clientPhone && (
