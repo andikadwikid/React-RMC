@@ -593,15 +593,15 @@ export default function VerifierDashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-gray-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div className="text-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <div className="text-xl lg:text-2xl font-bold text-gray-800">
                   {verificationStats.readiness.total}
                 </div>
                 <div className="text-sm text-gray-600">Total Submissions</div>
               </div>
-              <div className="text-center p-3 bg-green-50 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">
+              <div className="text-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                <div className="text-xl lg:text-2xl font-bold text-green-600">
                   {verificationStats.readiness.totalItems}
                 </div>
                 <div className="text-sm text-gray-600">Total Items</div>
