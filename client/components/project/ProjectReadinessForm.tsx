@@ -32,8 +32,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { getReadinessTemplate, getProjectReadiness } from "@/utils/dataLoader";
-
-type ReadinessStatus = "lengkap" | "parsial" | "tidak-tersedia";
+import type { ReadinessStatus } from "@/types";
 
 interface ReadinessItem {
   id: string;
@@ -53,13 +52,7 @@ interface ReadinessCategory {
   items: ReadinessItem[];
 }
 
-interface ProjectReadinessFormProps {
-  isOpen: boolean;
-  onClose: () => void;
-  projectId: string;
-  projectName: string;
-  onSave: (data: ReadinessCategory[]) => void;
-}
+import type { ProjectReadinessFormProps } from "@/types";
 
 // Icon mapping for JSON data
 const iconMap = {
