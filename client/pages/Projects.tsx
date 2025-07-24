@@ -494,26 +494,6 @@ export default function Projects() {
                     <TableCell>{getVerificationStatus(project.id)}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          title="Lengkapi Data Readiness"
-                          onClick={() =>
-                            openReadinessForm(project.id, project.name)
-                          }
-                        >
-                          <ClipboardCheck className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          title="Risk Capture Assessment"
-                          onClick={() =>
-                            openRiskCaptureForm(project.id, project.name)
-                          }
-                        >
-                          <Shield className="w-4 h-4" />
-                        </Button>
                         <Link to={`/projects/${project.id}/timeline`}>
                           <Button
                             variant="ghost"
