@@ -335,67 +335,75 @@ export default function VerifierDashboard() {
   const [isLoading, setIsLoading] = useState(true);
 
   const updateChart = (dataPeriod: DataPeriod) => {
-    if (chartRef.current) {
-      Highcharts.chart(chartRef.current, {
-        chart: {
-          type: "column",
-          height: window.innerWidth < 768 ? 250 : 300,
-          backgroundColor: "transparent",
-        },
-        title: {
-          text: "",
-        },
-        xAxis: {
-          categories: dataPeriod.data.map((stat) =>
-            dataPeriod.type === "yearly"
-              ? stat.period.split(" ")[0]
-              : stat.period,
-          ),
-          crosshair: true,
-        },
-        yAxis: {
-          min: 0,
+    if (chartRef.current && typeof Highcharts !== 'undefined') {
+      try {
+        Highcharts.chart(chartRef.current, {
+          chart: {
+            type: "column",
+            height: window.innerWidth < 768 ? 250 : 300,
+            backgroundColor: "transparent",
+          },
           title: {
-            text: "Jumlah Verifikasi",
+            text: "",
           },
-        },
-        tooltip: {
-          headerFormat:
-            '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
-          footerFormat: "</table>",
-          shared: true,
-          useHTML: true,
-        },
-        plotOptions: {
-          column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
+          xAxis: {
+            categories: dataPeriod.data.map((stat) =>
+              dataPeriod.type === "yearly"
+                ? stat.period.split(" ")[0]
+                : stat.period,
+            ),
+            crosshair: true,
           },
-        },
-        series: [
-          {
-            name: "Verified",
-            data: dataPeriod.data.map((stat) => stat.verified),
-            color: "#10b981",
+          yAxis: {
+            min: 0,
+            title: {
+              text: "Jumlah Verifikasi",
+            },
           },
-          {
-            name: "Revised",
-            data: dataPeriod.data.map((stat) => stat.revised),
-            color: "#ef4444",
+          tooltip: {
+            headerFormat:
+              '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat:
+              '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+              '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: "</table>",
+            shared: true,
+            useHTML: true,
           },
-        ],
-        credits: {
-          enabled: false,
-        },
-        legend: {
-          align: "center",
-          verticalAlign: "bottom",
-          layout: "horizontal",
-        },
-      });
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0,
+            },
+          },
+          series: [
+            {
+              name: "Verified",
+              data: dataPeriod.data.map((stat) => stat.verified),
+              color: "#10b981",
+            },
+            {
+              name: "Revised",
+              data: dataPeriod.data.map((stat) => stat.revised),
+              color: "#ef4444",
+            },
+          ],
+          credits: {
+            enabled: false,
+          },
+          legend: {
+            align: "center",
+            verticalAlign: "bottom",
+            layout: "horizontal",
+          },
+        });
+      } catch (error) {
+        console.error('Error creating chart:', error);
+        // Fallback: show message instead of chart
+        if (chartRef.current) {
+          chartRef.current.innerHTML = '<div class="text-center py-8 text-gray-500">Chart gagal dimuat</div>';
+        }
+      }
     }
   };
 
