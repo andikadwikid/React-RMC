@@ -17,12 +17,12 @@ import {
 } from "lucide-react";
 import type { RiskCapture } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
-import { loadProjectRiskCaptureData } from "@/utils/dataLoader";
+import { loadSubmissionTracking } from "@/utils/dataLoader";
 
 // Load risk capture submissions from JSON data
 const getRiskCaptureSubmissions = (): RiskCapture[] => {
-  const riskCaptureData = loadProjectRiskCaptureData();
-  return riskCaptureData.risk_captures || [];
+  const submissionData = loadSubmissionTracking();
+  return submissionData.risk_capture_submissions || [];
 };
 
 const STATUS_CONFIG = {
