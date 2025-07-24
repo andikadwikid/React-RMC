@@ -184,6 +184,86 @@ Contains project categories and provinces for form dropdowns.
 }
 ```
 
+### `project-readiness.json`
+Contains project readiness assessment data and templates.
+
+**Structure:**
+```json
+{
+  "readinessTemplate": {
+    "categories": [
+      {
+        "id": "administrative",
+        "title": "Dokumen Administratif Lengkap",
+        "icon": "FileText",
+        "items": [
+          {
+            "id": "contract",
+            "title": "Kontrak atau PO dari user"
+          }
+        ]
+      }
+    ]
+  },
+  "projectReadiness": {
+    "PRJ-001": {
+      "id": "readiness-001",
+      "projectId": "PRJ-001",
+      "submittedBy": "Budi Santoso",
+      "status": "submitted",
+      "completionPercentage": 65,
+      "categories": [
+        {
+          "id": "administrative",
+          "items": [
+            {
+              "id": "contract",
+              "status": "lengkap",
+              "userComment": "Kontrak sudah ditandatangani"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+```
+
+### `risk-capture.json`
+Contains risk capture assessment data for projects.
+
+**Structure:**
+```json
+{
+  "riskCapture": {
+    "PRJ-001": {
+      "id": "risk-capture-001",
+      "projectId": "PRJ-001",
+      "submittedBy": "Budi Santoso",
+      "status": "submitted",
+      "totalRisks": 8,
+      "riskLevelDistribution": {
+        "sangatRendah": 2,
+        "rendah": 3,
+        "sedang": 2,
+        "tinggi": 1,
+        "sangatTinggi": 0
+      },
+      "risks": [
+        {
+          "id": "risk-001-1",
+          "sasaran": "Keamanan Data",
+          "kode": "RSK-ERP-001",
+          "peristiwaRisiko": "Kehilangan data customer",
+          "risikoAwal": { "kejadian": 3, "dampak": 4, "level": 12 },
+          "resikoAkhir": { "kejadian": 2, "dampak": 3, "level": 6 }
+        }
+      ]
+    }
+  }
+}
+```
+
 ## Usage
 
 Data is loaded through the `dataLoader.ts` utility which imports these JSON files and processes them for use in dashboard and project components. The data loader handles:
@@ -208,8 +288,19 @@ To add new projects or modify existing project data:
 
 1. **For new projects**: Add to both `projects.json` (list view) and `project-details.json` (detail view)
 2. **For new categories/provinces**: Update `project-categories.json`
-3. Ensure all project IDs are consistent between files
-4. The project pages will automatically reflect the changes
+3. **For readiness data**: Add/update in `project-readiness.json`
+4. **For risk capture data**: Add/update in `risk-capture.json`
+5. Ensure all project IDs are consistent between files
+6. The project pages will automatically reflect the changes
+
+### Readiness & Risk Capture Data
+To manage readiness and risk capture assessments:
+
+1. **Readiness template**: Modify `readinessTemplate` section to change assessment categories
+2. **Project readiness**: Add entries in `projectReadiness` section keyed by project ID
+3. **Risk capture**: Add entries in `riskCapture` section keyed by project ID
+4. Status calculations are automatically handled by the data loader
+5. Verification status and comments are stored in the JSON for persistence
 
 ## Icons
 
@@ -223,6 +314,12 @@ The data loader provides several helper functions:
 - `getAllProjects()` - Get all projects for the list view
 - `getProjectById(id)` - Get detailed project data by ID
 - `loadProjectCategoriesData()` - Get categories and provinces for forms
+- `getProjectsWithStatus()` - Get projects with synchronized readiness and risk capture status
+- `getProjectReadiness(id)` - Get readiness assessment data for a project
+- `getProjectRiskCapture(id)` - Get risk capture data for a project
+- `getReadinessTemplate()` - Get the readiness assessment template
+- `getProjectReadinessStatus(id)` - Get calculated readiness status and score
+- `getProjectRiskCaptureStatus(id)` - Get calculated risk capture status and score
 
 ## Benefits of This Structure
 
@@ -232,4 +329,7 @@ The data loader provides several helper functions:
 - **Performance**: Static imports allow for efficient bundling
 - **Type Safety**: Full TypeScript support with interface validation
 - **Consistency**: Single source of truth for project data across all components
-- **Modularity**: Separate files for different data concerns (list vs details vs metadata)
+- **Modularity**: Separate files for different data concerns (list vs details vs metadata vs assessments)
+- **Synchronization**: Readiness and risk capture data automatically synchronized with project status
+- **Assessment Templates**: Reusable templates for consistent readiness assessments
+- **Status Calculation**: Automatic calculation of readiness and risk scores from assessment data
