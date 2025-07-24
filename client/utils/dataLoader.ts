@@ -1,15 +1,15 @@
 // Data loader utility for dashboard and project JSON files
-import performanceData from "../data/performance.json";
+import performanceData from "../data/dashboard/performance.json";
 import riskCategoriesData from "../data/risk-categories.json";
-import geographicData from "../data/geographic.json";
-import dashboardRiskCaptureData from "../data/dashboard-risk-capture.json";
-import invoiceStatusData from "../data/invoice-status.json";
-import agingReceivablesData from "../data/aging-receivables.json";
-import projectsData from "../data/projects.json";
-import projectDetailsData from "../data/project-details.json";
-import projectCategoriesData from "../data/project-categories.json";
-import projectReadinessData from "../data/project-readiness.json";
-import projectRiskCaptureData from "../data/project-risk-capture.json";
+import geographicData from "../data/dashboard/geographic.json";
+import dashboardRiskCaptureData from "../data/dashboard/dashboard-risk-capture.json";
+import invoiceStatusData from "../data/dashboard/invoice-status.json";
+import agingReceivablesData from "../data/dashboard/aging-receivables.json";
+import projectsData from "../data/project/projects.json";
+import projectDetailsData from "../data/project/project-details.json";
+import projectCategoriesData from "../data/project/project-categories.json";
+import projectReadinessData from "../data/project/project-readiness.json";
+import projectRiskCaptureData from "../data/project/project-risk-capture.json";
 import {
   Target,
   Building,
