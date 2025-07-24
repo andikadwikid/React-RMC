@@ -581,13 +581,18 @@ const RiskDetailModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-3">
-            <Shield className="h-6 w-6 text-blue-600" />
-            Detail Risiko: [{riskItem.kode}] {riskItem.sasaran}
+      <DialogContent className="max-w-[95vw] lg:max-w-4xl max-h-[95vh] overflow-y-auto p-4 lg:p-6">
+        <DialogHeader className="space-y-2">
+          <DialogTitle className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-lg lg:text-xl">
+            <div className="flex items-center gap-2">
+              <Shield className="h-5 w-5 lg:h-6 lg:w-6 text-blue-600 flex-shrink-0" />
+              <span className="break-words">Detail Risiko: [{riskItem.kode}]</span>
+            </div>
+            <span className="text-base lg:text-lg font-normal text-gray-700 break-words">
+              {riskItem.sasaran}
+            </span>
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-sm lg:text-base">
             Informasi lengkap mengenai risiko dan kontrol mitigasi
           </DialogDescription>
         </DialogHeader>
