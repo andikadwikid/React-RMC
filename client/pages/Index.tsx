@@ -1005,42 +1005,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Quick Actions - Row 7 */}
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Button className="h-20 flex flex-col items-center justify-center gap-2">
-                <AlertTriangle className="h-6 w-6" />
-                <span>Laporan Risiko</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-20 flex flex-col items-center justify-center gap-2"
-              >
-                <FileText className="h-6 w-6" />
-                <span>Generate Invoice</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-20 flex flex-col items-center justify-center gap-2"
-              >
-                <BarChart3 className="h-6 w-6" />
-                <span>Analytics</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-20 flex flex-col items-center justify-center gap-2"
-              >
-                <Users className="h-6 w-6" />
-                <span>Manage Users</span>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Risk Category Detail Dialog */}
         <RiskCategoryDetailDialog
           isOpen={isRiskDialogOpen}
