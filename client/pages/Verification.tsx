@@ -273,7 +273,7 @@ export default function Verification() {
   };
 
   const getPendingCount = () => {
-    return mockReadinessSubmissions.filter((s) => s.status === "submitted")
+    return getReadinessSubmissions().filter((s) => s.status === "submitted")
       .length;
   };
 
