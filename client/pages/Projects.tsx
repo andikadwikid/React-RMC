@@ -401,7 +401,7 @@ export default function Projects() {
                   <TableHead className="min-w-[120px] lg:min-w-[140px] hidden lg:table-cell">
                     Verifikasi
                   </TableHead>
-                  <TableHead className="min-w-[100px] lg:min-w-[120px]">
+                  <TableHead className="min-w-[60px] sm:min-w-[100px] lg:min-w-[120px]">
                     Actions
                   </TableHead>
                 </TableRow>
