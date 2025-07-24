@@ -1,0 +1,114 @@
+{
+  "clients": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447001",
+      "name": "PT. Teknologi Maju",
+      "email": "contact@teknologimaju.com",
+      "phone": "+62 21 1234 5678",
+      "address": "Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta",
+      "contact_person": "Andi Wirawan",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447002",
+      "name": "Bank Digital Nusantara",
+      "email": "tech@bankdigitalnusantara.co.id",
+      "phone": "+62 21 9876 5432",
+      "address": "Jl. Thamrin No. 456, Jakarta Pusat, DKI Jakarta",
+      "contact_person": "Maya Sari",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447003",
+      "name": "PT. Data Insights",
+      "email": "info@datainsights.co.id",
+      "phone": "+62 21 5555 1234",
+      "address": "Jl. Gatot Subroto No. 789, Jakarta Selatan, DKI Jakarta",
+      "contact_person": "Ridwan Pratama",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447004",
+      "name": "Toko Online Sejahtera",
+      "email": "admin@tokoonlinesejahtera.com",
+      "phone": "+62 21 7777 8888",
+      "address": "Jl. Kemang Raya No. 321, Jakarta Selatan, DKI Jakarta",
+      "contact_person": "Linda Permatasari",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447005",
+      "name": "PT. Sumber Daya Prima",
+      "email": "hr@sumberdayaprima.co.id",
+      "phone": "+62 21 4444 5555",
+      "address": "Jl. Kuningan No. 654, Jakarta Selatan, DKI Jakarta",
+      "contact_person": "Bambang Sutrisno",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447006",
+      "name": "PT. Logistik Global",
+      "email": "ops@logistikglobal.com",
+      "phone": "+62 21 6666 7777",
+      "address": "Jl. Rasuna Said No. 987, Jakarta Selatan, DKI Jakarta",
+      "contact_person": "Siti Nurhayati",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447007",
+      "name": "PT. Inovasi Digital",
+      "email": "contact@inovasidigital.com",
+      "phone": "+62 21 3333 4444",
+      "address": "Jl. Casablanca No. 111, Jakarta Selatan, DKI Jakarta",
+      "contact_person": "Agus Setiawan",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447008",
+      "name": "CV. Mitra Sejahtera",
+      "email": "info@mitrasejahtera.co.id",
+      "phone": "+62 21 2222 3333",
+      "address": "Jl. Senayan No. 222, Jakarta Pusat, DKI Jakarta",
+      "contact_person": "Putri Maharani",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447009",
+      "name": "PT. Solusi Teknologi",
+      "email": "support@solusiteknologi.com",
+      "phone": "+62 21 8888 9999",
+      "address": "Jl. Menteng No. 333, Jakarta Pusat, DKI Jakarta",
+      "contact_person": "Eko Prasetyo",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655447010",
+      "name": "PT. Berkah Mandiri",
+      "email": "admin@berkahmandiri.co.id",
+      "phone": "+62 21 1111 2222",
+      "address": "Jl. Pancoran No. 444, Jakarta Selatan, DKI Jakarta",
+      "contact_person": "Dian Kusumawati",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
