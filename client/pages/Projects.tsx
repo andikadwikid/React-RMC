@@ -363,117 +363,160 @@ export default function Projects() {
 
       {/* Projects Table */}
       <Card>
-        <CardHeader>
-          <CardTitle>Daftar Project ({filteredProjects.length})</CardTitle>
+        <CardHeader className="pb-3 lg:pb-6">
+          <CardTitle className="text-base lg:text-lg">
+            Daftar Project ({filteredProjects.length})
+          </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="min-w-[800px]">
               <TableHeader>
-                <TableRow>
-                  <TableHead>Project</TableHead>
-                  <TableHead>Client</TableHead>
-                  <TableHead>Progress</TableHead>
-                  <TableHead>Budget</TableHead>
-                  <TableHead>Timeline</TableHead>
-                  <TableHead>Readiness</TableHead>
-                  <TableHead>Risk Capture</TableHead>
-                  <TableHead>Verifikasi</TableHead>
-                  <TableHead>Actions</TableHead>
+                <TableRow className="bg-gray-50">
+                  <TableHead className="min-w-[200px] lg:min-w-[250px]">Project</TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[150px]">Client</TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px]">Progress</TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px]">Budget</TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px] hidden sm:table-cell">Timeline</TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px] hidden md:table-cell">Readiness</TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px] hidden md:table-cell">Risk Capture</TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px] hidden lg:table-cell">Verifikasi</TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredProjects.map((project) => (
-                  <TableRow key={project.id}>
-                    <TableCell>
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          {project.name}
+                {filteredProjects.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={9} className="text-center py-8">
+                      <div className="flex flex-col items-center gap-2">
+                        <Search className="w-8 h-8 text-gray-400" />
+                        <p className="text-gray-500 text-sm lg:text-base">
+                          {searchTerm || statusFilter !== "all" || riskFilter !== "all"
+                            ? "Tidak ada project yang ditemukan dengan filter yang dipilih"
+                            : "Belum ada project yang terdaftar"}
                         </p>
-                        <p className="text-sm text-gray-500">{project.id}</p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <p className="text-sm text-gray-900">{project.client}</p>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <div className="w-16 bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-blue-600 h-2 rounded-full"
-                            style={{ width: `${project.progress}%` }}
-                          ></div>
-                        </div>
-                        <span className="text-sm text-gray-600">
-                          {project.progress}%
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="text-sm">
-                        <p className="font-medium">
-                          {formatCurrency(project.budget)}
-                        </p>
-                        <p className="text-gray-500">
-                          Spent: {formatCurrency(project.spent)}
-                        </p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="text-sm">
-                        <p>
-                          {new Date(project.startDate).toLocaleDateString(
-                            "id-ID",
-                          )}
-                        </p>
-                        <p className="text-gray-500">
-                          →{" "}
-                          {new Date(project.endDate).toLocaleDateString(
-                            "id-ID",
-                          )}
-                        </p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      {getReadinessBadge(
-                        project.readinessStatus,
-                        project.readinessScore,
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {getRiskCaptureBadge(
-                        project.riskCaptureStatus,
-                        project.riskCaptureScore,
-                      )}
-                    </TableCell>
-                    <TableCell>{getVerificationStatus(project.id)}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Link to={`/projects/${project.id}/timeline`}>
+                        {(searchTerm || statusFilter !== "all" || riskFilter !== "all") && (
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             size="sm"
-                            title="View Timeline"
+                            onClick={() => {
+                              setSearchTerm("");
+                              setStatusFilter("all");
+                              setRiskFilter("all");
+                            }}
                           >
-                            <GitBranch className="w-4 h-4" />
+                            Reset Filter
                           </Button>
-                        </Link>
-                        <Link to={`/projects/${project.id}`}>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            title="View Details"
-                          >
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                        </Link>
-                        <Button variant="ghost" size="sm">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
+                        )}
                       </div>
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : (
+                  filteredProjects.map((project) => (
+                    <TableRow key={project.id} className="hover:bg-gray-50">
+                      <TableCell>
+                        <div>
+                          <p className="font-medium text-sm lg:text-base text-gray-900 break-words">
+                            {project.name}
+                          </p>
+                          <p className="text-xs lg:text-sm text-gray-500">{project.id}</p>
+                          {/* Show client on mobile when client column is hidden */}
+                          <p className="text-xs text-gray-600 mt-1 sm:hidden">
+                            Client: {project.client}
+                          </p>
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <p className="text-xs lg:text-sm text-gray-900 break-words">{project.client}</p>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="w-12 lg:w-16 bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-blue-600 h-2 rounded-full"
+                              style={{ width: `${project.progress}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-xs lg:text-sm text-gray-600 whitespace-nowrap">
+                            {project.progress}%
+                          </span>
+                        </div>
+                        {getStatusBadge(project.progress)}
+                      </TableCell>
+                      <TableCell>
+                        <div className="text-xs lg:text-sm">
+                          <p className="font-medium break-words">
+                            {formatCurrency(project.budget)}
+                          </p>
+                          <p className="text-gray-500 break-words">
+                            Spent: {formatCurrency(project.spent)}
+                          </p>
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <div className="text-xs lg:text-sm">
+                          <p className="whitespace-nowrap">
+                            {new Date(project.startDate).toLocaleDateString(
+                              "id-ID",
+                            )}
+                          </p>
+                          <p className="text-gray-500 whitespace-nowrap">
+                            →{" "}
+                            {new Date(project.endDate).toLocaleDateString(
+                              "id-ID",
+                            )}
+                          </p>
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {getReadinessBadge(
+                          project.readinessStatus,
+                          project.readinessScore,
+                        )}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {getRiskCaptureBadge(
+                          project.riskCaptureStatus,
+                          project.riskCaptureScore,
+                        )}
+                      </TableCell>
+                      <TableCell className="hidden lg:table-cell">
+                        {getVerificationStatus(project.id)}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1 lg:gap-2">
+                          <Link to={`/projects/${project.id}/timeline`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              title="View Timeline"
+                              className="h-8 w-8 p-0 lg:h-9 lg:w-9"
+                            >
+                              <GitBranch className="w-3 h-3 lg:w-4 lg:h-4" />
+                            </Button>
+                          </Link>
+                          <Link to={`/projects/${project.id}`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              title="View Details"
+                              className="h-8 w-8 p-0 lg:h-9 lg:w-9"
+                            >
+                              <Eye className="w-3 h-3 lg:w-4 lg:h-4" />
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 w-8 p-0 lg:h-9 lg:w-9"
+                          >
+                            <MoreHorizontal className="w-3 h-3 lg:w-4 lg:h-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </div>
