@@ -1,11 +1,7 @@
 import { useState, useCallback } from "react";
 import type { FormState } from "@/types";
 
-interface UseFormOptions<T> {
-  initialData: T;
-  validationRules?: Partial<Record<keyof T, (value: any) => string | null>>;
-  onSubmit?: (data: T) => Promise<void> | void;
-}
+import type { UseFormOptions } from "@/types";
 
 export function useForm<T extends Record<string, any>>({
   initialData,
