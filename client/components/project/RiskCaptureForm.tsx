@@ -298,8 +298,8 @@ export function RiskCaptureForm({
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
+                      <CardContent className="space-y-4 p-3 sm:p-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <Label htmlFor={`sasaran-${risk.id}`}>
                               Sasaran *
@@ -330,7 +330,7 @@ export function RiskCaptureForm({
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <Label htmlFor={`taksonomi-${risk.id}`}>
                               Taksonomi *
@@ -386,7 +386,7 @@ export function RiskCaptureForm({
                           />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <Label htmlFor={`dampakKualitatif-${risk.id}`}>
                               Dampak Kualitatif *
