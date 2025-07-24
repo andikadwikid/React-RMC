@@ -414,17 +414,17 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white relative overflow-hidden">
-            <CardContent className="p-6">
+          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200 sm:col-span-2 lg:col-span-1">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
                     <p className="text-purple-100 text-sm font-medium">
                       Proyek Selesai
                     </p>
                     <Badge
                       variant="secondary"
-                      className="text-xs px-2 py-0.5 bg-purple-200 text-purple-800"
+                      className="text-xs px-2 py-0.5 bg-purple-200 text-purple-800 w-fit"
                     >
                       {Math.round(
                         (projectSummary.completed / projectSummary.total) * 100,
@@ -432,14 +432,14 @@ export default function Dashboard() {
                       %
                     </Badge>
                   </div>
-                  <p className="text-3xl font-bold">
+                  <p className="text-2xl sm:text-3xl font-bold">
                     {projectSummary.completed}
                   </p>
                   <p className="text-purple-200 text-xs mt-1">
                     Completion rate
                   </p>
                 </div>
-                <CheckCircle className="h-12 w-12 text-purple-200" />
+                <CheckCircle className="h-10 w-10 sm:h-12 sm:w-12 text-purple-200 flex-shrink-0" />
               </div>
             </CardContent>
           </Card>
