@@ -396,7 +396,7 @@ export default function Verification() {
             <CheckCircle className="w-4 h-4" />
             Verified (
             {
-              mockReadinessSubmissions.filter((s) => s.status === "verified")
+              getReadinessSubmissions().filter((s) => s.status === "verified")
                 .length
             }
             )
