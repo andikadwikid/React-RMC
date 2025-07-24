@@ -11,7 +11,7 @@ export function FallbackMessage({
   title,
   description,
   show,
-}: FallbackMessageProps) {
+}: ExtendedFallbackMessageProps) {
   if (!show) return null;
 
   return (
