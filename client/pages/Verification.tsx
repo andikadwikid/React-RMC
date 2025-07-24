@@ -340,114 +340,120 @@ export default function Verification() {
         </Card>
       </div>
 
-      {/* Filters */}
+      {/* Search */}
       <Card>
-        <CardHeader>
-          <CardTitle>Filter & Pencarian</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input
-                  placeholder="Cari berdasarkan nama project atau submitter..."
-                  className="pl-10"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="w-full md:w-48">
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Semua Status</SelectItem>
-                  <SelectItem value="submitted">Menunggu Review</SelectItem>
-                  <SelectItem value="under_review">Sedang Direview</SelectItem>
-                  <SelectItem value="verified">Terverifikasi</SelectItem>
-                  <SelectItem value="needs_revision">Perlu Revisi</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+        <CardContent className="p-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Input
+              placeholder="Cari berdasarkan nama project atau submitter..."
+              className="pl-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
         </CardContent>
       </Card>
 
-      {/* Submissions List */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Daftar Submission Readiness</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {filteredSubmissions.length === 0 ? (
-              <div className="text-center py-8">
-                <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500">
-                  Tidak ada submission yang ditemukan
-                </p>
-              </div>
-            ) : (
-              filteredSubmissions.map((submission) => (
-                <div
-                  key={submission.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-gray-900">
-                          {submission.projectName}
-                        </h3>
-                        {getStatusBadge(submission.status)}
-                      </div>
+      {/* Tabs for Status Tracking */}
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="space-y-6"
+      >
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="all" className="flex items-center gap-2">
+            <Shield className="w-4 h-4" />
+            Semua ({mockReadinessSubmissions.length})
+          </TabsTrigger>
+          <TabsTrigger value="submitted" className="flex items-center gap-2">
+            <Clock className="w-4 h-4" />
+            Menunggu (
+            {
+              mockReadinessSubmissions.filter((s) => s.status === "submitted")
+                .length
+            }
+            )
+          </TabsTrigger>
+          <TabsTrigger value="under_review" className="flex items-center gap-2">
+            <Eye className="w-4 h-4" />
+            Review (
+            {
+              mockReadinessSubmissions.filter(
+                (s) => s.status === "under_review",
+              ).length
+            }
+            )
+          </TabsTrigger>
+          <TabsTrigger value="verified" className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4" />
+            Verified (
+            {
+              mockReadinessSubmissions.filter((s) => s.status === "verified")
+                .length
+            }
+            )
+          </TabsTrigger>
+          <TabsTrigger
+            value="needs_revision"
+            className="flex items-center gap-2"
+          >
+            <AlertTriangle className="w-4 h-4" />
+            Revisi (
+            {
+              mockReadinessSubmissions.filter(
+                (s) => s.status === "needs_revision",
+              ).length
+            }
+            )
+          </TabsTrigger>
+        </TabsList>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-                        <div>
-                          <span className="font-medium">Submitter:</span>{" "}
-                          {submission.submittedBy}
-                        </div>
-                        <div>
-                          <span className="font-medium">Tanggal Submit:</span>{" "}
-                          {formatDateTime(submission.submittedAt)}
-                        </div>
-                        {submission.verifierName && (
-                          <div>
-                            <span className="font-medium">Verifier:</span>{" "}
-                            {submission.verifierName}
-                          </div>
-                        )}
-                      </div>
+        {/* Tab Content for All */}
+        <TabsContent value="all">
+          <SubmissionsList
+            submissions={getFilteredSubmissions("all")}
+            onOpenModal={openVerificationModal}
+            getStatusBadge={getStatusBadge}
+          />
+        </TabsContent>
 
-                      {submission.overallComment && (
-                        <div className="mt-2 p-2 bg-gray-100 rounded text-sm">
-                          <span className="font-medium">Komentar:</span>{" "}
-                          {submission.overallComment}
-                        </div>
-                      )}
-                    </div>
+        {/* Tab Content for Submitted */}
+        <TabsContent value="submitted">
+          <SubmissionsList
+            submissions={getFilteredSubmissions("submitted")}
+            onOpenModal={openVerificationModal}
+            getStatusBadge={getStatusBadge}
+          />
+        </TabsContent>
 
-                    <div className="ml-4">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => openVerificationModal(submission)}
-                      >
-                        <Eye className="w-4 h-4 mr-2" />
-                        Review
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </CardContent>
-      </Card>
+        {/* Tab Content for Under Review */}
+        <TabsContent value="under_review">
+          <SubmissionsList
+            submissions={getFilteredSubmissions("under_review")}
+            onOpenModal={openVerificationModal}
+            getStatusBadge={getStatusBadge}
+          />
+        </TabsContent>
+
+        {/* Tab Content for Verified */}
+        <TabsContent value="verified">
+          <SubmissionsList
+            submissions={getFilteredSubmissions("verified")}
+            onOpenModal={openVerificationModal}
+            getStatusBadge={getStatusBadge}
+          />
+        </TabsContent>
+
+        {/* Tab Content for Needs Revision */}
+        <TabsContent value="needs_revision">
+          <SubmissionsList
+            submissions={getFilteredSubmissions("needs_revision")}
+            onOpenModal={openVerificationModal}
+            getStatusBadge={getStatusBadge}
+          />
+        </TabsContent>
+      </Tabs>
 
       {/* Verification Modal */}
       {verificationModal && selectedSubmission && (
