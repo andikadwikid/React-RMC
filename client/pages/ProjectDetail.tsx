@@ -32,93 +32,12 @@ import {
 } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
 import { Project } from "@/types";
+import { getProjectById } from "@/utils/dataLoader";
 import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
 import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
 import { TimelineCard } from "@/components/timeline/TimelineCard";
 
-// Mock data untuk demo - nanti bisa diganti dengan API call
-const mockProjects: Project[] = [
-  {
-    id: "PRJ-001",
-    name: "Sistem ERP Perusahaan",
-    description:
-      "Implementasi sistem ERP untuk mengelola seluruh operasional perusahaan termasuk inventory, HR, finance, dan CRM. Sistem ini akan mengintegrasikan semua departemen dalam satu platform yang unified.",
-    client: "PT. Teknologi Maju",
-    clientEmail: "contact@teknologimaju.com",
-    clientPhone: "+62 21 1234 5678",
-    budget: 2500000000,
-    spent: 1800000000,
-    startDate: "2024-01-15",
-    endDate: "2024-06-30",
-    province: "DKI Jakarta",
-    projectManager: "Budi Santoso",
-    category: "ERP System",
-    progress: 72,
-    lastUpdate: "2024-01-20",
-    createdAt: "2024-01-10",
-    timeline: [
-      {
-        id: "1",
-        title: "Requirements Analysis",
-        description: "Analisis kebutuhan sistem dan business process mapping",
-        startDate: "2024-01-15",
-        endDate: "2024-02-15",
-        createdAt: "2024-01-10",
-      },
-      {
-        id: "2",
-        title: "System Design",
-        description: "Perancangan arsitektur sistem dan database design",
-        startDate: "2024-02-16",
-        endDate: "2024-03-15",
-        createdAt: "2024-01-10",
-      },
-      {
-        id: "3",
-        title: "Development Phase 1",
-        description: "Development module HR dan Finance",
-        startDate: "2024-03-16",
-        endDate: "2024-04-30",
-        createdAt: "2024-01-10",
-      },
-      {
-        id: "4",
-        title: "Testing & QA",
-        description: "Testing komprehensif dan quality assurance",
-        startDate: "2024-05-01",
-        endDate: "2024-05-30",
-        createdAt: "2024-01-10",
-      },
-      {
-        id: "5",
-        title: "Deployment",
-        description: "Deployment ke production dan user training",
-        startDate: "2024-06-01",
-        endDate: "2024-06-30",
-        createdAt: "2024-01-10",
-      },
-    ],
-  },
-  {
-    id: "PRJ-002",
-    name: "Mobile Banking App",
-    description:
-      "Pengembangan aplikasi mobile banking dengan fitur lengkap untuk transaksi, transfer, pembayaran bills, dan investasi. Aplikasi akan tersedia untuk iOS dan Android.",
-    client: "Bank Digital Nusantara",
-    clientEmail: "tech@bankdigitalnusantara.co.id",
-    clientPhone: "+62 21 9876 5432",
-    budget: 1800000000,
-    spent: 900000000,
-    startDate: "2024-02-01",
-    endDate: "2024-07-15",
-    province: "DKI Jakarta",
-    projectManager: "Sari Wijaya",
-    category: "Mobile Development",
-    progress: 45,
-    lastUpdate: "2024-01-19",
-    createdAt: "2024-01-25",
-  },
-];
+
 
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -142,12 +61,14 @@ export default function ProjectDetail() {
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
 
   useEffect(() => {
-    // Simulate API call
-    const foundProject = mockProjects.find((p) => p.id === projectId);
-    if (foundProject) {
-      setProject(foundProject);
-    } else {
-      navigate("/projects");
+    // Load project data from JSON
+    if (projectId) {
+      const foundProject = getProjectById(projectId);
+      if (foundProject) {
+        setProject(foundProject);
+      } else {
+        navigate("/projects");
+      }
     }
   }, [projectId, navigate]);
 
