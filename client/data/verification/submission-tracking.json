@@ -172,7 +172,34 @@
       },
       "notes": "Comprehensive security controls implemented",
       "createdAt": "2024-01-26T15:30:00Z",
-      "risks": []
+      "risks": [
+        {
+          "id": "risk-003",
+          "sasaran": "Keamanan Aplikasi Mobile",
+          "kode": "MOB-SEC-001",
+          "taksonomi": "Teknologi Informasi",
+          "peristiwaRisiko": "Serangan man-in-the-middle pada transaksi mobile",
+          "sumberRisiko": "Komunikasi yang tidak terenkripsi",
+          "dampakKualitatif": "Pencurian data transaksi dan informasi keuangan",
+          "dampakKuantitatif": "Kerugian hingga 1 miliar rupiah",
+          "kontrolEksisting": "SSL/TLS encryption, certificate pinning, app security",
+          "risikoAwal": {
+            "kejadian": 2,
+            "dampak": 5,
+            "level": 10
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 3,
+            "level": 3
+          },
+          "verifierComment": "Security implementation excellent",
+          "verifierName": "Chief Risk Officer",
+          "verifiedAt": "2024-01-27T10:45:00Z",
+          "isVerified": true,
+          "createdAt": "2024-01-26T15:30:00Z"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655443004",
