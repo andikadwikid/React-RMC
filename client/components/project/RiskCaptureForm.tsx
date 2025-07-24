@@ -211,31 +211,46 @@ export function RiskCaptureForm({
                           <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                             {isValidRange(risk.risikoAwal.kejadian) && (
                               <Badge
-                                className={getRiskColor(
+                                className={`${getRiskColor(
                                   risk.risikoAwal.kejadian,
-                                )}
+                                )} text-xs`}
                                 size="sm"
                               >
-                                Kejadian {risk.risikoAwal.kejadian} -{" "}
-                                {getRiskLabel(risk.risikoAwal.kejadian)}
+                                <span className="hidden sm:inline">
+                                  Kejadian {risk.risikoAwal.kejadian} -{" "}
+                                  {getRiskLabel(risk.risikoAwal.kejadian)}
+                                </span>
+                                <span className="sm:hidden">
+                                  K{risk.risikoAwal.kejadian}
+                                </span>
                               </Badge>
                             )}
                             {isValidRange(risk.risikoAwal.dampak) && (
                               <Badge
-                                className={getRiskColor(risk.risikoAwal.dampak)}
+                                className={`${getRiskColor(risk.risikoAwal.dampak)} text-xs`}
                                 size="sm"
                               >
-                                Dampak {risk.risikoAwal.dampak} -{" "}
-                                {getRiskLabel(risk.risikoAwal.dampak)}
+                                <span className="hidden sm:inline">
+                                  Dampak {risk.risikoAwal.dampak} -{" "}
+                                  {getRiskLabel(risk.risikoAwal.dampak)}
+                                </span>
+                                <span className="sm:hidden">
+                                  D{risk.risikoAwal.dampak}
+                                </span>
                               </Badge>
                             )}
                             {isValidRange(risk.risikoAwal.level) && (
                               <Badge
-                                className={getRiskColor(risk.risikoAwal.level)}
+                                className={`${getRiskColor(risk.risikoAwal.level)} text-xs`}
                                 size="sm"
                               >
-                                Level {risk.risikoAwal.level} -{" "}
-                                {getRiskLabel(risk.risikoAwal.level)}
+                                <span className="hidden sm:inline">
+                                  Level {risk.risikoAwal.level} -{" "}
+                                  {getRiskLabel(risk.risikoAwal.level)}
+                                </span>
+                                <span className="sm:hidden">
+                                  L{risk.risikoAwal.level}
+                                </span>
                               </Badge>
                             )}
                             {/* {isValidRange(risk.resikoAkhir.kejadian) && (
