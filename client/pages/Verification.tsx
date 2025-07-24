@@ -476,6 +476,7 @@ export default function Verification() {
             submissions={getFilteredSubmissions("all")}
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
+            isLoading={isLoading}
           />
         </TabsContent>
 
@@ -485,6 +486,7 @@ export default function Verification() {
             submissions={getFilteredSubmissions("submitted")}
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
+            isLoading={isLoading}
           />
         </TabsContent>
 
@@ -494,6 +496,7 @@ export default function Verification() {
             submissions={getFilteredSubmissions("under_review")}
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
+            isLoading={isLoading}
           />
         </TabsContent>
 
@@ -503,6 +506,7 @@ export default function Verification() {
             submissions={getFilteredSubmissions("verified")}
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
+            isLoading={isLoading}
           />
         </TabsContent>
 
@@ -512,6 +516,7 @@ export default function Verification() {
             submissions={getFilteredSubmissions("needs_revision")}
             onOpenModal={openVerificationModal}
             getStatusBadge={getStatusBadge}
+            isLoading={isLoading}
           />
         </TabsContent>
       </Tabs>
