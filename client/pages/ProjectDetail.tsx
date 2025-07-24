@@ -95,7 +95,7 @@ export default function ProjectDetail() {
     // Here you would typically send the data to your API
     closeReadinessForm();
     // Show success message
-    alert("Project Readiness assessment berhasil disimpan!");
+    toast.success("Project Readiness assessment berhasil disimpan!");
   };
 
   const openRiskCaptureForm = () => {
