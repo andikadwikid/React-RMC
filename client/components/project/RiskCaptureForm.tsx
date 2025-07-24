@@ -291,7 +291,7 @@ export function RiskCaptureForm({
                               variant="ghost"
                               size="sm"
                               onClick={() => removeRiskItem(risk.id)}
-                              className="text-red-600 hover:text-red-700"
+                              className="text-red-600 hover:text-red-700 p-1 sm:p-2"
                             >
                               <Trash2 className="w-4 h-4" />
                             </Button>
