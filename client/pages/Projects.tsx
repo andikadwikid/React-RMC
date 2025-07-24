@@ -515,16 +515,6 @@ export default function Projects() {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-1 lg:gap-2">
-                          <Link to={`/projects/${project.id}/timeline`}>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              title="View Timeline"
-                              className="h-8 w-8 p-0 lg:h-9 lg:w-9"
-                            >
-                              <GitBranch className="w-3 h-3 lg:w-4 lg:h-4" />
-                            </Button>
-                          </Link>
                           <Link to={`/projects/${project.id}`}>
                             <Button
                               variant="ghost"
@@ -535,13 +525,6 @@ export default function Projects() {
                               <Eye className="w-3 h-3 lg:w-4 lg:h-4" />
                             </Button>
                           </Link>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-8 w-8 p-0 lg:h-9 lg:w-9"
-                          >
-                            <MoreHorizontal className="w-3 h-3 lg:w-4 lg:h-4" />
-                          </Button>
                         </div>
                       </TableCell>
                     </TableRow>
