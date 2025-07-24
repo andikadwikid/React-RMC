@@ -1,14 +1,18 @@
 import { useEffect, useRef } from "react";
 import Highcharts from "highcharts";
 
-interface RiskCaptureData {
+import type { RiskCapturePieChartProps } from "@/types";
+
+// Local interface for specific chart data structure
+interface ChartRiskCaptureData {
   name: string;
   y: number;
   color: string;
 }
 
-interface RiskCapturePieChartProps {
-  data: RiskCaptureData[];
+// Extended props for this specific implementation
+interface ExtendedRiskCapturePieChartProps {
+  data: ChartRiskCaptureData[];
   title?: string;
 }
 
