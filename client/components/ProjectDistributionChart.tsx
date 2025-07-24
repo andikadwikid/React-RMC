@@ -1,15 +1,10 @@
 import { useEffect, useRef } from "react";
 import * as Highcharts from "highcharts";
 
-interface ProvinceData {
-  name: string;
-  value: number;
-  projects: string[];
-  color?: string;
-}
+import type { ProvinceData, ProjectDistributionChartProps } from "@/types";
 
-interface ProjectDistributionChartProps {
-  data: ProvinceData[];
+// Extended props for this specific implementation
+interface ExtendedProjectDistributionChartProps extends ProjectDistributionChartProps {
   title?: string;
 }
 
