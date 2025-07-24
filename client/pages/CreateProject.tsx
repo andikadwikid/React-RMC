@@ -31,29 +31,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { loadProjectCategoriesData } from "@/utils/dataLoader";
-
-interface TimelineMilestone {
-  id: string;
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-}
-
-interface ProjectFormData {
-  name: string;
-  description: string;
-  client: string;
-  clientEmail: string;
-  clientPhone: string;
-  budget: string;
-  startDate: string;
-  endDate: string;
-  province: string;
-  projectManager: string;
-  category: string;
-  timeline: TimelineMilestone[];
-}
+import type { TimelineMilestone, ProjectFormData } from "@/types";
 
 export default function CreateProject() {
   const navigate = useNavigate();
