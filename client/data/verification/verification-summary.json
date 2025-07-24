@@ -1,0 +1,126 @@
+{
+  "readiness_verification_summary": [
+    {
+      "project_id": "550e8400-e29b-41d4-a716-446655440001",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "overall_status": "under_review",
+      "verifier_name": "John Risk Officer",
+      "verified_at": null,
+      "total_items": 14,
+      "verified_lengkap": 8,
+      "verified_parsial": 4,
+      "verified_tidak_tersedia": 2,
+      "verification_percentage": 57.14,
+      "commented_items": 6,
+      "project_name": "Sistem ERP Perusahaan"
+    },
+    {
+      "project_id": "550e8400-e29b-41d4-a716-446655440002",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
+      "overall_status": "verified",
+      "verifier_name": "Senior Verifier",
+      "verified_at": "2024-01-26T09:15:00Z",
+      "total_items": 16,
+      "verified_lengkap": 16,
+      "verified_parsial": 0,
+      "verified_tidak_tersedia": 0,
+      "verification_percentage": 100.0,
+      "commented_items": 16,
+      "project_name": "Mobile Banking App"
+    },
+    {
+      "project_id": "550e8400-e29b-41d4-a716-446655440005",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441005",
+      "overall_status": "submitted",
+      "verifier_name": null,
+      "verified_at": null,
+      "total_items": 8,
+      "verified_lengkap": 0,
+      "verified_parsial": 0,
+      "verified_tidak_tersedia": 0,
+      "verification_percentage": 0.0,
+      "commented_items": 0,
+      "project_name": "HR Management System"
+    }
+  ],
+  "risk_capture_verification_summary": [
+    {
+      "project_id": "550e8400-e29b-41d4-a716-446655440001",
+      "risk_capture_id": "550e8400-e29b-41d4-a716-446655443001",
+      "overall_status": "under_review",
+      "verifier_name": "Chief Risk Officer",
+      "verified_at": null,
+      "total_risks": 8,
+      "verified_risks": 4,
+      "verification_percentage": 50.0,
+      "commented_risks": 6,
+      "project_name": "Sistem ERP Perusahaan"
+    },
+    {
+      "project_id": "550e8400-e29b-41d4-a716-446655440002",
+      "risk_capture_id": "550e8400-e29b-41d4-a716-446655443002",
+      "overall_status": "verified",
+      "verifier_name": "Chief Risk Officer",
+      "verified_at": "2024-01-27T10:45:00Z",
+      "total_risks": 6,
+      "verified_risks": 6,
+      "verification_percentage": 100.0,
+      "commented_risks": 6,
+      "project_name": "Mobile Banking App"
+    },
+    {
+      "project_id": "550e8400-e29b-41d4-a716-446655440004",
+      "risk_capture_id": "550e8400-e29b-41d4-a716-446655443004",
+      "overall_status": "needs_revision",
+      "verifier_name": "Senior Risk Analyst",
+      "verified_at": "2024-01-20T14:30:00Z",
+      "total_risks": 5,
+      "verified_risks": 3,
+      "verification_percentage": 60.0,
+      "commented_risks": 5,
+      "project_name": "E-commerce Platform"
+    }
+  ],
+  "verification_performance": [
+    {
+      "month": "2024-01",
+      "verifier_name": "Chief Risk Officer",
+      "verifications_completed": 1,
+      "approvals_given": 1,
+      "revisions_requested": 0,
+      "avg_completion_rate": 100.0
+    },
+    {
+      "month": "2024-01",
+      "verifier_name": "Senior Verifier",
+      "verifications_completed": 1,
+      "approvals_given": 1,
+      "revisions_requested": 0,
+      "avg_completion_rate": 100.0
+    },
+    {
+      "month": "2024-01",
+      "verifier_name": "Senior Risk Analyst",
+      "verifications_completed": 1,
+      "approvals_given": 0,
+      "revisions_requested": 1,
+      "avg_completion_rate": 60.0
+    },
+    {
+      "month": "2024-01",
+      "verifier_name": "John Risk Officer",
+      "verifications_completed": 0,
+      "approvals_given": 0,
+      "revisions_requested": 0,
+      "avg_completion_rate": 57.14
+    },
+    {
+      "month": "2024-01",
+      "verifier_name": "Jane Risk Analyst",
+      "verifications_completed": 0,
+      "approvals_given": 0,
+      "revisions_requested": 0,
+      "avg_completion_rate": 0.0
+    }
+  ]
+}
