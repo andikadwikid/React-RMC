@@ -299,32 +299,41 @@ export default function Dashboard() {
     <div className="bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="px-6 py-6">
-          <div className="flex justify-between items-center">
+        <div className="px-4 sm:px-6 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 Dashboard Management Risiko
               </h1>
-              <p className="text-gray-600 mt-1">
+              <p className="text-gray-600 mt-1 text-sm sm:text-base">
                 Monitor dan kelola risiko proyek secara real-time
               </p>
             </div>
-            <div className="hidden sm:flex items-center space-x-3">
-              <Badge variant="outline" className="px-3 py-1">
-                <Calendar className="w-4 h-4 mr-2" />
-                {new Date().toLocaleDateString("id-ID", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+            <div className="flex items-center">
+              <Badge variant="outline" className="px-2 sm:px-3 py-1 text-xs sm:text-sm">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">
+                  {new Date().toLocaleDateString("id-ID", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+                <span className="sm:hidden">
+                  {new Date().toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
               </Badge>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Financial Section - Row 1 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <InvoiceStatusSection
