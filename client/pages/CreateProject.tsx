@@ -274,8 +274,8 @@ export default function CreateProject() {
                   </SelectTrigger>
                   <SelectContent>
                     {projectCategories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
+                      <SelectItem key={category.id || category.name} value={category.name || category}>
+                        {category.name || category}
                       </SelectItem>
                     ))}
                   </SelectContent>
