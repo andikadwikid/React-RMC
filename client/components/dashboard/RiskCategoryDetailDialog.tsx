@@ -667,37 +667,37 @@ const RiskDetailModal = ({
 
           {/* Project Info */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <FileText className="w-5 h-5" />
+            <CardHeader className="pb-3 lg:pb-6">
+              <CardTitle className="text-base lg:text-lg flex items-center gap-2">
+                <FileText className="w-4 h-4 lg:w-5 lg:h-5 flex-shrink-0" />
                 Project Information
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className="pt-0">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-1">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-1">
                     Project:
                   </p>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-xs lg:text-sm text-gray-600 mb-4 break-words">
                     {riskItem.project}
                   </p>
 
-                  <p className="text-sm font-medium text-gray-700 mb-1">PIC:</p>
-                  <p className="text-sm text-gray-600">{riskItem.assignee}</p>
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-1">PIC:</p>
+                  <p className="text-xs lg:text-sm text-gray-600">{riskItem.assignee}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-1">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-1">
                     Target Date:
                   </p>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-xs lg:text-sm text-gray-600 mb-4">
                     {formatDate(riskItem.dueDate)}
                   </p>
 
-                  <p className="text-sm font-medium text-gray-700 mb-1">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-1">
                     Last Update:
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-xs lg:text-sm text-gray-600">
                     {formatDateTime(riskItem.lastUpdate!)}
                   </p>
                 </div>
@@ -707,28 +707,28 @@ const RiskDetailModal = ({
 
           {/* Risk Description */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5" />
+            <CardHeader className="pb-3 lg:pb-6">
+              <CardTitle className="text-base lg:text-lg flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 lg:w-5 lg:h-5 flex-shrink-0" />
                 Risk Description
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-0">
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-2">
                     Peristiwa Risiko:
                   </p>
-                  <p className="text-sm text-gray-600 leading-relaxed bg-red-50 p-3 rounded">
+                  <p className="text-xs lg:text-sm text-gray-600 leading-relaxed bg-red-50 p-3 rounded break-words">
                     {riskItem.peristiwaRisiko}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-2">
                     Sumber Risiko:
                   </p>
-                  <p className="text-sm text-gray-600 leading-relaxed bg-gray-50 p-3 rounded">
+                  <p className="text-xs lg:text-sm text-gray-600 leading-relaxed bg-gray-50 p-3 rounded break-words">
                     {riskItem.sumberRisiko}
                   </p>
                 </div>
@@ -738,27 +738,27 @@ const RiskDetailModal = ({
 
           {/* Impact Analysis */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <TrendingUp className="w-5 h-5" />
+            <CardHeader className="pb-3 lg:pb-6">
+              <CardTitle className="text-base lg:text-lg flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 lg:w-5 lg:h-5 flex-shrink-0" />
                 Impact Analysis
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className="pt-0">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-2">
                     Dampak Kualitatif:
                   </p>
-                  <p className="text-sm text-gray-600 leading-relaxed bg-blue-50 p-3 rounded">
+                  <p className="text-xs lg:text-sm text-gray-600 leading-relaxed bg-blue-50 p-3 rounded break-words">
                     {riskItem.dampakKualitatif}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">
+                  <p className="text-xs lg:text-sm font-medium text-gray-700 mb-2">
                     Dampak Kuantitatif:
                   </p>
-                  <p className="text-sm text-gray-600 leading-relaxed bg-purple-50 p-3 rounded">
+                  <p className="text-xs lg:text-sm text-gray-600 leading-relaxed bg-purple-50 p-3 rounded break-words">
                     {riskItem.dampakKuantitatif}
                   </p>
                 </div>
@@ -768,18 +768,18 @@ const RiskDetailModal = ({
 
           {/* Control Measures */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Shield className="w-5 h-5" />
+            <CardHeader className="pb-3 lg:pb-6">
+              <CardTitle className="text-base lg:text-lg flex items-center gap-2">
+                <Shield className="w-4 h-4 lg:w-5 lg:h-5 flex-shrink-0" />
                 Control Measures
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-0">
               <div>
-                <p className="text-sm font-medium text-gray-700 mb-2">
+                <p className="text-xs lg:text-sm font-medium text-gray-700 mb-2">
                   Kontrol Eksisting:
                 </p>
-                <p className="text-sm text-gray-600 leading-relaxed bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <p className="text-xs lg:text-sm text-gray-600 leading-relaxed bg-green-50 p-3 rounded border-l-4 border-green-400 break-words">
                   {riskItem.kontrolEksisting}
                 </p>
               </div>
@@ -787,11 +787,11 @@ const RiskDetailModal = ({
           </Card>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
+        <DialogFooter className="flex-col sm:flex-row gap-3 pt-4 lg:pt-6">
+          <Button variant="outline" onClick={onClose} className="w-full sm:w-auto">
             Tutup
           </Button>
-          <Button>
+          <Button className="w-full sm:w-auto">
             <FileText className="w-4 h-4 mr-2" />
             Export Detail
           </Button>
