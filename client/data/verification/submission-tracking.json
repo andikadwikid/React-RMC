@@ -148,6 +148,34 @@
       "notes": "Payment security requires additional controls",
       "createdAt": "2024-01-19T09:20:00Z",
       "risks": []
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655443005",
+      "projectId": "550e8400-e29b-41d4-a716-446655440005",
+      "projectName": "CRM System Integration",
+      "submittedBy": "Ahmad Fadli",
+      "submittedAt": "2024-01-28T08:30:00Z",
+      "status": "submitted",
+      "verifierName": null,
+      "assignedAt": "2024-01-28T09:00:00Z",
+      "startedAt": null,
+      "verifiedAt": null,
+      "totalRisks": 4,
+      "verifiedRisks": 0,
+      "verificationPercentage": 0.0,
+      "priority": "medium",
+      "dueDate": "2024-01-30T17:00:00Z",
+      "estimatedHours": 4.0,
+      "riskLevelDistribution": {
+        "sangatRendah": 2,
+        "rendah": 1,
+        "sedang": 1,
+        "tinggi": 0,
+        "sangatTinggi": 0
+      },
+      "notes": "Initial submission awaiting assignment",
+      "createdAt": "2024-01-28T08:30:00Z",
+      "risks": []
     }
   ]
 }
