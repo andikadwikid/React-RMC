@@ -332,7 +332,7 @@ export default function VerifierDashboard() {
   );
   const [showPeriodDropdown, setShowPeriodDropdown] = useState(false);
   const [autoSelected, setAutoSelected] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateChart = (dataPeriod: DataPeriod) => {
     if (chartRef.current && typeof Highcharts !== 'undefined') {
