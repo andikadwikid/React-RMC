@@ -87,396 +87,299 @@
       }
     ]
   },
-  "projectReadiness": {
-    "PRJ-001": {
-      "id": "readiness-001",
-      "projectId": "PRJ-001",
-      "projectName": "Sistem ERP Perusahaan",
-      "submittedBy": "Budi Santoso",
-      "submittedAt": "2024-01-20T10:30:00Z",
+  "project_readiness": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655441001",
+      "project_id": "550e8400-e29b-41d4-a716-446655440001",
+      "project_name": "Sistem ERP Perusahaan",
+      "submitted_by": "Budi Santoso",
+      "submitted_at": "2024-01-20T10:30:00Z",
       "status": "submitted",
-      "completionPercentage": 65,
-      "categories": [
-        {
-          "id": "administrative",
-          "title": "Dokumen Administratif Lengkap",
-          "icon": "FileText",
-          "items": [
-            {
-              "id": "contract",
-              "title": "Kontrak atau PO dari user",
-              "status": "lengkap",
-              "userComment": "Kontrak sudah ditandatangani dan disimpan"
-            },
-            {
-              "id": "handover",
-              "title": "BA serah terima awal (jika ada)",
-              "status": "parsial",
-              "userComment": "Sebagian dokumen sudah diterima"
-            },
-            {
-              "id": "schedule",
-              "title": "Jadwal kerja disetujui",
-              "status": "lengkap",
-              "userComment": "Jadwal sudah final dan approved"
-            },
-            {
-              "id": "weekly-plan",
-              "title": "Rencana kerja mingguan disampaikan",
-              "status": "tidak-tersedia",
-              "userComment": "Masih dalam tahap penyusunan"
-            }
-          ]
-        },
-        {
-          "id": "user-data",
-          "title": "Data dari User Tersedia",
-          "icon": "Database",
-          "items": [
-            {
-              "id": "drawings",
-              "title": "Drawing atau layout teknis terkini",
-              "status": "lengkap",
-              "userComment": "Semua drawing teknis sudah tersedia"
-            },
-            {
-              "id": "specifications",
-              "title": "Spesifikasi teknis atau SOW rinci",
-              "status": "lengkap",
-              "userComment": "SOW detail telah disiapkan"
-            },
-            {
-              "id": "location-data",
-              "title": "Data lokasi dan akses kerja",
-              "status": "parsial",
-              "userComment": "Data utama ada, detail akses masih dikonfirmasi"
-            },
-            {
-              "id": "coordinates",
-              "title": "Informasi titik koordinat (jika applicable)",
-              "status": "tidak-tersedia",
-              "userComment": "Tidak diperlukan untuk project ini"
-            }
-          ]
-        },
-        {
-          "id": "personnel",
-          "title": "Personel Proyek Siap",
-          "icon": "Users",
-          "items": [
-            {
-              "id": "personnel-list",
-              "title": "Daftar personel dan penanggung jawab teknis",
-              "status": "lengkap",
-              "userComment": "Tim sudah terbentuk lengkap"
-            },
-            {
-              "id": "certifications",
-              "title": "Sertifikasi yang relevan (jika dibutuhkan)",
-              "status": "parsial",
-              "userComment": "Beberapa sertifikasi masih dalam proses"
-            },
-            {
-              "id": "hr-approval",
-              "title": "Approval SDM internal/outsourcing",
-              "status": "lengkap",
-              "userComment": "Approval HR sudah selesai"
-            }
-          ]
-        },
-        {
-          "id": "legal-financial",
-          "title": "Legal & Finansial",
-          "icon": "DollarSign",
-          "items": [
-            {
-              "id": "erp-tagging",
-              "title": "Proses tagging ke ERP proyek",
-              "status": "lengkap",
-              "userComment": "Project sudah tagged di ERP"
-            },
-            {
-              "id": "contract-number",
-              "title": "No. kontrak dan cost center disiapkan",
-              "status": "lengkap",
-              "userComment": "Nomor kontrak dan cost center aktif"
-            },
-            {
-              "id": "payment-scheme",
-              "title": "Verifikasi skema pembayaran dan milestone",
-              "status": "parsial",
-              "userComment": "Skema dasar OK, detail milestone review"
-            }
-          ]
-        }
-      ],
-      "createdAt": "2024-01-20T10:30:00Z"
+      "verifier_name": null,
+      "verified_at": null,
+      "overall_comment": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
     },
-    "PRJ-002": {
-      "id": "readiness-002",
-      "projectId": "PRJ-002",
-      "projectName": "Mobile Banking App",
-      "submittedBy": "Sari Wijaya",
-      "submittedAt": "2024-01-25T14:20:00Z",
+    {
+      "id": "550e8400-e29b-41d4-a716-446655441002",
+      "project_id": "550e8400-e29b-41d4-a716-446655440002",
+      "project_name": "Mobile Banking App",
+      "submitted_by": "Sari Wijaya",
+      "submitted_at": "2024-01-25T14:20:00Z",
       "status": "verified",
-      "completionPercentage": 95,
-      "verifierName": "Senior Project Manager",
-      "verifiedAt": "2024-01-26T09:15:00Z",
-      "overallComment": "Excellent readiness preparation. All critical items are complete.",
-      "categories": [
-        {
-          "id": "administrative",
-          "title": "Dokumen Administratif Lengkap",
-          "icon": "FileText",
-          "items": [
-            {
-              "id": "contract",
-              "title": "Kontrak atau PO dari user",
-              "status": "lengkap",
-              "userComment": "Kontrak master agreement signed",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Contract properly executed and filed"
-            },
-            {
-              "id": "handover",
-              "title": "BA serah terima awal (jika ada)",
-              "status": "lengkap",
-              "userComment": "Complete handover documentation",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Comprehensive handover records"
-            },
-            {
-              "id": "schedule",
-              "title": "Jadwal kerja disetujui",
-              "status": "lengkap",
-              "userComment": "Schedule approved by all stakeholders",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Well-structured timeline"
-            },
-            {
-              "id": "weekly-plan",
-              "title": "Rencana kerja mingguan disampaikan",
-              "status": "lengkap",
-              "userComment": "Weekly plans established for all phases",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Detailed weekly breakdown provided"
-            }
-          ]
-        },
-        {
-          "id": "user-data",
-          "title": "Data dari User Tersedia",
-          "icon": "Database",
-          "items": [
-            {
-              "id": "drawings",
-              "title": "Drawing atau layout teknis terkini",
-              "status": "lengkap",
-              "userComment": "UI/UX mockups and technical diagrams ready",
-              "verifierStatus": "lengkap",
-              "verifierComment": "High quality design specifications"
-            },
-            {
-              "id": "specifications",
-              "title": "Spesifikasi teknis atau SOW rinci",
-              "status": "lengkap",
-              "userComment": "Detailed technical specifications provided",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Comprehensive technical documentation"
-            },
-            {
-              "id": "location-data",
-              "title": "Data lokasi dan akses kerja",
-              "status": "lengkap",
-              "userComment": "Office location and remote work arrangements confirmed",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Clear work location setup"
-            },
-            {
-              "id": "coordinates",
-              "title": "Informasi titik koordinat (jika applicable)",
-              "status": "tidak-tersedia",
-              "userComment": "Not applicable for mobile app development",
-              "verifierStatus": "tidak-tersedia",
-              "verifierComment": "Confirmed not needed for this project type"
-            }
-          ]
-        },
-        {
-          "id": "personnel",
-          "title": "Personel Proyek Siap",
-          "icon": "Users",
-          "items": [
-            {
-              "id": "personnel-list",
-              "title": "Daftar personel dan penanggung jawab teknis",
-              "status": "lengkap",
-              "userComment": "Full team roster with roles defined",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Well-balanced team composition"
-            },
-            {
-              "id": "certifications",
-              "title": "Sertifikasi yang relevan (jika dibutuhkan)",
-              "status": "lengkap",
-              "userComment": "All team certifications verified",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Appropriate certifications for mobile development"
-            },
-            {
-              "id": "hr-approval",
-              "title": "Approval SDM internal/outsourcing",
-              "status": "lengkap",
-              "userComment": "HR approval completed for all resources",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Proper HR documentation and approvals"
-            }
-          ]
-        },
-        {
-          "id": "legal-financial",
-          "title": "Legal & Finansial",
-          "icon": "DollarSign",
-          "items": [
-            {
-              "id": "erp-tagging",
-              "title": "Proses tagging ke ERP proyek",
-              "status": "lengkap",
-              "userComment": "Project tagged and tracking setup in ERP",
-              "verifierStatus": "lengkap",
-              "verifierComment": "ERP integration properly configured"
-            },
-            {
-              "id": "contract-number",
-              "title": "No. kontrak dan cost center disiapkan",
-              "status": "lengkap",
-              "userComment": "Contract number assigned and cost center active",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Financial tracking properly established"
-            },
-            {
-              "id": "payment-scheme",
-              "title": "Verifikasi skema pembayaran dan milestone",
-              "status": "lengkap",
-              "userComment": "Payment milestones aligned with deliverables",
-              "verifierStatus": "lengkap",
-              "verifierComment": "Payment structure well-defined and reasonable"
-            }
-          ]
-        }
-      ],
-      "createdAt": "2024-01-25T14:20:00Z"
+      "verifier_name": "Senior Project Manager",
+      "verified_at": "2024-01-26T09:15:00Z",
+      "overall_comment": "Excellent readiness preparation. All critical items are complete.",
+      "created_at": "2024-01-25T14:20:00Z",
+      "updated_at": "2024-01-26T09:15:00Z"
     },
-    "PRJ-005": {
-      "id": "readiness-005",
-      "projectId": "PRJ-005",
-      "projectName": "HR Management System",
-      "submittedBy": "Rudi Hartono",
-      "submittedAt": "2024-01-21T16:45:00Z",
-      "status": "not_submitted",
-      "completionPercentage": 10,
-      "categories": [
-        {
-          "id": "administrative",
-          "title": "Dokumen Administratif Lengkap",
-          "icon": "FileText",
-          "items": [
-            {
-              "id": "contract",
-              "title": "Kontrak atau PO dari user",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "handover",
-              "title": "BA serah terima awal (jika ada)",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "schedule",
-              "title": "Jadwal kerja disetujui",
-              "status": "parsial",
-              "userComment": "Draft schedule prepared, awaiting approval"
-            },
-            {
-              "id": "weekly-plan",
-              "title": "Rencana kerja mingguan disampaikan",
-              "status": "tidak-tersedia"
-            }
-          ]
-        },
-        {
-          "id": "user-data",
-          "title": "Data dari User Tersedia",
-          "icon": "Database",
-          "items": [
-            {
-              "id": "drawings",
-              "title": "Drawing atau layout teknis terkini",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "specifications",
-              "title": "Spesifikasi teknis atau SOW rinci",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "location-data",
-              "title": "Data lokasi dan akses kerja",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "coordinates",
-              "title": "Informasi titik koordinat (jika applicable)",
-              "status": "tidak-tersedia"
-            }
-          ]
-        },
-        {
-          "id": "personnel",
-          "title": "Personel Proyek Siap",
-          "icon": "Users",
-          "items": [
-            {
-              "id": "personnel-list",
-              "title": "Daftar personel dan penanggung jawab teknis",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "certifications",
-              "title": "Sertifikasi yang relevan (jika dibutuhkan)",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "hr-approval",
-              "title": "Approval SDM internal/outsourcing",
-              "status": "tidak-tersedia"
-            }
-          ]
-        },
-        {
-          "id": "legal-financial",
-          "title": "Legal & Finansial",
-          "icon": "DollarSign",
-          "items": [
-            {
-              "id": "erp-tagging",
-              "title": "Proses tagging ke ERP proyek",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "contract-number",
-              "title": "No. kontrak dan cost center disiapkan",
-              "status": "tidak-tersedia"
-            },
-            {
-              "id": "payment-scheme",
-              "title": "Verifikasi skema pembayaran dan milestone",
-              "status": "tidak-tersedia"
-            }
-          ]
-        }
-      ],
-      "createdAt": "2024-01-21T16:45:00Z"
+    {
+      "id": "550e8400-e29b-41d4-a716-446655441005",
+      "project_id": "550e8400-e29b-41d4-a716-446655440005",
+      "project_name": "HR Management System",
+      "submitted_by": "Rudi Hartono",
+      "submitted_at": "2024-01-21T16:45:00Z",
+      "status": "submitted",
+      "verifier_name": null,
+      "verified_at": null,
+      "overall_comment": null,
+      "created_at": "2024-01-21T16:45:00Z",
+      "updated_at": "2024-01-21T16:45:00Z"
     }
-  }
+  ],
+  "readiness_items": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442001",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "administrative",
+      "item": "Kontrak atau PO dari user",
+      "user_status": "lengkap",
+      "verifier_status": null,
+      "user_comment": "Kontrak sudah ditandatangani dan disimpan",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442002",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "administrative",
+      "item": "BA serah terima awal (jika ada)",
+      "user_status": "parsial",
+      "verifier_status": null,
+      "user_comment": "Sebagian dokumen sudah diterima",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442003",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "administrative",
+      "item": "Jadwal kerja disetujui",
+      "user_status": "lengkap",
+      "verifier_status": null,
+      "user_comment": "Jadwal sudah final dan approved",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442004",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "administrative",
+      "item": "Rencana kerja mingguan disampaikan",
+      "user_status": "tidak_tersedia",
+      "verifier_status": null,
+      "user_comment": "Masih dalam tahap penyusunan",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442005",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "user-data",
+      "item": "Drawing atau layout teknis terkini",
+      "user_status": "lengkap",
+      "verifier_status": null,
+      "user_comment": "Semua drawing teknis sudah tersedia",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442006",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "user-data",
+      "item": "Spesifikasi teknis atau SOW rinci",
+      "user_status": "lengkap",
+      "verifier_status": null,
+      "user_comment": "SOW detail telah disiapkan",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442007",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "user-data",
+      "item": "Data lokasi dan akses kerja",
+      "user_status": "parsial",
+      "verifier_status": null,
+      "user_comment": "Data utama ada, detail akses masih dikonfirmasi",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442008",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "user-data",
+      "item": "Informasi titik koordinat (jika applicable)",
+      "user_status": "tidak_tersedia",
+      "verifier_status": null,
+      "user_comment": "Tidak diperlukan untuk project ini",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442009",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "personnel",
+      "item": "Daftar personel dan penanggung jawab teknis",
+      "user_status": "lengkap",
+      "verifier_status": null,
+      "user_comment": "Tim sudah terbentuk lengkap",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442010",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "personnel",
+      "item": "Sertifikasi yang relevan (jika dibutuhkan)",
+      "user_status": "parsial",
+      "verifier_status": null,
+      "user_comment": "Beberapa sertifikasi masih dalam proses",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442011",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "personnel",
+      "item": "Approval SDM internal/outsourcing",
+      "user_status": "lengkap",
+      "verifier_status": null,
+      "user_comment": "Approval HR sudah selesai",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442012",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "legal-financial",
+      "item": "Proses tagging ke ERP proyek",
+      "user_status": "lengkap",
+      "verifier_status": null,
+      "user_comment": "Project sudah tagged di ERP",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442013",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "legal-financial",
+      "item": "No. kontrak dan cost center disiapkan",
+      "user_status": "lengkap",
+      "verifier_status": null,
+      "user_comment": "Nomor kontrak dan cost center aktif",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442014",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "legal-financial",
+      "item": "Verifikasi skema pembayaran dan milestone",
+      "user_status": "parsial",
+      "verifier_status": null,
+      "user_comment": "Skema dasar OK, detail milestone review",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-20T10:30:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442015",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
+      "category": "administrative",
+      "item": "Kontrak atau PO dari user",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Kontrak master agreement signed",
+      "verifier_comment": "Contract properly executed and filed",
+      "verifier_name": "Senior Project Manager",
+      "verified_at": "2024-01-26T09:15:00Z",
+      "created_at": "2024-01-25T14:20:00Z",
+      "updated_at": "2024-01-26T09:15:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442016",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
+      "category": "administrative",
+      "item": "BA serah terima awal (jika ada)",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Complete handover documentation",
+      "verifier_comment": "Comprehensive handover records",
+      "verifier_name": "Senior Project Manager",
+      "verified_at": "2024-01-26T09:15:00Z",
+      "created_at": "2024-01-25T14:20:00Z",
+      "updated_at": "2024-01-26T09:15:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442017",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
+      "category": "administrative",
+      "item": "Jadwal kerja disetujui",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Schedule approved by all stakeholders",
+      "verifier_comment": "Well-structured timeline",
+      "verifier_name": "Senior Project Manager",
+      "verified_at": "2024-01-26T09:15:00Z",
+      "created_at": "2024-01-25T14:20:00Z",
+      "updated_at": "2024-01-26T09:15:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442018",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
+      "category": "administrative",
+      "item": "Rencana kerja mingguan disampaikan",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Weekly plans established for all phases",
+      "verifier_comment": "Detailed weekly breakdown provided",
+      "verifier_name": "Senior Project Manager",
+      "verified_at": "2024-01-26T09:15:00Z",
+      "created_at": "2024-01-25T14:20:00Z",
+      "updated_at": "2024-01-26T09:15:00Z"
+    }
+  ]
 }
