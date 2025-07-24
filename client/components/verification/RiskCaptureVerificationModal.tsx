@@ -31,12 +31,7 @@ import {
 import type { RiskCapture, RiskItem, RiskVerificationStatus } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
 
-interface RiskCaptureVerificationModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  submission: RiskCapture;
-  onSave: (submissionId: string, data: any) => void;
-}
+import type { RiskCaptureVerificationModalProps } from "@/types";
 
 const VERIFICATION_STATUS_CONFIG = {
   pending: {
