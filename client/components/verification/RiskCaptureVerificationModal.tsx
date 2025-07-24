@@ -219,223 +219,233 @@ export function RiskCaptureVerificationModal({
             </CardContent>
           </Card>
 
-        {/* Risk Items for Verification */}
-        <div className="space-y-6 mb-6">
-          {verificationRisks.map((risk, index) => (
-            <Card key={risk.id} className="border border-gray-200">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <h4 className="text-lg font-medium">
-                      Risk #{index + 1}: {risk.sasaran}
-                    </h4>
-                    <Badge
-                      className={getRiskColor(risk.risikoAwal.level)}
-                      size="sm"
-                    >
-                      Level {risk.risikoAwal.level} -{" "}
-                      {getRiskLabel(risk.risikoAwal.level)}
-                    </Badge>
+          {/* Risk Items for Verification */}
+          <div className="space-y-6">
+            {verificationRisks.map((risk, index) => (
+              <Card key={risk.id} className="border border-gray-200 hover:border-gray-300 transition-colors">
+                <CardHeader className="pb-3">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                      <h4 className="text-base lg:text-lg font-medium leading-tight">
+                        Risk #{index + 1}: {risk.sasaran}
+                      </h4>
+                      <Badge
+                        className={getRiskColor(risk.risikoAwal.level)}
+                        size="sm"
+                      >
+                        Level {risk.risikoAwal.level} -{" "}
+                        {getRiskLabel(risk.risikoAwal.level)}
+                      </Badge>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        variant={risk.isVerified ? "default" : "outline"}
+                        size="sm"
+                        onClick={() =>
+                          updateRiskVerification(
+                            risk.id,
+                            "isVerified",
+                            !risk.isVerified,
+                          )
+                        }
+                        className="w-full sm:w-auto"
+                      >
+                        {risk.isVerified ? (
+                          <>
+                            <CheckCircle className="w-4 h-4 mr-1" />
+                            Verified
+                          </>
+                        ) : (
+                          <>
+                            <AlertTriangle className="w-4 h-4 mr-1" />
+                            Pending
+                          </>
+                        )}
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant={risk.isVerified ? "default" : "outline"}
-                      size="sm"
-                      onClick={() =>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {/* Risk Details */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
+                    <div>
+                      <Label className="text-xs font-medium text-gray-600">
+                        Kode:
+                      </Label>
+                      <p className="text-sm text-gray-900 mt-1">{risk.kode}</p>
+                    </div>
+                    <div>
+                      <Label className="text-xs font-medium text-gray-600">
+                        Taksonomi:
+                      </Label>
+                      <p className="text-sm text-gray-900 mt-1">{risk.taksonomi}</p>
+                    </div>
+                    <div className="lg:col-span-2">
+                      <Label className="text-xs font-medium text-gray-600">
+                        Peristiwa Risiko:
+                      </Label>
+                      <p className="text-sm text-gray-900 mt-1">{risk.peristiwaRisiko}</p>
+                    </div>
+                    <div>
+                      <Label className="text-xs font-medium text-gray-600">
+                        Sumber Risiko:
+                      </Label>
+                      <p className="text-sm text-gray-900 mt-1">{risk.sumberRisiko}</p>
+                    </div>
+                    <div>
+                      <Label className="text-xs font-medium text-gray-600">
+                        Kontrol Eksisting:
+                      </Label>
+                      <p className="text-sm text-gray-900 mt-1">{risk.kontrolEksisting}</p>
+                    </div>
+                  </div>
+
+                  {/* Risk Assessment */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div className="p-4 border border-blue-200 bg-blue-50 rounded-lg">
+                      <h5 className="font-medium mb-3 text-blue-700 flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4" />
+                        Risiko Awal
+                      </h5>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Kejadian:</span>
+                          <span className="font-medium text-blue-900">
+                            {risk.risikoAwal.kejadian}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Dampak:</span>
+                          <span className="font-medium text-blue-900">
+                            {risk.risikoAwal.dampak}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Level:</span>
+                          <span className="font-bold text-blue-900">
+                            {risk.risikoAwal.level}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-4 border border-green-200 bg-green-50 rounded-lg">
+                      <h5 className="font-medium mb-3 text-green-700 flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4" />
+                        Risiko Akhir
+                      </h5>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Kejadian:</span>
+                          <span className="font-medium text-green-900">
+                            {risk.resikoAkhir.kejadian}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Dampak:</span>
+                          <span className="font-medium text-green-900">
+                            {risk.resikoAkhir.dampak}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Level:</span>
+                          <span className="font-bold text-green-900">
+                            {risk.resikoAkhir.level}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dampak Analysis */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-xs font-medium text-gray-600">
+                        Dampak Kualitatif:
+                      </Label>
+                      <p className="text-sm p-3 bg-gray-50 border rounded-lg mt-1 text-gray-900">
+                        {risk.dampakKualitatif}
+                      </p>
+                    </div>
+                    <div>
+                      <Label className="text-xs font-medium text-gray-600">
+                        Dampak Kuantitatif:
+                      </Label>
+                      <p className="text-sm p-3 bg-gray-50 border rounded-lg mt-1 text-gray-900">
+                        {risk.dampakKuantitatif}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Verifier Comment */}
+                  <div>
+                    <Label
+                      htmlFor={`comment-${risk.id}`}
+                      className="flex items-center gap-2 text-sm font-medium"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      Risk Officer Comment
+                    </Label>
+                    <Textarea
+                      id={`comment-${risk.id}`}
+                      value={risk.verifierComment}
+                      onChange={(e) =>
                         updateRiskVerification(
                           risk.id,
-                          "isVerified",
-                          !risk.isVerified,
+                          "verifierComment",
+                          e.target.value,
                         )
                       }
-                    >
-                      {risk.isVerified ? (
-                        <>
-                          <CheckCircle className="w-4 h-4 mr-1" />
-                          Verified
-                        </>
-                      ) : (
-                        <>
-                          <AlertTriangle className="w-4 h-4 mr-1" />
-                          Pending
-                        </>
-                      )}
-                    </Button>
+                      placeholder="Add your verification comment for this risk item..."
+                      className="mt-2 min-h-[80px] resize-none focus:ring-blue-500 focus:border-blue-500"
+                      rows={3}
+                    />
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Risk Details */}
-                <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
-                  <div>
-                    <Label className="text-xs font-medium text-gray-600">
-                      Kode:
-                    </Label>
-                    <p className="text-sm">{risk.kode}</p>
-                  </div>
-                  <div>
-                    <Label className="text-xs font-medium text-gray-600">
-                      Taksonomi:
-                    </Label>
-                    <p className="text-sm">{risk.taksonomi}</p>
-                  </div>
-                  <div className="col-span-2">
-                    <Label className="text-xs font-medium text-gray-600">
-                      Peristiwa Risiko:
-                    </Label>
-                    <p className="text-sm">{risk.peristiwaRisiko}</p>
-                  </div>
-                  <div>
-                    <Label className="text-xs font-medium text-gray-600">
-                      Sumber Risiko:
-                    </Label>
-                    <p className="text-sm">{risk.sumberRisiko}</p>
-                  </div>
-                  <div>
-                    <Label className="text-xs font-medium text-gray-600">
-                      Kontrol Eksisting:
-                    </Label>
-                    <p className="text-sm">{risk.kontrolEksisting}</p>
-                  </div>
-                </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-                {/* Risk Assessment */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-3 border rounded-lg">
-                    <h5 className="font-medium mb-2 text-blue-600">
-                      Risiko Awal
-                    </h5>
-                    <div className="space-y-1 text-sm">
-                      <div>
-                        Kejadian:{" "}
-                        <span className="font-medium">
-                          {risk.risikoAwal.kejadian}
-                        </span>
-                      </div>
-                      <div>
-                        Dampak:{" "}
-                        <span className="font-medium">
-                          {risk.risikoAwal.dampak}
-                        </span>
-                      </div>
-                      <div>
-                        Level:{" "}
-                        <span className="font-medium">
-                          {risk.risikoAwal.level}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-3 border rounded-lg">
-                    <h5 className="font-medium mb-2 text-green-600">
-                      Risiko Akhir
-                    </h5>
-                    <div className="space-y-1 text-sm">
-                      <div>
-                        Kejadian:{" "}
-                        <span className="font-medium">
-                          {risk.resikoAkhir.kejadian}
-                        </span>
-                      </div>
-                      <div>
-                        Dampak:{" "}
-                        <span className="font-medium">
-                          {risk.resikoAkhir.dampak}
-                        </span>
-                      </div>
-                      <div>
-                        Level:{" "}
-                        <span className="font-medium">
-                          {risk.resikoAkhir.level}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          {/* Overall Assessment */}
+          <Card className="border-t-4 border-t-blue-500">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Shield className="w-5 h-5 text-blue-600" />
+                Overall Risk Capture Assessment
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Label htmlFor="overall-status" className="text-sm font-medium">
+                  Verification Status
+                </Label>
+                <Select value={overallStatus} onValueChange={setOverallStatus}>
+                  <SelectTrigger className="mt-2 h-11">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="submitted">Submitted</SelectItem>
+                    <SelectItem value="under_review">Under Review</SelectItem>
+                    <SelectItem value="verified">Verified</SelectItem>
+                    <SelectItem value="needs_revision">Needs Revision</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-                {/* Dampak Analysis */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label className="text-xs font-medium text-gray-600">
-                      Dampak Kualitatif:
-                    </Label>
-                    <p className="text-sm p-2 bg-gray-50 rounded">
-                      {risk.dampakKualitatif}
-                    </p>
-                  </div>
-                  <div>
-                    <Label className="text-xs font-medium text-gray-600">
-                      Dampak Kuantitatif:
-                    </Label>
-                    <p className="text-sm p-2 bg-gray-50 rounded">
-                      {risk.dampakKuantitatif}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Verifier Comment */}
-                <div>
-                  <Label
-                    htmlFor={`comment-${risk.id}`}
-                    className="flex items-center gap-2"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    Risk Officer Comment
-                  </Label>
-                  <Textarea
-                    id={`comment-${risk.id}`}
-                    value={risk.verifierComment}
-                    onChange={(e) =>
-                      updateRiskVerification(
-                        risk.id,
-                        "verifierComment",
-                        e.target.value,
-                      )
-                    }
-                    placeholder="Add your verification comment for this risk item..."
-                    className="mt-1"
-                    rows={3}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Overall Assessment */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Overall Risk Capture Assessment</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="overall-status">Verification Status</Label>
-              <Select value={overallStatus} onValueChange={setOverallStatus}>
-                <SelectTrigger className="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="submitted">Submitted</SelectItem>
-                  <SelectItem value="under_review">Under Review</SelectItem>
-                  <SelectItem value="verified">Verified</SelectItem>
-                  <SelectItem value="needs_revision">Needs Revision</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label htmlFor="overall-comment">Overall Comment</Label>
-              <Textarea
-                id="overall-comment"
-                value={overallComment}
-                onChange={(e) => setOverallComment(e.target.value)}
-                placeholder="Provide overall assessment and recommendations..."
-                className="mt-1"
-                rows={4}
-              />
-            </div>
-          </CardContent>
-        </Card>
+              <div>
+                <Label htmlFor="overall-comment" className="text-sm font-medium">
+                  Overall Comment
+                </Label>
+                <Textarea
+                  id="overall-comment"
+                  value={overallComment}
+                  onChange={(e) => setOverallComment(e.target.value)}
+                  placeholder="Provide overall assessment and recommendations..."
+                  className="mt-2 min-h-[100px] resize-none focus:ring-blue-500 focus:border-blue-500"
+                  rows={4}
+                />
+              </div>
+            </CardContent>
+          </Card>
 
         </div>
 
