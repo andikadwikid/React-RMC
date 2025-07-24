@@ -329,7 +329,7 @@ export default function VerifierDashboard() {
       Highcharts.chart(chartRef.current, {
         chart: {
           type: "column",
-          height: 300,
+          height: window.innerWidth < 768 ? 250 : 300,
           backgroundColor: "transparent",
         },
         title: {
