@@ -143,14 +143,7 @@ const quarterlyStatsQ3_2024 = [
   { period: "Sep 2024", verified: 30, revised: 6 },
 ];
 
-type PeriodType = "yearly" | "quarterly";
-type DataPeriod = {
-  id: string;
-  label: string;
-  type: PeriodType;
-  data: Array<{ period: string; verified: number; revised: number }>;
-  isComplete: boolean;
-};
+import type { PeriodType, DataPeriod } from "@/types";
 
 const availableDataPeriods: DataPeriod[] = [
   {
