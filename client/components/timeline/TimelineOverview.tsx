@@ -10,10 +10,10 @@ import {
   Target,
 } from "lucide-react";
 import { formatDate } from "@/utils/formatters";
-import type { TimelineMilestone } from "@/types";
+import type { TimelineMilestone, TimelineOverviewProps } from "@/types";
 
-interface TimelineOverviewProps {
-  timeline: TimelineMilestone[];
+// Extended props for this specific component
+interface ExtendedTimelineOverviewProps extends TimelineOverviewProps {
   projectStartDate: string;
   projectEndDate: string;
   className?: string;
