@@ -1,22 +1,22 @@
 {
   "projectDetails": {
-    "PRJ-001": {
-      "id": "PRJ-001",
+    "550e8400-e29b-41d4-a716-446655440001": {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
       "name": "Sistem ERP Perusahaan",
       "description": "Implementasi sistem ERP untuk mengelola seluruh operasional perusahaan termasuk inventory, HR, finance, dan CRM. Sistem ini akan mengintegrasikan semua departemen dalam satu platform yang unified.",
       "client": "PT. Teknologi Maju",
-      "clientEmail": "contact@teknologimaju.com",
-      "clientPhone": "+62 21 1234 5678",
+      "client_email": "contact@teknologimaju.com",
+      "client_phone": "+62 21 1234 5678",
       "budget": 2500000000,
       "spent": 1800000000,
-      "startDate": "2024-01-15",
-      "endDate": "2024-06-30",
+      "start_date": "2024-01-15",
+      "end_date": "2024-06-30",
       "province": "DKI Jakarta",
-      "projectManager": "Budi Santoso",
+      "project_manager": "Budi Santoso",
       "category": "ERP System",
       "progress": 72,
-      "lastUpdate": "2024-01-20",
-      "createdAt": "2024-01-10",
+      "last_update": "2024-01-20",
+      "created_at": "2024-01-10",
       "timeline": [
         {
           "id": "1",
@@ -60,23 +60,23 @@
         }
       ]
     },
-    "PRJ-002": {
-      "id": "PRJ-002",
+    "550e8400-e29b-41d4-a716-446655440002": {
+      "id": "550e8400-e29b-41d4-a716-446655440002",
       "name": "Mobile Banking App",
       "description": "Pengembangan aplikasi mobile banking dengan fitur lengkap untuk transaksi, transfer, pembayaran bills, dan investasi. Aplikasi akan tersedia untuk iOS dan Android.",
       "client": "Bank Digital Nusantara",
-      "clientEmail": "tech@bankdigitalnusantara.co.id",
-      "clientPhone": "+62 21 9876 5432",
+      "client_email": "tech@bankdigitalnusantara.co.id",
+      "client_phone": "+62 21 9876 5432",
       "budget": 1800000000,
       "spent": 900000000,
-      "startDate": "2024-02-01",
-      "endDate": "2024-07-15",
+      "start_date": "2024-02-01",
+      "end_date": "2024-07-15",
       "province": "DKI Jakarta",
-      "projectManager": "Sari Wijaya",
+      "project_manager": "Sari Wijaya",
       "category": "Mobile Development",
       "progress": 45,
-      "lastUpdate": "2024-01-19",
-      "createdAt": "2024-01-25",
+      "last_update": "2024-01-19",
+      "created_at": "2024-01-25",
       "timeline": [
         {
           "id": "1",
@@ -120,23 +120,23 @@
         }
       ]
     },
-    "PRJ-003": {
-      "id": "PRJ-003",
+    "550e8400-e29b-41d4-a716-446655440003": {
+      "id": "550e8400-e29b-41d4-a716-446655440003",
       "name": "Dashboard Analytics",
       "description": "Development dashboard analytics untuk monitoring KPI dan business intelligence dengan visualisasi data real-time.",
       "client": "PT. Data Insights",
-      "clientEmail": "analytics@datainsights.co.id",
-      "clientPhone": "+62 21 5555 7777",
+      "client_email": "analytics@datainsights.co.id",
+      "client_phone": "+62 21 5555 7777",
       "budget": 850000000,
       "spent": 820000000,
-      "startDate": "2023-11-01",
-      "endDate": "2024-01-15",
+      "start_date": "2023-11-01",
+      "end_date": "2024-01-15",
       "province": "DKI Jakarta",
-      "projectManager": "Andi Kurniawan",
+      "project_manager": "Ahmad Fauzi",
       "category": "Analytics Dashboard",
       "progress": 100,
-      "lastUpdate": "2024-01-15",
-      "createdAt": "2023-10-15",
+      "last_update": "2024-01-15",
+      "created_at": "2023-10-15",
       "timeline": [
         {
           "id": "1",
@@ -172,23 +172,23 @@
         }
       ]
     },
-    "PRJ-004": {
-      "id": "PRJ-004",
+    "550e8400-e29b-41d4-a716-446655440004": {
+      "id": "550e8400-e29b-41d4-a716-446655440004",
       "name": "E-commerce Platform",
       "description": "Development platform e-commerce lengkap dengan fitur marketplace, payment gateway, inventory management, dan sistem affiliate.",
       "client": "Toko Online Sejahtera",
-      "clientEmail": "tech@tokoonlinesejahtera.com",
-      "clientPhone": "+62 21 8888 9999",
+      "client_email": "tech@tokoonlinesejahtera.com",
+      "client_phone": "+62 21 8888 9999",
       "budget": 3200000000,
       "spent": 2100000000,
-      "startDate": "2023-12-01",
-      "endDate": "2024-05-30",
+      "start_date": "2023-12-01",
+      "end_date": "2024-05-30",
       "province": "Jawa Barat",
-      "projectManager": "Dewi Sartika",
+      "project_manager": "Dewi Sartika",
       "category": "E-Commerce Platform",
       "progress": 68,
-      "lastUpdate": "2024-01-18",
-      "createdAt": "2023-11-20",
+      "last_update": "2024-01-18",
+      "created_at": "2023-11-20",
       "timeline": [
         {
           "id": "1",
@@ -232,23 +232,23 @@
         }
       ]
     },
-    "PRJ-005": {
-      "id": "PRJ-005",
+    "550e8400-e29b-41d4-a716-446655440005": {
+      "id": "550e8400-e29b-41d4-a716-446655440005",
       "name": "HR Management System",
       "description": "Sistem manajemen HR komprehensif meliputi payroll, attendance, performance management, dan employee self-service portal.",
       "client": "PT. Sumber Daya Prima",
-      "clientEmail": "hr@sumberdayaprima.co.id",
-      "clientPhone": "+62 21 3333 4444",
+      "client_email": "hr@sumberdayaprima.co.id",
+      "client_phone": "+62 21 3333 4444",
       "budget": 1500000000,
       "spent": 0,
-      "startDate": "2024-02-15",
-      "endDate": "2024-08-30",
+      "start_date": "2024-02-15",
+      "end_date": "2024-08-30",
       "province": "Jawa Tengah",
-      "projectManager": "Rudi Hartono",
+      "project_manager": "Rudi Hartono",
       "category": "Management System",
       "progress": 0,
-      "lastUpdate": "2024-01-21",
-      "createdAt": "2024-01-21",
+      "last_update": "2024-01-21",
+      "created_at": "2024-01-21",
       "timeline": [
         {
           "id": "1",
@@ -292,23 +292,23 @@
         }
       ]
     },
-    "PRJ-006": {
-      "id": "PRJ-006",
+    "550e8400-e29b-41d4-a716-446655440006": {
+      "id": "550e8400-e29b-41d4-a716-446655440006",
       "name": "Inventory Management",
       "description": "Sistem manajemen inventory dengan fitur tracking real-time, forecasting, dan integrasi dengan supplier.",
       "client": "PT. Logistik Global",
-      "clientEmail": "operations@logistikglobal.com",
-      "clientPhone": "+62 21 6666 7777",
+      "client_email": "operations@logistikglobal.com",
+      "client_phone": "+62 21 6666 7777",
       "budget": 2200000000,
       "spent": 1100000000,
-      "startDate": "2023-10-15",
-      "endDate": "2024-04-30",
+      "start_date": "2023-10-15",
+      "end_date": "2024-04-30",
       "province": "Jawa Timur",
-      "projectManager": "Lisa Permata",
+      "project_manager": "Indra Kurniawan",
       "category": "Management System",
       "progress": 50,
-      "lastUpdate": "2024-01-10",
-      "createdAt": "2023-10-01",
+      "last_update": "2024-01-10",
+      "created_at": "2023-10-01",
       "timeline": [
         {
           "id": "1",
