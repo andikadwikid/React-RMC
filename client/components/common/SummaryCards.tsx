@@ -52,9 +52,7 @@ export function SummaryCard({
   );
 }
 
-interface SummaryCardsProps {
-  cards: SummaryCardProps[];
-}
+import type { SummaryCardsProps } from "@/types";
 
 export function SummaryCards({ cards }: SummaryCardsProps) {
   return (
