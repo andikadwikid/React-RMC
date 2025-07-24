@@ -27,6 +27,7 @@ import {
   CheckCircle,
   X,
 } from "lucide-react";
+import { getProjectRiskCapture } from "@/utils/dataLoader";
 
 interface RiskItem {
   id: string;
@@ -87,7 +88,10 @@ export function RiskCaptureForm({
   projectName,
   onSave,
 }: RiskCaptureFormProps) {
-  const [risks, setRisks] = useState<RiskItem[]>([]);
+  const [risks, setRisks] = useState<RiskItem[]>(() => {
+    const existingRiskCapture = getProjectRiskCapture(projectId);
+    return existingRiskCapture ? existingRiskCapture.risks : [];
+  });
 
   const addRiskItem = () => {
     const newRisk: RiskItem = {
