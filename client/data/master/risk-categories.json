@@ -1,0 +1,94 @@
+{
+  "risk_categories": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446001",
+      "name": "Strategis",
+      "icon": "Target",
+      "description": "Strategic business risks affecting long-term objectives and competitive positioning",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446002",
+      "name": "Operasional",
+      "icon": "Building",
+      "description": "Operational and process risks that affect day-to-day business operations",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446003",
+      "name": "Keuangan",
+      "icon": "DollarSign",
+      "description": "Financial and budget risks including cash flow, investment, and financial reporting",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446004",
+      "name": "Kepatuhan",
+      "icon": "Gavel",
+      "description": "Compliance and regulatory risks related to laws, regulations, and industry standards",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446005",
+      "name": "Proyek",
+      "icon": "FileText",
+      "description": "Project-specific risks including scope, timeline, resource, and deliverable risks",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446006",
+      "name": "Lingkungan & Sosial",
+      "icon": "Leaf",
+      "description": "Environmental and social risks including sustainability and community impact",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446007",
+      "name": "Teknologi Informasi",
+      "icon": "Cpu",
+      "description": "IT and technology risks including cybersecurity, system failure, and data integrity",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446008",
+      "name": "Sumber Daya Manusia",
+      "icon": "Users",
+      "description": "Human resource risks including talent management, skills gap, and personnel issues",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446009",
+      "name": "Vendor",
+      "icon": "Handshake",
+      "description": "Third-party and vendor risks including supplier reliability and contract management",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655446010",
+      "name": "Reputasi",
+      "icon": "Award",
+      "description": "Reputation and brand risks that could affect public perception and stakeholder trust",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
