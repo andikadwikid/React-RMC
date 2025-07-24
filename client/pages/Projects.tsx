@@ -36,8 +36,6 @@ import {
   ClipboardCheck,
   Shield,
 } from "lucide-react";
-import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
-import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
 import { formatCurrency } from "@/utils/formatters";
 import { getProjectsWithStatus } from "@/utils/dataLoader";
 
