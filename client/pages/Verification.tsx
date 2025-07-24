@@ -371,7 +371,7 @@ export default function Verification() {
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="all" className="flex items-center gap-2">
             <Shield className="w-4 h-4" />
-            Semua ({mockReadinessSubmissions.length})
+            Semua ({getReadinessSubmissions().length})
           </TabsTrigger>
           <TabsTrigger value="submitted" className="flex items-center gap-2">
             <Clock className="w-4 h-4" />
