@@ -870,62 +870,62 @@ export function RiskCategoryDetailDialog({
           <div className="flex-1 overflow-y-auto p-4 lg:p-6">
             {/* Summary Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-4 lg:mb-6">
-            <Card className="border-l-4 border-l-blue-500">
-              <CardContent className="p-4">
+            <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+              <CardContent className="p-3 lg:p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">
+                    <p className="text-xs lg:text-sm font-medium text-gray-600">
                       Total Risiko
                     </p>
-                    <p className="text-2xl font-bold text-gray-900">
+                    <p className="text-xl lg:text-2xl font-bold text-gray-900">
                       {category.total}
                     </p>
                   </div>
-                  <BarChart3 className="w-8 h-8 text-blue-500" />
+                  <BarChart3 className="w-6 h-6 lg:w-8 lg:h-8 text-blue-500 flex-shrink-0" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-red-500">
-              <CardContent className="p-4">
+            <Card className="border-l-4 border-l-red-500 hover:shadow-md transition-shadow">
+              <CardContent className="p-3 lg:p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Overdue</p>
-                    <p className="text-2xl font-bold text-red-600">
+                    <p className="text-xs lg:text-sm font-medium text-gray-600">Overdue</p>
+                    <p className="text-xl lg:text-2xl font-bold text-red-600">
                       {category.overdue}
                     </p>
                   </div>
-                  <XCircle className="w-8 h-8 text-red-500" />
+                  <XCircle className="w-6 h-6 lg:w-8 lg:h-8 text-red-500 flex-shrink-0" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-yellow-500">
-              <CardContent className="p-4">
+            <Card className="border-l-4 border-l-yellow-500 hover:shadow-md transition-shadow">
+              <CardContent className="p-3 lg:p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">
+                    <p className="text-xs lg:text-sm font-medium text-gray-600">
                       Dalam Mitigasi
                     </p>
-                    <p className="text-2xl font-bold text-yellow-600">
+                    <p className="text-xl lg:text-2xl font-bold text-yellow-600">
                       {category.inProcess}
                     </p>
                   </div>
-                  <Activity className="w-8 h-8 text-yellow-500" />
+                  <Activity className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-500 flex-shrink-0" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-green-500">
-              <CardContent className="p-4">
+            <Card className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
+              <CardContent className="p-3 lg:p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Selesai</p>
-                    <p className="text-2xl font-bold text-green-600">
+                    <p className="text-xs lg:text-sm font-medium text-gray-600">Selesai</p>
+                    <p className="text-xl lg:text-2xl font-bold text-green-600">
                       {category.closed}
                     </p>
                   </div>
-                  <CheckCircle className="w-8 h-8 text-green-500" />
+                  <CheckCircle className="w-6 h-6 lg:w-8 lg:h-8 text-green-500 flex-shrink-0" />
                 </div>
               </CardContent>
             </Card>
