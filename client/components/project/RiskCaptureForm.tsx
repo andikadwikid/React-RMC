@@ -164,23 +164,23 @@ export function RiskCaptureForm({
         <div className="space-y-4 sm:space-y-6">
           {/* Risk Items */}
           <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-blue-600" />
-                    Daftar Risk Capture
+            <CardHeader className="pb-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div className="flex-1">
+                  <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                    <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0" />
+                    <span>Daftar Risk Capture</span>
                   </CardTitle>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-600 mt-1">
                     Tambahkan dan kelola risk capture untuk project ini
                   </p>
                 </div>
-                <Badge variant="outline" className="text-blue-600">
+                <Badge variant="outline" className="text-blue-600 self-start">
                   {risks.length} Risk{risks.length !== 1 ? "s" : ""}
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-3 sm:p-6">
               {risks.length === 0 ? (
                 <div className="text-center py-8">
                   <Shield className="mx-auto h-12 w-12 text-gray-400" />
