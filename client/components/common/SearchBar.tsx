@@ -17,7 +17,7 @@ export function SearchBar({
   placeholder = "Cari...",
   delay = 300,
   className = "",
-}: SearchBarProps) {
+}: ExtendedSearchBarProps) {
   const debouncedValue = useDebounce(value, delay);
 
   useEffect(() => {
