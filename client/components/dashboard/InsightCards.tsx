@@ -1,9 +1,4 @@
-interface InsightCardProps {
-  title: string;
-  value: string | number;
-  bgColor: string;
-  textColor: string;
-}
+import type { InsightCardProps } from "@/types";
 
 export function InsightCard({
   title,
