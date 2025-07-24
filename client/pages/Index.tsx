@@ -672,33 +672,33 @@ export default function Dashboard() {
             </p>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {riskCategories.map((category) => {
                 const IconComponent = category.icon;
                 return (
                   <div
                     key={category.id}
-                    className="border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer hover:border-blue-300 hover:bg-blue-50"
+                    className="border rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-300 hover:bg-blue-50"
                     onClick={() => handleRiskCategoryClick(category)}
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <IconComponent className="h-5 w-5 text-gray-600" />
-                      <h3 className="font-medium text-sm">{category.name}</h3>
+                      <IconComponent className="h-5 w-5 text-gray-600 flex-shrink-0" />
+                      <h3 className="font-medium text-sm leading-tight">{category.name}</h3>
                     </div>
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
-                        <span>Total:</span>
-                        <span className="font-semibold">{category.total}</span>
+                        <span className="text-gray-600">Total:</span>
+                        <span className="font-semibold text-gray-900">{category.total}</span>
                       </div>
-                      <div className="space-y-1">
+                      <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("overdue")}`}
                             ></div>
-                            <span className="text-xs">Overdue</span>
+                            <span className="text-xs text-gray-600">Overdue</span>
                           </div>
-                          <span className="text-xs font-medium">
+                          <span className="text-xs font-medium text-red-600">
                             {category.overdue}
                           </span>
                         </div>
@@ -707,9 +707,9 @@ export default function Dashboard() {
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("inProcess")}`}
                             ></div>
-                            <span className="text-xs">In Process</span>
+                            <span className="text-xs text-gray-600">In Process</span>
                           </div>
-                          <span className="text-xs font-medium">
+                          <span className="text-xs font-medium text-yellow-600">
                             {category.inProcess}
                           </span>
                         </div>
@@ -718,9 +718,9 @@ export default function Dashboard() {
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("closed")}`}
                             ></div>
-                            <span className="text-xs">Closed</span>
+                            <span className="text-xs text-gray-600">Closed</span>
                           </div>
-                          <span className="text-xs font-medium">
+                          <span className="text-xs font-medium text-green-600">
                             {category.closed}
                           </span>
                         </div>
