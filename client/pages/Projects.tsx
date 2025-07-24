@@ -59,45 +59,8 @@ export default function Projects() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [riskFilter, setRiskFilter] = useState("all");
-  const [readinessForm, setReadinessForm] = useState<{
-    isOpen: boolean;
-    projectId: string;
-    projectName: string;
-  }>({ isOpen: false, projectId: "", projectName: "" });
-
-  const [riskCaptureForm, setRiskCaptureForm] = useState<{
-    isOpen: boolean;
-    projectId: string;
-    projectName: string;
-  }>({ isOpen: false, projectId: "", projectName: "" });
 
   const [projects] = useState<Project[]>(getProjectsWithStatus());
-
-  const openReadinessForm = (projectId: string, projectName: string) => {
-    setReadinessForm({ isOpen: true, projectId, projectName });
-  };
-
-  const closeReadinessForm = () => {
-    setReadinessForm({ isOpen: false, projectId: "", projectName: "" });
-  };
-
-  const handleReadinessSave = (data: any) => {
-    console.log("Readiness data saved:", data);
-    // Handle save logic here
-  };
-
-  const openRiskCaptureForm = (projectId: string, projectName: string) => {
-    setRiskCaptureForm({ isOpen: true, projectId, projectName });
-  };
-
-  const closeRiskCaptureForm = () => {
-    setRiskCaptureForm({ isOpen: false, projectId: "", projectName: "" });
-  };
-
-  const handleRiskCaptureSave = (data: any) => {
-    console.log("Risk capture data saved:", data);
-    // Handle save logic here
-  };
 
   // Mock verification statuses for demonstration
   const getVerificationStatus = (projectId: string) => {
