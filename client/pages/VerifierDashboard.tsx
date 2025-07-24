@@ -403,6 +403,14 @@ export default function VerifierDashboard() {
     updateChart(selectedPeriod);
   }, [selectedPeriod]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const handlePeriodChange = (period: DataPeriod) => {
     setSelectedPeriod(period);
     setAutoSelected(false);
