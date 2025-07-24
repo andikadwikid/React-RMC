@@ -227,7 +227,34 @@
       },
       "notes": "Payment security requires additional controls",
       "createdAt": "2024-01-19T09:20:00Z",
-      "risks": []
+      "risks": [
+        {
+          "id": "risk-004",
+          "sasaran": "Keamanan Payment Gateway",
+          "kode": "PAY-SEC-001",
+          "taksonomi": "Finansial",
+          "peristiwaRisiko": "Fraud transaksi pembayaran online",
+          "sumberRisiko": "Validasi payment yang lemah",
+          "dampakKualitatif": "Kerugian finansial merchant dan customer",
+          "dampakKuantitatif": "Kerugian 200 juta rupiah per bulan",
+          "kontrolEksisting": "Basic fraud detection, OTP verification",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
+          },
+          "resikoAkhir": {
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
+          },
+          "verifierComment": "Needs stronger fraud detection system",
+          "verifierName": "Senior Risk Analyst",
+          "verifiedAt": "2024-01-20T14:30:00Z",
+          "isVerified": false,
+          "createdAt": "2024-01-19T09:20:00Z"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655443005",
