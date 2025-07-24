@@ -377,16 +377,16 @@ export default function Projects() {
             <Table className="min-w-[600px] sm:min-w-[800px]">
               <TableHeader>
                 <TableRow className="bg-gray-50">
-                  <TableHead className="min-w-[200px] lg:min-w-[250px]">
+                  <TableHead className="min-w-[150px] sm:min-w-[200px] lg:min-w-[250px]">
                     Project
                   </TableHead>
-                  <TableHead className="min-w-[120px] lg:min-w-[150px]">
+                  <TableHead className="min-w-[120px] lg:min-w-[150px] hidden sm:table-cell">
                     Client
                   </TableHead>
-                  <TableHead className="min-w-[100px] lg:min-w-[120px]">
+                  <TableHead className="min-w-[80px] sm:min-w-[100px] lg:min-w-[120px]">
                     Progress
                   </TableHead>
-                  <TableHead className="min-w-[120px] lg:min-w-[140px]">
+                  <TableHead className="min-w-[100px] sm:min-w-[120px] lg:min-w-[140px]">
                     Budget
                   </TableHead>
                   <TableHead className="min-w-[120px] lg:min-w-[140px] hidden sm:table-cell">
