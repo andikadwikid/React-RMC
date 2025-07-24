@@ -1,34 +1,507 @@
 {
-  "yearly": {
-    "2024": [
-      { "name": "Low", "y": 45, "color": "#166534" },
-      { "name": "Low to Moderate", "y": 32, "color": "#22C55E" },
-      { "name": "Moderate", "y": 28, "color": "#EAB308" },
-      { "name": "Moderate to High", "y": 18, "color": "#F97316" },
-      { "name": "High", "y": 12, "color": "#DC2626" }
-    ],
-    "2023": [
-      { "name": "Low", "y": 38, "color": "#166534" },
-      { "name": "Low to Moderate", "y": 28, "color": "#22C55E" },
-      { "name": "Moderate", "y": 25, "color": "#EAB308" },
-      { "name": "Moderate to High", "y": 22, "color": "#F97316" },
-      { "name": "High", "y": 15, "color": "#DC2626" }
-    ]
-  },
-  "quarterly": {
-    "q4-2024": [
-      { "name": "Low", "y": 35, "color": "#166534" },
-      { "name": "Low to Moderate", "y": 25, "color": "#22C55E" },
-      { "name": "Moderate", "y": 20, "color": "#EAB308" },
-      { "name": "Moderate to High", "y": 15, "color": "#F97316" },
-      { "name": "High", "y": 8, "color": "#DC2626" }
-    ],
-    "q3-2024": [
-      { "name": "Low", "y": 42, "color": "#166534" },
-      { "name": "Low to Moderate", "y": 30, "color": "#22C55E" },
-      { "name": "Moderate", "y": 25, "color": "#EAB308" },
-      { "name": "Moderate to High", "y": 20, "color": "#F97316" },
-      { "name": "High", "y": 10, "color": "#DC2626" }
-    ]
+  "riskCapture": {
+    "PRJ-001": {
+      "id": "risk-capture-001",
+      "projectId": "PRJ-001",
+      "projectName": "Sistem ERP Perusahaan",
+      "submittedBy": "Budi Santoso",
+      "submittedAt": "2024-01-22T11:15:00Z",
+      "status": "submitted",
+      "totalRisks": 8,
+      "riskLevelDistribution": {
+        "sangatRendah": 2,
+        "rendah": 3,
+        "sedang": 2,
+        "tinggi": 1,
+        "sangatTinggi": 0
+      },
+      "risks": [
+        {
+          "id": "risk-001-1",
+          "sasaran": "Keamanan Data",
+          "kode": "RSK-ERP-001",
+          "taksonomi": "Operational Risk",
+          "peristiwaRisiko": "Kehilangan data customer akibat kerusakan server atau cyberattack",
+          "sumberRisiko": "Hardware failure, Security vulnerabilities",
+          "dampakKualitatif": "Kehilangan kepercayaan customer, reputasi perusahaan rusak, potensi tuntutan hukum",
+          "dampakKuantitatif": "Kerugian finansial hingga 2 miliar rupiah, biaya recovery 500 juta rupiah",
+          "kontrolEksisting": "Backup data harian, redundant server, firewall, antivirus enterprise",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "createdAt": "2024-01-22T11:15:00Z"
+        },
+        {
+          "id": "risk-001-2",
+          "sasaran": "Timeline Proyek",
+          "kode": "RSK-ERP-002",
+          "taksonomi": "Project Risk",
+          "peristiwaRisiko": "Keterlambatan implementasi sistem ERP karena kompleksitas integrasi",
+          "sumberRisiko": "Resource constraints, Technical complexity, Scope creep",
+          "dampakKualitatif": "Delay go-live, impact business operations, customer dissatisfaction",
+          "dampakKuantitatif": "Penalty 300 juta rupiah, additional resource cost 200 juta rupiah",
+          "kontrolEksisting": "Project monitoring weekly, milestone tracking, change control process",
+          "risikoAwal": {
+            "kejadian": 4,
+            "dampak": 3,
+            "level": 12
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "createdAt": "2024-01-22T11:15:00Z"
+        },
+        {
+          "id": "risk-001-3",
+          "sasaran": "Kualitas Data",
+          "kode": "RSK-ERP-003",
+          "taksonomi": "Data Risk",
+          "peristiwaRisiko": "Data migration gagal atau data corrupt selama proses migrasi ke ERP baru",
+          "sumberRisiko": "Data inconsistency, Migration tool limitation, Human error",
+          "dampakKualitatif": "Business disruption, wrong decision making, operational inefficiency",
+          "dampakKuantitatif": "Data recovery cost 400 juta rupiah, business downtime loss 600 juta rupiah",
+          "kontrolEksisting": "Data validation tools, migration testing, rollback procedure",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 3,
+            "level": 9
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "createdAt": "2024-01-22T11:15:00Z"
+        },
+        {
+          "id": "risk-001-4",
+          "sasaran": "User Adoption",
+          "kode": "RSK-ERP-004",
+          "taksonomi": "Human Risk",
+          "peristiwaRisiko": "Resistensi user terhadap sistem baru menyebabkan low adoption rate",
+          "sumberRisiko": "Change resistance, Insufficient training, Complex user interface",
+          "dampakKualitatif": "Low productivity, system underutilization, training cost increase",
+          "dampakKuantitatif": "Additional training cost 150 juta rupiah, productivity loss 300 juta rupiah",
+          "kontrolEksisting": "User training program, change management, user support helpdesk",
+          "risikoAwal": {
+            "kejadian": 4,
+            "dampak": 2,
+            "level": 8
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "createdAt": "2024-01-22T11:15:00Z"
+        },
+        {
+          "id": "risk-001-5",
+          "sasaran": "Integrasi System",
+          "kode": "RSK-ERP-005",
+          "taksonomi": "Technical Risk",
+          "peristiwaRisiko": "Kegagalan integrasi ERP dengan sistem existing (CRM, accounting, inventory)",
+          "sumberRisiko": "API incompatibility, Data format mismatch, Legacy system limitation",
+          "dampakKualitatif": "Manual workaround needed, data silos, operational inefficiency",
+          "dampakKuantitatif": "Additional integration cost 800 juta rupiah, manual process cost 200 juta/bulan",
+          "kontrolEksisting": "Integration testing, API documentation, pilot implementation",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "createdAt": "2024-01-22T11:15:00Z"
+        },
+        {
+          "id": "risk-001-6",
+          "sasaran": "Performance System",
+          "kode": "RSK-ERP-006",
+          "taksonomi": "Performance Risk",
+          "peristiwaRisiko": "Performance sistem lambat saat peak load atau concurrent users tinggi",
+          "sumberRisiko": "Insufficient server capacity, Database optimization issue, Network bandwidth",
+          "dampakKualitatif": "User frustration, productivity decrease, system timeout",
+          "dampakKuantitatif": "Infrastructure upgrade cost 600 juta rupiah, productivity loss 100 juta/bulan",
+          "kontrolEksisting": "Load testing, server monitoring, database tuning, scalable architecture",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 2,
+            "level": 6
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "createdAt": "2024-01-22T11:15:00Z"
+        },
+        {
+          "id": "risk-001-7",
+          "sasaran": "Vendor Support",
+          "kode": "RSK-ERP-007",
+          "taksonomi": "Vendor Risk",
+          "peristiwaRisiko": "Vendor ERP tidak memberikan support yang memadai atau discontinue product",
+          "sumberRisiko": "Vendor business issue, Product lifecycle, Support contract limitation",
+          "dampakKualitatif": "Limited support, security vulnerabilities, forced migration to new system",
+          "dampakKuantitatif": "Migration cost 3 miliar rupiah, extended support cost 500 juta/tahun",
+          "kontrolEksisting": "Vendor evaluation, SLA agreement, escrow agreement, alternative vendor assessment",
+          "risikoAwal": {
+            "kejadian": 2,
+            "dampak": 5,
+            "level": 10
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 4,
+            "level": 4
+          },
+          "createdAt": "2024-01-22T11:15:00Z"
+        },
+        {
+          "id": "risk-001-8",
+          "sasaran": "Compliance",
+          "kode": "RSK-ERP-008",
+          "taksonomi": "Compliance Risk",
+          "peristiwaRisiko": "Sistem ERP tidak memenuhi requirement audit atau regulasi yang berlaku",
+          "sumberRisiko": "Regulation change, Audit requirement, Data privacy law",
+          "dampakKualitatif": "Audit finding, regulatory penalty, legal compliance issue",
+          "dampakKuantitatif": "Compliance cost 200 juta rupiah, potential fine 500 juta rupiah",
+          "kontrolEksisting": "Compliance review, audit trail, regulatory consultation, documentation",
+          "risikoAwal": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 2,
+            "level": 2
+          },
+          "createdAt": "2024-01-22T11:15:00Z"
+        }
+      ],
+      "createdAt": "2024-01-22T11:15:00Z"
+    },
+    "PRJ-002": {
+      "id": "risk-capture-002",
+      "projectId": "PRJ-002",
+      "projectName": "Mobile Banking App",
+      "submittedBy": "Sari Wijaya",
+      "submittedAt": "2024-01-26T15:30:00Z",
+      "status": "verified",
+      "totalRisks": 6,
+      "riskLevelDistribution": {
+        "sangatRendah": 1,
+        "rendah": 2,
+        "sedang": 2,
+        "tinggi": 1,
+        "sangatTinggi": 0
+      },
+      "verifierName": "Chief Risk Officer",
+      "verifiedAt": "2024-01-27T10:45:00Z",
+      "overallComment": "Comprehensive risk assessment with appropriate mitigation strategies for mobile banking security",
+      "risks": [
+        {
+          "id": "risk-002-1",
+          "sasaran": "Security Authentication",
+          "kode": "RSK-MOB-001",
+          "taksonomi": "Security Risk",
+          "peristiwaRisiko": "Fraud transaksi melalui compromised authentication atau session hijacking",
+          "sumberRisiko": "Weak authentication, Session vulnerability, Device compromise",
+          "dampakKualitatif": "Customer loss, regulatory penalty, reputation damage, legal liability",
+          "dampakKuantitatif": "Fraud loss 5 miliar rupiah, investigation cost 300 juta rupiah, fine 1 miliar rupiah",
+          "kontrolEksisting": "Multi-factor authentication, biometric, session timeout, device binding, fraud detection",
+          "risikoAwal": {
+            "kejadian": 4,
+            "dampak": 5,
+            "level": 20
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "verifierComment": "Strong security controls implemented, risk properly mitigated",
+          "isVerified": true,
+          "createdAt": "2024-01-26T15:30:00Z"
+        },
+        {
+          "id": "risk-002-2",
+          "sasaran": "Data Privacy",
+          "kode": "RSK-MOB-002",
+          "taksonomi": "Privacy Risk",
+          "peristiwaRisiko": "Kebocoran data personal customer melalui mobile app vulnerability",
+          "sumberRisiko": "App vulnerability, Data transmission, Storage security, API security",
+          "dampakKualitatif": "Privacy violation, customer trust loss, regulatory investigation",
+          "dampakKuantitatif": "GDPR fine 2 miliar rupiah, remediation cost 500 juta rupiah",
+          "kontrolEksisting": "Data encryption, secure API, penetration testing, privacy by design",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "verifierComment": "Good privacy controls, encryption properly implemented",
+          "isVerified": true,
+          "createdAt": "2024-01-26T15:30:00Z"
+        },
+        {
+          "id": "risk-002-3",
+          "sasaran": "Platform Compatibility",
+          "kode": "RSK-MOB-003",
+          "taksonomi": "Technical Risk",
+          "peristiwaRisiko": "App tidak kompatibel dengan berbagai device atau OS version yang menyebabkan user experience buruk",
+          "sumberRisiko": "OS fragmentation, Device diversity, Version compatibility, Performance variation",
+          "dampakKualitatif": "Poor user experience, low adoption rate, negative reviews, support burden",
+          "dampakKuantitatif": "Additional development cost 400 juta rupiah, support cost 100 juta/bulan",
+          "kontrolEksisting": "Multi-device testing, progressive enhancement, compatibility matrix, user feedback",
+          "risikoAwal": {
+            "kejadian": 4,
+            "dampak": 2,
+            "level": 8
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "verifierComment": "Comprehensive testing strategy addresses compatibility issues",
+          "isVerified": true,
+          "createdAt": "2024-01-26T15:30:00Z"
+        },
+        {
+          "id": "risk-002-4",
+          "sasaran": "App Store Approval",
+          "kode": "RSK-MOB-004",
+          "taksonomi": "Regulatory Risk",
+          "peristiwaRisiko": "Aplikasi ditolak oleh App Store atau Play Store karena tidak memenuhi policy",
+          "sumberRisiko": "Store policy violation, Content guidelines, Security requirements, Review process",
+          "dampakKualitatif": "Launch delay, market entry postponement, competitive disadvantage",
+          "dampakKuantitatif": "Launch delay cost 200 juta rupiah, marketing adjustment 150 juta rupiah",
+          "kontrolEksisting": "Policy compliance review, pre-submission testing, store guideline adherence",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 3,
+            "level": 9
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 2,
+            "level": 2
+          },
+          "verifierComment": "App store requirements well understood and addressed",
+          "isVerified": true,
+          "createdAt": "2024-01-26T15:30:00Z"
+        },
+        {
+          "id": "risk-002-5",
+          "sasaran": "Performance Load",
+          "kode": "RSK-MOB-005",
+          "taksonomi": "Performance Risk",
+          "peristiwaRisiko": "App performance buruk saat peak usage atau network connectivity rendah",
+          "sumberRisiko": "High concurrent users, Network latency, Server capacity, Database performance",
+          "dampakKualitatif": "User frustration, transaction abandonment, customer complaints, service reputation",
+          "dampakKuantitatif": "Infrastructure scaling cost 600 juta rupiah, revenue loss 300 juta/bulan",
+          "kontrolEksisting": "Load testing, performance monitoring, auto-scaling, offline capability, caching",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 3,
+            "level": 9
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "verifierComment": "Performance optimization and scaling strategy well planned",
+          "isVerified": true,
+          "createdAt": "2024-01-26T15:30:00Z"
+        },
+        {
+          "id": "risk-002-6",
+          "sasaran": "Third Party Integration",
+          "kode": "RSK-MOB-006",
+          "taksonomi": "Integration Risk",
+          "peristiwaRisiko": "Kegagalan integrasi dengan third party services (payment gateway, SMS, push notification)",
+          "sumberRisiko": "API changes, Service downtime, Rate limiting, Authentication failure",
+          "dampakKualitatif": "Service disruption, feature unavailability, user experience degradation",
+          "dampakKuantitatif": "Alternative service cost 200 juta rupiah, integration rework 300 juta rupiah",
+          "kontrolEksisting": "Redundant providers, API monitoring, fallback mechanisms, SLA agreements",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 2,
+            "level": 6
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 1,
+            "level": 2
+          },
+          "verifierComment": "Good redundancy and fallback strategy for third party dependencies",
+          "isVerified": true,
+          "createdAt": "2024-01-26T15:30:00Z"
+        }
+      ],
+      "createdAt": "2024-01-26T15:30:00Z"
+    },
+    "PRJ-004": {
+      "id": "risk-capture-004",
+      "projectId": "PRJ-004",
+      "projectName": "E-commerce Platform",
+      "submittedBy": "Dewi Sartika",
+      "submittedAt": "2024-01-19T09:20:00Z",
+      "status": "needs_revision",
+      "totalRisks": 5,
+      "riskLevelDistribution": {
+        "sangatRendah": 1,
+        "rendah": 1,
+        "sedang": 2,
+        "tinggi": 1,
+        "sangatTinggi": 0
+      },
+      "verifierName": "Senior Risk Analyst",
+      "verifiedAt": "2024-01-20T14:30:00Z",
+      "overallComment": "Several high-impact risks need additional mitigation controls, especially around payment security and data protection",
+      "risks": [
+        {
+          "id": "risk-004-1",
+          "sasaran": "Payment Security",
+          "kode": "RSK-ECM-001",
+          "taksonomi": "Financial Risk",
+          "peristiwaRisiko": "Fraud payment atau chargeback yang tinggi karena security vulnerability",
+          "sumberRisiko": "Payment vulnerability, Credit card fraud, Identity theft",
+          "dampakKualitatif": "Financial loss, merchant account suspension, customer distrust",
+          "dampakKuantitatif": "Chargeback loss 1 miliar rupiah, fraud protection cost 300 juta rupiah",
+          "kontrolEksisting": "SSL encryption, PCI compliance, fraud detection",
+          "risikoAwal": {
+            "kejadian": 4,
+            "dampak": 4,
+            "level": 16
+          },
+          "resikoAkhir": {
+            "kejadian": 3,
+            "dampak": 3,
+            "level": 9
+          },
+          "verifierComment": "Need stronger fraud detection and real-time monitoring",
+          "isVerified": false,
+          "createdAt": "2024-01-19T09:20:00Z"
+        },
+        {
+          "id": "risk-004-2",
+          "sasaran": "Inventory Management",
+          "kode": "RSK-ECM-002",
+          "taksonomi": "Operational Risk",
+          "peristiwaRisiko": "Stock out atau overselling karena real-time inventory tracking yang tidak akurat",
+          "sumberRisiko": "System lag, Integration delay, Manual error, Concurrent transactions",
+          "dampakKualitatif": "Customer dissatisfaction, order cancellation, reputation damage",
+          "dampakKuantitatif": "Lost sales 500 juta rupiah, compensation cost 200 juta rupiah",
+          "kontrolEksisting": "Real-time sync, inventory buffer, transaction locking",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 3,
+            "level": 9
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "verifierComment": "Inventory control measures appear adequate",
+          "isVerified": true,
+          "createdAt": "2024-01-19T09:20:00Z"
+        },
+        {
+          "id": "risk-004-3",
+          "sasaran": "Performance Scalability",
+          "kode": "RSK-ECM-003",
+          "taksonomi": "Technical Risk",
+          "peristiwaRisiko": "Website crash atau performance buruk saat flash sale atau peak traffic",
+          "sumberRisiko": "High traffic volume, Server capacity, Database bottleneck, CDN capacity",
+          "dampakKualitatif": "Sales loss, customer frustration, brand reputation damage",
+          "dampakKuantitatif": "Revenue loss 2 miliar rupiah, infrastructure upgrade 800 juta rupiah",
+          "kontrolEksisting": "Load balancer, auto-scaling, CDN, performance monitoring",
+          "risikoAwal": {
+            "kejadian": 4,
+            "dampak": 3,
+            "level": 12
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "verifierComment": "Scalability plan needs stress testing validation",
+          "isVerified": false,
+          "createdAt": "2024-01-19T09:20:00Z"
+        },
+        {
+          "id": "risk-004-4",
+          "sasaran": "Data Protection",
+          "kode": "RSK-ECM-004",
+          "taksonomi": "Privacy Risk",
+          "peristiwaRisiko": "Kebocoran data customer termasuk payment information dan personal data",
+          "sumberRisiko": "Security breach, Insider threat, Database vulnerability, API exposure",
+          "dampakKualitatif": "Legal liability, regulatory penalty, customer trust loss, business closure",
+          "dampakKuantitatif": "GDPR fine 5 miliar rupiah, legal cost 1 miliar rupiah, business loss 10 miliar rupiah",
+          "kontrolEksisting": "Data encryption, access control, security audit, penetration testing",
+          "risikoAwal": {
+            "kejadian": 2,
+            "dampak": 5,
+            "level": 10
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 4,
+            "level": 4
+          },
+          "verifierComment": "Need enhanced data loss prevention and monitoring",
+          "isVerified": false,
+          "createdAt": "2024-01-19T09:20:00Z"
+        },
+        {
+          "id": "risk-004-5",
+          "sasaran": "Vendor Dependency",
+          "kode": "RSK-ECM-005",
+          "taksonomi": "Vendor Risk",
+          "peristiwaRisiko": "Critical third party service downtime (payment gateway, shipping, email service)",
+          "sumberRisiko": "Vendor outage, Service maintenance, Contract termination, Technical issues",
+          "dampakKualitatif": "Service disruption, order processing halt, customer communication failure",
+          "dampakKuantitatif": "Revenue loss 300 juta/hari, alternative service cost 150 juta rupiah",
+          "kontrolEksisting": "Multiple vendor options, SLA monitoring, backup services",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 2,
+            "level": 6
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 1,
+            "level": 2
+          },
+          "verifierComment": "Vendor redundancy strategy is appropriate",
+          "isVerified": true,
+          "createdAt": "2024-01-19T09:20:00Z"
+        }
+      ],
+      "createdAt": "2024-01-19T09:20:00Z"
+    }
   }
 }
