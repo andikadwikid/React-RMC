@@ -42,13 +42,7 @@ interface ReadinessCategory {
   items: ReadinessItem[];
 }
 
-interface ProjectReadinessFormWithFeedbackProps {
-  isOpen: boolean;
-  onClose: () => void;
-  projectId: string;
-  projectName: string;
-  onSave: (data: ReadinessCategory[]) => void;
-}
+import type { ProjectReadinessFormWithFeedbackProps } from "@/types";
 
 // Enhanced readiness data with mock verifier feedback
 const defaultReadinessData: ReadinessCategory[] = [
