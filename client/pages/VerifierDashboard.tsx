@@ -313,6 +313,15 @@ const getPriorityBadge = (priority: string) => {
   return <Badge className={priorityConfig.color}>{priorityConfig.label}</Badge>;
 };
 
+// Loading component
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center py-8">
+      <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+    </div>
+  );
+}
+
 export default function VerifierDashboard() {
   const [activeTab, setActiveTab] = useState<
     "overview" | "activities" | "pending"
@@ -323,75 +332,101 @@ export default function VerifierDashboard() {
   );
   const [showPeriodDropdown, setShowPeriodDropdown] = useState(false);
   const [autoSelected, setAutoSelected] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateChart = (dataPeriod: DataPeriod) => {
-    if (chartRef.current) {
-      Highcharts.chart(chartRef.current, {
-        chart: {
-          type: "column",
-          height: 300,
-          backgroundColor: "transparent",
-        },
-        title: {
-          text: "",
-        },
-        xAxis: {
-          categories: dataPeriod.data.map((stat) =>
-            dataPeriod.type === "yearly"
-              ? stat.period.split(" ")[0]
-              : stat.period,
-          ),
-          crosshair: true,
-        },
-        yAxis: {
-          min: 0,
+    if (chartRef.current && typeof Highcharts !== "undefined") {
+      try {
+        Highcharts.chart(chartRef.current, {
+          chart: {
+            type: "column",
+            height: window.innerWidth < 768 ? 250 : 300,
+            backgroundColor: "transparent",
+          },
           title: {
-            text: "Jumlah Verifikasi",
+            text: "",
           },
-        },
-        tooltip: {
-          headerFormat:
-            '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
-          footerFormat: "</table>",
-          shared: true,
-          useHTML: true,
-        },
-        plotOptions: {
-          column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
+          xAxis: {
+            categories: dataPeriod.data.map((stat) =>
+              dataPeriod.type === "yearly"
+                ? stat.period.split(" ")[0]
+                : stat.period,
+            ),
+            crosshair: true,
           },
-        },
-        series: [
-          {
-            name: "Verified",
-            data: dataPeriod.data.map((stat) => stat.verified),
-            color: "#10b981",
+          yAxis: {
+            min: 0,
+            title: {
+              text: "Jumlah Verifikasi",
+            },
           },
-          {
-            name: "Revised",
-            data: dataPeriod.data.map((stat) => stat.revised),
-            color: "#ef4444",
+          tooltip: {
+            headerFormat:
+              '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat:
+              '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+              '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: "</table>",
+            shared: true,
+            useHTML: true,
           },
-        ],
-        credits: {
-          enabled: false,
-        },
-        legend: {
-          align: "center",
-          verticalAlign: "bottom",
-          layout: "horizontal",
-        },
-      });
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0,
+            },
+          },
+          series: [
+            {
+              name: "Verified",
+              data: dataPeriod.data.map((stat) => stat.verified),
+              color: "#10b981",
+            },
+            {
+              name: "Revised",
+              data: dataPeriod.data.map((stat) => stat.revised),
+              color: "#ef4444",
+            },
+          ],
+          credits: {
+            enabled: false,
+          },
+          legend: {
+            align: "center",
+            verticalAlign: "bottom",
+            layout: "horizontal",
+          },
+        });
+      } catch (error) {
+        console.error("Error creating chart:", error);
+        // Fallback: show message instead of chart
+        if (chartRef.current) {
+          chartRef.current.innerHTML =
+            '<div class="text-center py-8 text-gray-500">Chart gagal dimuat</div>';
+        }
+      }
     }
   };
 
   useEffect(() => {
-    updateChart(selectedPeriod);
+    // Initialize chart immediately when component mounts or period changes
+    const timer = setTimeout(() => {
+      updateChart(selectedPeriod);
+    }, 100); // Small delay to ensure DOM is ready
+
+    return () => clearTimeout(timer);
   }, [selectedPeriod]);
+
+  // Initialize chart immediately on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (chartRef.current) {
+        updateChart(selectedPeriod);
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handlePeriodChange = (period: DataPeriod) => {
     setSelectedPeriod(period);
@@ -417,10 +452,11 @@ export default function VerifierDashboard() {
       />
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="hover:shadow-md transition-shadow duration-200 border-green-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-green-700 flex items-center gap-2">
+              <CheckCircle className="w-4 h-4" />
               Total Terverifikasi
             </CardTitle>
           </CardHeader>
@@ -428,13 +464,16 @@ export default function VerifierDashboard() {
             <div className="text-2xl font-bold text-green-600">
               {verificationStats.overall.totalVerified}
             </div>
-            <p className="text-xs text-gray-500">Risk Capture + Readiness</p>
+            <p className="text-xs text-green-600 mt-1">
+              Risk Capture + Readiness
+            </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-md transition-shadow duration-200 border-blue-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-blue-700 flex items-center gap-2">
+              <Clock className="w-4 h-4" />
               Sedang Review
             </CardTitle>
           </CardHeader>
@@ -442,13 +481,14 @@ export default function VerifierDashboard() {
             <div className="text-2xl font-bold text-blue-600">
               {verificationStats.overall.totalUnderReview}
             </div>
-            <p className="text-xs text-gray-500">Under review</p>
+            <p className="text-xs text-blue-600 mt-1">Under review</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-md transition-shadow duration-200 border-yellow-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-yellow-700 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4" />
               Pending Review
             </CardTitle>
           </CardHeader>
@@ -456,13 +496,14 @@ export default function VerifierDashboard() {
             <div className="text-2xl font-bold text-yellow-600">
               {verificationStats.overall.totalPending}
             </div>
-            <p className="text-xs text-gray-500">Menunggu review</p>
+            <p className="text-xs text-yellow-600 mt-1">Menunggu review</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-md transition-shadow duration-200 border-purple-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-purple-700 flex items-center gap-2">
+              <Target className="w-4 h-4" />
               Success Rate
             </CardTitle>
           </CardHeader>
@@ -477,7 +518,7 @@ export default function VerifierDashboard() {
               })()}
               %
             </div>
-            <p className="text-xs text-gray-500">Tingkat keberhasilan</p>
+            <p className="text-xs text-purple-600 mt-1">Tingkat keberhasilan</p>
           </CardContent>
         </Card>
       </div>
@@ -493,15 +534,15 @@ export default function VerifierDashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-gray-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div className="text-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <div className="text-xl lg:text-2xl font-bold text-gray-800">
                   {verificationStats.riskCapture.total}
                 </div>
                 <div className="text-sm text-gray-600">Total Submissions</div>
               </div>
-              <div className="text-center p-3 bg-red-50 rounded-lg">
-                <div className="text-2xl font-bold text-red-600">
+              <div className="text-center p-3 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                <div className="text-xl lg:text-2xl font-bold text-red-600">
                   {verificationStats.riskCapture.totalRisks}
                 </div>
                 <div className="text-sm text-gray-600">Total Risks</div>
@@ -509,15 +550,17 @@ export default function VerifierDashboard() {
             </div>
 
             <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Terverifikasi</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">
+                  Terverifikasi
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-green-600">
                     {verificationStats.riskCapture.verified}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-green-600 h-2 rounded-full"
+                      className="bg-green-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.verified / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
@@ -526,15 +569,17 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Under Review</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">
+                  Under Review
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-blue-600">
                     {verificationStats.riskCapture.underReview}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-blue-600 h-2 rounded-full"
+                      className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.underReview / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
@@ -543,15 +588,17 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Needs Revision</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">
+                  Needs Revision
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-red-600">
                     {verificationStats.riskCapture.needsRevision}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-red-600 h-2 rounded-full"
+                      className="bg-red-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.needsRevision / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
@@ -560,15 +607,17 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Pending</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">
+                  Pending
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-yellow-600">
                     {verificationStats.riskCapture.pending}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-yellow-600 h-2 rounded-full"
+                      className="bg-yellow-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.pending / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
@@ -589,15 +638,15 @@ export default function VerifierDashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-gray-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div className="text-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <div className="text-xl lg:text-2xl font-bold text-gray-800">
                   {verificationStats.readiness.total}
                 </div>
                 <div className="text-sm text-gray-600">Total Submissions</div>
               </div>
-              <div className="text-center p-3 bg-green-50 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">
+              <div className="text-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                <div className="text-xl lg:text-2xl font-bold text-green-600">
                   {verificationStats.readiness.totalItems}
                 </div>
                 <div className="text-sm text-gray-600">Total Items</div>
@@ -605,15 +654,17 @@ export default function VerifierDashboard() {
             </div>
 
             <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Terverifikasi</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">
+                  Terverifikasi
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-green-600">
                     {verificationStats.readiness.verified}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-green-600 h-2 rounded-full"
+                      className="bg-green-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.verified / verificationStats.readiness.total) * 100 : 0}%`,
                       }}
@@ -622,15 +673,17 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Under Review</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">
+                  Under Review
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-blue-600">
                     {verificationStats.readiness.underReview}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-blue-600 h-2 rounded-full"
+                      className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.underReview / verificationStats.readiness.total) * 100 : 0}%`,
                       }}
@@ -639,15 +692,17 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Needs Revision</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">
+                  Needs Revision
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-red-600">
                     {verificationStats.readiness.needsRevision}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-red-600 h-2 rounded-full"
+                      className="bg-red-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.needsRevision / verificationStats.readiness.total) * 100 : 0}%`,
                       }}
@@ -656,15 +711,17 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Pending</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">
+                  Pending
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-yellow-600">
                     {verificationStats.readiness.pending}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-yellow-600 h-2 rounded-full"
+                      className="bg-yellow-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.pending / verificationStats.readiness.total) * 100 : 0}%`,
                       }}
@@ -780,34 +837,37 @@ export default function VerifierDashboard() {
           )}
 
           {/* Chart Insights */}
-          <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="bg-green-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-green-800">
+          <div className="mb-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="bg-green-50 border border-green-200 p-4 rounded-lg hover:bg-green-100 transition-colors">
+              <div className="text-sm font-medium text-green-800 flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
                 Total Verified
               </div>
-              <div className="text-lg font-bold text-green-600">
+              <div className="text-lg lg:text-xl font-bold text-green-600 mt-1">
                 {selectedPeriod.data.reduce(
                   (sum, item) => sum + item.verified,
                   0,
                 )}
               </div>
             </div>
-            <div className="bg-red-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-red-800">
+            <div className="bg-red-50 border border-red-200 p-4 rounded-lg hover:bg-red-100 transition-colors">
+              <div className="text-sm font-medium text-red-800 flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4" />
                 Total Revised
               </div>
-              <div className="text-lg font-bold text-red-600">
+              <div className="text-lg lg:text-xl font-bold text-red-600 mt-1">
                 {selectedPeriod.data.reduce(
                   (sum, item) => sum + item.revised,
                   0,
                 )}
               </div>
             </div>
-            <div className="bg-blue-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-blue-800">
+            <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg hover:bg-blue-100 transition-colors">
+              <div className="text-sm font-medium text-blue-800 flex items-center gap-2">
+                <Target className="w-4 h-4" />
                 Success Rate
               </div>
-              <div className="text-lg font-bold text-blue-600">
+              <div className="text-lg lg:text-xl font-bold text-blue-600 mt-1">
                 {(() => {
                   const totalVerified = selectedPeriod.data.reduce(
                     (sum, item) => sum + item.verified,
@@ -832,40 +892,47 @@ export default function VerifierDashboard() {
       </Card>
 
       {/* Tab Navigation */}
-      <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
-        <button
-          onClick={() => setActiveTab("overview")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-            activeTab === "overview"
-              ? "bg-white text-gray-900 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          <Target className="w-4 h-4 inline mr-2" />
-          Overview
-        </button>
-        <button
-          onClick={() => setActiveTab("activities")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-            activeTab === "activities"
-              ? "bg-white text-gray-900 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          <Clock className="w-4 h-4 inline mr-2" />
-          Aktivitas Terbaru
-        </button>
-        <button
-          onClick={() => setActiveTab("pending")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-            activeTab === "pending"
-              ? "bg-white text-gray-900 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          <AlertTriangle className="w-4 h-4 inline mr-2" />
-          Pending ({pendingAssignments.length})
-        </button>
+      <div className="overflow-x-auto">
+        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit min-w-full sm:min-w-0">
+          <button
+            onClick={() => setActiveTab("overview")}
+            className={`px-3 lg:px-4 py-2 rounded-md text-xs lg:text-sm font-medium transition-colors whitespace-nowrap ${
+              activeTab === "overview"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <Target className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1 lg:mr-2" />
+            <span className="hidden sm:inline">Overview</span>
+            <span className="sm:hidden">Info</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("activities")}
+            className={`px-3 lg:px-4 py-2 rounded-md text-xs lg:text-sm font-medium transition-colors whitespace-nowrap ${
+              activeTab === "activities"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <Clock className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1 lg:mr-2" />
+            <span className="hidden sm:inline">Aktivitas Terbaru</span>
+            <span className="sm:hidden">Activity</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("pending")}
+            className={`px-3 lg:px-4 py-2 rounded-md text-xs lg:text-sm font-medium transition-colors whitespace-nowrap ${
+              activeTab === "pending"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <AlertTriangle className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1 lg:mr-2" />
+            <span className="hidden sm:inline">
+              Pending ({pendingAssignments.length})
+            </span>
+            <span className="sm:hidden">Pending</span>
+          </button>
+        </div>
       </div>
 
       {/* Tab Content */}
@@ -1015,36 +1082,50 @@ export default function VerifierDashboard() {
               {recentActivities.map((activity) => (
                 <div
                   key={activity.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                  className="border rounded-lg p-4 sm:p-6 hover:bg-gray-50 transition-all duration-200 hover:shadow-md"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-gray-900">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                    <div className="flex-1 space-y-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                        <h3 className="font-semibold text-gray-900 text-lg">
                           {activity.projectName}
                         </h3>
                         {getStatusBadge(activity.status)}
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 mb-2">
-                        <div>
-                          <span className="font-medium">Action:</span>{" "}
-                          {activity.action}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600">
+                        <div className="flex flex-col">
+                          <span className="font-medium text-gray-700">
+                            Action:
+                          </span>
+                          <span className="text-gray-900">
+                            {activity.action}
+                          </span>
                         </div>
-                        <div>
-                          <span className="font-medium">Items:</span>{" "}
-                          {activity.items} item
+                        <div className="flex flex-col">
+                          <span className="font-medium text-gray-700">
+                            Items:
+                          </span>
+                          <span className="text-gray-900">
+                            {activity.items} item
+                          </span>
                         </div>
-                        <div>
-                          <span className="font-medium">Waktu:</span>{" "}
-                          {formatDateTime(activity.timestamp)}
+                        <div className="flex flex-col">
+                          <span className="font-medium text-gray-700">
+                            Waktu:
+                          </span>
+                          <span className="text-gray-900">
+                            {formatDateTime(activity.timestamp)}
+                          </span>
                         </div>
                       </div>
 
                       {activity.notes && (
-                        <div className="bg-gray-100 rounded p-2 text-sm">
-                          <span className="font-medium">Notes:</span>{" "}
-                          {activity.notes}
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
+                          <span className="font-medium text-blue-900">
+                            Notes:
+                          </span>
+                          <p className="mt-1 text-blue-800">{activity.notes}</p>
                         </div>
                       )}
                     </div>
@@ -1072,40 +1153,60 @@ export default function VerifierDashboard() {
                 pendingAssignments.map((assignment) => (
                   <div
                     key={assignment.id}
-                    className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                    className="border rounded-lg p-4 sm:p-6 hover:bg-gray-50 transition-all duration-200 hover:shadow-md"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="font-semibold text-gray-900">
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                          <h3 className="font-semibold text-gray-900 text-lg">
                             {assignment.projectName}
                           </h3>
                           {getPriorityBadge(assignment.priority)}
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-gray-600">
-                          <div>
-                            <span className="font-medium">Submitter:</span>{" "}
-                            {assignment.submittedBy}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm text-gray-600">
+                          <div className="flex flex-col">
+                            <span className="font-medium text-gray-700">
+                              Submitter:
+                            </span>
+                            <span className="text-gray-900">
+                              {assignment.submittedBy}
+                            </span>
                           </div>
-                          <div>
-                            <span className="font-medium">Category:</span>{" "}
-                            {assignment.category}
+                          <div className="flex flex-col">
+                            <span className="font-medium text-gray-700">
+                              Category:
+                            </span>
+                            <span className="text-gray-900">
+                              {assignment.category}
+                            </span>
                           </div>
-                          <div>
-                            <span className="font-medium">Est. Time:</span>{" "}
-                            {assignment.estimatedTime}
+                          <div className="flex flex-col">
+                            <span className="font-medium text-gray-700">
+                              Est. Time:
+                            </span>
+                            <span className="text-gray-900">
+                              {assignment.estimatedTime}
+                            </span>
                           </div>
-                          <div>
-                            <span className="font-medium">Submitted:</span>{" "}
-                            {formatDateTime(assignment.submittedAt)}
+                          <div className="flex flex-col">
+                            <span className="font-medium text-gray-700">
+                              Submitted:
+                            </span>
+                            <span className="text-gray-900">
+                              {formatDateTime(assignment.submittedAt)}
+                            </span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="ml-4">
+                      <div className="flex justify-end lg:ml-4">
                         <Link to="/verification">
-                          <Button variant="outline" size="sm">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full sm:w-auto hover:bg-blue-50 hover:border-blue-300"
+                          >
                             <Eye className="w-4 h-4 mr-2" />
                             Review
                           </Button>

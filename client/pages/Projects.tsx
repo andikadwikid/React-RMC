@@ -226,84 +226,88 @@ export default function Projects() {
   const completedProjects = projects.filter((p) => p.progress === 100).length;
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-4 lg:p-6 space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-            <Building2 className="h-8 w-8 text-blue-600" />
-            List Project
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 lg:gap-4">
+        <div className="flex-1 min-w-0">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 flex items-center gap-2">
+            <Building2 className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-blue-600 flex-shrink-0" />
+            <span className="break-words">List Project</span>
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-sm sm:text-base text-gray-600 mt-1 break-words">
             Kelola dan monitor semua proyek yang sedang berjalan
           </p>
         </div>
-        <Link to="/projects/create">
-          <Button className="flex items-center gap-2">
+        <Link to="/projects/create" className="w-full sm:w-auto">
+          <Button className="flex items-center justify-center gap-2 w-full sm:w-auto">
             <Plus className="w-4 h-4" />
-            Tambah Project
+            <span className="sm:inline">Tambah Project</span>
           </Button>
         </Link>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+        <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs lg:text-sm font-medium text-gray-600">
                   Total Project
                 </p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-xl lg:text-2xl font-bold text-gray-900">
                   {projects.length}
                 </p>
               </div>
-              <Building2 className="h-8 w-8 text-blue-500" />
+              <Building2 className="h-6 w-6 lg:h-8 lg:w-8 text-blue-500 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Aktif</p>
-                <p className="text-2xl font-bold text-green-600">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs lg:text-sm font-medium text-gray-600">
+                  Aktif
+                </p>
+                <p className="text-xl lg:text-2xl font-bold text-green-600">
                   {activeProjects}
                 </p>
               </div>
-              <Clock className="h-8 w-8 text-green-500" />
+              <Clock className="h-6 w-6 lg:h-8 lg:w-8 text-green-500 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Selesai</p>
-                <p className="text-2xl font-bold text-blue-600">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs lg:text-sm font-medium text-gray-600">
+                  Selesai
+                </p>
+                <p className="text-xl lg:text-2xl font-bold text-blue-600">
                   {completedProjects}
                 </p>
               </div>
-              <CheckCircle className="h-8 w-8 text-blue-500" />
+              <CheckCircle className="h-6 w-6 lg:h-8 lg:w-8 text-blue-500 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="border-l-4 border-l-purple-500 hover:shadow-md transition-shadow">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs lg:text-sm font-medium text-gray-600">
                   Total Budget
                 </p>
-                <p className="text-lg font-bold text-purple-600">
+                <p className="text-base lg:text-lg font-bold text-purple-600 break-words">
                   {formatCurrency(totalBudget)}
                 </p>
               </div>
-              <DollarSign className="h-8 w-8 text-purple-500" />
+              <DollarSign className="h-6 w-6 lg:h-8 lg:w-8 text-purple-500 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
@@ -311,160 +315,238 @@ export default function Projects() {
 
       {/* Filters */}
       <Card>
-        <CardContent className="p-6">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
+        <CardContent className="p-4 lg:p-6">
+          <div className="flex flex-col gap-3 lg:gap-4">
+            {/* Search Input */}
+            <div className="w-full">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   placeholder="Cari project atau client..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 text-sm lg:text-base"
                 />
               </div>
             </div>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full sm:w-48">
-                <SelectValue placeholder="Filter Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Semua Status</SelectItem>
-                <SelectItem value="running">Berjalan</SelectItem>
-                <SelectItem value="completed">Selesai</SelectItem>
-                <SelectItem value="on-hold">Tertunda</SelectItem>
-                <SelectItem value="planning">Perencanaan</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={riskFilter} onValueChange={setRiskFilter}>
-              <SelectTrigger className="w-full sm:w-48">
-                <SelectValue placeholder="Filter Risk" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Semua Risk</SelectItem>
-                <SelectItem value="not_assessed">Belum Dinilai</SelectItem>
-                <SelectItem value="low">Rendah</SelectItem>
-                <SelectItem value="medium">Sedang</SelectItem>
-                <SelectItem value="high">Tinggi</SelectItem>
-              </SelectContent>
-            </Select>
+
+            {/* Filter Controls */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex items-center gap-2 flex-1">
+                <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-full min-w-0">
+                    <SelectValue placeholder="Filter Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Semua Status</SelectItem>
+                    <SelectItem value="running">Berjalan</SelectItem>
+                    <SelectItem value="completed">Selesai</SelectItem>
+                    <SelectItem value="on-hold">Tertunda</SelectItem>
+                    <SelectItem value="planning">Perencanaan</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <Select value={riskFilter} onValueChange={setRiskFilter}>
+                <SelectTrigger className="w-full sm:w-48 min-w-0">
+                  <SelectValue placeholder="Filter Risk" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Semua Risk</SelectItem>
+                  <SelectItem value="not_assessed">Belum Dinilai</SelectItem>
+                  <SelectItem value="low">Rendah</SelectItem>
+                  <SelectItem value="medium">Sedang</SelectItem>
+                  <SelectItem value="high">Tinggi</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Projects Table */}
       <Card>
-        <CardHeader>
-          <CardTitle>Daftar Project ({filteredProjects.length})</CardTitle>
+        <CardHeader className="pb-3 lg:pb-6">
+          <CardTitle className="text-base lg:text-lg">
+            Daftar Project ({filteredProjects.length})
+          </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="min-w-[800px]">
               <TableHeader>
-                <TableRow>
-                  <TableHead>Project</TableHead>
-                  <TableHead>Client</TableHead>
-                  <TableHead>Progress</TableHead>
-                  <TableHead>Budget</TableHead>
-                  <TableHead>Timeline</TableHead>
-                  <TableHead>Readiness</TableHead>
-                  <TableHead>Risk Capture</TableHead>
-                  <TableHead>Verifikasi</TableHead>
-                  <TableHead>Actions</TableHead>
+                <TableRow className="bg-gray-50">
+                  <TableHead className="min-w-[200px] lg:min-w-[250px]">
+                    Project
+                  </TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[150px]">
+                    Client
+                  </TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px]">
+                    Progress
+                  </TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px]">
+                    Budget
+                  </TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px] hidden sm:table-cell">
+                    Timeline
+                  </TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px] hidden md:table-cell">
+                    Readiness
+                  </TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px] hidden md:table-cell">
+                    Risk Capture
+                  </TableHead>
+                  <TableHead className="min-w-[120px] lg:min-w-[140px] hidden lg:table-cell">
+                    Verifikasi
+                  </TableHead>
+                  <TableHead className="min-w-[100px] lg:min-w-[120px]">
+                    Actions
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredProjects.map((project) => (
-                  <TableRow key={project.id}>
-                    <TableCell>
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          {project.name}
+                {filteredProjects.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={9} className="text-center py-8">
+                      <div className="flex flex-col items-center gap-2">
+                        <Search className="w-8 h-8 text-gray-400" />
+                        <p className="text-gray-500 text-sm lg:text-base">
+                          {searchTerm ||
+                          statusFilter !== "all" ||
+                          riskFilter !== "all"
+                            ? "Tidak ada project yang ditemukan dengan filter yang dipilih"
+                            : "Belum ada project yang terdaftar"}
                         </p>
-                        <p className="text-sm text-gray-500">{project.id}</p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <p className="text-sm text-gray-900">{project.client}</p>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <div className="w-16 bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-blue-600 h-2 rounded-full"
-                            style={{ width: `${project.progress}%` }}
-                          ></div>
-                        </div>
-                        <span className="text-sm text-gray-600">
-                          {project.progress}%
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="text-sm">
-                        <p className="font-medium">
-                          {formatCurrency(project.budget)}
-                        </p>
-                        <p className="text-gray-500">
-                          Spent: {formatCurrency(project.spent)}
-                        </p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="text-sm">
-                        <p>
-                          {new Date(project.startDate).toLocaleDateString(
-                            "id-ID",
-                          )}
-                        </p>
-                        <p className="text-gray-500">
-                          →{" "}
-                          {new Date(project.endDate).toLocaleDateString(
-                            "id-ID",
-                          )}
-                        </p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      {getReadinessBadge(
-                        project.readinessStatus,
-                        project.readinessScore,
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {getRiskCaptureBadge(
-                        project.riskCaptureStatus,
-                        project.riskCaptureScore,
-                      )}
-                    </TableCell>
-                    <TableCell>{getVerificationStatus(project.id)}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Link to={`/projects/${project.id}/timeline`}>
+                        {(searchTerm ||
+                          statusFilter !== "all" ||
+                          riskFilter !== "all") && (
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             size="sm"
-                            title="View Timeline"
+                            onClick={() => {
+                              setSearchTerm("");
+                              setStatusFilter("all");
+                              setRiskFilter("all");
+                            }}
                           >
-                            <GitBranch className="w-4 h-4" />
+                            Reset Filter
                           </Button>
-                        </Link>
-                        <Link to={`/projects/${project.id}`}>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            title="View Details"
-                          >
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                        </Link>
-                        <Button variant="ghost" size="sm">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
+                        )}
                       </div>
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : (
+                  filteredProjects.map((project) => (
+                    <TableRow key={project.id} className="hover:bg-gray-50">
+                      <TableCell>
+                        <div>
+                          <p className="font-medium text-sm lg:text-base text-gray-900 break-words">
+                            {project.name}
+                          </p>
+                          <p className="text-xs lg:text-sm text-gray-500">
+                            {project.id}
+                          </p>
+                          {/* Show client on mobile when client column is hidden */}
+                          <p className="text-xs text-gray-600 mt-1 sm:hidden">
+                            Client: {project.client}
+                          </p>
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <p className="text-xs lg:text-sm text-gray-900 break-words">
+                          {project.client}
+                        </p>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="w-12 lg:w-16 bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-blue-600 h-2 rounded-full"
+                              style={{ width: `${project.progress}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-xs lg:text-sm text-gray-600 whitespace-nowrap">
+                            {project.progress}%
+                          </span>
+                        </div>
+                        {getStatusBadge(project.progress)}
+                      </TableCell>
+                      <TableCell>
+                        <div className="text-xs lg:text-sm">
+                          <p className="font-medium break-words">
+                            {formatCurrency(project.budget)}
+                          </p>
+                          <p className="text-gray-500 break-words">
+                            Spent: {formatCurrency(project.spent)}
+                          </p>
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <div className="text-xs lg:text-sm">
+                          <p className="whitespace-nowrap">
+                            {new Date(project.startDate).toLocaleDateString(
+                              "id-ID",
+                            )}
+                          </p>
+                          <p className="text-gray-500 whitespace-nowrap">
+                            →{" "}
+                            {new Date(project.endDate).toLocaleDateString(
+                              "id-ID",
+                            )}
+                          </p>
+                        </div>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {getReadinessBadge(
+                          project.readinessStatus,
+                          project.readinessScore,
+                        )}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {getRiskCaptureBadge(
+                          project.riskCaptureStatus,
+                          project.riskCaptureScore,
+                        )}
+                      </TableCell>
+                      <TableCell className="hidden lg:table-cell">
+                        {getVerificationStatus(project.id)}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1 lg:gap-2">
+                          <Link to={`/projects/${project.id}/timeline`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              title="View Timeline"
+                              className="h-8 w-8 p-0 lg:h-9 lg:w-9"
+                            >
+                              <GitBranch className="w-3 h-3 lg:w-4 lg:h-4" />
+                            </Button>
+                          </Link>
+                          <Link to={`/projects/${project.id}`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              title="View Details"
+                              className="h-8 w-8 p-0 lg:h-9 lg:w-9"
+                            >
+                              <Eye className="w-3 h-3 lg:w-4 lg:h-4" />
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 w-8 p-0 lg:h-9 lg:w-9"
+                          >
+                            <MoreHorizontal className="w-3 h-3 lg:w-4 lg:h-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </div>

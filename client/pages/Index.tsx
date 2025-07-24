@@ -55,12 +55,22 @@ import {
   getStatusColor,
 } from "@/hooks/useDashboardCalculations";
 
+// Loading component
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center py-8">
+      <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+    </div>
+  );
+}
+
 export default function Dashboard() {
   // Performance chart state
   const performanceChartRef = useRef<HTMLDivElement>(null);
   const [selectedPerformancePeriod, setSelectedPerformancePeriod] =
     useState<DataPeriod>(detectBestPerformancePeriod());
   const [performanceAutoSelected, setPerformanceAutoSelected] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Project summary state
   const [projectSummary, setProjectSummary] = useState<ProjectSummary>(
@@ -120,7 +130,7 @@ export default function Dashboard() {
       (Highcharts as any).chart(performanceChartRef.current, {
         chart: {
           type: "column",
-          height: 350,
+          height: window.innerWidth < 768 ? 280 : 350,
           backgroundColor: "transparent",
         },
         title: {
@@ -288,45 +298,70 @@ export default function Dashboard() {
 
   // Effects
   useEffect(() => {
-    updatePerformanceChart(selectedPerformancePeriod);
-  }, [selectedPerformancePeriod]);
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        updatePerformanceChart(selectedPerformancePeriod);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedPerformancePeriod, isLoading]);
 
   useEffect(() => {
     setProjectSummary(calculateProjectSummary(selectedPerformancePeriod));
   }, [selectedPerformancePeriod]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 600);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="px-6 py-6">
-          <div className="flex justify-between items-center">
+        <div className="px-4 sm:px-6 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 Dashboard Management Risiko
               </h1>
-              <p className="text-gray-600 mt-1">
+              <p className="text-gray-600 mt-1 text-sm sm:text-base">
                 Monitor dan kelola risiko proyek secara real-time
               </p>
             </div>
-            <div className="hidden sm:flex items-center space-x-3">
-              <Badge variant="outline" className="px-3 py-1">
-                <Calendar className="w-4 h-4 mr-2" />
-                {new Date().toLocaleDateString("id-ID", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+            <div className="flex items-center">
+              <Badge
+                variant="outline"
+                className="px-2 sm:px-3 py-1 text-xs sm:text-sm"
+              >
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">
+                  {new Date().toLocaleDateString("id-ID", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+                <span className="sm:hidden">
+                  {new Date().toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
               </Badge>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Financial Section - Row 1 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 sm:mb-8">
           <InvoiceStatusSection
             selectedPeriod={selectedInvoiceStatusPeriod}
             invoiceStatus={invoiceStatus}
@@ -345,18 +380,18 @@ export default function Dashboard() {
         </div>
 
         {/* Project Overview Cards - Row 2 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white relative overflow-hidden">
-            <CardContent className="p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
                     <p className="text-blue-100 text-sm font-medium">
                       Total Proyek
                     </p>
                     <Badge
                       variant="secondary"
-                      className={`text-xs px-2 py-0.5 ${
+                      className={`text-xs px-2 py-0.5 w-fit ${
                         selectedPerformancePeriod.type === "yearly"
                           ? "bg-blue-200 text-blue-800"
                           : "bg-orange-200 text-orange-800"
@@ -367,27 +402,29 @@ export default function Dashboard() {
                         : "Triwulan"}
                     </Badge>
                   </div>
-                  <p className="text-3xl font-bold">{projectSummary.total}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">
+                    {projectSummary.total}
+                  </p>
                   <p className="text-blue-200 text-xs mt-1">
                     Periode: {selectedPerformancePeriod.label}
                   </p>
                 </div>
-                <BarChart3 className="h-12 w-12 text-blue-200" />
+                <BarChart3 className="h-10 w-10 sm:h-12 sm:w-12 text-blue-200 flex-shrink-0" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white relative overflow-hidden">
-            <CardContent className="p-6">
+          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
                     <p className="text-green-100 text-sm font-medium">
                       Proyek Berjalan
                     </p>
                     <Badge
                       variant="secondary"
-                      className="text-xs px-2 py-0.5 bg-green-200 text-green-800"
+                      className="text-xs px-2 py-0.5 bg-green-200 text-green-800 w-fit"
                     >
                       {Math.round(
                         (projectSummary.running / projectSummary.total) * 100,
@@ -395,27 +432,29 @@ export default function Dashboard() {
                       %
                     </Badge>
                   </div>
-                  <p className="text-3xl font-bold">{projectSummary.running}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">
+                    {projectSummary.running}
+                  </p>
                   <p className="text-green-200 text-xs mt-1">
                     Dari {projectSummary.total} total proyek
                   </p>
                 </div>
-                <TrendingUp className="h-12 w-12 text-green-200" />
+                <TrendingUp className="h-10 w-10 sm:h-12 sm:w-12 text-green-200 flex-shrink-0" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white relative overflow-hidden">
-            <CardContent className="p-6">
+          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200 sm:col-span-2 lg:col-span-1">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
                     <p className="text-purple-100 text-sm font-medium">
                       Proyek Selesai
                     </p>
                     <Badge
                       variant="secondary"
-                      className="text-xs px-2 py-0.5 bg-purple-200 text-purple-800"
+                      className="text-xs px-2 py-0.5 bg-purple-200 text-purple-800 w-fit"
                     >
                       {Math.round(
                         (projectSummary.completed / projectSummary.total) * 100,
@@ -423,38 +462,40 @@ export default function Dashboard() {
                       %
                     </Badge>
                   </div>
-                  <p className="text-3xl font-bold">
+                  <p className="text-2xl sm:text-3xl font-bold">
                     {projectSummary.completed}
                   </p>
                   <p className="text-purple-200 text-xs mt-1">
                     Completion rate
                   </p>
                 </div>
-                <CheckCircle className="h-12 w-12 text-purple-200" />
+                <CheckCircle className="h-10 w-10 sm:h-12 sm:w-12 text-purple-200 flex-shrink-0" />
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Performance Overview Chart - Row 3 */}
-        <Card className="mb-8">
+        <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <div className="flex flex-col md:flex-row items-start justify-between gap-5">
-              <div className="flex items-center gap-2">
-                <div>
-                  <div className="flex gap-3">
-                    <Activity className="w-5 h-5" />
-                    <CardTitle className="flex items-center gap-2">
-                      Performance Overview
-                    </CardTitle>
+            <div className="flex flex-col lg:flex-row items-start justify-between gap-4 lg:gap-5">
+              <div className="flex items-center gap-2 w-full lg:w-auto">
+                <div className="flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                    <div className="flex items-center gap-2">
+                      <Activity className="w-5 h-5" />
+                      <CardTitle className="text-lg sm:text-xl">
+                        Performance Overview
+                      </CardTitle>
+                    </div>
                   </div>
-                  <div className="flex items-center my-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2">
                     <p className="text-sm text-gray-600">
                       {selectedPerformancePeriod.label}
                     </p>
                     <Badge
                       variant="secondary"
-                      className={`ml-2 ${
+                      className={`w-fit ${
                         selectedPerformancePeriod.type === "yearly"
                           ? "bg-blue-100 text-blue-800"
                           : "bg-orange-100 text-orange-800"
@@ -542,11 +583,15 @@ export default function Dashboard() {
                   textColor: "text-green-800",
                 },
               ]}
-              className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3"
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
             />
           </CardHeader>
           <CardContent>
-            <div ref={performanceChartRef} className="w-full" />
+            {isLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <div ref={performanceChartRef} className="w-full" />
+            )}
           </CardContent>
         </Card>
 
@@ -638,7 +683,7 @@ export default function Dashboard() {
                   },
                 ];
               })()}
-              className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3"
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
             />
 
             <div className="flex flex-wrap gap-4 text-sm mb-4">
@@ -661,33 +706,39 @@ export default function Dashboard() {
             </p>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {riskCategories.map((category) => {
                 const IconComponent = category.icon;
                 return (
                   <div
                     key={category.id}
-                    className="border rounded-lg p-4 hover:shadow-md transition-all cursor-pointer hover:border-blue-300 hover:bg-blue-50"
+                    className="border rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-300 hover:bg-blue-50"
                     onClick={() => handleRiskCategoryClick(category)}
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <IconComponent className="h-5 w-5 text-gray-600" />
-                      <h3 className="font-medium text-sm">{category.name}</h3>
+                      <IconComponent className="h-5 w-5 text-gray-600 flex-shrink-0" />
+                      <h3 className="font-medium text-sm leading-tight">
+                        {category.name}
+                      </h3>
                     </div>
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
-                        <span>Total:</span>
-                        <span className="font-semibold">{category.total}</span>
+                        <span className="text-gray-600">Total:</span>
+                        <span className="font-semibold text-gray-900">
+                          {category.total}
+                        </span>
                       </div>
-                      <div className="space-y-1">
+                      <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("overdue")}`}
                             ></div>
-                            <span className="text-xs">Overdue</span>
+                            <span className="text-xs text-gray-600">
+                              Overdue
+                            </span>
                           </div>
-                          <span className="text-xs font-medium">
+                          <span className="text-xs font-medium text-red-600">
                             {category.overdue}
                           </span>
                         </div>
@@ -696,9 +747,11 @@ export default function Dashboard() {
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("inProcess")}`}
                             ></div>
-                            <span className="text-xs">In Process</span>
+                            <span className="text-xs text-gray-600">
+                              In Process
+                            </span>
                           </div>
-                          <span className="text-xs font-medium">
+                          <span className="text-xs font-medium text-yellow-600">
                             {category.inProcess}
                           </span>
                         </div>
@@ -707,9 +760,11 @@ export default function Dashboard() {
                             <div
                               className={`w-2 h-2 rounded-full ${getStatusColor("closed")}`}
                             ></div>
-                            <span className="text-xs">Closed</span>
+                            <span className="text-xs text-gray-600">
+                              Closed
+                            </span>
                           </div>
-                          <span className="text-xs font-medium">
+                          <span className="text-xs font-medium text-green-600">
                             {category.closed}
                           </span>
                         </div>
@@ -723,7 +778,7 @@ export default function Dashboard() {
         </Card>
 
         {/* Charts Section - Geographic Distribution and Risk Capture - Row 5 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 sm:mb-8">
           {/* Geographic Distribution Chart */}
           <Card>
             <CardHeader>
@@ -798,7 +853,7 @@ export default function Dashboard() {
                     },
                   ];
                 })()}
-                className="mb-4 grid grid-cols-2 gap-3"
+                className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3"
               />
             </CardHeader>
             <CardContent>
@@ -1001,6 +1056,42 @@ export default function Dashboard() {
                   </span>
                 </div>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Quick Actions - Row 7 */}
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Button className="h-20 flex flex-col items-center justify-center gap-2">
+                <AlertTriangle className="h-6 w-6" />
+                <span>Laporan Risiko</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-20 flex flex-col items-center justify-center gap-2"
+              >
+                <FileText className="h-6 w-6" />
+                <span>Generate Invoice</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-20 flex flex-col items-center justify-center gap-2"
+              >
+                <BarChart3 className="h-6 w-6" />
+                <span>Analytics</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-20 flex flex-col items-center justify-center gap-2"
+              >
+                <Users className="h-6 w-6" />
+                <span>Manage Users</span>
+              </Button>
             </div>
           </CardContent>
         </Card>

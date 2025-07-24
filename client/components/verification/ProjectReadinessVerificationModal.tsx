@@ -183,40 +183,49 @@ export function ProjectReadinessVerificationModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <CheckCircle className="w-5 h-5" />
-            Verifikasi Project Readiness
+      <DialogContent className="max-w-[95vw] lg:max-w-5xl max-h-[95vh] overflow-hidden flex flex-col p-0">
+        <DialogHeader className="p-4 lg:p-6 border-b">
+          <DialogTitle className="flex flex-col sm:flex-row sm:items-center gap-2 text-lg lg:text-xl">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 lg:w-6 lg:w-6 text-blue-600" />
+              <span>Verifikasi Project Readiness</span>
+            </div>
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6">
+        <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-6">
           {/* Project Information */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Informasi Project</CardTitle>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-blue-600" />
+                Informasi Project
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label className="text-sm font-medium text-gray-600">
                     Nama Project
                   </Label>
-                  <p className="text-sm">{submission.projectName}</p>
+                  <p className="text-sm font-semibold text-gray-900 mt-1">
+                    {submission.projectName}
+                  </p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium text-gray-600">
                     Project ID
                   </Label>
-                  <p className="text-sm">{submission.projectId}</p>
+                  <p className="text-sm text-gray-900 mt-1 font-mono">
+                    {submission.projectId}
+                  </p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium text-gray-600">
                     Submitter
                   </Label>
-                  <p className="text-sm flex items-center gap-1">
-                    <User className="w-3 h-3" />
+                  <p className="text-sm flex items-center gap-2 text-gray-900 mt-1">
+                    <User className="w-4 h-4 text-blue-600" />
                     {submission.submittedBy}
                   </p>
                 </div>
@@ -224,8 +233,8 @@ export function ProjectReadinessVerificationModal({
                   <Label className="text-sm font-medium text-gray-600">
                     Tanggal Submit
                   </Label>
-                  <p className="text-sm flex items-center gap-1">
-                    <Calendar className="w-3 h-3" />
+                  <p className="text-sm flex items-center gap-2 text-gray-900 mt-1">
+                    <Calendar className="w-4 h-4 text-blue-600" />
                     {formatDateTime(submission.submittedAt)}
                   </p>
                 </div>
@@ -245,23 +254,23 @@ export function ProjectReadinessVerificationModal({
                     {items.map((item) => (
                       <div
                         key={item.id}
-                        className="border rounded-lg p-4 space-y-3"
+                        className="border rounded-lg p-4 space-y-4 hover:border-gray-300 transition-colors"
                       >
-                        <div className="flex items-start justify-between">
+                        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3">
                           <div className="flex-1">
-                            <h4 className="font-medium text-gray-900">
+                            <h4 className="font-medium text-gray-900 text-base">
                               {item.item}
                             </h4>
-                            <div className="flex items-center gap-4 mt-2">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-3">
                               <div className="flex items-center gap-2">
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-gray-500 font-medium">
                                   User Status:
                                 </span>
                                 {getStatusBadge(item.userStatus)}
                               </div>
                               {item.verifierStatus && (
                                 <div className="flex items-center gap-2">
-                                  <span className="text-xs text-gray-500">
+                                  <span className="text-xs text-gray-500 font-medium">
                                     Verifier Status:
                                   </span>
                                   {getStatusBadge(item.verifierStatus)}
@@ -272,22 +281,22 @@ export function ProjectReadinessVerificationModal({
                         </div>
 
                         {item.userComment && (
-                          <div className="bg-blue-50 p-3 rounded">
-                            <div className="flex items-center gap-2 mb-1">
-                              <MessageSquare className="w-3 h-3 text-blue-600" />
-                              <span className="text-xs font-medium text-blue-600">
+                          <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg">
+                            <div className="flex items-center gap-2 mb-2">
+                              <MessageSquare className="w-4 h-4 text-blue-600" />
+                              <span className="text-sm font-medium text-blue-700">
                                 Komentar User:
                               </span>
                             </div>
-                            <p className="text-sm text-blue-800">
+                            <p className="text-sm text-blue-800 leading-relaxed">
                               {item.userComment}
                             </p>
                           </div>
                         )}
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                           <div>
-                            <Label className="text-sm font-medium">
+                            <Label className="text-sm font-medium text-gray-700">
                               Verifier Status
                             </Label>
                             <Select
@@ -296,7 +305,7 @@ export function ProjectReadinessVerificationModal({
                                 updateVerificationStatus(item.id, value)
                               }
                             >
-                              <SelectTrigger className="mt-1">
+                              <SelectTrigger className="mt-2 h-11">
                                 <SelectValue placeholder="Pilih status verifikasi" />
                               </SelectTrigger>
                               <SelectContent>
@@ -314,13 +323,13 @@ export function ProjectReadinessVerificationModal({
                           </div>
 
                           <div>
-                            <Label className="text-sm font-medium">
+                            <Label className="text-sm font-medium text-gray-700">
                               Komentar Verifier
                             </Label>
                             <Textarea
                               placeholder="Tambahkan komentar verifikasi..."
-                              className="mt-1"
-                              rows={2}
+                              className="mt-2 min-h-[80px] resize-none focus:ring-blue-500 focus:border-blue-500"
+                              rows={3}
                               value={item.verifierComment || ""}
                               onChange={(e) =>
                                 updateVerificationComment(
@@ -340,17 +349,20 @@ export function ProjectReadinessVerificationModal({
           </div>
 
           {/* Overall Verification */}
-          <Card>
+          <Card className="border-t-4 border-t-blue-500">
             <CardHeader>
-              <CardTitle>Hasil Verifikasi Keseluruhan</CardTitle>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-blue-600" />
+                Hasil Verifikasi Keseluruhan
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label className="text-sm font-medium">
+                <Label className="text-sm font-medium text-gray-700">
                   Status Keseluruhan
                 </Label>
                 <Select value={overallStatus} onValueChange={setOverallStatus}>
-                  <SelectTrigger className="mt-1">
+                  <SelectTrigger className="mt-2 h-11">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -366,13 +378,13 @@ export function ProjectReadinessVerificationModal({
               </div>
 
               <div>
-                <Label className="text-sm font-medium">
+                <Label className="text-sm font-medium text-gray-700">
                   Komentar Keseluruhan
                 </Label>
                 <Textarea
                   placeholder="Tambahkan komentar keseluruhan hasil verifikasi..."
-                  className="mt-1"
-                  rows={3}
+                  className="mt-2 min-h-[100px] resize-none focus:ring-blue-500 focus:border-blue-500"
+                  rows={4}
                   value={overallComment}
                   onChange={(e) => setOverallComment(e.target.value)}
                 />
@@ -381,13 +393,31 @@ export function ProjectReadinessVerificationModal({
           </Card>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
-            Batal
-          </Button>
-          <Button onClick={handleSave} disabled={isSubmitting}>
-            {isSubmitting ? "Menyimpan..." : "Simpan Verifikasi"}
-          </Button>
+        <DialogFooter className="p-4 lg:p-6 border-t bg-gray-50 flex-shrink-0">
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+              className="order-2 sm:order-1"
+            >
+              Batal
+            </Button>
+            <Button
+              onClick={handleSave}
+              disabled={isSubmitting}
+              className="order-1 sm:order-2"
+            >
+              {isSubmitting ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                  Menyimpan...
+                </div>
+              ) : (
+                "Simpan Verifikasi"
+              )}
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
