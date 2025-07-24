@@ -173,7 +173,7 @@ export default function Dashboard() {
             let tooltip = `<b>${this.x}</b><br/>`;
             this.points?.forEach((point) => {
               if (point.series.name === "Revenue") {
-                tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${formatCurrency(point.y as number)}</b><br/>`;
+                tooltip += `<span style="color:${point.color}">��</span> ${point.series.name}: <b>${formatCurrency(point.y as number)}</b><br/>`;
               } else {
                 tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${point.y}</b><br/>`;
               }
@@ -446,24 +446,26 @@ export default function Dashboard() {
         </div>
 
         {/* Performance Overview Chart - Row 3 */}
-        <Card className="mb-8">
+        <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <div className="flex flex-col md:flex-row items-start justify-between gap-5">
-              <div className="flex items-center gap-2">
-                <div>
-                  <div className="flex gap-3">
-                    <Activity className="w-5 h-5" />
-                    <CardTitle className="flex items-center gap-2">
-                      Performance Overview
-                    </CardTitle>
+            <div className="flex flex-col lg:flex-row items-start justify-between gap-4 lg:gap-5">
+              <div className="flex items-center gap-2 w-full lg:w-auto">
+                <div className="flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                    <div className="flex items-center gap-2">
+                      <Activity className="w-5 h-5" />
+                      <CardTitle className="text-lg sm:text-xl">
+                        Performance Overview
+                      </CardTitle>
+                    </div>
                   </div>
-                  <div className="flex items-center my-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2">
                     <p className="text-sm text-gray-600">
                       {selectedPerformancePeriod.label}
                     </p>
                     <Badge
                       variant="secondary"
-                      className={`ml-2 ${
+                      className={`w-fit ${
                         selectedPerformancePeriod.type === "yearly"
                           ? "bg-blue-100 text-blue-800"
                           : "bg-orange-100 text-orange-800"
