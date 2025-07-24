@@ -124,6 +124,98 @@ const STATUS_CONFIG = {
   },
 };
 
+// Submissions List Component
+interface SubmissionsListProps {
+  submissions: ProjectReadiness[];
+  onOpenModal: (submission: ProjectReadiness) => void;
+  getStatusBadge: (status: string) => JSX.Element | null;
+}
+
+function SubmissionsList({
+  submissions,
+  onOpenModal,
+  getStatusBadge,
+}: SubmissionsListProps) {
+  if (submissions.length === 0) {
+    return (
+      <Card>
+        <CardContent className="py-12">
+          <div className="text-center">
+            <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-500">
+              Tidak ada submission yang ditemukan
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Daftar Submission Readiness ({submissions.length})</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          {submissions.map((submission) => (
+            <div
+              key={submission.id}
+              className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="font-semibold text-gray-900">
+                      {submission.projectName}
+                    </h3>
+                    {getStatusBadge(submission.status)}
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                    <div>
+                      <span className="font-medium">Submitter:</span>{" "}
+                      {submission.submittedBy}
+                    </div>
+                    <div>
+                      <span className="font-medium">Tanggal Submit:</span>{" "}
+                      {formatDateTime(submission.submittedAt)}
+                    </div>
+                    {submission.verifierName && (
+                      <div>
+                        <span className="font-medium">Verifier:</span>{" "}
+                        {submission.verifierName}
+                      </div>
+                    )}
+                  </div>
+
+                  {submission.overallComment && (
+                    <div className="mt-2 p-2 bg-gray-100 rounded text-sm">
+                      <span className="font-medium">Komentar:</span>{" "}
+                      {submission.overallComment}
+                    </div>
+                  )}
+                </div>
+
+                <div className="ml-4">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onOpenModal(submission)}
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    Review
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function Verification() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
