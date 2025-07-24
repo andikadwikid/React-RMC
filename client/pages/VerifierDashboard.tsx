@@ -416,6 +416,17 @@ export default function VerifierDashboard() {
     return () => clearTimeout(timer);
   }, [selectedPeriod]);
 
+  // Initialize chart immediately on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (chartRef.current) {
+        updateChart(selectedPeriod);
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const handlePeriodChange = (period: DataPeriod) => {
     setSelectedPeriod(period);
     setAutoSelected(false);
