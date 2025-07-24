@@ -457,18 +457,20 @@ export default function Projects() {
                         </p>
                       </TableCell>
                       <TableCell>
-                        <div className="flex items-center gap-2">
-                          <div className="w-12 lg:w-16 bg-gray-200 rounded-full h-2">
-                            <div
-                              className="bg-blue-600 h-2 rounded-full"
-                              style={{ width: `${project.progress}%` }}
-                            ></div>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 sm:w-12 lg:w-16 bg-gray-200 rounded-full h-2">
+                              <div
+                                className="bg-blue-600 h-2 rounded-full"
+                                style={{ width: `${project.progress}%` }}
+                              ></div>
+                            </div>
+                            <span className="text-xs lg:text-sm text-gray-600 whitespace-nowrap">
+                              {project.progress}%
+                            </span>
                           </div>
-                          <span className="text-xs lg:text-sm text-gray-600 whitespace-nowrap">
-                            {project.progress}%
-                          </span>
+                          {getStatusBadge(project.progress)}
                         </div>
-                        {getStatusBadge(project.progress)}
                       </TableCell>
                       <TableCell>
                         <div className="text-xs lg:text-sm">
