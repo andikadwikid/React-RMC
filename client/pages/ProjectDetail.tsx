@@ -30,6 +30,7 @@ import {
   TrendingUp,
   Target,
   User,
+  MoreHorizontal,
 } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
 import { Project } from "@/types";
@@ -37,6 +38,12 @@ import { getProjectById } from "@/utils/dataLoader";
 import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
 import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
 import { TimelineCard } from "@/components/timeline/TimelineCard";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -186,7 +193,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
 
   if (!project) {
     return (
-      <div className="p-6 flex items-center justify-center min-h-[400px]">
+      <div className="p-4 sm:p-6 flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Loading project details...</p>
@@ -211,62 +218,92 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
   const timeElapsedPercentage = (daysElapsed / totalDays) * 100;
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Header */}
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-4">
+    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto">
+      {/* Header - Mobile Optimized */}
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div className="flex flex-col gap-4">
           <Link to="/projects">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="w-fit">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Kembali ke Projects
+              <span className="hidden sm:inline">Kembali ke Projects</span>
+              <span className="sm:hidden">Kembali</span>
             </Button>
           </Link>
-          <div>
-            <div className="flex items-center gap-3">
-              <Building2 className="h-8 w-8 text-blue-600" />
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">
-                  {project.name}
-                </h1>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm text-gray-500">{project.id}</span>
-                  <span className="text-gray-300">•</span>
-                  <span className="text-sm text-gray-600">
-                    {project.client}
-                  </span>
-                </div>
+          <div className="flex items-start gap-3">
+            <Building2 className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 flex-shrink-0 mt-1" />
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 leading-tight break-words">
+                {project.name}
+              </h1>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-1">
+                <span className="text-xs sm:text-sm text-gray-500 font-mono">
+                  {project.id}
+                </span>
+                <span className="text-gray-300 hidden sm:inline">•</span>
+                <span className="text-xs sm:text-sm text-gray-600">
+                  {project.client}
+                </span>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Action Buttons - Mobile Responsive */}
         <div className="flex items-center gap-2">
-          <Link to={`/projects/${project.id}/edit`}>
-            <Button variant="outline" size="sm">
-              <Edit className="w-4 h-4 mr-2" />
-              Edit Project
-            </Button>
-          </Link>
-          <Link to={`/projects/${project.id}/timeline`}>
-            <Button variant="outline" size="sm">
-              <GitBranch className="w-4 h-4 mr-2" />
-              Timeline
-            </Button>
-          </Link>
+          <div className="hidden sm:flex items-center gap-2">
+            <Link to={`/projects/${project.id}/edit`}>
+              <Button variant="outline" size="sm">
+                <Edit className="w-4 h-4 mr-2" />
+                Edit
+              </Button>
+            </Link>
+            <Link to={`/projects/${project.id}/timeline`}>
+              <Button variant="outline" size="sm">
+                <GitBranch className="w-4 h-4 mr-2" />
+                Timeline
+              </Button>
+            </Link>
+          </div>
+
+          {/* Mobile Dropdown Menu */}
+          <div className="sm:hidden">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <MoreHorizontal className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to={`/projects/${project.id}/edit`}>
+                    <Edit className="w-4 h-4 mr-2" />
+                    Edit Project
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to={`/projects/${project.id}/timeline`}>
+                    <GitBranch className="w-4 h-4 mr-2" />
+                    Timeline
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Quick Stats - Responsive Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Progress</p>
-                <p className="text-2xl font-bold text-blue-600">
+                <p className="text-xl sm:text-2xl font-bold text-blue-600">
                   {project.progress}%
                 </p>
               </div>
-              <TrendingUp className="h-8 w-8 text-blue-500" />
+              <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
             </div>
             <Progress value={project.progress} className="mt-2" />
           </CardContent>
@@ -277,49 +314,59 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Budget Used</p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-xl sm:text-2xl font-bold text-green-600">
                   {budgetUsedPercentage.toFixed(1)}%
                 </p>
               </div>
-              <DollarSign className="h-8 w-8 text-green-500" />
+              <DollarSign className="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
             </div>
             <Progress value={budgetUsedPercentage} className="mt-2" />
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="sm:col-span-2 lg:col-span-1">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Time Elapsed</p>
-                <p className="text-2xl font-bold text-purple-600">
+                <p className="text-xl sm:text-2xl font-bold text-purple-600">
                   {timeElapsedPercentage.toFixed(1)}%
                 </p>
               </div>
-              <Clock className="h-8 w-8 text-purple-500" />
+              <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />
             </div>
             <Progress value={timeElapsedPercentage} className="mt-2" />
           </CardContent>
         </Card>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content - Responsive Tabs */}
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
         className="space-y-4"
       >
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="details">Details</TabsTrigger>
-          <TabsTrigger value="timeline">Timeline</TabsTrigger>
-          <TabsTrigger value="financial">Financial</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto">
+          <TabsList className="grid w-full grid-cols-4 min-w-[320px]">
+            <TabsTrigger value="overview" className="text-xs sm:text-sm">
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="details" className="text-xs sm:text-sm">
+              Details
+            </TabsTrigger>
+            <TabsTrigger value="timeline" className="text-xs sm:text-sm">
+              Timeline
+            </TabsTrigger>
+            <TabsTrigger value="financial" className="text-xs sm:text-sm">
+              Financial
+            </TabsTrigger>
+          </TabsList>
+        </div>
 
-        <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Project Info */}
-            <div className="lg:col-span-2 space-y-6">
+        <TabsContent value="overview" className="space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+            {/* Project Info - Takes 2/3 width on large screens */}
+            <div className="xl:col-span-2 space-y-4 sm:space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -328,50 +375,48 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
                     {project.description}
                   </p>
                   <Separator />
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-gray-400" />
+                      <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
                       <span className="text-gray-600">Start Date:</span>
                       <span className="font-medium">
                         {new Date(startDate).toLocaleDateString("id-ID")}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Target className="w-4 h-4 text-gray-400" />
+                      <Target className="w-4 h-4 text-gray-400 flex-shrink-0" />
                       <span className="text-gray-600">End Date:</span>
                       <span className="font-medium">
                         {new Date(endDate).toLocaleDateString("id-ID")}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-gray-400" />
+                      <MapPin className="w-4 h-4 text-gray-400 flex-shrink-0" />
                       <span className="text-gray-600">Location:</span>
                       <span className="font-medium">{project.province}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <User className="w-4 h-4 text-gray-400" />
-                      <span className="text-gray-600">Project Manager:</span>
-                      <span className="font-medium">
+                      <User className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                      <span className="text-gray-600">PM:</span>
+                      <span className="font-medium truncate">
                         {project.project_manager || project.projectManager}
                       </span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Project Health Overview */}
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Client Info */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-base">
                     <Building2 className="h-5 w-5 text-gray-600" />
                     Client Information
                   </CardTitle>
@@ -383,17 +428,17 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     </p>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <Mail className="w-4 h-4 text-gray-400" />
+                    <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
                     <a
                       href={`mailto:${project.client_email || project.clientEmail}`}
-                      className="text-blue-600 hover:underline"
+                      className="text-blue-600 hover:underline truncate"
                     >
                       {project.client_email || project.clientEmail}
                     </a>
                   </div>
                   {(project.client_phone || project.clientPhone) && (
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="w-4 h-4 text-gray-400" />
+                      <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
                       <a
                         href={`tel:${project.client_phone || project.clientPhone}`}
                         className="text-blue-600 hover:underline"
@@ -408,7 +453,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
               {/* Project Details */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-base">
                     <FileText className="h-5 w-5 text-indigo-600" />
                     Project Details
                   </CardTitle>
@@ -416,14 +461,16 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 <CardContent className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Category</span>
-                    <Badge variant="outline">{project.category}</Badge>
+                    <Badge variant="outline" className="text-xs">
+                      {project.category}
+                    </Badge>
                   </div>
 
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-start">
                     <span className="text-sm text-gray-600">
                       Project Manager
                     </span>
-                    <span className="text-sm font-medium">
+                    <span className="text-sm font-medium text-right max-w-[60%]">
                       {project.project_manager || project.projectManager}
                     </span>
                   </div>
@@ -458,7 +505,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full justify-start hover:bg-blue-50"
+                    className="w-full justify-start hover:bg-blue-50 text-sm"
                     onClick={openReadinessForm}
                   >
                     <ClipboardCheck className="w-4 h-4 mr-2" />
@@ -467,7 +514,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full justify-start hover:bg-orange-50"
+                    className="w-full justify-start hover:bg-orange-50 text-sm"
                     onClick={openRiskCaptureForm}
                   >
                     <Shield className="w-4 h-4 mr-2" />
@@ -476,7 +523,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full justify-start hover:bg-green-50"
+                    className="w-full justify-start hover:bg-green-50 text-sm"
                     onClick={generateReport}
                     disabled={isGeneratingReport}
                   >
@@ -489,19 +536,19 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
           </div>
         </TabsContent>
 
-        <TabsContent value="details" className="space-y-6">
+        <TabsContent value="details" className="space-y-4 sm:space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Detailed Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-gray-700">
                       Project ID
                     </label>
-                    <p className="text-gray-900">{project.id}</p>
+                    <p className="text-gray-900 font-mono text-sm">{project.id}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">
@@ -515,14 +562,14 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     </label>
                     <p className="text-gray-900">{project.category}</p>
                   </div>
-                </div>
-                <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-gray-700">
                       Client
                     </label>
                     <p className="text-gray-900">{project.client}</p>
                   </div>
+                </div>
+                <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-gray-700">
                       Project Manager
@@ -537,7 +584,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     </label>
                     <p className="text-gray-900">{project.province}</p>
                   </div>
-
                   <div>
                     <label className="text-sm font-medium text-gray-700">
                       Start Date
@@ -568,17 +614,17 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
           </Card>
         </TabsContent>
 
-        <TabsContent value="timeline" className="space-y-6">
+        <TabsContent value="timeline" className="space-y-4 sm:space-y-6">
           {project.timeline ? (
-            <div className="space-y-6">
-              {/* Project Duration Summary - Similar to ProjectTimeline */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="space-y-4 sm:space-y-6">
+              {/* Project Duration Summary */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <Card>
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
                         <Calendar className="h-5 w-5 text-blue-600" />
-                        <span className="font-medium text-gray-900">
+                        <span className="font-medium text-gray-900 text-sm sm:text-base">
                           Project Duration
                         </span>
                       </div>
@@ -607,7 +653,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="pt-2 border-t border-gray-200">
                         <div className="flex justify-between">
                           <span className="text-gray-600">Total Duration:</span>
-                          <span className="text-2xl font-bold text-blue-600">
+                          <span className="text-xl sm:text-2xl font-bold text-blue-600">
                             {totalDays} days
                           </span>
                         </div>
@@ -617,11 +663,11 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 </Card>
 
                 <Card>
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
                         <Clock className="h-5 w-5 text-purple-600" />
-                        <span className="font-medium text-gray-900">
+                        <span className="font-medium text-gray-900 text-sm sm:text-base">
                           Timeline Duration
                         </span>
                       </div>
@@ -656,7 +702,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="pt-2 border-t border-gray-200">
                         <div className="flex justify-between">
                           <span className="text-gray-600">Total Duration:</span>
-                          <span className="text-2xl font-bold text-purple-600">
+                          <span className="text-xl sm:text-2xl font-bold text-purple-600">
                             {Math.ceil(
                               (new Date(
                                 project.timeline[
@@ -707,8 +753,8 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
           )}
         </TabsContent>
 
-        <TabsContent value="financial" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <TabsContent value="financial" className="space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -720,13 +766,13 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Total Budget</span>
-                    <span className="font-medium">
+                    <span className="font-medium text-sm sm:text-base">
                       {formatCurrency(project.budget)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Amount Spent</span>
-                    <span className="font-medium text-red-600">
+                    <span className="font-medium text-red-600 text-sm sm:text-base">
                       {formatCurrency(project.spent)}
                     </span>
                   </div>
@@ -734,7 +780,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <span className="text-sm text-gray-600">
                       Remaining Budget
                     </span>
-                    <span className="font-medium text-green-600">
+                    <span className="font-medium text-green-600 text-sm sm:text-base">
                       {formatCurrency(remainingBudget)}
                     </span>
                   </div>
@@ -807,16 +853,16 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             </Card>
           </div>
 
-          {/* Financial Analysis */}
+          {/* Financial Analysis - Responsive Grid */}
           <Card>
             <CardHeader>
               <CardTitle>Financial Analysis</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
                   <p className="text-sm text-blue-600 font-medium">Burn Rate</p>
-                  <p className="text-2xl font-bold text-blue-700">
+                  <p className="text-lg sm:text-2xl font-bold text-blue-700">
                     {formatCurrency(project.spent / daysElapsed)}/day
                   </p>
                 </div>
@@ -824,15 +870,15 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <p className="text-sm text-green-600 font-medium">
                     Cost per Progress
                   </p>
-                  <p className="text-2xl font-bold text-green-700">
+                  <p className="text-lg sm:text-2xl font-bold text-green-700">
                     {formatCurrency(project.spent / project.progress)}/%
                   </p>
                 </div>
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
+                <div className="text-center p-4 bg-purple-50 rounded-lg sm:col-span-2 lg:col-span-1">
                   <p className="text-sm text-purple-600 font-medium">
                     Projected Total Cost
                   </p>
-                  <p className="text-2xl font-bold text-purple-700">
+                  <p className="text-lg sm:text-2xl font-bold text-purple-700">
                     {formatCurrency((project.spent / project.progress) * 100)}
                   </p>
                 </div>
