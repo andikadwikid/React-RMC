@@ -584,7 +584,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Start Date:</span>
                         <span className="font-medium">
-                          {new Date(project.startDate).toLocaleDateString(
+                          {new Date(startDate).toLocaleDateString(
                             "id-ID",
                             {
                               year: "numeric",
@@ -597,7 +597,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">End Date:</span>
                         <span className="font-medium">
-                          {new Date(project.endDate).toLocaleDateString(
+                          {new Date(endDate).toLocaleDateString(
                             "id-ID",
                             {
                               year: "numeric",
