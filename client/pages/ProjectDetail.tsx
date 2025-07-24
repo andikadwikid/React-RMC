@@ -196,13 +196,15 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
 
   const budgetUsedPercentage = (project.spent / project.budget) * 100;
   const remainingBudget = project.budget - project.spent;
+  const startDate = project.start_date || project.startDate;
+  const endDate = project.end_date || project.endDate;
+
   const daysElapsed = Math.floor(
-    (new Date().getTime() - new Date(project.startDate).getTime()) /
+    (new Date().getTime() - new Date(startDate).getTime()) /
       (1000 * 60 * 60 * 24),
   );
   const totalDays = Math.floor(
-    (new Date(project.endDate).getTime() -
-      new Date(project.startDate).getTime()) /
+    (new Date(endDate).getTime() - new Date(startDate).getTime()) /
       (1000 * 60 * 60 * 24),
   );
   const timeElapsedPercentage = (daysElapsed / totalDays) * 100;
