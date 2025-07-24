@@ -165,13 +165,13 @@ export const getProjectRiskCaptureStatus = (projectId: string) => {
   }
 
   // Calculate score based on risk level distribution
-  const total = Object.values(riskCapture.riskLevelDistribution).reduce(
+  const total = Object.values(riskCapture.risk_level_distribution).reduce(
     (sum, count) => sum + count,
     0,
   );
   const lowRisk =
-    riskCapture.riskLevelDistribution.sangatRendah +
-    riskCapture.riskLevelDistribution.rendah;
+    riskCapture.risk_level_distribution.sangatRendah +
+    riskCapture.risk_level_distribution.rendah;
   const score = total > 0 ? Math.round((lowRisk / total) * 100) : 0;
 
   return {
