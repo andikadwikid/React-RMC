@@ -226,84 +226,84 @@ export default function Projects() {
   const completedProjects = projects.filter((p) => p.progress === 100).length;
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-4 lg:p-6 space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-            <Building2 className="h-8 w-8 text-blue-600" />
-            List Project
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 lg:gap-4">
+        <div className="flex-1 min-w-0">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 flex items-center gap-2">
+            <Building2 className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-blue-600 flex-shrink-0" />
+            <span className="break-words">List Project</span>
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-sm sm:text-base text-gray-600 mt-1 break-words">
             Kelola dan monitor semua proyek yang sedang berjalan
           </p>
         </div>
-        <Link to="/projects/create">
-          <Button className="flex items-center gap-2">
+        <Link to="/projects/create" className="w-full sm:w-auto">
+          <Button className="flex items-center justify-center gap-2 w-full sm:w-auto">
             <Plus className="w-4 h-4" />
-            Tambah Project
+            <span className="sm:inline">Tambah Project</span>
           </Button>
         </Link>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+        <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs lg:text-sm font-medium text-gray-600">
                   Total Project
                 </p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-xl lg:text-2xl font-bold text-gray-900">
                   {projects.length}
                 </p>
               </div>
-              <Building2 className="h-8 w-8 text-blue-500" />
+              <Building2 className="h-6 w-6 lg:h-8 lg:w-8 text-blue-500 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Aktif</p>
-                <p className="text-2xl font-bold text-green-600">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs lg:text-sm font-medium text-gray-600">Aktif</p>
+                <p className="text-xl lg:text-2xl font-bold text-green-600">
                   {activeProjects}
                 </p>
               </div>
-              <Clock className="h-8 w-8 text-green-500" />
+              <Clock className="h-6 w-6 lg:h-8 lg:w-8 text-green-500 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Selesai</p>
-                <p className="text-2xl font-bold text-blue-600">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs lg:text-sm font-medium text-gray-600">Selesai</p>
+                <p className="text-xl lg:text-2xl font-bold text-blue-600">
                   {completedProjects}
                 </p>
               </div>
-              <CheckCircle className="h-8 w-8 text-blue-500" />
+              <CheckCircle className="h-6 w-6 lg:h-8 lg:w-8 text-blue-500 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
+        <Card className="border-l-4 border-l-purple-500 hover:shadow-md transition-shadow">
+          <CardContent className="p-4 lg:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs lg:text-sm font-medium text-gray-600">
                   Total Budget
                 </p>
-                <p className="text-lg font-bold text-purple-600">
+                <p className="text-base lg:text-lg font-bold text-purple-600 break-words">
                   {formatCurrency(totalBudget)}
                 </p>
               </div>
-              <DollarSign className="h-8 w-8 text-purple-500" />
+              <DollarSign className="h-6 w-6 lg:h-8 lg:w-8 text-purple-500 flex-shrink-0" />
             </div>
           </CardContent>
         </Card>
@@ -311,43 +311,52 @@ export default function Projects() {
 
       {/* Filters */}
       <Card>
-        <CardContent className="p-6">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
+        <CardContent className="p-4 lg:p-6">
+          <div className="flex flex-col gap-3 lg:gap-4">
+            {/* Search Input */}
+            <div className="w-full">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   placeholder="Cari project atau client..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 text-sm lg:text-base"
                 />
               </div>
             </div>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full sm:w-48">
-                <SelectValue placeholder="Filter Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Semua Status</SelectItem>
-                <SelectItem value="running">Berjalan</SelectItem>
-                <SelectItem value="completed">Selesai</SelectItem>
-                <SelectItem value="on-hold">Tertunda</SelectItem>
-                <SelectItem value="planning">Perencanaan</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={riskFilter} onValueChange={setRiskFilter}>
-              <SelectTrigger className="w-full sm:w-48">
-                <SelectValue placeholder="Filter Risk" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Semua Risk</SelectItem>
-                <SelectItem value="not_assessed">Belum Dinilai</SelectItem>
-                <SelectItem value="low">Rendah</SelectItem>
-                <SelectItem value="medium">Sedang</SelectItem>
-                <SelectItem value="high">Tinggi</SelectItem>
-              </SelectContent>
-            </Select>
+
+            {/* Filter Controls */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex items-center gap-2 flex-1">
+                <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-full min-w-0">
+                    <SelectValue placeholder="Filter Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Semua Status</SelectItem>
+                    <SelectItem value="running">Berjalan</SelectItem>
+                    <SelectItem value="completed">Selesai</SelectItem>
+                    <SelectItem value="on-hold">Tertunda</SelectItem>
+                    <SelectItem value="planning">Perencanaan</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <Select value={riskFilter} onValueChange={setRiskFilter}>
+                <SelectTrigger className="w-full sm:w-48 min-w-0">
+                  <SelectValue placeholder="Filter Risk" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Semua Risk</SelectItem>
+                  <SelectItem value="not_assessed">Belum Dinilai</SelectItem>
+                  <SelectItem value="low">Rendah</SelectItem>
+                  <SelectItem value="medium">Sedang</SelectItem>
+                  <SelectItem value="high">Tinggi</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </CardContent>
       </Card>
