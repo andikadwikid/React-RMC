@@ -19,7 +19,7 @@ interface ExtendedRiskCapturePieChartProps {
 export default function RiskCapturePieChart({ 
   data, 
   title = "Risk Capture Distribution" 
-}: RiskCapturePieChartProps) {
+}: ExtendedRiskCapturePieChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<Highcharts.Chart | null>(null);
 
