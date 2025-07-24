@@ -77,8 +77,8 @@ export default function CreateProject() {
 
   // Load categories and provinces from JSON
   const categoriesData = loadProjectCategoriesData();
-  const provinces = categoriesData.provinces;
-  const projectCategories = categoriesData.categories;
+  const provinces = categoriesData.provinces || [];
+  const projectCategories = categoriesData.project_categories || [];
 
   const handleInputChange = (field: keyof ProjectFormData, value: string) => {
     setFormData((prev) => ({
