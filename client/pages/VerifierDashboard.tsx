@@ -513,15 +513,15 @@ export default function VerifierDashboard() {
             </div>
 
             <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Terverifikasi</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">Terverifikasi</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-green-600">
                     {verificationStats.riskCapture.verified}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-green-600 h-2 rounded-full"
+                      className="bg-green-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.verified / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
@@ -530,15 +530,15 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Under Review</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">Under Review</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-blue-600">
                     {verificationStats.riskCapture.underReview}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-blue-600 h-2 rounded-full"
+                      className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.underReview / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
@@ -547,15 +547,15 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Needs Revision</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">Needs Revision</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-red-600">
                     {verificationStats.riskCapture.needsRevision}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-red-600 h-2 rounded-full"
+                      className="bg-red-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.needsRevision / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
@@ -564,15 +564,15 @@ export default function VerifierDashboard() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Pending</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm text-gray-600 font-medium">Pending</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold text-yellow-600">
                     {verificationStats.riskCapture.pending}
                   </span>
-                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                  <div className="w-20 lg:w-24 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-yellow-600 h-2 rounded-full"
+                      className="bg-yellow-600 h-2.5 rounded-full transition-all duration-300"
                       style={{
                         width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.pending / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
