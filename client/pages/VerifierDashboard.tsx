@@ -24,11 +24,45 @@ import { formatDateTime } from "@/utils/formatters";
 import { loadSubmissionTracking } from "@/utils/dataLoader";
 import * as Highcharts from "highcharts";
 
-const verificationStats = {
-  totalVerified: 156,
-  thisMonth: 23,
-  pending: 8,
+// Calculate dynamic statistics from actual data
+const getVerificationStats = () => {
+  const submissionData = loadSubmissionTracking();
+
+  // Risk Capture Statistics
+  const riskCaptureSubmissions = submissionData.risk_capture_submissions || [];
+  const readinessSubmissions = submissionData.readiness_submissions || [];
+
+  const riskCaptureStats = {
+    total: riskCaptureSubmissions.length,
+    verified: riskCaptureSubmissions.filter(s => s.status === 'verified').length,
+    underReview: riskCaptureSubmissions.filter(s => s.status === 'under_review').length,
+    pending: riskCaptureSubmissions.filter(s => s.status === 'submitted').length,
+    needsRevision: riskCaptureSubmissions.filter(s => s.status === 'needs_revision').length,
+    totalRisks: riskCaptureSubmissions.reduce((sum, s) => sum + (s.totalRisks || 0), 0),
+  };
+
+  // Readiness Statistics
+  const readinessStats = {
+    total: readinessSubmissions.length,
+    verified: readinessSubmissions.filter(s => s.status === 'verified').length,
+    underReview: readinessSubmissions.filter(s => s.status === 'under_review').length,
+    pending: readinessSubmissions.filter(s => s.status === 'submitted').length,
+    needsRevision: readinessSubmissions.filter(s => s.status === 'needs_revision').length,
+    totalItems: readinessSubmissions.reduce((sum, s) => sum + (s.totalItems || 0), 0),
+  };
+
+  return {
+    riskCapture: riskCaptureStats,
+    readiness: readinessStats,
+    overall: {
+      totalVerified: riskCaptureStats.verified + readinessStats.verified,
+      totalPending: riskCaptureStats.pending + readinessStats.pending,
+      totalUnderReview: riskCaptureStats.underReview + readinessStats.underReview,
+    }
+  };
 };
+
+const verificationStats = getVerificationStats();
 
 const recentActivities = [
   {
