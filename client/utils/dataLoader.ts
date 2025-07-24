@@ -123,7 +123,7 @@ export const loadProjectRiskCaptureData = () => {
 };
 
 export const getProjectRiskCapture = (projectId: string) => {
-  return projectRiskCaptureData.riskCapture[projectId] || null;
+  return projectRiskCaptureData.risk_captures.find(riskCapture => riskCapture.project_id === projectId) || null;
 };
 
 // Helper functions to get project status synchronized with readiness and risk capture
