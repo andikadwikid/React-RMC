@@ -358,7 +358,7 @@ export default function Dashboard() {
 
       <div className="p-4 sm:p-6">
         {/* Financial Section - Row 1 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 sm:mb-8">
           <InvoiceStatusSection
             selectedPeriod={selectedInvoiceStatusPeriod}
             invoiceStatus={invoiceStatus}
