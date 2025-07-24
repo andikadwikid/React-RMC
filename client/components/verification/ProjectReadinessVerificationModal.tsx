@@ -29,12 +29,7 @@ import {
 import type { ProjectReadiness, ReadinessItem, ReadinessStatus } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
 
-interface ProjectReadinessVerificationModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  submission: ProjectReadiness;
-  onSave: (submissionId: string, data: any) => void;
-}
+import type { ProjectReadinessVerificationModalProps } from "@/types";
 
 // Mock readiness categories and items
 const READINESS_CATEGORIES = {
