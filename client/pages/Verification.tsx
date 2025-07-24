@@ -386,7 +386,7 @@ export default function Verification() {
             <Eye className="w-4 h-4" />
             Review (
             {
-              mockReadinessSubmissions.filter(
+              getReadinessSubmissions().filter(
                 (s) => s.status === "under_review",
               ).length
             }
