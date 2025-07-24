@@ -417,10 +417,11 @@ export default function VerifierDashboard() {
       />
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="hover:shadow-md transition-shadow duration-200 border-green-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-green-700 flex items-center gap-2">
+              <CheckCircle className="w-4 h-4" />
               Total Terverifikasi
             </CardTitle>
           </CardHeader>
@@ -428,13 +429,14 @@ export default function VerifierDashboard() {
             <div className="text-2xl font-bold text-green-600">
               {verificationStats.overall.totalVerified}
             </div>
-            <p className="text-xs text-gray-500">Risk Capture + Readiness</p>
+            <p className="text-xs text-green-600 mt-1">Risk Capture + Readiness</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-md transition-shadow duration-200 border-blue-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-blue-700 flex items-center gap-2">
+              <Clock className="w-4 h-4" />
               Sedang Review
             </CardTitle>
           </CardHeader>
@@ -442,13 +444,14 @@ export default function VerifierDashboard() {
             <div className="text-2xl font-bold text-blue-600">
               {verificationStats.overall.totalUnderReview}
             </div>
-            <p className="text-xs text-gray-500">Under review</p>
+            <p className="text-xs text-blue-600 mt-1">Under review</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-md transition-shadow duration-200 border-yellow-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-yellow-700 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4" />
               Pending Review
             </CardTitle>
           </CardHeader>
@@ -456,13 +459,14 @@ export default function VerifierDashboard() {
             <div className="text-2xl font-bold text-yellow-600">
               {verificationStats.overall.totalPending}
             </div>
-            <p className="text-xs text-gray-500">Menunggu review</p>
+            <p className="text-xs text-yellow-600 mt-1">Menunggu review</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:shadow-md transition-shadow duration-200 border-purple-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-purple-700 flex items-center gap-2">
+              <Target className="w-4 h-4" />
               Success Rate
             </CardTitle>
           </CardHeader>
@@ -477,7 +481,7 @@ export default function VerifierDashboard() {
               })()}
               %
             </div>
-            <p className="text-xs text-gray-500">Tingkat keberhasilan</p>
+            <p className="text-xs text-purple-600 mt-1">Tingkat keberhasilan</p>
           </CardContent>
         </Card>
       </div>
