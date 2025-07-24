@@ -408,29 +408,13 @@ export default function VerifierDashboard() {
   };
 
   useEffect(() => {
-    // Initialize chart after loading is complete
-    if (!isLoading) {
-      updateChart(selectedPeriod);
-    }
-  }, [selectedPeriod, isLoading]);
-
-  useEffect(() => {
+    // Initialize chart immediately when component mounts or period changes
     const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 300); // Reduced from 800ms to 300ms
+      updateChart(selectedPeriod);
+    }, 100); // Small delay to ensure DOM is ready
 
     return () => clearTimeout(timer);
-  }, []);
-
-  // Initialize chart once loading is complete
-  useEffect(() => {
-    if (!isLoading && chartRef.current) {
-      // Small delay to ensure DOM is ready
-      setTimeout(() => {
-        updateChart(selectedPeriod);
-      }, 50);
-    }
-  }, [isLoading]);
+  }, [selectedPeriod]);
 
   const handlePeriodChange = (period: DataPeriod) => {
     setSelectedPeriod(period);
