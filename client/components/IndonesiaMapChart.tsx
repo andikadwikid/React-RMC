@@ -17,7 +17,7 @@ interface ExtendedIndonesiaMapChartProps extends IndonesiaMapChartProps {
 export default function IndonesiaMapChart({
   data,
   title = "Distribusi Project per Provinsi",
-}: IndonesiaMapChartProps) {
+}: ExtendedIndonesiaMapChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<Highcharts.Chart | null>(null);
 
