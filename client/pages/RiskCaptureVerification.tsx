@@ -22,7 +22,7 @@ import { loadProjectRiskCaptureData } from "@/utils/dataLoader";
 // Load risk capture submissions from JSON data
 const getRiskCaptureSubmissions = (): RiskCapture[] => {
   const riskCaptureData = loadProjectRiskCaptureData();
-  return Object.values(riskCaptureData.riskCapture);
+  return riskCaptureData.risk_captures || [];
 };
 
 const STATUS_CONFIG = {
