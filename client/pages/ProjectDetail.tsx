@@ -392,14 +392,14 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       {project.client_email || project.clientEmail}
                     </a>
                   </div>
-                  {project.clientPhone && (
+                  {(project.client_phone || project.clientPhone) && (
                     <div className="flex items-center gap-2 text-sm">
                       <Phone className="w-4 h-4 text-gray-400" />
                       <a
-                        href={`tel:${project.clientPhone}`}
+                        href={`tel:${project.client_phone || project.clientPhone}`}
                         className="text-blue-600 hover:underline"
                       >
-                        {project.clientPhone}
+                        {project.client_phone || project.clientPhone}
                       </a>
                     </div>
                   )}
