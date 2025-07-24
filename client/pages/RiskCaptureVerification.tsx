@@ -240,10 +240,17 @@ export default function RiskCaptureVerification() {
   const [selectedSubmission, setSelectedSubmission] =
     useState<RiskCapture | null>(null);
   const [verificationModal, setVerificationModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [riskCaptureSubmissions] = useState<RiskCapture[]>(
-    getRiskCaptureSubmissions(),
-  );
+  const [riskCaptureSubmissions, setRiskCaptureSubmissions] = useState<RiskCapture[]>([]);
+
+  // Simulate loading data
+  useState(() => {
+    setTimeout(() => {
+      setRiskCaptureSubmissions(getRiskCaptureSubmissions());
+      setIsLoading(false);
+    }, 800);
+  });
 
   const getFilteredSubmissions = (status: string) => {
     return riskCaptureSubmissions.filter((submission) => {
