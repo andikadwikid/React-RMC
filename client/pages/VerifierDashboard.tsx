@@ -21,6 +21,7 @@ import {
   Shield,
 } from "lucide-react";
 import { formatDateTime } from "@/utils/formatters";
+import { loadSubmissionTracking } from "@/utils/dataLoader";
 import * as Highcharts from "highcharts";
 
 const verificationStats = {
