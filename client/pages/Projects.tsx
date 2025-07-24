@@ -39,6 +39,7 @@ import {
 import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
 import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
 import { formatCurrency } from "@/utils/formatters";
+import { getAllProjects } from "@/utils/dataLoader";
 
 interface Project {
   id: string;
@@ -72,98 +73,7 @@ export default function Projects() {
     projectName: string;
   }>({ isOpen: false, projectId: "", projectName: "" });
 
-  const [projects] = useState<Project[]>([
-    {
-      id: "PRJ-001",
-      name: "Sistem ERP Perusahaan",
-      client: "PT. Teknologi Maju",
-      budget: 2500000000,
-      spent: 1800000000,
-      startDate: "2024-01-15",
-      endDate: "2024-06-30",
-      progress: 72,
-      lastUpdate: "2024-01-20",
-      readinessStatus: "in-progress",
-      readinessScore: 65,
-      riskCaptureStatus: "not-started",
-      riskCaptureScore: 0,
-    },
-    {
-      id: "PRJ-002",
-      name: "Mobile Banking App",
-      client: "Bank Digital Nusantara",
-      budget: 1800000000,
-      spent: 900000000,
-      startDate: "2024-02-01",
-      endDate: "2024-07-15",
-      progress: 45,
-      lastUpdate: "2024-01-19",
-      readinessStatus: "completed",
-      readinessScore: 95,
-      riskCaptureStatus: "completed",
-      riskCaptureScore: 85,
-    },
-    {
-      id: "PRJ-003",
-      name: "Dashboard Analytics",
-      client: "PT. Data Insights",
-      budget: 850000000,
-      spent: 820000000,
-      startDate: "2023-11-01",
-      endDate: "2024-01-15",
-      progress: 100,
-      lastUpdate: "2024-01-15",
-      readinessStatus: "completed",
-      readinessScore: 100,
-      riskCaptureStatus: "completed",
-      riskCaptureScore: 92,
-    },
-    {
-      id: "PRJ-004",
-      name: "E-commerce Platform",
-      client: "Toko Online Sejahtera",
-      budget: 3200000000,
-      spent: 2100000000,
-      startDate: "2023-12-01",
-      endDate: "2024-05-30",
-      progress: 68,
-      lastUpdate: "2024-01-18",
-      readinessStatus: "in-progress",
-      readinessScore: 40,
-      riskCaptureStatus: "in-progress",
-      riskCaptureScore: 60,
-    },
-    {
-      id: "PRJ-005",
-      name: "HR Management System",
-      client: "PT. Sumber Daya Prima",
-      budget: 1500000000,
-      spent: 0,
-      startDate: "2024-02-15",
-      endDate: "2024-08-30",
-      progress: 0,
-      lastUpdate: "2024-01-21",
-      readinessStatus: "not-started",
-      readinessScore: 10,
-      riskCaptureStatus: "not-started",
-      riskCaptureScore: 0,
-    },
-    {
-      id: "PRJ-006",
-      name: "Inventory Management",
-      client: "PT. Logistik Global",
-      budget: 2200000000,
-      spent: 1100000000,
-      startDate: "2023-10-15",
-      endDate: "2024-04-30",
-      progress: 50,
-      lastUpdate: "2024-01-10",
-      readinessStatus: "in-progress",
-      readinessScore: 75,
-      riskCaptureStatus: "not-started",
-      riskCaptureScore: 0,
-    },
-  ]);
+  const [projects] = useState<Project[]>(getAllProjects());
 
   const openReadinessForm = (projectId: string, projectName: string) => {
     setReadinessForm({ isOpen: true, projectId, projectName });
@@ -230,38 +140,26 @@ export default function Projects() {
     return <Badge className={config.color}>{config.label}</Badge>;
   };
 
-  const getStatusBadge = (status: Project["status"]) => {
-    const variants = {
-      running: "bg-green-100 text-green-800",
-      completed: "bg-blue-100 text-blue-800",
-      "on-hold": "bg-yellow-100 text-yellow-800",
-      planning: "bg-gray-100 text-gray-800",
-    };
-
-    const labels = {
-      running: "Berjalan",
-      completed: "Selesai",
-      "on-hold": "Tertunda",
-      planning: "Perencanaan",
-    };
-
-    return <Badge className={variants[status]}>{labels[status]}</Badge>;
+  const getStatusBadge = (progress: number) => {
+    if (progress === 100) {
+      return <Badge className="bg-blue-100 text-blue-800">Selesai</Badge>;
+    } else if (progress > 0) {
+      return <Badge className="bg-green-100 text-green-800">Berjalan</Badge>;
+    } else {
+      return <Badge className="bg-gray-100 text-gray-800">Perencanaan</Badge>;
+    }
   };
 
-  const getRiskBadge = (risk: Project["riskLevel"]) => {
-    const variants = {
-      low: "bg-green-100 text-green-800",
-      medium: "bg-yellow-100 text-yellow-800",
-      high: "bg-red-100 text-red-800",
-    };
-
-    const labels = {
-      low: "Rendah",
-      medium: "Sedang",
-      high: "Tinggi",
-    };
-
-    return <Badge className={variants[risk]}>{labels[risk]}</Badge>;
+  const getRiskBadge = (riskCaptureScore?: number) => {
+    if (!riskCaptureScore || riskCaptureScore === 0) {
+      return <Badge className="bg-gray-100 text-gray-800">Belum Dinilai</Badge>;
+    } else if (riskCaptureScore >= 80) {
+      return <Badge className="bg-green-100 text-green-800">Rendah</Badge>;
+    } else if (riskCaptureScore >= 60) {
+      return <Badge className="bg-yellow-100 text-yellow-800">Sedang</Badge>;
+    } else {
+      return <Badge className="bg-red-100 text-red-800">Tinggi</Badge>;
+    }
   };
 
   const getReadinessBadge = (
@@ -334,16 +232,15 @@ export default function Projects() {
     );
   };
 
-  const getRiskIcon = (risk: Project["riskLevel"]) => {
-    switch (risk) {
-      case "high":
-        return <AlertTriangle className="w-4 h-4 text-red-500" />;
-      case "medium":
-        return <Clock className="w-4 h-4 text-yellow-500" />;
-      case "low":
-        return <CheckCircle className="w-4 h-4 text-green-500" />;
-      default:
-        return null;
+  const getRiskIcon = (riskCaptureScore?: number) => {
+    if (!riskCaptureScore || riskCaptureScore === 0) {
+      return <AlertTriangle className="w-4 h-4 text-gray-500" />;
+    } else if (riskCaptureScore >= 80) {
+      return <CheckCircle className="w-4 h-4 text-green-500" />;
+    } else if (riskCaptureScore >= 60) {
+      return <Clock className="w-4 h-4 text-yellow-500" />;
+    } else {
+      return <AlertTriangle className="w-4 h-4 text-red-500" />;
     }
   };
 
@@ -351,10 +248,10 @@ export default function Projects() {
     const matchesSearch =
       project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.client.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus =
-      statusFilter === "all" || project.status === statusFilter;
-    const matchesRisk =
-      riskFilter === "all" || project.riskLevel === riskFilter;
+    const projectStatus = project.progress === 100 ? "completed" : project.progress > 0 ? "running" : "planning";
+    const matchesStatus = statusFilter === "all" || projectStatus === statusFilter;
+    const projectRisk = !project.riskCaptureScore || project.riskCaptureScore === 0 ? "not_assessed" : project.riskCaptureScore >= 80 ? "low" : project.riskCaptureScore >= 60 ? "medium" : "high";
+    const matchesRisk = riskFilter === "all" || projectRisk === riskFilter;
 
     return matchesSearch && matchesStatus && matchesRisk;
   });
@@ -364,10 +261,8 @@ export default function Projects() {
     0,
   );
   const totalSpent = projects.reduce((sum, project) => sum + project.spent, 0);
-  const activeProjects = projects.filter((p) => p.status === "running").length;
-  const completedProjects = projects.filter(
-    (p) => p.status === "completed",
-  ).length;
+  const activeProjects = projects.filter((p) => p.progress > 0 && p.progress < 100).length;
+  const completedProjects = projects.filter((p) => p.progress === 100).length;
 
   return (
     <div className="p-6 space-y-6">
@@ -486,6 +381,7 @@ export default function Projects() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Semua Risk</SelectItem>
+                <SelectItem value="not_assessed">Belum Dinilai</SelectItem>
                 <SelectItem value="low">Rendah</SelectItem>
                 <SelectItem value="medium">Sedang</SelectItem>
                 <SelectItem value="high">Tinggi</SelectItem>
