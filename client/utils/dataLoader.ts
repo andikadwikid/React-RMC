@@ -100,9 +100,8 @@ export const getProjectById = (projectId: string) => {
   const projectFromList = projectsData.projects.find(project => project.id === projectId);
 
   if (projectFromList) {
-    // Look for additional details in project-details.json using old ID mapping
-    const oldProjectId = getOldProjectId(projectId);
-    const additionalDetails = oldProjectId ? projectDetailsData.projectDetails[oldProjectId] : null;
+    // Look for additional details in project-details.json using UUID
+    const additionalDetails = projectDetailsData.projectDetails[projectId];
 
     // Merge data if additional details exist
     if (additionalDetails) {
