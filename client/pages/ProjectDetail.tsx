@@ -571,30 +571,15 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 </CardContent>
               </Card>
 
-              {/* Quick Actions */}
+              {/* Additional Actions */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Quick Actions</CardTitle>
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-gray-600" />
+                    Additional Actions
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full justify-start hover:bg-blue-50 text-sm"
-                    onClick={openReadinessForm}
-                  >
-                    <ClipboardCheck className="w-4 h-4 mr-2" />
-                    Project Readiness
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full justify-start hover:bg-orange-50 text-sm"
-                    onClick={openRiskCaptureForm}
-                  >
-                    <Shield className="w-4 h-4 mr-2" />
-                    Risk Assessment
-                  </Button>
                   <Button
                     variant="outline"
                     size="sm"
@@ -604,6 +589,30 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   >
                     <FileText className="w-4 h-4 mr-2" />
                     {isGeneratingReport ? "Generating..." : "Generate Report"}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start hover:bg-purple-50 text-sm"
+                    onClick={() => {
+                      // Future: Export data functionality
+                      toast.success("Export feature coming soon!");
+                    }}
+                  >
+                    <TrendingUp className="w-4 h-4 mr-2" />
+                    Export Data
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start hover:bg-gray-50 text-sm"
+                    onClick={() => {
+                      // Future: Archive project functionality
+                      toast.success("Archive feature coming soon!");
+                    }}
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    Archive Project
                   </Button>
                 </CardContent>
               </Card>
