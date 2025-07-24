@@ -2,7 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Calendar, TrendingUp } from "lucide-react";
 import { availableAgingReceivablesPeriods } from "@/hooks/useDashboardData";
-import type { AgingReceivable, AgingReceivablesDataPeriod, InvoiceStatus } from "@/types";
+import type {
+  AgingReceivable,
+  AgingReceivablesDataPeriod,
+  InvoiceStatus,
+} from "@/types";
 import { PeriodSelector } from "./PeriodSelector";
 import { FallbackMessage } from "./FallbackMessage";
 import { InsightCardsGrid } from "./InsightCards";

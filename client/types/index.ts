@@ -21,11 +21,20 @@ export interface BaseEntity {
 export type ProjectStatus = "planning" | "running" | "on-hold" | "completed";
 export type RiskLevel = "low" | "medium" | "high";
 export type Priority = "low" | "medium" | "high" | "critical";
-export type MilestoneStatus = "pending" | "in-progress" | "completed" | "blocked";
+export type MilestoneStatus =
+  | "pending"
+  | "in-progress"
+  | "completed"
+  | "blocked";
 export type EntityStatus = "active" | "inactive";
 export type ReadinessStatus = "lengkap" | "parsial" | "tidak_tersedia";
 export type RiskVerificationStatus = "pending" | "approved" | "rejected";
-export type VerificationStatus = "not_submitted" | "submitted" | "under_review" | "verified" | "needs_revision";
+export type VerificationStatus =
+  | "not_submitted"
+  | "submitted"
+  | "under_review"
+  | "verified"
+  | "needs_revision";
 export type PeriodType = "yearly" | "quarterly";
 
 // =============================================================================
@@ -563,11 +572,13 @@ export type ToasterToast = ToastProps & {
   title?: ReactNode;
   description?: ReactNode;
   action?: ToastActionElement;
-}
+};
 
 export type Toast = Omit<ToasterToast, "id">;
 
-export type ToastActionElement = React.ReactElement<typeof import("@/components/ui/toast").ToastAction>;
+export type ToastActionElement = React.ReactElement<
+  typeof import("@/components/ui/toast").ToastAction
+>;
 
 export interface ToastState {
   toasts: ToasterToast[];
@@ -581,11 +592,11 @@ export type FormFieldContextValue<
   TName extends string = string,
 > = {
   name: TName;
-}
+};
 
 export type FormItemContextValue = {
   id: string;
-}
+};
 
 // Carousel types
 export type CarouselApi = ReturnType<typeof useEmblaCarousel>[1];
@@ -598,7 +609,7 @@ export type CarouselProps = {
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
-}
+};
 
 export type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
@@ -619,7 +630,9 @@ export type PaginationLinkProps = {
 
 // Sheet types
 export interface SheetContentProps
-  extends React.ComponentPropsWithoutRef<typeof import("@radix-ui/react-dialog").Content>,
+  extends React.ComponentPropsWithoutRef<
+      typeof import("@radix-ui/react-dialog").Content
+    >,
     VariantProps<typeof import("class-variance-authority").cva> {
   side?: "top" | "right" | "bottom" | "left";
 }
@@ -633,12 +646,12 @@ export type SidebarContext = {
   setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
   toggleSidebar: () => void;
-}
+};
 
 // Chart types
 export type ChartContextProps = {
   config: ChartConfig;
-}
+};
 
 export type ChartConfig = {
   [k in string]: {
@@ -648,7 +661,7 @@ export type ChartConfig = {
     | { color?: string; theme?: never }
     | { color?: never; theme: Record<string, string> }
   );
-}
+};
 
 // =============================================================================
 // UTILITY TYPES
@@ -660,7 +673,10 @@ export type Prettify<T> = {
 
 export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyof T, Keys>> &
+export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
+  T,
+  Exclude<keyof T, Keys>
+> &
   {
     [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>;
   }[Keys];

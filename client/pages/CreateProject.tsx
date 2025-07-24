@@ -253,7 +253,10 @@ export default function CreateProject() {
                   </SelectTrigger>
                   <SelectContent>
                     {projectCategories.map((category) => (
-                      <SelectItem key={category.id || category.name} value={category.name || category}>
+                      <SelectItem
+                        key={category.id || category.name}
+                        value={category.name || category}
+                      >
                         {category.name || category}
                       </SelectItem>
                     ))}
@@ -361,7 +364,10 @@ export default function CreateProject() {
                   </SelectTrigger>
                   <SelectContent>
                     {provinces.map((province) => (
-                      <SelectItem key={province.id || province.name} value={province.name || province}>
+                      <SelectItem
+                        key={province.id || province.name}
+                        value={province.name || province}
+                      >
                         {province.name || province}
                       </SelectItem>
                     ))}

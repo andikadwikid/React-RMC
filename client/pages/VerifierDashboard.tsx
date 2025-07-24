@@ -34,21 +34,38 @@ const getVerificationStats = () => {
 
   const riskCaptureStats = {
     total: riskCaptureSubmissions.length,
-    verified: riskCaptureSubmissions.filter(s => s.status === 'verified').length,
-    underReview: riskCaptureSubmissions.filter(s => s.status === 'under_review').length,
-    pending: riskCaptureSubmissions.filter(s => s.status === 'submitted').length,
-    needsRevision: riskCaptureSubmissions.filter(s => s.status === 'needs_revision').length,
-    totalRisks: riskCaptureSubmissions.reduce((sum, s) => sum + (s.totalRisks || 0), 0),
+    verified: riskCaptureSubmissions.filter((s) => s.status === "verified")
+      .length,
+    underReview: riskCaptureSubmissions.filter(
+      (s) => s.status === "under_review",
+    ).length,
+    pending: riskCaptureSubmissions.filter((s) => s.status === "submitted")
+      .length,
+    needsRevision: riskCaptureSubmissions.filter(
+      (s) => s.status === "needs_revision",
+    ).length,
+    totalRisks: riskCaptureSubmissions.reduce(
+      (sum, s) => sum + (s.totalRisks || 0),
+      0,
+    ),
   };
 
   // Readiness Statistics
   const readinessStats = {
     total: readinessSubmissions.length,
-    verified: readinessSubmissions.filter(s => s.status === 'verified').length,
-    underReview: readinessSubmissions.filter(s => s.status === 'under_review').length,
-    pending: readinessSubmissions.filter(s => s.status === 'submitted').length,
-    needsRevision: readinessSubmissions.filter(s => s.status === 'needs_revision').length,
-    totalItems: readinessSubmissions.reduce((sum, s) => sum + (s.totalItems || 0), 0),
+    verified: readinessSubmissions.filter((s) => s.status === "verified")
+      .length,
+    underReview: readinessSubmissions.filter((s) => s.status === "under_review")
+      .length,
+    pending: readinessSubmissions.filter((s) => s.status === "submitted")
+      .length,
+    needsRevision: readinessSubmissions.filter(
+      (s) => s.status === "needs_revision",
+    ).length,
+    totalItems: readinessSubmissions.reduce(
+      (sum, s) => sum + (s.totalItems || 0),
+      0,
+    ),
   };
 
   return {
@@ -57,8 +74,9 @@ const getVerificationStats = () => {
     overall: {
       totalVerified: riskCaptureStats.verified + readinessStats.verified,
       totalPending: riskCaptureStats.pending + readinessStats.pending,
-      totalUnderReview: riskCaptureStats.underReview + readinessStats.underReview,
-    }
+      totalUnderReview:
+        riskCaptureStats.underReview + readinessStats.underReview,
+    },
   };
 };
 
@@ -451,10 +469,13 @@ export default function VerifierDashboard() {
           <CardContent>
             <div className="text-2xl font-bold text-purple-600">
               {(() => {
-                const total = verificationStats.riskCapture.total + verificationStats.readiness.total;
+                const total =
+                  verificationStats.riskCapture.total +
+                  verificationStats.readiness.total;
                 const verified = verificationStats.overall.totalVerified;
                 return total > 0 ? Math.round((verified / total) * 100) : 0;
-              })()}%
+              })()}
+              %
             </div>
             <p className="text-xs text-gray-500">Tingkat keberhasilan</p>
           </CardContent>
@@ -491,12 +512,14 @@ export default function VerifierDashboard() {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Terverifikasi</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{verificationStats.riskCapture.verified}</span>
+                  <span className="text-sm font-medium">
+                    {verificationStats.riskCapture.verified}
+                  </span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-green-600 h-2 rounded-full"
                       style={{
-                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.verified / verificationStats.riskCapture.total) * 100 : 0}%`
+                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.verified / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
                     ></div>
                   </div>
@@ -506,12 +529,14 @@ export default function VerifierDashboard() {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Under Review</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{verificationStats.riskCapture.underReview}</span>
+                  <span className="text-sm font-medium">
+                    {verificationStats.riskCapture.underReview}
+                  </span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-blue-600 h-2 rounded-full"
                       style={{
-                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.underReview / verificationStats.riskCapture.total) * 100 : 0}%`
+                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.underReview / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
                     ></div>
                   </div>
@@ -521,12 +546,14 @@ export default function VerifierDashboard() {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Needs Revision</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{verificationStats.riskCapture.needsRevision}</span>
+                  <span className="text-sm font-medium">
+                    {verificationStats.riskCapture.needsRevision}
+                  </span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-red-600 h-2 rounded-full"
                       style={{
-                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.needsRevision / verificationStats.riskCapture.total) * 100 : 0}%`
+                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.needsRevision / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
                     ></div>
                   </div>
@@ -536,12 +563,14 @@ export default function VerifierDashboard() {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Pending</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{verificationStats.riskCapture.pending}</span>
+                  <span className="text-sm font-medium">
+                    {verificationStats.riskCapture.pending}
+                  </span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-yellow-600 h-2 rounded-full"
                       style={{
-                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.pending / verificationStats.riskCapture.total) * 100 : 0}%`
+                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.pending / verificationStats.riskCapture.total) * 100 : 0}%`,
                       }}
                     ></div>
                   </div>
@@ -579,12 +608,14 @@ export default function VerifierDashboard() {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Terverifikasi</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{verificationStats.readiness.verified}</span>
+                  <span className="text-sm font-medium">
+                    {verificationStats.readiness.verified}
+                  </span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-green-600 h-2 rounded-full"
                       style={{
-                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.verified / verificationStats.readiness.total) * 100 : 0}%`
+                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.verified / verificationStats.readiness.total) * 100 : 0}%`,
                       }}
                     ></div>
                   </div>
@@ -594,12 +625,14 @@ export default function VerifierDashboard() {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Under Review</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{verificationStats.readiness.underReview}</span>
+                  <span className="text-sm font-medium">
+                    {verificationStats.readiness.underReview}
+                  </span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-blue-600 h-2 rounded-full"
                       style={{
-                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.underReview / verificationStats.readiness.total) * 100 : 0}%`
+                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.underReview / verificationStats.readiness.total) * 100 : 0}%`,
                       }}
                     ></div>
                   </div>
@@ -609,12 +642,14 @@ export default function VerifierDashboard() {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Needs Revision</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{verificationStats.readiness.needsRevision}</span>
+                  <span className="text-sm font-medium">
+                    {verificationStats.readiness.needsRevision}
+                  </span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-red-600 h-2 rounded-full"
                       style={{
-                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.needsRevision / verificationStats.readiness.total) * 100 : 0}%`
+                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.needsRevision / verificationStats.readiness.total) * 100 : 0}%`,
                       }}
                     ></div>
                   </div>
@@ -624,12 +659,14 @@ export default function VerifierDashboard() {
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Pending</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{verificationStats.readiness.pending}</span>
+                  <span className="text-sm font-medium">
+                    {verificationStats.readiness.pending}
+                  </span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-yellow-600 h-2 rounded-full"
                       style={{
-                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.pending / verificationStats.readiness.total) * 100 : 0}%`
+                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.pending / verificationStats.readiness.total) * 100 : 0}%`,
                       }}
                     ></div>
                   </div>
@@ -888,7 +925,15 @@ export default function VerifierDashboard() {
                       Total Risks: {verificationStats.riskCapture.totalRisks}
                     </div>
                     <div className="text-red-600">
-                      Success Rate: {verificationStats.riskCapture.total > 0 ? Math.round((verificationStats.riskCapture.verified / verificationStats.riskCapture.total) * 100) : 0}%
+                      Success Rate:{" "}
+                      {verificationStats.riskCapture.total > 0
+                        ? Math.round(
+                            (verificationStats.riskCapture.verified /
+                              verificationStats.riskCapture.total) *
+                              100,
+                          )
+                        : 0}
+                      %
                     </div>
                   </div>
                 </div>
@@ -911,7 +956,15 @@ export default function VerifierDashboard() {
                       Total Items: {verificationStats.readiness.totalItems}
                     </div>
                     <div className="text-green-600">
-                      Success Rate: {verificationStats.readiness.total > 0 ? Math.round((verificationStats.readiness.verified / verificationStats.readiness.total) * 100) : 0}%
+                      Success Rate:{" "}
+                      {verificationStats.readiness.total > 0
+                        ? Math.round(
+                            (verificationStats.readiness.verified /
+                              verificationStats.readiness.total) *
+                              100,
+                          )
+                        : 0}
+                      %
                     </div>
                   </div>
                 </div>
@@ -927,14 +980,23 @@ export default function VerifierDashboard() {
                     </div>
                     <Badge className="bg-purple-100 text-purple-800">
                       {(() => {
-                        const total = verificationStats.riskCapture.total + verificationStats.readiness.total;
-                        const verified = verificationStats.overall.totalVerified;
-                        return total > 0 ? Math.round((verified / total) * 100) : 0;
-                      })()}% success rate
+                        const total =
+                          verificationStats.riskCapture.total +
+                          verificationStats.readiness.total;
+                        const verified =
+                          verificationStats.overall.totalVerified;
+                        return total > 0
+                          ? Math.round((verified / total) * 100)
+                          : 0;
+                      })()}
+                      % success rate
                     </Badge>
                   </div>
                   <div className="text-xs text-purple-600">
-                    {verificationStats.overall.totalVerified} terverifikasi dari {verificationStats.riskCapture.total + verificationStats.readiness.total} total submissions
+                    {verificationStats.overall.totalVerified} terverifikasi dari{" "}
+                    {verificationStats.riskCapture.total +
+                      verificationStats.readiness.total}{" "}
+                    total submissions
                   </div>
                 </div>
               </div>

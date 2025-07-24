@@ -1,7 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import { formatDate } from "@/utils/formatters";
-import type { TimelineMilestone, MilestoneStatus, TimelineCardProps } from "@/types";
+import type {
+  TimelineMilestone,
+  MilestoneStatus,
+  TimelineCardProps,
+} from "@/types";
 
 export function TimelineCard({ milestone }: TimelineCardProps) {
   const getDuration = () => {

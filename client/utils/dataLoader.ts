@@ -104,7 +104,9 @@ export const loadProjectCategoriesData = () => {
 // Helper function to get a single project by ID
 export const getProjectById = (projectId: string) => {
   // First try to find in projects.json (which has the updated structure)
-  const projectFromList = projectsData.projects.find(project => project.id === projectId);
+  const projectFromList = projectsData.projects.find(
+    (project) => project.id === projectId,
+  );
 
   if (projectFromList) {
     // Look for additional details in project-details.json using UUID
@@ -116,7 +118,7 @@ export const getProjectById = (projectId: string) => {
         ...projectFromList,
         ...additionalDetails,
         // Ensure UUID takes precedence over old ID
-        id: projectFromList.id
+        id: projectFromList.id,
       };
     }
 
@@ -125,8 +127,6 @@ export const getProjectById = (projectId: string) => {
 
   return null;
 };
-
-
 
 // Helper function to get all projects list
 export const getAllProjects = () => {
@@ -143,7 +143,11 @@ export const getReadinessTemplate = () => {
 };
 
 export const getProjectReadiness = (projectId: string) => {
-  return projectReadinessData.project_readiness.find(readiness => readiness.project_id === projectId) || null;
+  return (
+    projectReadinessData.project_readiness.find(
+      (readiness) => readiness.project_id === projectId,
+    ) || null
+  );
 };
 
 // Risk capture data loaders
@@ -152,7 +156,11 @@ export const loadProjectRiskCaptureData = () => {
 };
 
 export const getProjectRiskCapture = (projectId: string) => {
-  return projectRiskCaptureData.risk_captures.find(riskCapture => riskCapture.project_id === projectId) || null;
+  return (
+    projectRiskCaptureData.risk_captures.find(
+      (riskCapture) => riskCapture.project_id === projectId,
+    ) || null
+  );
 };
 
 // Helper functions to get project status synchronized with readiness and risk capture
@@ -166,12 +174,21 @@ export const getProjectReadinessStatus = (projectId: string) => {
   }
 
   // Calculate completion percentage based on readiness items
-  const readinessItems = projectReadinessData.readiness_items.filter(item => item.readiness_id === readiness.id);
+  const readinessItems = projectReadinessData.readiness_items.filter(
+    (item) => item.readiness_id === readiness.id,
+  );
   const totalItems = readinessItems.length;
-  const completedItems = readinessItems.filter(item => item.user_status === "lengkap").length;
-  const partialItems = readinessItems.filter(item => item.user_status === "parsial").length;
+  const completedItems = readinessItems.filter(
+    (item) => item.user_status === "lengkap",
+  ).length;
+  const partialItems = readinessItems.filter(
+    (item) => item.user_status === "parsial",
+  ).length;
 
-  const score = totalItems > 0 ? Math.round(((completedItems * 100) + (partialItems * 50)) / totalItems) : 0;
+  const score =
+    totalItems > 0
+      ? Math.round((completedItems * 100 + partialItems * 50) / totalItems)
+      : 0;
 
   return {
     status:
@@ -263,34 +280,38 @@ export const loadSubmissionTracking = () => {
 // Helper functions for verification
 export const getVerificationAssignmentsByVerifier = (verifierId: string) => {
   return verificationAssignmentsData.verification_assignments.filter(
-    assignment => assignment.assigned_to === verifierId
+    (assignment) => assignment.assigned_to === verifierId,
   );
 };
 
-export const getRiskCaptureVerificationAssignmentsByVerifier = (verifierId: string) => {
+export const getRiskCaptureVerificationAssignmentsByVerifier = (
+  verifierId: string,
+) => {
   return riskCaptureVerificationAssignmentsData.risk_capture_verification_assignments.filter(
-    assignment => assignment.assigned_to === verifierId
+    (assignment) => assignment.assigned_to === verifierId,
   );
 };
 
 export const getVerificationActivitiesByReadiness = (readinessId: string) => {
   return verificationActivitiesData.verification_activities.filter(
-    activity => activity.readiness_id === readinessId
+    (activity) => activity.readiness_id === readinessId,
   );
 };
 
-export const getRiskCaptureVerificationActivitiesByCapture = (riskCaptureId: string) => {
+export const getRiskCaptureVerificationActivitiesByCapture = (
+  riskCaptureId: string,
+) => {
   return riskCaptureVerificationActivitiesData.risk_capture_verification_activities.filter(
-    activity => activity.risk_capture_id === riskCaptureId
+    (activity) => activity.risk_capture_id === riskCaptureId,
   );
 };
 
 export const getReadinessSubmissionsByStatus = (status?: string) => {
   const submissions = submissionTrackingData.readiness_submissions;
-  return status ? submissions.filter(s => s.status === status) : submissions;
+  return status ? submissions.filter((s) => s.status === status) : submissions;
 };
 
 export const getRiskCaptureSubmissionsByStatus = (status?: string) => {
   const submissions = submissionTrackingData.risk_capture_submissions;
-  return status ? submissions.filter(s => s.status === status) : submissions;
+  return status ? submissions.filter((s) => s.status === status) : submissions;
 };

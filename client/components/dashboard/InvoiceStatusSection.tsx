@@ -2,7 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DollarSign, Calendar, TrendingUp } from "lucide-react";
 import { availableInvoiceStatusPeriods } from "@/hooks/useDashboardData";
-import type { InvoiceStatus, InvoiceStatusDataPeriod, AgingReceivable } from "@/types";
+import type {
+  InvoiceStatus,
+  InvoiceStatusDataPeriod,
+  AgingReceivable,
+} from "@/types";
 import { PeriodSelector } from "./PeriodSelector";
 import { FallbackMessage } from "./FallbackMessage";
 import { InsightCardsGrid } from "./InsightCards";

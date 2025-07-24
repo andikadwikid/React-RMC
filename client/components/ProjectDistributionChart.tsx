@@ -4,7 +4,8 @@ import * as Highcharts from "highcharts";
 import type { ProvinceData, ProjectDistributionChartProps } from "@/types";
 
 // Extended props for this specific implementation
-interface ExtendedProjectDistributionChartProps extends ProjectDistributionChartProps {
+interface ExtendedProjectDistributionChartProps
+  extends ProjectDistributionChartProps {
   title?: string;
 }
 

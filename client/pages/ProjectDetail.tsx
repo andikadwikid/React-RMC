@@ -337,9 +337,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <Calendar className="w-4 h-4 text-gray-400" />
                       <span className="text-gray-600">Start Date:</span>
                       <span className="font-medium">
-                        {new Date(startDate).toLocaleDateString(
-                          "id-ID",
-                        )}
+                        {new Date(startDate).toLocaleDateString("id-ID")}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -443,7 +441,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Last Update</span>
                     <span className="text-sm">
-                      {new Date(project.last_update || project.lastUpdate).toLocaleDateString("id-ID")}
+                      {new Date(
+                        project.last_update || project.lastUpdate,
+                      ).toLocaleDateString("id-ID")}
                     </span>
                   </div>
                 </CardContent>
@@ -527,7 +527,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <label className="text-sm font-medium text-gray-700">
                       Project Manager
                     </label>
-                    <p className="text-gray-900">{project.project_manager || project.projectManager}</p>
+                    <p className="text-gray-900">
+                      {project.project_manager || project.projectManager}
+                    </p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">
@@ -585,27 +587,21 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Start Date:</span>
                         <span className="font-medium">
-                          {new Date(startDate).toLocaleDateString(
-                            "id-ID",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            },
-                          )}
+                          {new Date(startDate).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">End Date:</span>
                         <span className="font-medium">
-                          {new Date(endDate).toLocaleDateString(
-                            "id-ID",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            },
-                          )}
+                          {new Date(endDate).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
                         </span>
                       </div>
                       <div className="pt-2 border-t border-gray-200">

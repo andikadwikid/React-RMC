@@ -16,9 +16,9 @@ interface ExtendedRiskCapturePieChartProps {
   title?: string;
 }
 
-export default function RiskCapturePieChart({ 
-  data, 
-  title = "Risk Capture Distribution" 
+export default function RiskCapturePieChart({
+  data,
+  title = "Risk Capture Distribution",
 }: ExtendedRiskCapturePieChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<Highcharts.Chart | null>(null);
@@ -46,7 +46,8 @@ export default function RiskCapturePieChart({
           },
         },
         tooltip: {
-          pointFormat: "<b>{point.percentage:.1f}%</b><br/>Count: <b>{point.y}</b>",
+          pointFormat:
+            "<b>{point.percentage:.1f}%</b><br/>Count: <b>{point.y}</b>",
           style: {
             fontSize: "12px",
           },

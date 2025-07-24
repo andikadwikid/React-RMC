@@ -25,22 +25,24 @@ const getRiskCaptureSubmissions = (): RiskCapture[] => {
     const submissionData = loadSubmissionTracking();
 
     if (!submissionData || !submissionData.risk_capture_submissions) {
-      console.error('No risk capture submissions found in data');
+      console.error("No risk capture submissions found in data");
       return [];
     }
 
     // Map the data to match RiskCapture interface
-    const mappedData = submissionData.risk_capture_submissions.map(submission => ({
-      ...submission,
-      createdAt: submission.createdAt || submission.submittedAt,
-      updatedAt: submission.verifiedAt || undefined,
-      overallComment: submission.notes || '',
-      risks: submission.risks || []
-    }));
+    const mappedData = submissionData.risk_capture_submissions.map(
+      (submission) => ({
+        ...submission,
+        createdAt: submission.createdAt || submission.submittedAt,
+        updatedAt: submission.verifiedAt || undefined,
+        overallComment: submission.notes || "",
+        risks: submission.risks || [],
+      }),
+    );
 
     return mappedData;
   } catch (error) {
-    console.error('Error loading risk capture submissions:', error);
+    console.error("Error loading risk capture submissions:", error);
     return [];
   }
 };

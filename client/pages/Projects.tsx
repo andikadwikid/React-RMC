@@ -470,8 +470,6 @@ export default function Projects() {
           </div>
         </CardContent>
       </Card>
-
-
     </div>
   );
 }
