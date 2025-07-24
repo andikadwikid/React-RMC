@@ -298,12 +298,25 @@ export default function Dashboard() {
 
   // Effects
   useEffect(() => {
-    updatePerformanceChart(selectedPerformancePeriod);
-  }, [selectedPerformancePeriod]);
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        updatePerformanceChart(selectedPerformancePeriod);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedPerformancePeriod, isLoading]);
 
   useEffect(() => {
     setProjectSummary(calculateProjectSummary(selectedPerformancePeriod));
   }, [selectedPerformancePeriod]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 600);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="bg-gray-50">
