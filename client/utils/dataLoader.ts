@@ -2,14 +2,14 @@
 import performanceData from '../data/performance.json';
 import riskCategoriesData from '../data/risk-categories.json';
 import geographicData from '../data/geographic.json';
-import riskCaptureData from '../data/risk-capture.json';
+import dashboardRiskCaptureData from '../data/risk-capture.json';
 import invoiceStatusData from '../data/invoice-status.json';
 import agingReceivablesData from '../data/aging-receivables.json';
 import projectsData from '../data/projects.json';
 import projectDetailsData from '../data/project-details.json';
 import projectCategoriesData from '../data/project-categories.json';
 import projectReadinessData from '../data/project-readiness.json';
-import riskCaptureData from '../data/risk-capture.json';
+import projectRiskCaptureData from '../data/risk-capture.json';
 import {
   Target,
   Building,
@@ -66,7 +66,7 @@ export const loadGeographicData = () => {
 };
 
 export const loadRiskCaptureData = () => {
-  return riskCaptureData;
+  return dashboardRiskCaptureData;
 };
 
 export const loadInvoiceStatusData = () => {
@@ -114,12 +114,12 @@ export const getProjectReadiness = (projectId: string) => {
 };
 
 // Risk capture data loaders
-export const loadRiskCaptureData = () => {
-  return riskCaptureData;
+export const loadProjectRiskCaptureData = () => {
+  return projectRiskCaptureData;
 };
 
 export const getProjectRiskCapture = (projectId: string) => {
-  return riskCaptureData.riskCapture[projectId] || null;
+  return projectRiskCaptureData.riskCapture[projectId] || null;
 };
 
 // Helper functions to get project status synchronized with readiness and risk capture
