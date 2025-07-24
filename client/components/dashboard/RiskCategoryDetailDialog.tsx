@@ -65,19 +65,7 @@ interface RiskItem {
   };
 }
 
-interface RiskCategoryDetailDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  category: {
-    id: string;
-    name: string;
-    icon: React.ComponentType<any>;
-    total: number;
-    overdue: number;
-    inProcess: number;
-    closed: number;
-  } | null;
-}
+import type { RiskCategoryDetailDialogProps } from "@/types";
 
 // Risk data sesuai dengan struktur Risk Capture Form
 const generateMockRiskItems = (categoryId: string) => {
