@@ -238,10 +238,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 {project.name}
               </h1>
               <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-1">
-                <span className="text-xs sm:text-sm text-gray-500 font-mono">
-                  {project.id}
-                </span>
-                <span className="text-gray-300 hidden sm:inline">•</span>
                 <span className="text-xs sm:text-sm text-gray-600">
                   {project.client}
                 </span>
