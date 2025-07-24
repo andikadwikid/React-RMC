@@ -382,8 +382,8 @@ export default function CreateProject() {
                   </SelectTrigger>
                   <SelectContent>
                     {provinces.map((province) => (
-                      <SelectItem key={province} value={province}>
-                        {province}
+                      <SelectItem key={province.id || province.name} value={province.name || province}>
+                        {province.name || province}
                       </SelectItem>
                     ))}
                   </SelectContent>
