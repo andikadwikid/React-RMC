@@ -361,14 +361,18 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <ClipboardCheck className="w-4 h-4 mr-2 text-blue-600" />
                   <div>
                     <div className="font-medium">Project Readiness</div>
-                    <div className="text-xs text-gray-500">Assess project status</div>
+                    <div className="text-xs text-gray-500">
+                      Assess project status
+                    </div>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={openRiskCaptureForm}>
                   <Shield className="w-4 h-4 mr-2 text-orange-600" />
                   <div>
                     <div className="font-medium">Risk Assessment</div>
-                    <div className="text-xs text-gray-500">Capture project risks</div>
+                    <div className="text-xs text-gray-500">
+                      Capture project risks
+                    </div>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -647,7 +651,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <label className="text-sm font-medium text-gray-700">
                       Project ID
                     </label>
-                    <p className="text-gray-900 font-mono text-sm">{project.id}</p>
+                    <p className="text-gray-900 font-mono text-sm">
+                      {project.id}
+                    </p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">
@@ -1016,7 +1022,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 "bg-blue-600 hover:bg-blue-700 text-white",
                 "border-2 border-white",
                 "transition-all duration-200",
-                "hover:scale-105 active:scale-95"
+                "hover:scale-105 active:scale-95",
               )}
             >
               <Shield className="w-6 h-6" />
@@ -1032,24 +1038,22 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 Quick Actions
               </p>
             </div>
-            <DropdownMenuItem
-              onClick={openReadinessForm}
-              className="py-3"
-            >
+            <DropdownMenuItem onClick={openReadinessForm} className="py-3">
               <ClipboardCheck className="w-5 h-5 mr-3 text-blue-600" />
               <div>
                 <div className="font-medium">Project Readiness</div>
-                <div className="text-xs text-gray-500">Assess project readiness</div>
+                <div className="text-xs text-gray-500">
+                  Assess project readiness
+                </div>
               </div>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={openRiskCaptureForm}
-              className="py-3"
-            >
+            <DropdownMenuItem onClick={openRiskCaptureForm} className="py-3">
               <Shield className="w-5 h-5 mr-3 text-orange-600" />
               <div>
                 <div className="font-medium">Risk Assessment</div>
-                <div className="text-xs text-gray-500">Capture project risks</div>
+                <div className="text-xs text-gray-500">
+                  Capture project risks
+                </div>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem
@@ -1062,7 +1066,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 <div className="font-medium">
                   {isGeneratingReport ? "Generating..." : "Generate Report"}
                 </div>
-                <div className="text-xs text-gray-500">Download project report</div>
+                <div className="text-xs text-gray-500">
+                  Download project report
+                </div>
               </div>
             </DropdownMenuItem>
           </DropdownMenuContent>

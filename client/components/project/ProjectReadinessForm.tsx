@@ -251,7 +251,9 @@ export function ProjectReadinessForm({
                   <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div className="flex items-center gap-2 sm:gap-3">
                       <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0" />
-                      <span className="text-sm sm:text-base font-medium leading-tight">{category.title}</span>
+                      <span className="text-sm sm:text-base font-medium leading-tight">
+                        {category.title}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xs sm:text-sm text-gray-600">

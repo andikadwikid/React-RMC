@@ -194,7 +194,9 @@ export function RiskCaptureForm({
                   <div className="mt-4 sm:mt-6">
                     <Button onClick={addRiskItem} className="w-full sm:w-auto">
                       <Plus className="w-4 h-4 mr-2" />
-                      <span className="hidden sm:inline">Tambah Risk Capture Pertama</span>
+                      <span className="hidden sm:inline">
+                        Tambah Risk Capture Pertama
+                      </span>
                       <span className="sm:hidden">Tambah Risk Capture</span>
                     </Button>
                   </div>
@@ -445,7 +447,9 @@ export function RiskCaptureForm({
                         </div>
 
                         <div className="border-t pt-4">
-                          <h5 className="font-medium mb-3 text-sm sm:text-base">Risiko Awal</h5>
+                          <h5 className="font-medium mb-3 text-sm sm:text-base">
+                            Risiko Awal
+                          </h5>
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
                               <Label htmlFor={`kejadian-${risk.id}`}>
@@ -577,7 +581,9 @@ export function RiskCaptureForm({
                         </div>
 
                         <div className="border-t pt-4">
-                          <h5 className="font-medium mb-3 text-sm sm:text-base">Resiko Akhir</h5>
+                          <h5 className="font-medium mb-3 text-sm sm:text-base">
+                            Resiko Akhir
+                          </h5>
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
                               <Label htmlFor={`final-kejadian-${risk.id}`}>
@@ -712,9 +718,15 @@ export function RiskCaptureForm({
                   ))}
 
                   <div className="flex justify-center">
-                    <Button variant="outline" onClick={addRiskItem} className="w-full sm:w-auto">
+                    <Button
+                      variant="outline"
+                      onClick={addRiskItem}
+                      className="w-full sm:w-auto"
+                    >
                       <Plus className="w-4 h-4 mr-2" />
-                      <span className="hidden sm:inline">Tambah Risk Capture Lainnya</span>
+                      <span className="hidden sm:inline">
+                        Tambah Risk Capture Lainnya
+                      </span>
                       <span className="sm:hidden">Tambah Risk Lainnya</span>
                     </Button>
                   </div>
@@ -736,7 +748,9 @@ export function RiskCaptureForm({
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 text-xs sm:text-sm">
                     <div>
-                      <span className="hidden sm:inline">Sangat Rendah (1-5): </span>
+                      <span className="hidden sm:inline">
+                        Sangat Rendah (1-5):{" "}
+                      </span>
                       <span className="sm:hidden">SR: </span>
                       {
                         risks.filter(
@@ -778,7 +792,9 @@ export function RiskCaptureForm({
                       }
                     </div>
                     <div>
-                      <span className="hidden sm:inline">Sangat Tinggi (21-25): </span>
+                      <span className="hidden sm:inline">
+                        Sangat Tinggi (21-25):{" "}
+                      </span>
                       <span className="sm:hidden">ST: </span>
                       {
                         risks.filter(
@@ -810,7 +826,9 @@ export function RiskCaptureForm({
               className="bg-green-600 hover:bg-green-700 w-full sm:w-auto order-1 sm:order-2"
             >
               <Save className="w-4 h-4 mr-2" />
-              <span className="hidden sm:inline">Simpan Risk Capture ({risks.length})</span>
+              <span className="hidden sm:inline">
+                Simpan Risk Capture ({risks.length})
+              </span>
               <span className="sm:hidden">Simpan ({risks.length})</span>
             </Button>
           </div>
