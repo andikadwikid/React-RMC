@@ -445,9 +445,6 @@ export default function Projects() {
                           <p className="font-medium text-sm lg:text-base text-gray-900 break-words">
                             {project.name}
                           </p>
-                          <p className="text-xs lg:text-sm text-gray-500">
-                            {project.id}
-                          </p>
                           {/* Show client on mobile when client column is hidden */}
                           <p className="text-xs text-gray-600 mt-1 sm:hidden">
                             Client: {project.client}
