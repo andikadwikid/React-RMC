@@ -17,135 +17,13 @@ import {
 } from "lucide-react";
 import type { RiskCapture } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
+import { loadRiskCaptureData } from "@/utils/dataLoader";
 
-// Mock data for demonstration - Risk Capture submissions
-const mockRiskCaptureSubmissions: RiskCapture[] = [
-  {
-    id: "risk-001",
-    projectId: "proj-001",
-    projectName: "Sistem ERP PT. ABC Manufacturing",
-    submittedBy: "John Doe",
-    submittedAt: "2024-01-15T10:30:00Z",
-    status: "submitted",
-    totalRisks: 8,
-    riskLevelDistribution: {
-      sangatRendah: 2,
-      rendah: 3,
-      sedang: 2,
-      tinggi: 1,
-      sangatTinggi: 0,
-    },
-    createdAt: "2024-01-15T10:30:00Z",
-    risks: [
-      {
-        id: "risk-item-1",
-        sasaran: "Keamanan Data",
-        kode: "RSK-001",
-        taksonomi: "Operational Risk",
-        peristiwaRisiko: "Kehilangan data customer akibat kerusakan server",
-        sumberRisiko: "Hardware failure",
-        dampakKualitatif: "Kehilangan kepercayaan customer",
-        dampakKuantitatif: "Kerugian finansial hingga 500 juta rupiah",
-        kontrolEksisting: "Backup data harian dan redundant server",
-        risikoAwal: { kejadian: 3, dampak: 4, level: 12 },
-        resikoAkhir: { kejadian: 2, dampak: 3, level: 6 },
-        createdAt: "2024-01-15T10:30:00Z",
-      },
-      {
-        id: "risk-item-2",
-        sasaran: "Operasional",
-        kode: "RSK-002",
-        taksonomi: "Process Risk",
-        peristiwaRisiko: "Keterlambatan implementasi sistem",
-        sumberRisiko: "Resource constraints",
-        dampakKualitatif: "Delay project timeline",
-        dampakKuantitatif: "Penalty 100 juta rupiah",
-        kontrolEksisting: "Project monitoring dan milestone tracking",
-        risikoAwal: { kejadian: 4, dampak: 3, level: 12 },
-        resikoAkhir: { kejadian: 2, dampak: 2, level: 4 },
-        createdAt: "2024-01-15T10:30:00Z",
-      },
-    ],
-  },
-  {
-    id: "risk-002",
-    projectId: "proj-002",
-    projectName: "Portal E-Commerce Fashion",
-    submittedBy: "Jane Smith",
-    submittedAt: "2024-01-14T14:20:00Z",
-    status: "under_review",
-    totalRisks: 6,
-    riskLevelDistribution: {
-      sangatRendah: 1,
-      rendah: 2,
-      sedang: 2,
-      tinggi: 1,
-      sangatTinggi: 0,
-    },
-    verifierName: "Senior Risk Officer",
-    createdAt: "2024-01-14T14:20:00Z",
-    risks: [
-      {
-        id: "risk-item-3",
-        sasaran: "Payment Security",
-        kode: "RSK-003",
-        taksonomi: "Security Risk",
-        peristiwaRisiko: "Fraud transaksi payment gateway",
-        sumberRisiko: "Security vulnerabilities",
-        dampakKualitatif: "Kerugian customer dan reputasi",
-        dampakKuantitatif: "Chargeback hingga 200 juta rupiah",
-        kontrolEksisting: "SSL encryption dan fraud detection",
-        risikoAwal: { kejadian: 5, dampak: 4, level: 20 },
-        resikoAkhir: { kejadian: 2, dampak: 3, level: 6 },
-        createdAt: "2024-01-14T14:20:00Z",
-      },
-    ],
-  },
-  {
-    id: "risk-003",
-    projectId: "proj-003",
-    projectName: "Aplikasi Mobile Banking",
-    submittedBy: "Robert Johnson",
-    submittedAt: "2024-01-13T09:15:00Z",
-    status: "verified",
-    totalRisks: 12,
-    riskLevelDistribution: {
-      sangatRendah: 4,
-      rendah: 5,
-      sedang: 2,
-      tinggi: 1,
-      sangatTinggi: 0,
-    },
-    verifierName: "Chief Risk Officer",
-    verifiedAt: "2024-01-14T16:45:00Z",
-    overallComment:
-      "Risk assessment comprehensive and mitigation strategies adequate",
-    createdAt: "2024-01-13T09:15:00Z",
-    risks: [],
-  },
-  {
-    id: "risk-004",
-    projectId: "proj-004",
-    projectName: "Dashboard Analytics Marketing",
-    submittedBy: "Sarah Wilson",
-    submittedAt: "2024-01-12T11:00:00Z",
-    status: "needs_revision",
-    totalRisks: 5,
-    riskLevelDistribution: {
-      sangatRendah: 1,
-      rendah: 2,
-      sedang: 1,
-      tinggi: 1,
-      sangatTinggi: 0,
-    },
-    verifierName: "Senior Risk Analyst",
-    verifiedAt: "2024-01-13T10:30:00Z",
-    overallComment:
-      "Several high-impact risks need additional mitigation controls",
-    createdAt: "2024-01-12T11:00:00Z",
-    risks: [],
-  },
-];
+// Load risk capture submissions from JSON data
+const getRiskCaptureSubmissions = (): RiskCapture[] => {
+  const riskCaptureData = loadRiskCaptureData();
+  return Object.values(riskCaptureData.riskCapture);
+};
 
 const STATUS_CONFIG = {
   submitted: {
@@ -316,8 +194,10 @@ export default function RiskCaptureVerification() {
     useState<RiskCapture | null>(null);
   const [verificationModal, setVerificationModal] = useState(false);
 
+  const [riskCaptureSubmissions] = useState<RiskCapture[]>(getRiskCaptureSubmissions());
+
   const getFilteredSubmissions = (status: string) => {
-    return mockRiskCaptureSubmissions.filter((submission) => {
+    return riskCaptureSubmissions.filter((submission) => {
       const matchesSearch =
         submission.projectName
           .toLowerCase()
@@ -375,7 +255,7 @@ export default function RiskCaptureVerification() {
   };
 
   const getPendingCount = () => {
-    return mockRiskCaptureSubmissions.filter((s) => s.status === "submitted")
+    return riskCaptureSubmissions.filter((s) => s.status === "submitted")
       .length;
   };
 
@@ -397,7 +277,7 @@ export default function RiskCaptureVerification() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {mockRiskCaptureSubmissions.length}
+              {riskCaptureSubmissions.length}
             </div>
           </CardContent>
         </Card>
@@ -424,7 +304,7 @@ export default function RiskCaptureVerification() {
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
               {
-                mockRiskCaptureSubmissions.filter(
+                riskCaptureSubmissions.filter(
                   (s) => s.status === "verified",
                 ).length
               }
@@ -441,7 +321,7 @@ export default function RiskCaptureVerification() {
           <CardContent>
             <div className="text-2xl font-bold text-red-600">
               {
-                mockRiskCaptureSubmissions.filter(
+                riskCaptureSubmissions.filter(
                   (s) => s.status === "needs_revision",
                 ).length
               }
@@ -474,13 +354,13 @@ export default function RiskCaptureVerification() {
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="all" className="flex items-center gap-2">
             <Shield className="w-4 h-4" />
-            Semua ({mockRiskCaptureSubmissions.length})
+            Semua ({riskCaptureSubmissions.length})
           </TabsTrigger>
           <TabsTrigger value="submitted" className="flex items-center gap-2">
             <Clock className="w-4 h-4" />
             Menunggu (
             {
-              mockRiskCaptureSubmissions.filter((s) => s.status === "submitted")
+              riskCaptureSubmissions.filter((s) => s.status === "submitted")
                 .length
             }
             )
@@ -489,7 +369,7 @@ export default function RiskCaptureVerification() {
             <Eye className="w-4 h-4" />
             Review (
             {
-              mockRiskCaptureSubmissions.filter(
+              riskCaptureSubmissions.filter(
                 (s) => s.status === "under_review",
               ).length
             }
@@ -499,7 +379,7 @@ export default function RiskCaptureVerification() {
             <CheckCircle className="w-4 h-4" />
             Verified (
             {
-              mockRiskCaptureSubmissions.filter((s) => s.status === "verified")
+              riskCaptureSubmissions.filter((s) => s.status === "verified")
                 .length
             }
             )
@@ -511,7 +391,7 @@ export default function RiskCaptureVerification() {
             <AlertTriangle className="w-4 h-4" />
             Revisi (
             {
-              mockRiskCaptureSubmissions.filter(
+              riskCaptureSubmissions.filter(
                 (s) => s.status === "needs_revision",
               ).length
             }
