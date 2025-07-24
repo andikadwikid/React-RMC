@@ -13,6 +13,7 @@ import {
   getAgingColor,
 } from "@/hooks/useDashboardCalculations";
 
+// AgingReceivablesSectionProps extended from base types
 interface AgingReceivablesSectionProps {
   selectedPeriod: AgingReceivablesDataPeriod;
   agingReceivables: AgingReceivable[];
