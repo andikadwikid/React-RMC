@@ -784,34 +784,37 @@ export default function VerifierDashboard() {
           )}
 
           {/* Chart Insights */}
-          <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="bg-green-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-green-800">
+          <div className="mb-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="bg-green-50 border border-green-200 p-4 rounded-lg hover:bg-green-100 transition-colors">
+              <div className="text-sm font-medium text-green-800 flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
                 Total Verified
               </div>
-              <div className="text-lg font-bold text-green-600">
+              <div className="text-lg lg:text-xl font-bold text-green-600 mt-1">
                 {selectedPeriod.data.reduce(
                   (sum, item) => sum + item.verified,
                   0,
                 )}
               </div>
             </div>
-            <div className="bg-red-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-red-800">
+            <div className="bg-red-50 border border-red-200 p-4 rounded-lg hover:bg-red-100 transition-colors">
+              <div className="text-sm font-medium text-red-800 flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4" />
                 Total Revised
               </div>
-              <div className="text-lg font-bold text-red-600">
+              <div className="text-lg lg:text-xl font-bold text-red-600 mt-1">
                 {selectedPeriod.data.reduce(
                   (sum, item) => sum + item.revised,
                   0,
                 )}
               </div>
             </div>
-            <div className="bg-blue-50 p-3 rounded-lg">
-              <div className="text-sm font-medium text-blue-800">
+            <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg hover:bg-blue-100 transition-colors">
+              <div className="text-sm font-medium text-blue-800 flex items-center gap-2">
+                <Target className="w-4 h-4" />
                 Success Rate
               </div>
-              <div className="text-lg font-bold text-blue-600">
+              <div className="text-lg lg:text-xl font-bold text-blue-600 mt-1">
                 {(() => {
                   const totalVerified = selectedPeriod.data.reduce(
                     (sum, item) => sum + item.verified,
