@@ -230,3 +230,67 @@ export const getProjectsWithStatus = () => {
     };
   });
 };
+
+// Verification data loaders
+export const loadVerificationAssignments = () => {
+  return verificationAssignmentsData;
+};
+
+export const loadVerificationActivities = () => {
+  return verificationActivitiesData;
+};
+
+export const loadRiskCaptureVerificationAssignments = () => {
+  return riskCaptureVerificationAssignmentsData;
+};
+
+export const loadRiskCaptureVerificationActivities = () => {
+  return riskCaptureVerificationActivitiesData;
+};
+
+export const loadVerifierWorkload = () => {
+  return verifierWorkloadData;
+};
+
+export const loadVerificationSummary = () => {
+  return verificationSummaryData;
+};
+
+export const loadSubmissionTracking = () => {
+  return submissionTrackingData;
+};
+
+// Helper functions for verification
+export const getVerificationAssignmentsByVerifier = (verifierId: string) => {
+  return verificationAssignmentsData.verification_assignments.filter(
+    assignment => assignment.assigned_to === verifierId
+  );
+};
+
+export const getRiskCaptureVerificationAssignmentsByVerifier = (verifierId: string) => {
+  return riskCaptureVerificationAssignmentsData.risk_capture_verification_assignments.filter(
+    assignment => assignment.assigned_to === verifierId
+  );
+};
+
+export const getVerificationActivitiesByReadiness = (readinessId: string) => {
+  return verificationActivitiesData.verification_activities.filter(
+    activity => activity.readiness_id === readinessId
+  );
+};
+
+export const getRiskCaptureVerificationActivitiesByCapture = (riskCaptureId: string) => {
+  return riskCaptureVerificationActivitiesData.risk_capture_verification_activities.filter(
+    activity => activity.risk_capture_id === riskCaptureId
+  );
+};
+
+export const getReadinessSubmissionsByStatus = (status?: string) => {
+  const submissions = submissionTrackingData.readiness_submissions;
+  return status ? submissions.filter(s => s.status === status) : submissions;
+};
+
+export const getRiskCaptureSubmissionsByStatus = (status?: string) => {
+  const submissions = submissionTrackingData.risk_capture_submissions;
+  return status ? submissions.filter(s => s.status === status) : submissions;
+};
