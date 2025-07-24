@@ -1027,36 +1027,36 @@ export default function VerifierDashboard() {
               {recentActivities.map((activity) => (
                 <div
                   key={activity.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                  className="border rounded-lg p-4 sm:p-6 hover:bg-gray-50 transition-all duration-200 hover:shadow-md"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-gray-900">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                    <div className="flex-1 space-y-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                        <h3 className="font-semibold text-gray-900 text-lg">
                           {activity.projectName}
                         </h3>
                         {getStatusBadge(activity.status)}
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 mb-2">
-                        <div>
-                          <span className="font-medium">Action:</span>{" "}
-                          {activity.action}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600">
+                        <div className="flex flex-col">
+                          <span className="font-medium text-gray-700">Action:</span>
+                          <span className="text-gray-900">{activity.action}</span>
                         </div>
-                        <div>
-                          <span className="font-medium">Items:</span>{" "}
-                          {activity.items} item
+                        <div className="flex flex-col">
+                          <span className="font-medium text-gray-700">Items:</span>
+                          <span className="text-gray-900">{activity.items} item</span>
                         </div>
-                        <div>
-                          <span className="font-medium">Waktu:</span>{" "}
-                          {formatDateTime(activity.timestamp)}
+                        <div className="flex flex-col">
+                          <span className="font-medium text-gray-700">Waktu:</span>
+                          <span className="text-gray-900">{formatDateTime(activity.timestamp)}</span>
                         </div>
                       </div>
 
                       {activity.notes && (
-                        <div className="bg-gray-100 rounded p-2 text-sm">
-                          <span className="font-medium">Notes:</span>{" "}
-                          {activity.notes}
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
+                          <span className="font-medium text-blue-900">Notes:</span>
+                          <p className="mt-1 text-blue-800">{activity.notes}</p>
                         </div>
                       )}
                     </div>
