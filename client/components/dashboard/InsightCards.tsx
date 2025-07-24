@@ -1,4 +1,4 @@
-import type { InsightCardProps } from "@/types";
+import type { InsightCardProps, InsightCardsGridProps } from "@/types";
 
 export function InsightCard({
   title,
@@ -15,8 +15,6 @@ export function InsightCard({
     </div>
   );
 }
-
-import type { InsightCardsGridProps } from "@/types";
 
 export function InsightCardsGrid({
   insights,
