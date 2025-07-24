@@ -231,7 +231,7 @@ export default function Verification() {
   const [verificationModal, setVerificationModal] = useState(false);
 
   const getFilteredSubmissions = (status: string) => {
-    return mockReadinessSubmissions.filter((submission) => {
+    return getReadinessSubmissions().filter((submission) => {
       const matchesSearch =
         submission.projectName
           .toLowerCase()
