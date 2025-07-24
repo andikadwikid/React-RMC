@@ -136,6 +136,14 @@ export const getProjectReadinessStatus = (projectId: string) => {
     };
   }
 
+  // Calculate completion percentage based on readiness items
+  const readinessItems = projectReadinessData.readiness_items.filter(item => item.readiness_id === readiness.id);
+  const totalItems = readinessItems.length;
+  const completedItems = readinessItems.filter(item => item.user_status === "lengkap").length;
+  const partialItems = readinessItems.filter(item => item.user_status === "parsial").length;
+
+  const score = totalItems > 0 ? Math.round(((completedItems * 100) + (partialItems * 50)) / totalItems) : 0;
+
   return {
     status:
       readiness.status === "verified"
@@ -143,7 +151,7 @@ export const getProjectReadinessStatus = (projectId: string) => {
         : readiness.status === "submitted"
           ? "in-progress"
           : "not-started",
-    score: readiness.completionPercentage,
+    score: score,
   };
 };
 
