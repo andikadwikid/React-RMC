@@ -17,8 +17,15 @@ import {
 } from "lucide-react";
 import type { ProjectReadiness } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
+import { loadSubmissionTracking } from "@/utils/dataLoader";
 
-// Mock data for demonstration
+// Load readiness submissions from JSON data
+const getReadinessSubmissions = (): ProjectReadiness[] => {
+  const submissionData = loadSubmissionTracking();
+  return submissionData.readiness_submissions || [];
+};
+
+// Mock data for demonstration - keeping for backward compatibility
 const mockReadinessSubmissions: ProjectReadiness[] = [
   {
     id: "1",
