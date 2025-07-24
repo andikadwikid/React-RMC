@@ -175,10 +175,10 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
 
-      alert("Report berhasil di-generate dan di-download!");
+      toast.success("Report berhasil di-generate dan di-download!");
     } catch (error) {
       console.error("Error generating report:", error);
-      alert("Gagal generate report. Silakan coba lagi.");
+      toast.error("Gagal generate report. Silakan coba lagi.");
     } finally {
       setIsGeneratingReport(false);
     }
