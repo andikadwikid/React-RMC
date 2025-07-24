@@ -399,7 +399,7 @@ export default function VerifierDashboard() {
       />
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
@@ -408,37 +408,234 @@ export default function VerifierDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {verificationStats.totalVerified}
+              {verificationStats.overall.totalVerified}
             </div>
-            <p className="text-xs text-gray-500">Sepanjang masa</p>
+            <p className="text-xs text-gray-500">Risk Capture + Readiness</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
-              Bulan Ini
+              Sedang Review
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600">
-              {verificationStats.thisMonth}
+              {verificationStats.overall.totalUnderReview}
             </div>
-            <p className="text-xs text-gray-500">Verifikasi</p>
+            <p className="text-xs text-gray-500">Under review</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
-              Pending
+              Pending Review
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600">
-              {verificationStats.pending}
+              {verificationStats.overall.totalPending}
             </div>
             <p className="text-xs text-gray-500">Menunggu review</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-gray-600">
+              Success Rate
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-purple-600">
+              {(() => {
+                const total = verificationStats.riskCapture.total + verificationStats.readiness.total;
+                const verified = verificationStats.overall.totalVerified;
+                return total > 0 ? Math.round((verified / total) * 100) : 0;
+              })()}%
+            </div>
+            <p className="text-xs text-gray-500">Tingkat keberhasilan</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Risk Capture & Readiness Overview */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Risk Capture Overview */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-red-600" />
+              Risk Capture Overview
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                <div className="text-2xl font-bold text-gray-800">
+                  {verificationStats.riskCapture.total}
+                </div>
+                <div className="text-sm text-gray-600">Total Submissions</div>
+              </div>
+              <div className="text-center p-3 bg-red-50 rounded-lg">
+                <div className="text-2xl font-bold text-red-600">
+                  {verificationStats.riskCapture.totalRisks}
+                </div>
+                <div className="text-sm text-gray-600">Total Risks</div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Terverifikasi</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{verificationStats.riskCapture.verified}</span>
+                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-green-600 h-2 rounded-full"
+                      style={{
+                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.verified / verificationStats.riskCapture.total) * 100 : 0}%`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Under Review</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{verificationStats.riskCapture.underReview}</span>
+                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-blue-600 h-2 rounded-full"
+                      style={{
+                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.underReview / verificationStats.riskCapture.total) * 100 : 0}%`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Needs Revision</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{verificationStats.riskCapture.needsRevision}</span>
+                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-red-600 h-2 rounded-full"
+                      style={{
+                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.needsRevision / verificationStats.riskCapture.total) * 100 : 0}%`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Pending</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{verificationStats.riskCapture.pending}</span>
+                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-yellow-600 h-2 rounded-full"
+                      style={{
+                        width: `${verificationStats.riskCapture.total > 0 ? (verificationStats.riskCapture.pending / verificationStats.riskCapture.total) * 100 : 0}%`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Readiness Overview */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-green-600" />
+              Project Readiness Overview
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                <div className="text-2xl font-bold text-gray-800">
+                  {verificationStats.readiness.total}
+                </div>
+                <div className="text-sm text-gray-600">Total Submissions</div>
+              </div>
+              <div className="text-center p-3 bg-green-50 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">
+                  {verificationStats.readiness.totalItems}
+                </div>
+                <div className="text-sm text-gray-600">Total Items</div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Terverifikasi</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{verificationStats.readiness.verified}</span>
+                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-green-600 h-2 rounded-full"
+                      style={{
+                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.verified / verificationStats.readiness.total) * 100 : 0}%`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Under Review</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{verificationStats.readiness.underReview}</span>
+                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-blue-600 h-2 rounded-full"
+                      style={{
+                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.underReview / verificationStats.readiness.total) * 100 : 0}%`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Needs Revision</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{verificationStats.readiness.needsRevision}</span>
+                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-red-600 h-2 rounded-full"
+                      style={{
+                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.needsRevision / verificationStats.readiness.total) * 100 : 0}%`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Pending</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{verificationStats.readiness.pending}</span>
+                  <div className="w-20 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-yellow-600 h-2 rounded-full"
+                      style={{
+                        width: `${verificationStats.readiness.total > 0 ? (verificationStats.readiness.pending / verificationStats.readiness.total) * 100 : 0}%`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
