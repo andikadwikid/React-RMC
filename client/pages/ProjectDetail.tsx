@@ -331,11 +331,16 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
           <div className="sm:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <MoreHorizontal className="w-4 h-4" />
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Shield className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm font-medium">Actions</span>
+                  <MoreHorizontal className="w-3 h-3" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuContent align="end" className="w-56">
+                <div className="px-2 py-1.5 text-xs font-medium text-gray-500 border-b">
+                  Project Actions
+                </div>
                 <DropdownMenuItem asChild>
                   <Link to={`/projects/${project.id}/edit`}>
                     <Edit className="w-4 h-4 mr-2" />
@@ -349,16 +354,26 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                <div className="px-2 py-1.5 text-xs font-medium text-gray-500 border-b">
+                  Quick Assessments
+                </div>
                 <DropdownMenuItem onClick={openReadinessForm}>
-                  <ClipboardCheck className="w-4 h-4 mr-2" />
-                  Project Readiness
+                  <ClipboardCheck className="w-4 h-4 mr-2 text-blue-600" />
+                  <div>
+                    <div className="font-medium">Project Readiness</div>
+                    <div className="text-xs text-gray-500">Assess project status</div>
+                  </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={openRiskCaptureForm}>
-                  <Shield className="w-4 h-4 mr-2" />
-                  Risk Assessment
+                  <Shield className="w-4 h-4 mr-2 text-orange-600" />
+                  <div>
+                    <div className="font-medium">Risk Assessment</div>
+                    <div className="text-xs text-gray-500">Capture project risks</div>
+                  </div>
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={generateReport}>
-                  <FileText className="w-4 h-4 mr-2" />
+                  <FileText className="w-4 h-4 mr-2 text-green-600" />
                   Generate Report
                 </DropdownMenuItem>
               </DropdownMenuContent>
