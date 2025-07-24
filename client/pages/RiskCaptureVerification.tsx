@@ -21,21 +21,28 @@ import { loadSubmissionTracking } from "@/utils/dataLoader";
 
 // Load risk capture submissions from JSON data
 const getRiskCaptureSubmissions = (): RiskCapture[] => {
-  const submissionData = loadSubmissionTracking();
-  console.log('Raw submission data:', submissionData);
-  console.log('Risk capture submissions:', submissionData.risk_capture_submissions);
+  try {
+    const submissionData = loadSubmissionTracking();
 
-  // Map the data to match RiskCapture interface
-  const mappedData = (submissionData.risk_capture_submissions || []).map(submission => ({
-    ...submission,
-    createdAt: submission.createdAt || submission.submittedAt,
-    updatedAt: submission.verifiedAt || undefined,
-    overallComment: submission.notes || '',
-    risks: submission.risks || []
-  }));
+    if (!submissionData || !submissionData.risk_capture_submissions) {
+      console.error('No risk capture submissions found in data');
+      return [];
+    }
 
-  console.log('Mapped risk capture data:', mappedData);
-  return mappedData;
+    // Map the data to match RiskCapture interface
+    const mappedData = submissionData.risk_capture_submissions.map(submission => ({
+      ...submission,
+      createdAt: submission.createdAt || submission.submittedAt,
+      updatedAt: submission.verifiedAt || undefined,
+      overallComment: submission.notes || '',
+      risks: submission.risks || []
+    }));
+
+    return mappedData;
+  } catch (error) {
+    console.error('Error loading risk capture submissions:', error);
+    return [];
+  }
 };
 
 const STATUS_CONFIG = {
