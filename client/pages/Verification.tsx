@@ -142,9 +142,7 @@ function SubmissionsList({
         <CardContent className="py-12">
           <div className="text-center">
             <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">
-              Tidak ada submission yang ditemukan
-            </p>
+            <p className="text-gray-500">Tidak ada submission yang ditemukan</p>
           </div>
         </CardContent>
       </Card>
@@ -154,7 +152,9 @@ function SubmissionsList({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Daftar Submission Readiness ({submissions.length})</CardTitle>
+        <CardTitle>
+          Daftar Submission Readiness ({submissions.length})
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
