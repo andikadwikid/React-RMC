@@ -16,10 +16,7 @@ export function InsightCard({
   );
 }
 
-interface InsightCardsGridProps {
-  insights: InsightCardProps[];
-  className?: string;
-}
+import type { InsightCardsGridProps } from "@/types";
 
 export function InsightCardsGrid({
   insights,
