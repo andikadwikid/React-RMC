@@ -2,14 +2,14 @@
 import performanceData from '../data/performance.json';
 import riskCategoriesData from '../data/risk-categories.json';
 import geographicData from '../data/geographic.json';
-import dashboardRiskCaptureData from '../data/risk-capture.json';
+import dashboardRiskCaptureData from '../data/dashboard-risk-capture.json';
 import invoiceStatusData from '../data/invoice-status.json';
 import agingReceivablesData from '../data/aging-receivables.json';
 import projectsData from '../data/projects.json';
 import projectDetailsData from '../data/project-details.json';
 import projectCategoriesData from '../data/project-categories.json';
 import projectReadinessData from '../data/project-readiness.json';
-import projectRiskCaptureData from '../data/risk-capture.json';
+import projectRiskCaptureData from '../data/project-risk-capture.json';
 import {
   Target,
   Building,
