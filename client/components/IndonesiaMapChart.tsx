@@ -7,15 +7,10 @@ if (typeof Highcharts === "object") {
   HighchartsMap(Highcharts);
 }
 
-interface RegionData {
-  "hc-key": string;
-  name: string;
-  value: number;
-  projects: string[];
-}
+import type { RegionData, IndonesiaMapChartProps } from "@/types";
 
-interface IndonesiaMapChartProps {
-  data: RegionData[];
+// Extended props for this specific implementation
+interface ExtendedIndonesiaMapChartProps extends IndonesiaMapChartProps {
   title?: string;
 }
 
