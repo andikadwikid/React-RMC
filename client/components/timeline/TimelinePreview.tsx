@@ -11,7 +11,7 @@ interface ExtendedTimelinePreviewProps extends TimelinePreviewProps {
 export function TimelinePreview({
   timeline,
   className = "",
-}: TimelinePreviewProps) {
+}: ExtendedTimelinePreviewProps) {
   if (!timeline || timeline.length === 0) {
     return (
       <div className={`text-xs text-gray-500 ${className}`}>
