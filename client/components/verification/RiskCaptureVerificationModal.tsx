@@ -146,65 +146,78 @@ export function RiskCaptureVerificationModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Shield className="h-6 w-6 text-blue-600" />
-            Risk Capture Verification - {submission.projectName}
+      <DialogContent className="max-w-[95vw] lg:max-w-6xl max-h-[95vh] overflow-hidden flex flex-col p-0">
+        <DialogHeader className="p-4 lg:p-6 border-b">
+          <DialogTitle className="flex flex-col sm:flex-row sm:items-center gap-2 text-lg lg:text-xl">
+            <div className="flex items-center gap-2">
+              <Shield className="h-5 w-5 lg:h-6 lg:w-6 text-blue-600" />
+              <span>Risk Capture Verification</span>
+            </div>
+            <span className="text-sm lg:text-base text-gray-600 font-normal">
+              {submission.projectName}
+            </span>
           </DialogTitle>
         </DialogHeader>
 
-        {/* Submission Info */}
-        <Card className="mb-6">
-          <CardContent className="p-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-gray-500" />
-                <span className="font-medium">Submitted by:</span>
-                <span>{submission.submittedBy}</span>
+        <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-6">
+          {/* Submission Info */}
+          <Card>
+            <CardContent className="p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-gray-500" />
+                    <span className="font-medium">Submitted by:</span>
+                  </div>
+                  <span className="text-gray-900">{submission.submittedBy}</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-gray-500" />
+                    <span className="font-medium">Submitted at:</span>
+                  </div>
+                  <span className="text-gray-900">{formatDateTime(submission.submittedAt)}</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-4 h-4 text-gray-500" />
+                    <span className="font-medium">Total Risks:</span>
+                  </div>
+                  <span className="text-gray-900 font-semibold">{submission.totalRisks}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-gray-500" />
-                <span className="font-medium">Submitted at:</span>
-                <span>{formatDateTime(submission.submittedAt)}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-gray-500" />
-                <span className="font-medium">Total Risks:</span>
-                <span>{submission.totalRisks}</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        {/* Verification Progress */}
-        <Card className="mb-6">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">
-                Verification Progress
-              </span>
-              <span className="text-sm font-bold text-gray-900">
-                {progress.percentage}%
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-              <div
-                className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
-                style={{ width: `${progress.percentage}%` }}
-              ></div>
-            </div>
-            <div className="flex gap-4 text-xs text-gray-600">
-              <span>
-                Verified:{" "}
-                <strong className="text-green-600">{progress.verified}</strong>
-              </span>
-              <span>
-                Total: <strong>{progress.total}</strong>
-              </span>
-            </div>
-          </CardContent>
-        </Card>
+          {/* Verification Progress */}
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm font-medium text-gray-700">
+                  Verification Progress
+                </span>
+                <span className="text-lg font-bold text-gray-900">
+                  {progress.percentage}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3 mb-3">
+                <div
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500 ease-out"
+                  style={{ width: `${progress.percentage}%` }}
+                ></div>
+              </div>
+              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                <span className="flex items-center gap-1">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  Verified: <strong className="text-green-600">{progress.verified}</strong>
+                </span>
+                <span className="flex items-center gap-1">
+                  <Shield className="w-4 h-4 text-gray-600" />
+                  Total: <strong>{progress.total}</strong>
+                </span>
+              </div>
+            </CardContent>
+          </Card>
 
         {/* Risk Items for Verification */}
         <div className="space-y-6 mb-6">
@@ -424,23 +437,36 @@ export function RiskCaptureVerificationModal({
           </CardContent>
         </Card>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose} disabled={isSubmitting}>
-            Cancel
-          </Button>
-          <Button onClick={handleSave} disabled={isSubmitting}>
-            {isSubmitting ? (
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                Saving...
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Save className="w-4 h-4" />
-                Save Verification
-              </div>
-            )}
-          </Button>
+        </div>
+
+        <DialogFooter className="p-4 lg:p-6 border-t bg-gray-50 flex-shrink-0">
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              disabled={isSubmitting}
+              className="order-2 sm:order-1"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSave}
+              disabled={isSubmitting}
+              className="order-1 sm:order-2"
+            >
+              {isSubmitting ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                  Saving...
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Save className="w-4 h-4" />
+                  Save Verification
+                </div>
+              )}
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
