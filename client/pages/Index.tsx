@@ -761,7 +761,7 @@ export default function Dashboard() {
         </Card>
 
         {/* Charts Section - Geographic Distribution and Risk Capture - Row 5 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 sm:mb-8">
           {/* Geographic Distribution Chart */}
           <Card>
             <CardHeader>
