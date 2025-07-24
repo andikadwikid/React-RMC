@@ -160,11 +160,11 @@ export default function CreateProject() {
       console.log("Project data to submit:", formData);
 
       // Show success message and redirect
-      alert("Project berhasil dibuat!");
+      toast.success("Project berhasil dibuat!");
       navigate("/projects");
     } catch (error) {
       console.error("Error creating project:", error);
-      alert("Gagal membuat project. Silakan coba lagi.");
+      toast.error("Gagal membuat project. Silakan coba lagi.");
     } finally {
       setIsSubmitting(false);
     }
