@@ -61,10 +61,10 @@
   "risk_capture_submissions": [
     {
       "id": "550e8400-e29b-41d4-a716-446655443001",
-      "project_id": "550e8400-e29b-41d4-a716-446655440001",
-      "project_name": "Sistem ERP Perusahaan",
-      "submitted_by": "Budi Santoso",
-      "submitted_at": "2024-01-22T11:15:00Z",
+      "projectId": "550e8400-e29b-41d4-a716-446655440001",
+      "projectName": "Sistem ERP Perusahaan",
+      "submittedBy": "Budi Santoso",
+      "submittedAt": "2024-01-22T11:15:00Z",
       "status": "under_review",
       "verifier_name": "Chief Risk Officer",
       "assigned_at": "2024-01-22T12:00:00Z",
