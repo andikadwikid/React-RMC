@@ -989,6 +989,70 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
         projectName={riskCaptureForm.projectName}
         onSave={handleRiskCaptureSave}
       />
+
+      {/* Floating Action Button for Mobile Quick Actions */}
+      <div className="fixed bottom-6 right-6 sm:hidden z-50">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              size="lg"
+              className={cn(
+                "h-14 w-14 rounded-full shadow-lg",
+                "bg-blue-600 hover:bg-blue-700 text-white",
+                "border-2 border-white",
+                "transition-all duration-200",
+                "hover:scale-105 active:scale-95"
+              )}
+            >
+              <Shield className="w-6 h-6" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="end"
+            sideOffset={8}
+            className="w-56 mb-2 shadow-xl"
+          >
+            <div className="p-2">
+              <p className="text-xs font-medium text-gray-500 mb-2 px-2">
+                Quick Actions
+              </p>
+            </div>
+            <DropdownMenuItem
+              onClick={openReadinessForm}
+              className="py-3"
+            >
+              <ClipboardCheck className="w-5 h-5 mr-3 text-blue-600" />
+              <div>
+                <div className="font-medium">Project Readiness</div>
+                <div className="text-xs text-gray-500">Assess project readiness</div>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={openRiskCaptureForm}
+              className="py-3"
+            >
+              <Shield className="w-5 h-5 mr-3 text-orange-600" />
+              <div>
+                <div className="font-medium">Risk Assessment</div>
+                <div className="text-xs text-gray-500">Capture project risks</div>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={generateReport}
+              disabled={isGeneratingReport}
+              className="py-3"
+            >
+              <FileText className="w-5 h-5 mr-3 text-green-600" />
+              <div>
+                <div className="font-medium">
+                  {isGeneratingReport ? "Generating..." : "Generate Report"}
+                </div>
+                <div className="text-xs text-gray-500">Download project report</div>
+              </div>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 }
