@@ -445,8 +445,8 @@ export function RiskCaptureForm({
                         </div>
 
                         <div className="border-t pt-4">
-                          <h5 className="font-medium mb-3">Risiko Awal</h5>
-                          <div className="grid grid-cols-3 gap-4">
+                          <h5 className="font-medium mb-3 text-sm sm:text-base">Risiko Awal</h5>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
                               <Label htmlFor={`kejadian-${risk.id}`}>
                                 Kejadian (1-25) *
@@ -577,8 +577,8 @@ export function RiskCaptureForm({
                         </div>
 
                         <div className="border-t pt-4">
-                          <h5 className="font-medium mb-3">Resiko Akhir</h5>
-                          <div className="grid grid-cols-3 gap-4">
+                          <h5 className="font-medium mb-3 text-sm sm:text-base">Resiko Akhir</h5>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
                               <Label htmlFor={`final-kejadian-${risk.id}`}>
                                 Kejadian (1-25) *
@@ -712,9 +712,10 @@ export function RiskCaptureForm({
                   ))}
 
                   <div className="flex justify-center">
-                    <Button variant="outline" onClick={addRiskItem}>
+                    <Button variant="outline" onClick={addRiskItem} className="w-full sm:w-auto">
                       <Plus className="w-4 h-4 mr-2" />
-                      Tambah Risk Capture Lainnya
+                      <span className="hidden sm:inline">Tambah Risk Capture Lainnya</span>
+                      <span className="sm:hidden">Tambah Risk Lainnya</span>
                     </Button>
                   </div>
                 </div>
