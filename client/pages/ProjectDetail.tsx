@@ -442,7 +442,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Last Update</span>
                     <span className="text-sm">
-                      {new Date(project.lastUpdate).toLocaleDateString("id-ID")}
+                      {new Date(project.last_update || project.lastUpdate).toLocaleDateString("id-ID")}
                     </span>
                   </div>
                 </CardContent>
