@@ -336,13 +336,13 @@
       "category": "personnel",
       "item": "Sertifikasi yang relevan (jika dibutuhkan)",
       "user_status": "parsial",
-      "verifier_status": null,
+      "verifier_status": "parsial",
       "user_comment": "Beberapa sertifikasi masih dalam proses",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Sertifikasi yang ada sudah mencukupi untuk start project. Sertifikasi yang masih pending dapat dilengkapi dalam parallel dengan development phase tanpa blocking progress.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:10:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-21T10:10:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442011",
