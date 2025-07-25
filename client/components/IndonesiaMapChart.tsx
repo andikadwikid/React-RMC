@@ -184,8 +184,8 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
 
             series: [
               {
-                data: data,
-                name: "Project Data",
+                data: mapData,
+                name: "Jumlah Project",
                 states: {
                   hover: {
                     color: "#BADA55",
@@ -194,6 +194,9 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
                 dataLabels: {
                   enabled: true,
                   format: "{point.name}",
+                },
+                tooltip: {
+                  pointFormat: '<b>{point.name}</b>: {point.value} project(s)',
                 },
               },
             ],
