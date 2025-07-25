@@ -496,70 +496,108 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
           <div className="sm:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2">
-                  <Shield className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium">Actions</span>
-                  <MoreHorizontal className="w-3 h-3" />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="relative font-medium shadow-md hover:shadow-lg transition-all duration-200 border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="relative">
+                      <Shield className="w-4 h-4 text-blue-600" />
+                      {readinessStatus && (
+                        <div className="absolute -top-1 -right-1 w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+                      )}
+                    </div>
+                    <span className="text-sm font-semibold text-gray-700">Actions</span>
+                    <MoreHorizontal className="w-3 h-3 text-gray-500" />
+                  </div>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <div className="px-2 py-1.5 text-xs font-medium text-gray-500 border-b">
-                  Project Actions
+              <DropdownMenuContent align="end" className="w-72 shadow-xl border-0 bg-white/95 backdrop-blur-md rounded-xl">
+                <div className="px-4 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-b text-center">
+                  <h3 className="text-sm font-semibold text-gray-700">Project Actions</h3>
+                  <p className="text-xs text-gray-500 mt-1">{project.name}</p>
                 </div>
-                <DropdownMenuItem asChild>
-                  <Link to={`/projects/${project.id}/edit`}>
-                    <Edit className="w-4 h-4 mr-2" />
-                    Edit Project
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to={`/projects/${project.id}/timeline`}>
-                    <GitBranch className="w-4 h-4 mr-2" />
-                    Timeline
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <div className="px-2 py-1.5 text-xs font-medium text-gray-500 border-b">
-                  Quick Assessments
-                </div>
-                {readinessStatus && (
-                  <DropdownMenuItem onClick={openReadinessResults}>
-                    <ClipboardCheck className="w-4 h-4 mr-2 text-blue-600" />
-                    <div>
-                      <div className="font-medium">View Readiness Results</div>
-                      <div className="text-xs text-gray-500">
-                        View verification results
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                )}
-                {canEditReadiness(readinessStatus) && (
-                  <DropdownMenuItem onClick={openReadinessForm}>
-                    <FileText className="w-4 h-4 mr-2 text-green-600" />
-                    <div>
-                      <div className="font-medium">
-                        {readinessStatus ? "Update Assessment" : "Create Assessment"}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {readinessStatus ? "Modify readiness data" : "Fill readiness assessment"}
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                )}
-                <DropdownMenuItem onClick={openRiskCaptureForm}>
-                  <Shield className="w-4 h-4 mr-2 text-orange-600" />
-                  <div>
-                    <div className="font-medium">Risk Assessment</div>
-                    <div className="text-xs text-gray-500">
-                      Capture project risks
-                    </div>
+
+                {/* Project Management */}
+                <div className="p-2">
+                  <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                    Project Management
                   </div>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={generateReport}>
-                  <FileText className="w-4 h-4 mr-2 text-green-600" />
-                  Generate Report
-                </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="rounded-lg my-1 py-3 hover:bg-blue-50 transition-all duration-200">
+                    <Link to={`/projects/${project.id}/edit`}>
+                      <Edit className="w-5 h-5 mr-3 text-blue-600" />
+                      <div>
+                        <div className="font-semibold text-gray-700">Edit Project</div>
+                        <div className="text-xs text-gray-500">Modify project details</div>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="rounded-lg my-1 py-3 hover:bg-purple-50 transition-all duration-200">
+                    <Link to={`/projects/${project.id}/timeline`}>
+                      <GitBranch className="w-5 h-5 mr-3 text-purple-600" />
+                      <div>
+                        <div className="font-semibold text-gray-700">Timeline</div>
+                        <div className="text-xs text-gray-500">View milestones & progress</div>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                </div>
+
+                {/* Quick Assessments */}
+                <div className="p-2 border-t bg-gray-50/30">
+                  <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                    Assessment Tools
+                  </div>
+                  {readinessStatus && (
+                    <DropdownMenuItem onClick={openReadinessResults} className="rounded-lg my-1 py-3 hover:bg-blue-50 transition-all duration-200">
+                      <div className="relative mr-3">
+                        <ClipboardCheck className="w-5 h-5 text-blue-600" />
+                        {readinessStatus === "verified" && (
+                          <CheckCircle className="absolute -top-1 -right-1 w-3 h-3 text-green-500" />
+                        )}
+                        {readinessStatus === "under_review" && (
+                          <Clock className="absolute -top-1 -right-1 w-3 h-3 text-yellow-500" />
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-700">View Readiness Results</div>
+                        <div className="text-xs text-gray-500">Check verification status & feedback</div>
+                      </div>
+                    </DropdownMenuItem>
+                  )}
+                  {canEditReadiness(readinessStatus) && (
+                    <DropdownMenuItem onClick={openReadinessForm} className="rounded-lg my-1 py-3 hover:bg-green-50 transition-all duration-200">
+                      <FileText className="w-5 h-5 mr-3 text-green-600" />
+                      <div>
+                        <div className="font-semibold text-gray-700">
+                          {readinessStatus ? "Update Assessment" : "Create Assessment"}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {readinessStatus ? "Modify readiness data" : "Fill readiness assessment"}
+                        </div>
+                      </div>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem onClick={openRiskCaptureForm} className="rounded-lg my-1 py-3 hover:bg-orange-50 transition-all duration-200">
+                    <Shield className="w-5 h-5 mr-3 text-orange-600" />
+                    <div>
+                      <div className="font-semibold text-gray-700">Risk Assessment</div>
+                      <div className="text-xs text-gray-500">Capture & analyze project risks</div>
+                    </div>
+                  </DropdownMenuItem>
+                </div>
+
+                {/* Additional Actions */}
+                <div className="p-2 border-t">
+                  <DropdownMenuItem onClick={generateReport} className="rounded-lg py-3 hover:bg-indigo-50 transition-all duration-200">
+                    <FileText className="w-5 h-5 mr-3 text-indigo-600" />
+                    <div>
+                      <div className="font-semibold text-gray-700">Generate Report</div>
+                      <div className="text-xs text-gray-500">Download comprehensive project report</div>
+                    </div>
+                  </DropdownMenuItem>
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
