@@ -506,6 +506,114 @@ export function RiskCaptureSection({
 
                       <div className="border-t pt-3">
                         <Label className="text-xs font-medium">
+                          Resiko Saat Ini
+                        </Label>
+                        <div className="grid grid-cols-3 gap-2 mt-2">
+                          <div>
+                            <Label className="text-xs text-gray-600">
+                              Kejadian (1-25)
+                            </Label>
+                            <Input
+                              type="number"
+                              min={1}
+                              max={25}
+                              value={risk.risikoSaatIni.kejadian}
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === "") {
+                                  updateRiskItem(
+                                    risk.id,
+                                    "risikoSaatIni.kejadian",
+                                    1
+                                  );
+                                } else {
+                                  const kejadian = parseInt(value);
+                                  if (!isNaN(kejadian)) {
+                                    updateRiskItem(
+                                      risk.id,
+                                      "risikoSaatIni.kejadian",
+                                      kejadian
+                                    );
+                                  }
+                                }
+                              }}
+                              className={`h-7 text-xs ${
+                                !isValidRange(risk.risikoSaatIni.kejadian)
+                                  ? "border-red-500"
+                                  : ""
+                              }`}
+                              disabled={disabled}
+                            />
+                          </div>
+                          <div>
+                            <Label className="text-xs text-gray-600">
+                              Dampak (1-25)
+                            </Label>
+                            <Input
+                              type="number"
+                              min={1}
+                              max={25}
+                              value={risk.risikoSaatIni.dampak}
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === "") {
+                                  updateRiskItem(risk.id, "risikoSaatIni.dampak", 1);
+                                } else {
+                                  const dampak = parseInt(value);
+                                  if (!isNaN(dampak)) {
+                                    updateRiskItem(
+                                      risk.id,
+                                      "risikoSaatIni.dampak",
+                                      dampak
+                                    );
+                                  }
+                                }
+                              }}
+                              className={`h-7 text-xs ${
+                                !isValidRange(risk.risikoSaatIni.dampak)
+                                  ? "border-red-500"
+                                  : ""
+                              }`}
+                              disabled={disabled}
+                            />
+                          </div>
+                          <div>
+                            <Label className="text-xs text-gray-600">
+                              Level (1-25)
+                            </Label>
+                            <Input
+                              type="number"
+                              min={1}
+                              max={25}
+                              value={risk.risikoSaatIni.level}
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === "") {
+                                  updateRiskItem(risk.id, "risikoSaatIni.level", 1);
+                                } else {
+                                  const level = parseInt(value);
+                                  if (!isNaN(level)) {
+                                    updateRiskItem(
+                                      risk.id,
+                                      "risikoSaatIni.level",
+                                      level
+                                    );
+                                  }
+                                }
+                              }}
+                              className={`h-7 text-xs ${
+                                !isValidRange(risk.risikoSaatIni.level)
+                                  ? "border-red-500"
+                                  : ""
+                              }`}
+                              disabled={disabled}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="border-t pt-3">
+                        <Label className="text-xs font-medium">
                           Resiko Akhir
                         </Label>
                         <div className="grid grid-cols-3 gap-2 mt-2">
