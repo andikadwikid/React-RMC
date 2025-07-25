@@ -147,18 +147,18 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
         verifiedAt: item.verified_at,
       };
 
-      // Log each processed item with verifier comment
-      if (processedItem.verifierComment) {
-        console.log(
-          `  ✨ Processed item "${processedItem.title}" with verifier comment: "${processedItem.verifierComment}"`,
-        );
-      }
+      // Log each processed item
+      console.log(
+        `  📝 Processing item "${processedItem.title}": status="${processedItem.status}", comments=${processedItem.userComments.length}`,
+      );
 
       acc[item.category].push(processedItem);
       return acc;
     },
     {} as Record<string, any[]>,
   );
+
+  console.log("🗂️ Items grouped by category:", itemsByCategory);
 
   // Map to template structure with real data
   const template = getDefaultReadinessData();
