@@ -225,6 +225,7 @@ export function ProjectReadinessResults({
   onClose,
   projectId,
   projectName,
+  onEdit,
 }: ProjectReadinessResultsProps) {
   const [readinessData, setReadinessData] = useState<{
     submission: any;
