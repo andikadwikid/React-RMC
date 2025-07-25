@@ -71,11 +71,11 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
           const response = await fetch(
             "https://code.highcharts.com/mapdata/countries/id/id-all.topo.json",
             {
-              method: 'GET',
+              method: "GET",
               headers: {
-                'Accept': 'application/json',
+                Accept: "application/json",
               },
-            }
+            },
           );
 
           if (!response.ok) {
@@ -96,18 +96,26 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
                   properties: {
                     "hc-key": item[0],
                     "hc-a2": item[0].toUpperCase(),
-                    name: data[index]?.name || `Province ${index + 1}`
+                    name: data[index]?.name || `Province ${index + 1}`,
                   },
-                  coordinates: [[[100 + index * 2, -5 + index * 0.5], [101 + index * 2, -5 + index * 0.5], [101 + index * 2, -4 + index * 0.5], [100 + index * 2, -4 + index * 0.5], [100 + index * 2, -5 + index * 0.5]]]
-                }))
-              }
+                  coordinates: [
+                    [
+                      [100 + index * 2, -5 + index * 0.5],
+                      [101 + index * 2, -5 + index * 0.5],
+                      [101 + index * 2, -4 + index * 0.5],
+                      [100 + index * 2, -4 + index * 0.5],
+                      [100 + index * 2, -5 + index * 0.5],
+                    ],
+                  ],
+                })),
+              },
             },
             arcs: [],
             bbox: [95, -11, 141, 6],
             transform: {
               scale: [0.001, 0.001],
-              translate: [95, -11]
-            }
+              translate: [95, -11],
+            },
           };
         }
 
@@ -119,9 +127,9 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
             "Jawa Barat": "id-jr",
             "Jawa Tengah": "id-ji",
             "Jawa Timur": "id-jt",
-            "Yogyakarta": "id-yo",
-            "Banten": "id-bt",
-            "Bali": "id-ba",
+            Yogyakarta: "id-yo",
+            Banten: "id-bt",
+            Bali: "id-ba",
             "Nusa Tenggara Barat": "id-nb",
             "Nusa Tenggara Timur": "id-nt",
             "Kalimantan Barat": "id-kb",
@@ -133,22 +141,22 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
             "Sulawesi Tengah": "id-st",
             "Sulawesi Selatan": "id-sl",
             "Sulawesi Tenggara": "id-sg",
-            "Gorontalo": "id-go",
+            Gorontalo: "id-go",
             "Sulawesi Barat": "id-sw",
-            "Maluku": "id-ma",
+            Maluku: "id-ma",
             "Maluku Utara": "id-1024",
-            "Papua": "id-pa",
+            Papua: "id-pa",
             "Papua Barat": "id-3700",
             "Sumatera Utara": "id-su",
             "Sumatera Barat": "id-sb",
-            "Riau": "id-ri",
+            Riau: "id-ri",
             "Kepulauan Riau": "id-kr",
-            "Jambi": "id-ja",
+            Jambi: "id-ja",
             "Sumatera Selatan": "id-se",
             "Bangka Belitung": "id-bb",
-            "Bengkulu": "id-be",
-            "Lampung": "id-la",
-            "Aceh": "id-ac",
+            Bengkulu: "id-be",
+            Lampung: "id-la",
+            Aceh: "id-ac",
           };
 
           const regionCode = provinceCodeMap[province.name] || `id-${index}`;
@@ -191,7 +199,7 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
                   format: "{point.name}",
                 },
                 tooltip: {
-                  pointFormat: '<b>{point.name}</b>: {point.value} project(s)',
+                  pointFormat: "<b>{point.name}</b>: {point.value} project(s)",
                 },
               },
             ],

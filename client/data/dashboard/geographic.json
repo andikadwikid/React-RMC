@@ -25,19 +25,13 @@
         "name": "Jawa Tengah",
         "value": 3,
         "revenue": 3500000000,
-        "projects": [
-          "Agricultural Management System",
-          "Tourism Portal"
-        ]
+        "projects": ["Agricultural Management System", "Tourism Portal"]
       },
       {
         "name": "Jawa Timur",
         "value": 3,
         "revenue": 4100000000,
-        "projects": [
-          "Port Management System",
-          "Logistics Platform"
-        ]
+        "projects": ["Port Management System", "Logistics Platform"]
       },
       {
         "name": "Sumatera Utara",
@@ -140,10 +134,7 @@
         "name": "Kalimantan Tengah",
         "value": 3,
         "revenue": 3800000000,
-        "projects": [
-          "Orangutan Conservation System",
-          "Eco-Tourism Platform"
-        ]
+        "projects": ["Orangutan Conservation System", "Eco-Tourism Platform"]
       },
       {
         "name": "Kalimantan Utara",
@@ -180,10 +171,7 @@
         "name": "Sulawesi Tengah",
         "value": 3,
         "revenue": 3700000000,
-        "projects": [
-          "Nickel Mining System",
-          "National Park Management"
-        ]
+        "projects": ["Nickel Mining System", "National Park Management"]
       },
       {
         "name": "Sulawesi Tenggara",
@@ -208,10 +196,7 @@
         "name": "Sulawesi Barat",
         "value": 2,
         "revenue": 2100000000,
-        "projects": [
-          "Coffee Export Management",
-          "Community Development App"
-        ]
+        "projects": ["Coffee Export Management", "Community Development App"]
       },
       {
         "name": "Nusa Tenggara Barat",
@@ -248,10 +233,7 @@
         "name": "Maluku Utara",
         "value": 3,
         "revenue": 3400000000,
-        "projects": [
-          "Nutmeg Export Management",
-          "Fishing Fleet Management"
-        ]
+        "projects": ["Nutmeg Export Management", "Fishing Fleet Management"]
       },
       {
         "name": "Papua",
@@ -300,10 +282,7 @@
         "name": "Jawa Barat",
         "value": 3,
         "revenue": 4800000000,
-        "projects": [
-          "Factory Automation",
-          "Healthcare System"
-        ]
+        "projects": ["Factory Automation", "Healthcare System"]
       },
       {
         "name": "Jawa Tengah",
@@ -332,20 +311,13 @@
         "name": "Sumatera Barat",
         "value": 4,
         "revenue": 4100000000,
-        "projects": [
-          "Tourism Portal V1",
-          "Cultural App",
-          "Digital Marketplace"
-        ]
+        "projects": ["Tourism Portal V1", "Cultural App", "Digital Marketplace"]
       },
       {
         "name": "Sumatera Selatan",
         "value": 3,
         "revenue": 3800000000,
-        "projects": [
-          "River Management",
-          "Mining Operations"
-        ]
+        "projects": ["River Management", "Mining Operations"]
       },
       {
         "name": "Riau",
@@ -372,20 +344,13 @@
         "name": "Kalimantan Selatan",
         "value": 4,
         "revenue": 4900000000,
-        "projects": [
-          "Diamond System",
-          "River Transport",
-          "Agricultural Export"
-        ]
+        "projects": ["Diamond System", "River Transport", "Agricultural Export"]
       },
       {
         "name": "Kalimantan Barat",
         "value": 3,
         "revenue": 3600000000,
-        "projects": [
-          "Border Trade",
-          "Cross-Border System"
-        ]
+        "projects": ["Border Trade", "Cross-Border System"]
       },
       {
         "name": "Sulawesi Selatan",
@@ -402,66 +367,43 @@
         "name": "Sulawesi Utara",
         "value": 3,
         "revenue": 3700000000,
-        "projects": [
-          "Marine Conservation",
-          "Tourism Platform"
-        ]
+        "projects": ["Marine Conservation", "Tourism Platform"]
       },
       {
         "name": "Nusa Tenggara Barat",
         "value": 4,
         "revenue": 4200000000,
-        "projects": [
-          "Tourism System V1",
-          "Halal Platform",
-          "Pearl System"
-        ]
+        "projects": ["Tourism System V1", "Halal Platform", "Pearl System"]
       },
       {
         "name": "Nusa Tenggara Timur",
         "value": 3,
         "revenue": 3300000000,
-        "projects": [
-          "Livestock System",
-          "Sandalwood Platform"
-        ]
+        "projects": ["Livestock System", "Sandalwood Platform"]
       },
       {
         "name": "Maluku",
         "value": 3,
         "revenue": 3100000000,
-        "projects": [
-          "Spice Platform V1",
-          "Marine System"
-        ]
+        "projects": ["Spice Platform V1", "Marine System"]
       },
       {
         "name": "Papua",
         "value": 4,
         "revenue": 5400000000,
-        "projects": [
-          "Mining System",
-          "Culture App",
-          "Connectivity Platform"
-        ]
+        "projects": ["Mining System", "Culture App", "Connectivity Platform"]
       },
       {
         "name": "Papua Barat",
         "value": 3,
         "revenue": 4100000000,
-        "projects": [
-          "Marine Park",
-          "Tourism Development"
-        ]
+        "projects": ["Marine Park", "Tourism Development"]
       },
       {
         "name": "Bali",
         "value": 3,
         "revenue": 4200000000,
-        "projects": [
-          "Hotel Management V1",
-          "Cultural Heritage"
-        ]
+        "projects": ["Hotel Management V1", "Cultural Heritage"]
       }
     ]
   },
@@ -499,10 +441,7 @@
         "name": "Sumatera Barat",
         "value": 2,
         "revenue": 2400000000,
-        "projects": [
-          "Tourism Management Phase 2",
-          "Digital Marketplace"
-        ]
+        "projects": ["Tourism Management Phase 2", "Digital Marketplace"]
       },
       {
         "name": "Kalimantan Timur",
@@ -518,10 +457,7 @@
         "name": "Kalimantan Selatan",
         "value": 2,
         "revenue": 2700000000,
-        "projects": [
-          "Diamond Mining Phase 2",
-          "Tourism Management"
-        ]
+        "projects": ["Diamond Mining Phase 2", "Tourism Management"]
       },
       {
         "name": "Sulawesi Selatan",
@@ -537,10 +473,7 @@
         "name": "Nusa Tenggara Barat",
         "value": 2,
         "revenue": 2500000000,
-        "projects": [
-          "Halal Tourism Phase 2",
-          "Disaster Management"
-        ]
+        "projects": ["Halal Tourism Phase 2", "Disaster Management"]
       },
       {
         "name": "Papua",
@@ -575,64 +508,43 @@
         "name": "Sumatera Utara",
         "value": 2,
         "revenue": 2500000000,
-        "projects": [
-          "Palm Oil Tracking",
-          "Transportation Network"
-        ]
+        "projects": ["Palm Oil Tracking", "Transportation Network"]
       },
       {
         "name": "Riau",
         "value": 2,
         "revenue": 2400000000,
-        "projects": [
-          "Oil & Gas Management",
-          "Industrial Park"
-        ]
+        "projects": ["Oil & Gas Management", "Industrial Park"]
       },
       {
         "name": "Kalimantan Timur",
         "value": 2,
         "revenue": 2800000000,
-        "projects": [
-          "Coal Mining Enhancement",
-          "Environmental Monitoring"
-        ]
+        "projects": ["Coal Mining Enhancement", "Environmental Monitoring"]
       },
       {
         "name": "Sulawesi Selatan",
         "value": 2,
         "revenue": 2300000000,
-        "projects": [
-          "Fisheries Management",
-          "Maritime Transportation"
-        ]
+        "projects": ["Fisheries Management", "Maritime Transportation"]
       },
       {
         "name": "Sulawesi Utara",
         "value": 2,
         "revenue": 2200000000,
-        "projects": [
-          "Marine Conservation",
-          "Tourism Development"
-        ]
+        "projects": ["Marine Conservation", "Tourism Development"]
       },
       {
         "name": "Nusa Tenggara Timur",
         "value": 2,
         "revenue": 2000000000,
-        "projects": [
-          "Livestock Management",
-          "Tourism Hub"
-        ]
+        "projects": ["Livestock Management", "Tourism Hub"]
       },
       {
         "name": "Papua Barat",
         "value": 2,
         "revenue": 2100000000,
-        "projects": [
-          "Marine Park Management",
-          "Eco-Tourism"
-        ]
+        "projects": ["Marine Park Management", "Eco-Tourism"]
       }
     ]
   }
