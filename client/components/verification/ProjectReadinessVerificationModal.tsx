@@ -222,7 +222,9 @@ export function ProjectReadinessVerificationModal({
             {Object.entries(groupedItems).map(([category, items]) => (
               <Card key={category}>
                 <CardHeader>
-                  <CardTitle className="text-base">{category}</CardTitle>
+                  <CardTitle className="text-base">
+                    {CATEGORY_DISPLAY_NAMES[category as keyof typeof CATEGORY_DISPLAY_NAMES] || category}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
