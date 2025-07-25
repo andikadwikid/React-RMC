@@ -136,6 +136,23 @@
       "item": "Kontrak atau PO dari user",
       "user_status": "lengkap",
       "verifier_status": null,
+      "user_comments": [
+        {
+          "id": "comment-1-1",
+          "text": "Kontrak sudah ditandatangani dengan nomor ERP-2024-001",
+          "createdAt": "2024-01-20T10:30:00Z"
+        },
+        {
+          "id": "comment-1-2",
+          "text": "Sudah di-upload ke system dan folder backup tersedia",
+          "createdAt": "2024-01-20T10:35:00Z"
+        },
+        {
+          "id": "comment-1-3",
+          "text": "Legal team sudah review dan approve semua terms",
+          "createdAt": "2024-01-20T10:40:00Z"
+        }
+      ],
       "user_comment": "Kontrak sudah ditandatangani dan disimpan",
       "verifier_comment": null,
       "verifier_name": null,
