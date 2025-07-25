@@ -237,7 +237,7 @@ export function ProjectReadinessForm({
                 item.id === itemId
                   ? {
                       ...item,
-                      userComments: [...item.userComments, newComment],
+                      userComments: [...(item.userComments || []), newComment],
                     }
                   : item,
               ),
