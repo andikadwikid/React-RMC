@@ -25,6 +25,7 @@ import {
   MessageSquare,
   User,
   Calendar,
+  Shield,
 } from "lucide-react";
 import type { ProjectReadiness, ReadinessStatus } from "@/types";
 
