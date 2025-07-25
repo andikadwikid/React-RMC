@@ -176,7 +176,7 @@ const App = () => (
               }
             />
             <Route
-              path="/verification"
+              path="/verify-readiness"
               element={
                 <Layout>
                   <Verification />
@@ -184,7 +184,7 @@ const App = () => (
               }
             />
             <Route
-              path="/risk-capture-verification"
+              path="/verify-riskcapture"
               element={
                 <Layout>
                   <RiskCaptureVerification />
@@ -192,7 +192,7 @@ const App = () => (
               }
             />
             <Route
-              path="/verifier-dashboard"
+              path="/verify-dashboard"
               element={
                 <Layout>
                   <VerifierDashboard />

@@ -62,6 +62,32 @@ export default function Layout({ children }: LayoutProps) {
       badge: "28",
     },
     {
+      id: "risk-officer",
+      label: "Risk Officer",
+      icon: AlertTriangle,
+      hasDropdown: true,
+      children: [
+        {
+          id: "verify-dashboard",
+          label: "Dashbaord Risk Officer",
+          href: "verify-dashboard",
+          icon: TrendingUp,
+        },
+        {
+          id: "verify-readiness",
+          label: "Verifikasi Readiness",
+          href: "/verify-readiness",
+          icon: TrendingUp,
+        },
+        {
+          id: "verify-riskcapture",
+          label: "Verifikasi Risk Capture",
+          href: "/verify-riskcapture",
+          icon: TrendingUp,
+        },
+      ],
+    },
+    {
       id: "master-data",
       label: "Master Data",
       icon: Database,
