@@ -26,7 +26,26 @@ import {
   User,
   Calendar,
 } from "lucide-react";
-import type { ProjectReadiness, ReadinessItem, ReadinessStatus } from "@/types";
+import type { ProjectReadiness, ReadinessStatus } from "@/types";
+
+interface UserComment {
+  id: string;
+  text: string;
+  createdAt: string;
+}
+
+interface ReadinessItem {
+  id: string;
+  category: string;
+  item: string;
+  userStatus: ReadinessStatus;
+  verifierStatus?: ReadinessStatus;
+  userComments: UserComment[];
+  userComment?: string; // Keep for backward compatibility
+  verifierComment?: string;
+  verifierName?: string;
+  verifiedAt?: string;
+}
 import { formatDateTime } from "@/utils/formatters";
 import { getProjectReadinessItems } from "@/utils/dataLoader";
 
