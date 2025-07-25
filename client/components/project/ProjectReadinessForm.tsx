@@ -501,6 +501,43 @@ export function ProjectReadinessForm({
                             ))}
                           </div>
                         </div>
+
+                        {/* Verifier Comment Section */}
+                        {item.verifierComment && (
+                          <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-2">
+                                <UserCheck className="w-4 h-4 text-blue-600" />
+                                <span className="text-sm font-medium text-blue-700">
+                                  Feedback Risk Officer:
+                                </span>
+                              </div>
+                              {item.verifiedAt && (
+                                <span className="text-xs text-blue-600">
+                                  {new Date(item.verifiedAt).toLocaleString('id-ID', {
+                                    day: '2-digit',
+                                    month: '2-digit',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                  })}
+                                </span>
+                              )}
+                            </div>
+                            <div className="bg-white border border-blue-200 p-2 rounded">
+                              <p className="text-sm text-blue-800 leading-relaxed">
+                                {item.verifierComment}
+                              </p>
+                              {item.verifierName && (
+                                <div className="mt-2 pt-2 border-t border-blue-200">
+                                  <span className="text-xs text-blue-600 font-medium">
+                                    — {item.verifierName}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
