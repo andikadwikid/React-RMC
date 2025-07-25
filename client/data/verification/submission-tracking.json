@@ -19,7 +19,36 @@
       "estimatedHours": 4.5,
       "notes": "Administrative documents complete, technical specs under review",
       "createdAt": "2024-01-20T10:30:00Z",
-      "items": []
+      "items": [
+        {
+          "id": "item-1",
+          "category": "administrative",
+          "item": "Kontrak atau PO dari user",
+          "userStatus": "lengkap",
+          "userComment": "Kontrak sudah ditandatangani dan disimpan dengan nomor kontrak ERP-2024-001"
+        },
+        {
+          "id": "item-2",
+          "category": "administrative",
+          "item": "BA serah terima awal (jika ada)",
+          "userStatus": "parsial",
+          "userComment": "Sebagian dokumen sudah diterima, masih menunggu dokumen teknis detil"
+        },
+        {
+          "id": "item-3",
+          "category": "user-data",
+          "item": "Drawing atau layout teknis terkini",
+          "userStatus": "lengkap",
+          "userComment": "Semua drawing teknis sudah tersedia dalam format CAD dan PDF"
+        },
+        {
+          "id": "item-4",
+          "category": "personnel",
+          "item": "Daftar personel dan penanggung jawab teknis",
+          "userStatus": "lengkap",
+          "userComment": "Tim sudah terbentuk lengkap dengan project manager dan tech lead"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655441002",
