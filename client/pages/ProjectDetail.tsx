@@ -305,24 +305,29 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
 
             {/* Primary Quick Actions */}
             <div className="h-6 w-px bg-gray-300 mx-1" />
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={openReadinessResults}
-              className="text-blue-600 border-blue-200 hover:bg-blue-50"
-            >
-              <ClipboardCheck className="w-4 h-4 mr-2" />
-              View Readiness
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={openReadinessForm}
-              className="text-green-600 border-green-200 hover:bg-green-50"
-            >
-              <FileText className="w-4 h-4 mr-2" />
-              Create Assessment
-            </Button>
+            {readinessStatus ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={openReadinessResults}
+                className="text-blue-600 border-blue-200 hover:bg-blue-50"
+              >
+                <ClipboardCheck className="w-4 h-4 mr-2" />
+                View Readiness
+              </Button>
+            ) : null}
+
+            {canEditReadiness(readinessStatus) && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={openReadinessForm}
+                className="text-green-600 border-green-200 hover:bg-green-50"
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                {readinessStatus ? "Update Assessment" : "Create Assessment"}
+              </Button>
+            )}
             <Button
               variant="outline"
               size="sm"
