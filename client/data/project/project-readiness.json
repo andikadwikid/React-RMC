@@ -277,13 +277,13 @@
       "category": "user-data",
       "item": "Data lokasi dan akses kerja",
       "user_status": "parsial",
-      "verifier_status": null,
+      "verifier_status": "parsial",
       "user_comment": "Data utama ada, detail akses masih dikonfirmasi",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Data lokasi sudah cukup untuk tahap awal. Namun detail akses seperti security clearance dan working hours perlu dilengkapi segera untuk kelancaran operasional.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:00:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-21T10:00:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442008",
