@@ -90,13 +90,26 @@ const getDefaultReadinessData = (): ReadinessCategory[] => {
 };
 
 const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
+  console.log("🔍 Loading readiness data for projectId:", projectId);
+
   const existingData = getProjectReadiness(projectId);
+  console.log("📋 Found readiness record:", existingData);
+
   if (!existingData) {
+    console.log("❌ No readiness record found, returning default data");
     return getDefaultReadinessData();
   }
 
   // Load actual readiness items from JSON data
   const readinessItems = getProjectReadinessItems(projectId);
+  console.log("📝 Found readiness items:", readinessItems.length);
+
+  // Log items with verifier comments
+  const itemsWithVerifierComments = readinessItems.filter(item => item.verifier_comment);
+  console.log("✅ Items with verifier comments:", itemsWithVerifierComments.length);
+  itemsWithVerifierComments.forEach(item => {
+    console.log(`  📌 ${item.item}: "${item.verifier_comment}" by ${item.verifier_name}`);
+  });
 
   // Group items by category
   const itemsByCategory = readinessItems.reduce(
@@ -104,7 +117,8 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
       if (!acc[item.category]) {
         acc[item.category] = [];
       }
-      acc[item.category].push({
+
+      const processedItem = {
         id: item.id,
         title: item.item,
         status: item.user_status,
@@ -123,17 +137,34 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
         verifierComment: item.verifier_comment,
         verifierName: item.verifier_name,
         verifiedAt: item.verified_at,
-      });
+      };
+
+      // Log each processed item with verifier comment
+      if (processedItem.verifierComment) {
+        console.log(`  ✨ Processed item "${processedItem.title}" with verifier comment: "${processedItem.verifierComment}"`);
+      }
+
+      acc[item.category].push(processedItem);
       return acc;
     },
     {} as Record<string, any[]>,
   );
 
   // Map to template structure with real data
-  return getDefaultReadinessData().map((category) => ({
+  const result = getDefaultReadinessData().map((category) => ({
     ...category,
     items: itemsByCategory[category.id] || category.items,
   }));
+
+  console.log("🏁 Final result with categories:", result.length);
+  result.forEach(category => {
+    const itemsWithComments = category.items.filter(item => item.verifierComment);
+    if (itemsWithComments.length > 0) {
+      console.log(`  📂 Category "${category.title}" has ${itemsWithComments.length} items with verifier comments`);
+    }
+  });
+
+  return result;
 };
 
 const getStatusBadge = (status: ReadinessStatus) => {
