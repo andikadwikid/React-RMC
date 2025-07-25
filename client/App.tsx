@@ -235,11 +235,12 @@ const App = () => (
 
 const container = document.getElementById("root")!;
 
-// Only create root once
+// Only create root once and handle HMR properly
 if (!container._reactRoot) {
   const root = createRoot(container);
   container._reactRoot = root;
+  container._reactRoot.render(<App />);
+} else {
+  // In development with HMR, just re-render
+  container._reactRoot.render(<App />);
 }
-
-// Always render using the existing root
-container._reactRoot.render(<App />);
