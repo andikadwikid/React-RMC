@@ -295,44 +295,67 @@ export function ProjectReadinessForm({
                     {category.items.map((item, itemIndex) => (
                       <div
                         key={item.id}
-                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                        className="p-3 border rounded-lg hover:bg-gray-50 transition-colors space-y-3"
                       >
-                        <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
-                          {getStatusIcon(item.status)}
-                          <div className="min-w-0 flex-1">
-                            <p className="font-medium text-gray-900 text-sm sm:text-base leading-tight">
-                              {item.title}
-                            </p>
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                          <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                            {getStatusIcon(item.status)}
+                            <div className="min-w-0 flex-1">
+                              <p className="font-medium text-gray-900 text-sm sm:text-base leading-tight">
+                                {item.title}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+                            <div className="sm:hidden">
+                              {getStatusBadge(item.status)}
+                            </div>
+                            <div className="hidden sm:block">
+                              {getStatusBadge(item.status)}
+                            </div>
+                            <Select
+                              value={item.status}
+                              onValueChange={(value) =>
+                                updateItemStatus(
+                                  category.id,
+                                  item.id,
+                                  value as ReadinessStatus,
+                                )
+                              }
+                            >
+                              <SelectTrigger className="w-full sm:w-40">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="lengkap">Lengkap</SelectItem>
+                                <SelectItem value="parsial">Parsial</SelectItem>
+                                <SelectItem value="tidak-tersedia">
+                                  Tidak Tersedia
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
                           </div>
                         </div>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
-                          <div className="sm:hidden">
-                            {getStatusBadge(item.status)}
-                          </div>
-                          <div className="hidden sm:block">
-                            {getStatusBadge(item.status)}
-                          </div>
-                          <Select
-                            value={item.status}
-                            onValueChange={(value) =>
-                              updateItemStatus(
+
+                        {/* Comment/Keterangan Section */}
+                        <div className="space-y-2">
+                          <Label htmlFor={`comment-${item.id}`} className="text-sm font-medium text-gray-700">
+                            Keterangan
+                          </Label>
+                          <Textarea
+                            id={`comment-${item.id}`}
+                            placeholder="Tambahkan keterangan atau catatan terkait item readiness ini..."
+                            value={item.userComment || ""}
+                            onChange={(e) =>
+                              updateItemComment(
                                 category.id,
                                 item.id,
-                                value as ReadinessStatus,
+                                e.target.value,
                               )
                             }
-                          >
-                            <SelectTrigger className="w-full sm:w-40">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="lengkap">Lengkap</SelectItem>
-                              <SelectItem value="parsial">Parsial</SelectItem>
-                              <SelectItem value="tidak-tersedia">
-                                Tidak Tersedia
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
+                            className="w-full resize-none"
+                            rows={2}
+                          />
                         </div>
                       </div>
                     ))}
