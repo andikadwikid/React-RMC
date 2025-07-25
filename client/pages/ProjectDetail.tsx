@@ -296,63 +296,87 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
         {/* Action Buttons - Enhanced with Quick Actions */}
         <div className="flex items-center gap-2">
           {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-2">
-            <Link to={`/projects/${project.id}/edit`}>
-              <Button variant="outline" size="sm">
-                <Edit className="w-4 h-4 mr-2" />
-                Edit
-              </Button>
-            </Link>
-            <Link to={`/projects/${project.id}/timeline`}>
-              <Button variant="outline" size="sm">
-                <GitBranch className="w-4 h-4 mr-2" />
-                Timeline
-              </Button>
-            </Link>
+          <div className="hidden lg:flex items-center gap-3">
+            {/* Secondary Actions Group */}
+            <div className="flex items-center gap-2">
+              <Link to={`/projects/${project.id}/edit`}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="font-medium shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105"
+                >
+                  <Edit className="w-4 h-4 mr-2" />
+                  Edit
+                </Button>
+              </Link>
+              <Link to={`/projects/${project.id}/timeline`}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="font-medium shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105"
+                >
+                  <GitBranch className="w-4 h-4 mr-2" />
+                  Timeline
+                </Button>
+              </Link>
+            </div>
 
-            {/* Primary Quick Actions */}
-            <div className="h-6 w-px bg-gray-300 mx-1" />
-            {readinessStatus ? (
+            {/* Primary Actions Group */}
+            <div className="h-8 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent" />
+            <div className="flex items-center gap-2">
+              {readinessStatus ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={openReadinessResults}
+                  className="relative font-medium text-blue-700 border-blue-300 bg-blue-50/50 hover:bg-blue-100 hover:border-blue-400 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105"
+                >
+                  <ClipboardCheck className="w-4 h-4 mr-2" />
+                  View Readiness
+                  <div className="flex items-center ml-2">
+                    {readinessStatus === "verified" && (
+                      <div className="flex items-center">
+                        <CheckCircle className="w-3 h-3 text-green-600" />
+                        <span className="ml-1 text-xs font-medium text-green-700">Verified</span>
+                      </div>
+                    )}
+                    {readinessStatus === "under_review" && (
+                      <div className="flex items-center">
+                        <Clock className="w-3 h-3 text-yellow-600" />
+                        <span className="ml-1 text-xs font-medium text-yellow-700">Review</span>
+                      </div>
+                    )}
+                    {readinessStatus === "submitted" && (
+                      <div className="flex items-center">
+                        <AlertTriangle className="w-3 h-3 text-orange-600" />
+                        <span className="ml-1 text-xs font-medium text-orange-700">Pending</span>
+                      </div>
+                    )}
+                  </div>
+                </Button>
+              ) : null}
+
+              {canEditReadiness(readinessStatus) && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={openReadinessForm}
+                  className="font-medium text-green-700 border-green-300 bg-green-50/50 hover:bg-green-100 hover:border-green-400 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105"
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  {readinessStatus ? "Update Assessment" : "Create Assessment"}
+                </Button>
+              )}
               <Button
                 variant="outline"
                 size="sm"
-                onClick={openReadinessResults}
-                className="text-blue-600 border-blue-200 hover:bg-blue-50"
+                onClick={openRiskCaptureForm}
+                className="font-medium text-orange-700 border-orange-300 bg-orange-50/50 hover:bg-orange-100 hover:border-orange-400 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105"
               >
-                <ClipboardCheck className="w-4 h-4 mr-2" />
-                View Readiness
-                {readinessStatus === "verified" && (
-                  <CheckCircle className="w-3 h-3 ml-1 text-green-600" />
-                )}
-                {readinessStatus === "under_review" && (
-                  <Clock className="w-3 h-3 ml-1 text-yellow-600" />
-                )}
-                {readinessStatus === "submitted" && (
-                  <AlertTriangle className="w-3 h-3 ml-1 text-orange-600" />
-                )}
+                <Shield className="w-4 h-4 mr-2" />
+                Risk Assessment
               </Button>
-            ) : null}
-
-            {canEditReadiness(readinessStatus) && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={openReadinessForm}
-                className="text-green-600 border-green-200 hover:bg-green-50"
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                {readinessStatus ? "Update Assessment" : "Create Assessment"}
-              </Button>
-            )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={openRiskCaptureForm}
-              className="text-orange-600 border-orange-200 hover:bg-orange-50"
-            >
-              <Shield className="w-4 h-4 mr-2" />
-              Risk Assessment
-            </Button>
+            </div>
           </div>
 
           {/* Tablet Actions */}
