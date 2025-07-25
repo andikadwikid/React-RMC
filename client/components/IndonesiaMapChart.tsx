@@ -148,50 +148,42 @@ const IndonesiaMapChart: React.FC = () => {
 
         // Create the chart
         if (chartRef.current) {
-          // Check if we have valid topology data
-          const hasValidTopology = topology && topology.objects && Object.keys(topology.objects).length > 0;
+          chartInstance.current = Highcharts.mapChart(chartRef.current, {
+            chart: {
+              map: topology,
+            },
 
-          if (hasValidTopology) {
-            chartInstance.current = Highcharts.mapChart(chartRef.current, {
-              chart: {
-                map: topology,
+            title: {
+              text: "Distribusi Project Data di Indonesia",
+            },
+
+            mapNavigation: {
+              enabled: true,
+              buttonOptions: {
+                verticalAlign: "bottom",
               },
+            },
 
-              title: {
-                text: "Distribusi Project Data di Indonesia",
-              },
+            colorAxis: {
+              min: 0,
+            },
 
-              mapNavigation: {
-                enabled: true,
-                buttonOptions: {
-                  verticalAlign: "bottom",
-                },
-              },
-
-              colorAxis: {
-                min: 0,
-              },
-
-              series: [
-                {
-                  data: data,
-                  name: "Random data",
-                  states: {
-                    hover: {
-                      color: "#BADA55",
-                    },
-                  },
-                  dataLabels: {
-                    enabled: true,
-                    format: "{point.name}",
+            series: [
+              {
+                data: data,
+                name: "Project Data",
+                states: {
+                  hover: {
+                    color: "#BADA55",
                   },
                 },
-              ],
-            });
-          } else {
-            // Fallback: Create a simple chart or display an error message
-            setError("Gagal memuat data geografis peta Indonesia");
-          }
+                dataLabels: {
+                  enabled: true,
+                  format: "{point.name}",
+                },
+              },
+            ],
+          });
         }
         setIsLoading(false);
       } catch (error) {
