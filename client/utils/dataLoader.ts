@@ -170,6 +170,8 @@ export const getProjectReadinessItems = (projectId: string) => {
               },
             ]
           : []),
+      // Initialize empty risk capture array if not present
+      risk_capture: item.risk_capture || [],
     }));
 };
 
