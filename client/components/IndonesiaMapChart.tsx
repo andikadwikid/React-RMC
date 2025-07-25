@@ -113,7 +113,7 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
 
         // Convert province data to map data format
         const mapData: MapDataPoint[] = data.map((province, index) => {
-          // Map province names to Indonesian regional codes
+          // Map province names to Indonesian regional codes (Highcharts format)
           const provinceCodeMap: { [key: string]: string } = {
             "DKI Jakarta": "id-jk",
             "Jawa Barat": "id-jr",
@@ -134,17 +134,17 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
             "Sulawesi Selatan": "id-sl",
             "Sulawesi Tenggara": "id-sg",
             "Gorontalo": "id-go",
-            "Sulawesi Barat": "id-sr",
+            "Sulawesi Barat": "id-sw",
             "Maluku": "id-ma",
             "Maluku Utara": "id-1024",
             "Papua": "id-pa",
-            "Papua Barat": "id-pb",
+            "Papua Barat": "id-3700",
             "Sumatera Utara": "id-su",
             "Sumatera Barat": "id-sb",
             "Riau": "id-ri",
             "Kepulauan Riau": "id-kr",
             "Jambi": "id-ja",
-            "Sumatera Selatan": "id-ss",
+            "Sumatera Selatan": "id-se",
             "Bangka Belitung": "id-bb",
             "Bengkulu": "id-be",
             "Lampung": "id-la",
