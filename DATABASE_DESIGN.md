@@ -83,7 +83,7 @@ CREATE TYPE readiness_assessment_status AS ENUM ('submitted', 'under_review', 'v
 
 ### 4. **readiness_items**
 
-Tabel untuk item-item readiness individual
+Tabel untuk item-item readiness individual dengan support user comment (keterangan)
 
 ```sql
 CREATE TABLE readiness_items (
@@ -93,8 +93,8 @@ CREATE TABLE readiness_items (
     item VARCHAR(255) NOT NULL,
     user_status readiness_status NOT NULL,
     verifier_status readiness_status,
-    user_comment TEXT,
-    verifier_comment TEXT,
+    user_comment TEXT, -- Keterangan yang diinput user untuk setiap item readiness
+    verifier_comment TEXT, -- Komentar verifier untuk setiap item
     verifier_name VARCHAR(255),
     verified_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
