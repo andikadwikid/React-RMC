@@ -1,0 +1,104 @@
+{
+  "taksonomi": [
+    {
+      "kode": "IT-SEC",
+      "title": "Information Technology Security",
+      "taksonomi": "Teknologi Informasi - Keamanan"
+    },
+    {
+      "kode": "IT-OP",
+      "title": "Information Technology Operations",
+      "taksonomi": "Teknologi Informasi - Operasional"
+    },
+    {
+      "kode": "IT-INF",
+      "title": "Information Technology Infrastructure",
+      "taksonomi": "Teknologi Informasi - Infrastruktur"
+    },
+    {
+      "kode": "FIN-REP",
+      "title": "Financial Reporting",
+      "taksonomi": "Finansial - Pelaporan"
+    },
+    {
+      "kode": "FIN-PAY",
+      "title": "Financial Payment",
+      "taksonomi": "Finansial - Pembayaran"
+    },
+    {
+      "kode": "FIN-BUD",
+      "title": "Financial Budget",
+      "taksonomi": "Finansial - Anggaran"
+    },
+    {
+      "kode": "OP-PROC",
+      "title": "Operational Process",
+      "taksonomi": "Operasional - Proses"
+    },
+    {
+      "kode": "OP-HR",
+      "title": "Operational Human Resources",
+      "taksonomi": "Operasional - Sumber Daya Manusia"
+    },
+    {
+      "kode": "OP-SUP",
+      "title": "Operational Supply Chain",
+      "taksonomi": "Operasional - Rantai Pasokan"
+    },
+    {
+      "kode": "LEG-COM",
+      "title": "Legal Compliance",
+      "taksonomi": "Legal - Kepatuhan"
+    },
+    {
+      "kode": "LEG-CON",
+      "title": "Legal Contract",
+      "taksonomi": "Legal - Kontrak"
+    },
+    {
+      "kode": "STR-PLAN",
+      "title": "Strategic Planning",
+      "taksonomi": "Strategis - Perencanaan"
+    },
+    {
+      "kode": "STR-RISK",
+      "title": "Strategic Risk Management",
+      "taksonomi": "Strategis - Manajemen Risiko"
+    },
+    {
+      "kode": "ENV-REG",
+      "title": "Environmental Regulation",
+      "taksonomi": "Lingkungan - Regulasi"
+    },
+    {
+      "kode": "ENV-SUS",
+      "title": "Environmental Sustainability",
+      "taksonomi": "Lingkungan - Keberlanjutan"
+    },
+    {
+      "kode": "CRM-REL",
+      "title": "Customer Relationship",
+      "taksonomi": "Customer - Hubungan Pelanggan"
+    },
+    {
+      "kode": "CRM-SAT",
+      "title": "Customer Satisfaction",
+      "taksonomi": "Customer - Kepuasan Pelanggan"
+    },
+    {
+      "kode": "PROJ-MAN",
+      "title": "Project Management",
+      "taksonomi": "Proyek - Manajemen"
+    },
+    {
+      "kode": "PROJ-DEL",
+      "title": "Project Delivery",
+      "taksonomi": "Proyek - Pengiriman"
+    },
+    {
+      "kode": "QUAL-ASS",
+      "title": "Quality Assurance",
+      "taksonomi": "Kualitas - Jaminan"
+    }
+  ]
+}
