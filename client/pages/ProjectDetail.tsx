@@ -345,6 +345,10 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <ClipboardCheck className="w-4 h-4 mr-2" />
                   View Readiness Results
                 </DropdownMenuItem>
+                <DropdownMenuItem onClick={openReadinessForm}>
+                  <FileText className="w-4 h-4 mr-2" />
+                  Create Assessment
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={openRiskCaptureForm}>
                   <Shield className="w-4 h-4 mr-2" />
                   Risk Assessment
