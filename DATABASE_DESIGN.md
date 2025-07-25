@@ -778,10 +778,15 @@ INSERT INTO risk_captures (project_id, project_name, submitted_by, submitted_at,
 
 ### **Readiness Verification Workflow**
 
-1. User submits project readiness
-2. Admin assigns to risk officer
-3. Risk officer verifies each readiness item
-4. Status tracking: submitted → under_review → verified/needs_revision
+1. **User Input**: User mengisi Project Readiness Assessment di project detail
+2. **Submission**: Data readiness di-submit oleh user ke sistem
+3. **Assignment**: System menampilkan submission di halaman `/verify-readiness` untuk Risk Officer
+4. **Verification**: Risk Officer melakukan verifikasi di Dialog "Verifikasi Project Readiness"
+   - Memberikan status verifikasi untuk setiap item
+   - Menambahkan komentar verifikasi
+   - Memberikan status overall dan komentar keseluruhan
+5. **Feedback Loop**: Hasil verifikasi Risk Officer muncul kembali di project detail pada Dialog "Project Readiness Assessment" sebagai feedback untuk user
+6. **Status tracking**: submitted → under_review → verified/needs_revision
 
 ### **Risk Capture Verification Workflow** **NEW**
 
