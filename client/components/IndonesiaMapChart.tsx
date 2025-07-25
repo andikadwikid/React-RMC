@@ -125,42 +125,57 @@ const IndonesiaMapChart: React.FC = () => {
 
         // Create the chart
         if (chartRef.current) {
-          chartInstance.current = Highcharts.mapChart(chartRef.current, {
-            chart: {
-              map: topology,
-            },
+          // Check if we have valid topology data
+          const hasValidTopology = topology && topology.objects && Object.keys(topology.objects).length > 0;
 
-            title: {
-              text: "Distribusi Project Data di Indonesia",
-            },
-
-            mapNavigation: {
-              enabled: true,
-              buttonOptions: {
-                verticalAlign: "bottom",
+          if (hasValidTopology) {
+            chartInstance.current = Highcharts.mapChart(chartRef.current, {
+              chart: {
+                map: topology,
               },
-            },
 
-            colorAxis: {
-              min: 0,
-            },
+              title: {
+                text: "Distribusi Project Data di Indonesia",
+              },
 
-            series: [
-              {
-                data: data,
-                name: "Random data",
-                states: {
-                  hover: {
-                    color: "#BADA55",
+              mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                  verticalAlign: "bottom",
+                },
+              },
+
+              colorAxis: {
+                min: 0,
+              },
+
+              series: [
+                {
+                  data: data,
+                  name: "Random data",
+                  states: {
+                    hover: {
+                      color: "#BADA55",
+                    },
+                  },
+                  dataLabels: {
+                    enabled: true,
+                    format: "{point.name}",
                   },
                 },
-                dataLabels: {
-                  enabled: true,
-                  format: "{point.name}",
-                },
-              },
-            ],
-          });
+              ],
+            });
+          } else {
+            // Fallback: Create a simple chart or display an error message
+            chartRef.current.innerHTML = `
+              <div class="flex items-center justify-center h-full bg-gray-100 rounded border-2 border-dashed border-gray-300">
+                <div class="text-center">
+                  <p class="text-gray-600 mb-2">Peta Indonesia tidak dapat dimuat</p>
+                  <p class="text-sm text-gray-500">Gagal memuat data geografis</p>
+                </div>
+              </div>
+            `;
+          }
         }
       } catch (error) {
         console.error("Error initializing chart:", error);
