@@ -160,10 +160,33 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   );
 
   // Map to template structure with real data
-  const result = getDefaultReadinessData().map((category) => ({
-    ...category,
-    items: itemsByCategory[category.id] || category.items,
-  }));
+  const template = getDefaultReadinessData();
+  const result = template.map((category) => {
+    if (itemsByCategory[category.id]) {
+      // Merge template items with existing data
+      const mergedItems = category.items.map((templateItem) => {
+        const existingItem = itemsByCategory[category.id].find(
+          (existing) => existing.title === templateItem.title
+        );
+
+        if (existingItem) {
+          // Use existing data for this item
+          return existingItem;
+        } else {
+          // Use template default for items without existing data
+          return templateItem;
+        }
+      });
+
+      return {
+        ...category,
+        items: mergedItems,
+      };
+    } else {
+      // No existing data for this category, use template defaults
+      return category;
+    }
+  });
 
   console.log("🏁 Final result with categories:", result.length);
   result.forEach((category) => {
