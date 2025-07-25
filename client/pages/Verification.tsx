@@ -235,47 +235,12 @@ function SubmissionsList({
 
                   {/* Project Items Summary */}
                   {submission.items && submission.items.length > 0 && (
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2 text-sm">
-                        <Shield className="w-4 h-4 text-blue-600" />
-                        <span className="font-medium">Total Items:</span>
-                        <Badge variant="outline" className="font-semibold">
-                          {submission.items.length}
-                        </Badge>
-                      </div>
-
-                      {/* User Comments Preview */}
-                      {submission.items.some(item => item.userComment) && (
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-2 text-sm">
-                            <MessageSquare className="w-4 h-4 text-green-600" />
-                            <span className="font-medium text-green-700">Keterangan User:</span>
-                          </div>
-                          <div className="space-y-2 max-h-32 overflow-y-auto">
-                            {submission.items
-                              .filter(item => item.userComment)
-                              .slice(0, 3)
-                              .map((item, index) => (
-                                <div
-                                  key={index}
-                                  className="p-2 bg-green-50 border border-green-200 rounded text-xs"
-                                >
-                                  <div className="font-medium text-green-800 mb-1">
-                                    {item.item}:
-                                  </div>
-                                  <div className="text-green-700 line-clamp-2">
-                                    {item.userComment}
-                                  </div>
-                                </div>
-                              ))}
-                            {submission.items.filter(item => item.userComment).length > 3 && (
-                              <div className="text-xs text-gray-500 italic">
-                                +{submission.items.filter(item => item.userComment).length - 3} keterangan lainnya...
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
+                    <div className="flex items-center gap-2 text-sm">
+                      <Shield className="w-4 h-4 text-blue-600" />
+                      <span className="font-medium">Total Items:</span>
+                      <Badge variant="outline" className="font-semibold">
+                        {submission.items.length}
+                      </Badge>
                     </div>
                   )}
 
