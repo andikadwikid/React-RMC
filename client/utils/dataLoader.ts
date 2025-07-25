@@ -138,8 +138,6 @@ export const loadProjectReadinessData = () => {
   return projectReadinessData;
 };
 
-
-
 export const getReadinessTemplate = () => {
   return projectReadinessData.readinessTemplate;
 };

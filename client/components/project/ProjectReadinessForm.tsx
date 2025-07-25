@@ -105,10 +105,17 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   console.log("📝 Found readiness items:", readinessItems.length);
 
   // Log items with verifier comments
-  const itemsWithVerifierComments = readinessItems.filter(item => item.verifier_comment);
-  console.log("✅ Items with verifier comments:", itemsWithVerifierComments.length);
-  itemsWithVerifierComments.forEach(item => {
-    console.log(`  📌 ${item.item}: "${item.verifier_comment}" by ${item.verifier_name}`);
+  const itemsWithVerifierComments = readinessItems.filter(
+    (item) => item.verifier_comment,
+  );
+  console.log(
+    "✅ Items with verifier comments:",
+    itemsWithVerifierComments.length,
+  );
+  itemsWithVerifierComments.forEach((item) => {
+    console.log(
+      `  📌 ${item.item}: "${item.verifier_comment}" by ${item.verifier_name}`,
+    );
   });
 
   // Group items by category
@@ -141,7 +148,9 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
 
       // Log each processed item with verifier comment
       if (processedItem.verifierComment) {
-        console.log(`  ✨ Processed item "${processedItem.title}" with verifier comment: "${processedItem.verifierComment}"`);
+        console.log(
+          `  ✨ Processed item "${processedItem.title}" with verifier comment: "${processedItem.verifierComment}"`,
+        );
       }
 
       acc[item.category].push(processedItem);
@@ -157,10 +166,14 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   }));
 
   console.log("🏁 Final result with categories:", result.length);
-  result.forEach(category => {
-    const itemsWithComments = category.items.filter(item => item.verifierComment);
+  result.forEach((category) => {
+    const itemsWithComments = category.items.filter(
+      (item) => item.verifierComment,
+    );
     if (itemsWithComments.length > 0) {
-      console.log(`  📂 Category "${category.title}" has ${itemsWithComments.length} items with verifier comments`);
+      console.log(
+        `  📂 Category "${category.title}" has ${itemsWithComments.length} items with verifier comments`,
+      );
     }
   });
 
@@ -496,7 +509,8 @@ export function ProjectReadinessForm({
                             </Button>
                           </div>
 
-                          {(!item.userComments || item.userComments.length === 0) && (
+                          {(!item.userComments ||
+                            item.userComments.length === 0) && (
                             <div className="text-sm text-gray-500 italic p-3 border border-dashed border-gray-300 rounded-lg text-center">
                               Belum ada keterangan. Klik "Tambah Keterangan"
                               untuk menambahkan.
@@ -504,49 +518,52 @@ export function ProjectReadinessForm({
                           )}
 
                           <div className="space-y-3">
-                            {(item.userComments || []).map((comment, commentIndex) => (
-                              <div
-                                key={comment.id}
-                                className="relative p-3 border border-gray-200 rounded-lg bg-gray-50"
-                              >
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-xs text-gray-500 font-medium">
-                                    Keterangan #{commentIndex + 1}
-                                  </span>
-                                  {item.userComments && item.userComments.length > 1 && (
-                                    <Button
-                                      type="button"
-                                      variant="ghost"
-                                      size="sm"
-                                      onClick={() =>
-                                        removeComment(
-                                          category.id,
-                                          item.id,
-                                          comment.id,
-                                        )
-                                      }
-                                      className="text-red-600 hover:bg-red-50 h-6 w-6 p-0"
-                                    >
-                                      <Trash2 className="w-3 h-3" />
-                                    </Button>
-                                  )}
+                            {(item.userComments || []).map(
+                              (comment, commentIndex) => (
+                                <div
+                                  key={comment.id}
+                                  className="relative p-3 border border-gray-200 rounded-lg bg-gray-50"
+                                >
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs text-gray-500 font-medium">
+                                      Keterangan #{commentIndex + 1}
+                                    </span>
+                                    {item.userComments &&
+                                      item.userComments.length > 1 && (
+                                        <Button
+                                          type="button"
+                                          variant="ghost"
+                                          size="sm"
+                                          onClick={() =>
+                                            removeComment(
+                                              category.id,
+                                              item.id,
+                                              comment.id,
+                                            )
+                                          }
+                                          className="text-red-600 hover:bg-red-50 h-6 w-6 p-0"
+                                        >
+                                          <Trash2 className="w-3 h-3" />
+                                        </Button>
+                                      )}
+                                  </div>
+                                  <Textarea
+                                    placeholder="Tambahkan keterangan atau catatan terkait item readiness ini..."
+                                    value={comment.text}
+                                    onChange={(e) =>
+                                      updateComment(
+                                        category.id,
+                                        item.id,
+                                        comment.id,
+                                        e.target.value,
+                                      )
+                                    }
+                                    className="w-full resize-none border-0 bg-white shadow-sm"
+                                    rows={2}
+                                  />
                                 </div>
-                                <Textarea
-                                  placeholder="Tambahkan keterangan atau catatan terkait item readiness ini..."
-                                  value={comment.text}
-                                  onChange={(e) =>
-                                    updateComment(
-                                      category.id,
-                                      item.id,
-                                      comment.id,
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full resize-none border-0 bg-white shadow-sm"
-                                  rows={2}
-                                />
-                              </div>
-                            ))}
+                              ),
+                            )}
                           </div>
                         </div>
 
