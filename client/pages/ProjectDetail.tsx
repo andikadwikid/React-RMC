@@ -61,6 +61,12 @@ export default function ProjectDetail() {
     projectName: "",
   });
 
+  const [readinessResults, setReadinessResults] = useState({
+    isOpen: false,
+    projectId: "",
+    projectName: "",
+  });
+
   const [riskCaptureForm, setRiskCaptureForm] = useState({
     isOpen: false,
     projectId: "",
