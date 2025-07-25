@@ -180,9 +180,9 @@
         }
       ],
       "user_comment": "Sebagian dokumen sudah diterima",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Perlu dilengkapi dokumen teknis detil sebelum project dapat dimulai. Harap koordinasi dengan client untuk kelengkapan dokumen.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T09:20:00Z",
       "created_at": "2024-01-20T10:30:00Z",
       "updated_at": "2024-01-20T10:30:00Z"
     },
