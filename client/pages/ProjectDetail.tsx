@@ -143,6 +143,13 @@ export default function ProjectDetail() {
     console.log("Readiness data saved for project:", project?.id, data);
     // Here you would typically send the data to your API
     closeReadinessForm();
+
+    // Refresh readiness status after save
+    if (projectId) {
+      const readinessData = getProjectReadiness(projectId);
+      setReadinessStatus(readinessData?.status || "submitted");
+    }
+
     // Show success message
     toast.success("Project Readiness assessment berhasil disimpan!");
   };
