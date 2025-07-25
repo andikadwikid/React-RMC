@@ -81,11 +81,29 @@ const IndonesiaMapChart: React.FC = () => {
           topology = await response.json();
         } catch (fetchError) {
           console.error("Failed to fetch map topology data:", fetchError);
-          // Use a fallback or simplified topology if external data fails
+          // Use a simple fallback topology that will allow the chart to render with basic data
           topology = {
             type: "Topology",
-            objects: {},
-            arcs: []
+            objects: {
+              "id-all": {
+                type: "GeometryCollection",
+                geometries: data.map((item, index) => ({
+                  type: "Polygon",
+                  properties: {
+                    "hc-key": item[0],
+                    "hc-a2": item[0].toUpperCase(),
+                    name: `Province ${index + 1}`
+                  },
+                  coordinates: [[[100 + index * 2, -5 + index * 0.5], [101 + index * 2, -5 + index * 0.5], [101 + index * 2, -4 + index * 0.5], [100 + index * 2, -4 + index * 0.5], [100 + index * 2, -5 + index * 0.5]]]
+                }))
+              }
+            },
+            arcs: [],
+            bbox: [95, -11, 141, 6],
+            transform: {
+              scale: [0.001, 0.001],
+              translate: [95, -11]
+            }
           };
         }
 
