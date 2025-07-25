@@ -192,10 +192,34 @@ export function ProjectReadinessForm({
     );
   };
 
-  const updateItemComment = (
+  const addComment = (categoryId: string, itemId: string) => {
+    const newComment: UserComment = {
+      id: `comment-${Date.now()}-${Math.random()}`,
+      text: "",
+      createdAt: new Date().toISOString(),
+    };
+
+    setReadinessData((prev) =>
+      prev.map((category) =>
+        category.id === categoryId
+          ? {
+              ...category,
+              items: category.items.map((item) =>
+                item.id === itemId
+                  ? { ...item, userComments: [...item.userComments, newComment] }
+                  : item,
+              ),
+            }
+          : category,
+      ),
+    );
+  };
+
+  const updateComment = (
     categoryId: string,
     itemId: string,
-    comment: string,
+    commentId: string,
+    text: string,
   ) => {
     setReadinessData((prev) =>
       prev.map((category) =>
@@ -203,7 +227,42 @@ export function ProjectReadinessForm({
           ? {
               ...category,
               items: category.items.map((item) =>
-                item.id === itemId ? { ...item, userComment: comment } : item,
+                item.id === itemId
+                  ? {
+                      ...item,
+                      userComments: item.userComments.map((comment) =>
+                        comment.id === commentId
+                          ? { ...comment, text }
+                          : comment,
+                      ),
+                    }
+                  : item,
+              ),
+            }
+          : category,
+      ),
+    );
+  };
+
+  const removeComment = (
+    categoryId: string,
+    itemId: string,
+    commentId: string,
+  ) => {
+    setReadinessData((prev) =>
+      prev.map((category) =>
+        category.id === categoryId
+          ? {
+              ...category,
+              items: category.items.map((item) =>
+                item.id === itemId
+                  ? {
+                      ...item,
+                      userComments: item.userComments.filter(
+                        (comment) => comment.id !== commentId,
+                      ),
+                    }
+                  : item,
               ),
             }
           : category,
