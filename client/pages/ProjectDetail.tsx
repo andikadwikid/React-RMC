@@ -314,6 +314,15 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
               >
                 <ClipboardCheck className="w-4 h-4 mr-2" />
                 View Readiness
+                {readinessStatus === "verified" && (
+                  <CheckCircle className="w-3 h-3 ml-1 text-green-600" />
+                )}
+                {readinessStatus === "under_review" && (
+                  <Clock className="w-3 h-3 ml-1 text-yellow-600" />
+                )}
+                {readinessStatus === "submitted" && (
+                  <AlertTriangle className="w-3 h-3 ml-1 text-orange-600" />
+                )}
               </Button>
             ) : null}
 
