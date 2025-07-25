@@ -66,6 +66,7 @@ export function RiskCaptureSection({
   disabled = false,
 }: RiskCaptureSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const taksonomiData = loadTaksonomiData();
 
   const addRiskItem = () => {
     const newRisk: RiskItem = {
