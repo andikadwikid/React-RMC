@@ -291,13 +291,13 @@
       "category": "user-data",
       "item": "Informasi titik koordinat (jika applicable)",
       "user_status": "tidak_tersedia",
-      "verifier_status": null,
+      "verifier_status": "tidak_tersedia",
       "user_comment": "Tidak diperlukan untuk project ini",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Sesuai dengan nature ERP project yang tidak memerlukan data geografis spesifik. Item ini dapat diabaikan untuk project tersebut.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:05:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-21T10:05:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442009",
