@@ -48,11 +48,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
+// Helper function to check if user can edit readiness
+const canEditReadiness = (readinessStatus: string | null) => {
+  // User can edit if:
+  // - No readiness data exists yet (null)
+  // - Status is "submitted" (not yet assigned to verifier)
+  // - Status is "under_review" or "needs_revision" (can be updated during review)
+  // User CANNOT edit if status is "verified" (finalized)
+  return !readinessStatus || readinessStatus !== "verified";
+};
+
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
   const [project, setProject] = useState<Project | null>(null);
   const [activeTab, setActiveTab] = useState("overview");
+  const [readinessStatus, setReadinessStatus] = useState<string | null>(null);
 
   // Quick Actions states
   const [readinessForm, setReadinessForm] = useState({
