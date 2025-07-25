@@ -465,7 +465,7 @@ export function ProjectReadinessForm({
                             </Button>
                           </div>
 
-                          {item.userComments.length === 0 && (
+                          {(!item.userComments || item.userComments.length === 0) && (
                             <div className="text-sm text-gray-500 italic p-3 border border-dashed border-gray-300 rounded-lg text-center">
                               Belum ada keterangan. Klik "Tambah Keterangan"
                               untuk menambahkan.
