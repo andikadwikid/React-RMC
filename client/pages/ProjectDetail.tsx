@@ -415,24 +415,30 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 <div className="px-2 py-1.5 text-xs font-medium text-gray-500 border-b">
                   Quick Assessments
                 </div>
-                <DropdownMenuItem onClick={openReadinessResults}>
-                  <ClipboardCheck className="w-4 h-4 mr-2 text-blue-600" />
-                  <div>
-                    <div className="font-medium">View Readiness Results</div>
-                    <div className="text-xs text-gray-500">
-                      View verification results
+                {readinessStatus && (
+                  <DropdownMenuItem onClick={openReadinessResults}>
+                    <ClipboardCheck className="w-4 h-4 mr-2 text-blue-600" />
+                    <div>
+                      <div className="font-medium">View Readiness Results</div>
+                      <div className="text-xs text-gray-500">
+                        View verification results
+                      </div>
                     </div>
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={openReadinessForm}>
-                  <FileText className="w-4 h-4 mr-2 text-green-600" />
-                  <div>
-                    <div className="font-medium">Create Assessment</div>
-                    <div className="text-xs text-gray-500">
-                      Fill readiness assessment
+                  </DropdownMenuItem>
+                )}
+                {canEditReadiness(readinessStatus) && (
+                  <DropdownMenuItem onClick={openReadinessForm}>
+                    <FileText className="w-4 h-4 mr-2 text-green-600" />
+                    <div>
+                      <div className="font-medium">
+                        {readinessStatus ? "Update Assessment" : "Create Assessment"}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {readinessStatus ? "Modify readiness data" : "Fill readiness assessment"}
+                      </div>
                     </div>
-                  </div>
-                </DropdownMenuItem>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onClick={openRiskCaptureForm}>
                   <Shield className="w-4 h-4 mr-2 text-orange-600" />
                   <div>
