@@ -45,6 +45,7 @@ interface ReadinessItem {
   verifierComment?: string;
   verifierName?: string;
   verifiedAt?: string;
+  riskCapture?: RiskItem[];
 }
 import { formatDateTime } from "@/utils/formatters";
 import { getProjectReadinessItems } from "@/utils/dataLoader";
