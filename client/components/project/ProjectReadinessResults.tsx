@@ -579,7 +579,7 @@ export function ProjectReadinessResults({
                   }}
                   className="text-green-600 border-green-200 hover:bg-green-50"
                 >
-                  <FileText className="w-4 h-4 mr-2" />
+                  <Edit className="w-4 h-4 mr-2" />
                   Update Assessment
                 </Button>
               )}
