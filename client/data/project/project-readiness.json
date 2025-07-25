@@ -221,6 +221,23 @@
       "item": "Drawing atau layout teknis terkini",
       "user_status": "lengkap",
       "verifier_status": null,
+      "user_comments": [
+        {
+          "id": "comment-5-1",
+          "text": "Drawing arsitektur dan layout sudah final versi 3.2",
+          "createdAt": "2024-01-20T10:30:00Z"
+        },
+        {
+          "id": "comment-5-2",
+          "text": "Drawing MEP (mechanical, electrical, plumbing) tersedia lengkap",
+          "createdAt": "2024-01-20T10:45:00Z"
+        },
+        {
+          "id": "comment-5-3",
+          "text": "Drawing network infrastructure dan server room sudah diapprove",
+          "createdAt": "2024-01-20T11:00:00Z"
+        }
+      ],
       "user_comment": "Semua drawing teknis sudah tersedia",
       "verifier_comment": null,
       "verifier_name": null,
