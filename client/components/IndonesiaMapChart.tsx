@@ -19,6 +19,8 @@ declare global {
 const IndonesiaMapChart: React.FC = () => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<any>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
 
   useEffect(() => {
     // Load Highcharts scripts dynamically
