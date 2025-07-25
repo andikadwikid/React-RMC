@@ -319,8 +319,27 @@ export default function Verification() {
     setSelectedSubmission(null);
   };
 
-  const handleVerificationSave = (submissionId: string, data: any) => {
-    console.log("Verification updated:", submissionId, data);
+  const handleVerificationSave = (submissionId: string, verificationData: any) => {
+    console.log("Verification updated:", submissionId, verificationData);
+
+    // Update local submissions state
+    setSubmissions(prev => prev.map(submission => {
+      if (submission.id === submissionId) {
+        return {
+          ...submission,
+          status: verificationData.status,
+          verifierName: verificationData.verifierName,
+          verifiedAt: verificationData.verifiedAt,
+          overallComment: verificationData.overallComment,
+          items: verificationData.items
+        };
+      }
+      return submission;
+    }));
+
+    // TODO: In real implementation, this would save to backend API
+    // which would then update the project readiness data that ProjectReadinessForm reads
+
     closeVerificationModal();
   };
 
