@@ -39,6 +39,7 @@ import {
   getReadinessTemplate,
   getProjectReadiness,
   getProjectReadinessItems,
+  testDataLoading,
 } from "@/utils/dataLoader";
 import type { ReadinessStatus } from "@/types";
 
