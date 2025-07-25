@@ -108,6 +108,14 @@ export default function ProjectDetail() {
     }
   };
 
+  const closeReadinessResults = () => {
+    setReadinessResults({
+      isOpen: false,
+      projectId: "",
+      projectName: "",
+    });
+  };
+
   const closeReadinessForm = () => {
     setReadinessForm({
       isOpen: false,
