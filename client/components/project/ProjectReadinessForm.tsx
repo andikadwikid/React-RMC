@@ -235,7 +235,7 @@ const getStatusIcon = (status: ReadinessStatus) => {
       return <CheckCircle className="w-4 h-4 text-green-600" />;
     case "parsial":
       return <AlertCircle className="w-4 h-4 text-yellow-600" />;
-    case "tidak-tersedia":
+    case "tidak_tersedia":
       return <XCircle className="w-4 h-4 text-red-600" />;
   }
 };
