@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   FileX,
   Shield,
+  MessageSquare,
 } from "lucide-react";
 import type { ProjectReadiness } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
