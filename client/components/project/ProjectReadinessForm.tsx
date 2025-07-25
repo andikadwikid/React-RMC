@@ -91,19 +91,35 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
     return getDefaultReadinessData();
   }
 
-  return existingData.categories.map((category) => ({
+  // Load actual readiness items from JSON data
+  const readinessItems = getProjectReadinessItems(projectId);
+
+  // Group items by category
+  const itemsByCategory = readinessItems.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push({
+      id: item.id,
+      title: item.item,
+      status: item.user_status,
+      userComments: item.user_comments || (item.user_comment ? [{
+        id: `legacy-${item.id}`,
+        text: item.user_comment,
+        createdAt: item.created_at || new Date().toISOString(),
+      }] : []),
+      verifierStatus: item.verifier_status,
+      verifierComment: item.verifier_comment,
+      verifierName: item.verifier_name,
+      verifiedAt: item.verified_at,
+    });
+    return acc;
+  }, {} as Record<string, any[]>);
+
+  // Map to template structure with real data
+  return getDefaultReadinessData().map((category) => ({
     ...category,
-    icon: iconMap[category.icon as keyof typeof iconMap],
-    items: category.items.map((item) => ({
-      ...item,
-      userComments: item.userComment
-        ? [{
-            id: `comment-${Date.now()}`,
-            text: item.userComment,
-            createdAt: new Date().toISOString(),
-          }]
-        : [],
-    })),
+    items: itemsByCategory[category.id] || category.items,
   }));
 };
 
