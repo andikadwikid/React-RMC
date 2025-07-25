@@ -104,7 +104,7 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
     (item) => item.verifier_comment,
   );
   console.log(
-    "��� Items with verifier comments:",
+    "✅ Items with verifier comments:",
     itemsWithVerifierComments.length,
   );
   itemsWithVerifierComments.forEach((item) => {
@@ -151,7 +151,6 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   const template = getDefaultReadinessData();
   const result = template.map((category) => {
     const categoryExistingItems = itemsByCategory[category.id] || [];
-    console.log(`🗂️ Processing category "${category.title}" with ${categoryExistingItems.length} existing items`);
 
     // Map template items to actual data
     const finalItems = category.items.map((templateItem) => {
@@ -160,13 +159,7 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
         (existing) => existing.title === templateItem.title
       );
 
-      if (existingItem) {
-        console.log(`  ✅ Found existing data for "${templateItem.title}": ${existingItem.status}`);
-        return existingItem;
-      } else {
-        console.log(`  ⚪ No existing data for "${templateItem.title}", using template default`);
-        return templateItem;
-      }
+      return existingItem || templateItem;
     });
 
     return {
