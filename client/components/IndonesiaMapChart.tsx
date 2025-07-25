@@ -229,7 +229,7 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
         chartInstance.current.destroy();
       }
     };
-  }, []);
+  }, [data]);
 
   return (
     <div className="w-full h-full">
