@@ -197,9 +197,19 @@ export function ProjectReadinessForm({
   projectName,
   onSave,
 }: ProjectReadinessFormProps) {
-  const [readinessData, setReadinessData] = useState<ReadinessCategory[]>(() =>
-    loadExistingReadinessData(projectId),
-  );
+  const [readinessData, setReadinessData] = useState<ReadinessCategory[]>(() => {
+    const data = loadExistingReadinessData(projectId);
+    console.log("DEBUG: ProjectReadinessForm loaded data for projectId:", projectId, data);
+    // Log items with verifier comments for debugging
+    data.forEach(category => {
+      category.items.forEach(item => {
+        if (item.verifierComment) {
+          console.log("DEBUG: Item with verifier comment:", item.title, "Comment:", item.verifierComment);
+        }
+      });
+    });
+    return data;
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateItemStatus = (
