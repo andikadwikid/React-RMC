@@ -1090,6 +1090,15 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 </div>
               </div>
             </DropdownMenuItem>
+            <DropdownMenuItem onClick={openReadinessForm} className="py-3">
+              <FileText className="w-5 h-5 mr-3 text-green-600" />
+              <div>
+                <div className="font-medium">Create Assessment</div>
+                <div className="text-xs text-gray-500">
+                  Fill readiness assessment
+                </div>
+              </div>
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={openRiskCaptureForm} className="py-3">
               <Shield className="w-5 h-5 mr-3 text-orange-600" />
               <div>
