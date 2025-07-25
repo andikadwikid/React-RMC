@@ -102,6 +102,11 @@ export const loadProjectCategoriesData = () => {
   return projectCategoriesData;
 };
 
+// Master data loaders
+export const loadTaksonomiData = () => {
+  return taksonomiData;
+};
+
 // Helper function to get a single project by ID
 export const getProjectById = (projectId: string) => {
   // First try to find in projects.json (which has the updated structure)
