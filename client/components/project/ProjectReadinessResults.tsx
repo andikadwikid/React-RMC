@@ -561,10 +561,31 @@ export function ProjectReadinessResults({
         </div>
 
         <div className="p-4 lg:p-6 border-t bg-gray-50 flex-shrink-0">
-          <div className="flex justify-end">
-            <Button onClick={onClose}>
-              Tutup
-            </Button>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            {canEditReadiness(submission.status) && onEdit && (
+              <div className="flex items-center gap-2 text-sm text-orange-600">
+                <AlertTriangle className="w-4 h-4" />
+                <span>Assessment dapat diupdate sampai terverifikasi final</span>
+              </div>
+            )}
+            <div className="flex gap-2 w-full sm:w-auto">
+              {canEditReadiness(submission.status) && onEdit && (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    onEdit();
+                    onClose();
+                  }}
+                  className="text-green-600 border-green-200 hover:bg-green-50"
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  Update Assessment
+                </Button>
+              )}
+              <Button onClick={onClose}>
+                Tutup
+              </Button>
+            </div>
           </div>
         </div>
       </DialogContent>
