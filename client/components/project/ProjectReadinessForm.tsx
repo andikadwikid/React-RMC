@@ -163,33 +163,29 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   // Map to template structure with real data
   const template = getDefaultReadinessData();
   const result = template.map((category) => {
-    if (itemsByCategory[category.id]) {
-      // Merge template items with existing data
-      const mergedItems = category.items.map((templateItem) => {
-        const existingItem = itemsByCategory[category.id].find(
-          (existing) => existing.title === templateItem.title
-        );
+    const categoryExistingItems = itemsByCategory[category.id] || [];
+    console.log(`🗂️ Processing category "${category.title}" with ${categoryExistingItems.length} existing items`);
 
-        console.log(`🔍 Looking for template item "${templateItem.title}" in category ${category.id}`);
-        console.log(`  Found existing item:`, existingItem ? existingItem.title : 'NOT FOUND');
+    // Map template items to actual data
+    const finalItems = category.items.map((templateItem) => {
+      // Find matching existing item by title
+      const existingItem = categoryExistingItems.find(
+        (existing) => existing.title === templateItem.title
+      );
 
-        if (existingItem) {
-          // Use existing data for this item
-          return existingItem;
-        } else {
-          // Use template default for items without existing data
-          return templateItem;
-        }
-      });
+      if (existingItem) {
+        console.log(`  ✅ Found existing data for "${templateItem.title}": ${existingItem.status}`);
+        return existingItem;
+      } else {
+        console.log(`  ⚪ No existing data for "${templateItem.title}", using template default`);
+        return templateItem;
+      }
+    });
 
-      return {
-        ...category,
-        items: mergedItems,
-      };
-    } else {
-      // No existing data for this category, use template defaults
-      return category;
-    }
+    return {
+      ...category,
+      items: finalItems,
+    };
   });
 
   console.log("🏁 Final result with categories:", result.length);
