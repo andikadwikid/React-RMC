@@ -168,23 +168,7 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
     };
   });
 
-  console.log("🏁 Final result with categories:", result.length);
-  result.forEach((category) => {
-    console.log(`📂 Category "${category.title}":`);
-    category.items.forEach((item) => {
-      console.log(`  - ${item.title}: status="${item.status}", comments=${item.userComments?.length || 0}`);
-      if (item.status !== "tidak_tersedia") {
-        console.log(`    ✅ Item has existing data: ${item.status}`);
-      }
-    });
-  });
 
-  // Manual verification for ERP project
-  if (projectId === "550e8400-e29b-41d4-a716-446655440001") {
-    console.log("🎯 Manual verification for ERP project:");
-    const contractItem = result[0]?.items?.find(i => i.title === "Kontrak atau PO dari user");
-    console.log("  Contract item:", contractItem);
-  }
 
   return result;
 };
