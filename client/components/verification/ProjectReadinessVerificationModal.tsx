@@ -423,6 +423,58 @@ export function ProjectReadinessVerificationModal({
             ))}
           </div>
 
+          {/* Risk Capture Summary */}
+          {(() => {
+            const allRisks = verificationItems.flatMap(item => item.riskCapture || []);
+            const totalRisks = allRisks.length;
+            const riskSummary = {
+              sangatRendah: allRisks.filter(r => r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5).length,
+              rendah: allRisks.filter(r => r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10).length,
+              sedang: allRisks.filter(r => r.risikoAwal.level >= 11 && r.risikoAwal.level <= 15).length,
+              tinggi: allRisks.filter(r => r.risikoAwal.level >= 16 && r.risikoAwal.level <= 20).length,
+              sangatTinggi: allRisks.filter(r => r.risikoAwal.level >= 21 && r.risikoAwal.level <= 25).length,
+            };
+
+            return totalRisks > 0 ? (
+              <Card className="border-orange-200 bg-orange-50">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Shield className="w-5 h-5 text-orange-600" />
+                    Ringkasan Risk Capture Keseluruhan
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-gray-900">{totalRisks}</div>
+                      <div className="text-xs text-gray-600">Total Risks</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl font-bold text-green-700">{riskSummary.sangatRendah}</div>
+                      <div className="text-xs text-green-600">Sangat Rendah</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl font-bold text-yellow-700">{riskSummary.rendah}</div>
+                      <div className="text-xs text-yellow-600">Rendah</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl font-bold text-orange-700">{riskSummary.sedang}</div>
+                      <div className="text-xs text-orange-600">Sedang</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl font-bold text-red-700">{riskSummary.tinggi}</div>
+                      <div className="text-xs text-red-600">Tinggi</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl font-bold text-red-900">{riskSummary.sangatTinggi}</div>
+                      <div className="text-xs text-red-800">Sangat Tinggi</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : null;
+          })()}
+
           {/* Overall Verification */}
           <Card className="border-t-4 border-t-blue-500">
             <CardHeader>
