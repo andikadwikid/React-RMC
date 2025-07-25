@@ -34,7 +34,7 @@ import {
 } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
 import { Project } from "@/types";
-import { getProjectById } from "@/utils/dataLoader";
+import { getProjectById, getProjectReadiness } from "@/utils/dataLoader";
 import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
 import { ProjectReadinessResults } from "@/components/project/ProjectReadinessResults";
 import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
