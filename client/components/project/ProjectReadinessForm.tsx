@@ -90,20 +90,14 @@ const getDefaultReadinessData = (): ReadinessCategory[] => {
 };
 
 const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
-  console.log("🔍 Loading readiness data for projectId:", projectId);
-
   const existingData = getProjectReadiness(projectId);
-  console.log("📋 Found readiness record:", existingData);
 
   if (!existingData) {
-    console.log("❌ No readiness record found, returning default data");
     return getDefaultReadinessData();
   }
 
   // Load actual readiness items from JSON data
   const readinessItems = getProjectReadinessItems(projectId);
-  console.log("📝 Found readiness items:", readinessItems.length);
-  console.log("📊 Raw readiness items:", readinessItems);
 
   // Log items with verifier comments
   const itemsWithVerifierComments = readinessItems.filter(
