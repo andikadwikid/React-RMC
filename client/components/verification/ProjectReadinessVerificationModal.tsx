@@ -113,6 +113,7 @@ export function ProjectReadinessVerificationModal({
       verifierComment: item.verifier_comment || "",
       verifierName: item.verifier_name || undefined,
       verifiedAt: item.verified_at || undefined,
+      riskCapture: item.risk_capture || [],
     }));
 
     setVerificationItems(allItems);
