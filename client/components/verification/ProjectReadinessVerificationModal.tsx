@@ -150,12 +150,28 @@ export function ProjectReadinessVerificationModal({
     setIsSubmitting(true);
 
     try {
+      // Calculate total risk capture summary across all readiness items
+      const allRisks = verificationItems.flatMap(item => item.riskCapture || []);
+      const totalRiskCapture = allRisks.length;
+      const riskLevelDistribution = {
+        sangatRendah: allRisks.filter(r => r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5).length,
+        rendah: allRisks.filter(r => r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10).length,
+        sedang: allRisks.filter(r => r.risikoAwal.level >= 11 && r.risikoAwal.level <= 15).length,
+        tinggi: allRisks.filter(r => r.risikoAwal.level >= 16 && r.risikoAwal.level <= 20).length,
+        sangatTinggi: allRisks.filter(r => r.risikoAwal.level >= 21 && r.risikoAwal.level <= 25).length,
+      };
+
       const verificationData = {
         items: verificationItems,
         status: overallStatus,
         overallComment,
         verifierName: "Current Verifier", // Should come from auth context
         verifiedAt: new Date().toISOString(),
+        riskCaptureData: {
+          totalRiskCapture,
+          riskLevelDistribution,
+          allRisks,
+        },
       };
 
       await onSave(submission.id, verificationData);
