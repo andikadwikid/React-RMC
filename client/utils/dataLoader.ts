@@ -10,6 +10,7 @@ import projectDetailsData from "../data/project/project-details.json";
 import projectCategoriesData from "../data/project/project-categories.json";
 import projectReadinessData from "../data/project/project-readiness.json";
 import projectRiskCaptureData from "../data/project/project-risk-capture.json";
+import taksonomiData from "../data/master/taksonomi.json";
 import verificationAssignmentsData from "../data/verification/verification-assignments.json";
 import verificationActivitiesData from "../data/verification/verification-activities.json";
 import riskCaptureVerificationAssignmentsData from "../data/verification/risk-capture-verification-assignments.json";
