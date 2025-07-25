@@ -350,13 +350,13 @@
       "category": "personnel",
       "item": "Approval SDM internal/outsourcing",
       "user_status": "lengkap",
-      "verifier_status": null,
+      "verifier_status": "lengkap",
       "user_comment": "Approval HR sudah selesai",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Approval HR sudah lengkap dan mencakup semua resource yang dibutuhkan. Mix internal-outsourcing sudah optimal untuk project ini.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:15:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-21T10:15:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442012",
