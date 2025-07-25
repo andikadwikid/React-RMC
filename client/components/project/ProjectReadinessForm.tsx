@@ -130,10 +130,28 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   );
 
   // Map to template structure with real data
-  return getDefaultReadinessData().map((category) => ({
+  const result = getDefaultReadinessData().map((category) => ({
     ...category,
     items: itemsByCategory[category.id] || category.items,
   }));
+
+  // TEMPORARY: Add hardcoded verifier feedback for testing
+  if (projectId === "550e8400-e29b-41d4-a716-446655440002" || projectId === "550e8400-e29b-41d4-a716-446655440001") {
+    result.forEach(category => {
+      if (category.id === "administrative" && category.items.length > 0) {
+        // Add verifier feedback to first administrative item for testing
+        category.items[0] = {
+          ...category.items[0],
+          verifierComment: "TEST: Kontrak sudah sesuai dengan standar banking compliance. Semua klausul legal dan security sudah proper.",
+          verifierName: "Senior Verifier",
+          verifiedAt: "2024-01-26T09:15:00Z",
+          verifierStatus: "lengkap"
+        };
+      }
+    });
+  }
+
+  return result;
 };
 
 const getStatusBadge = (status: ReadinessStatus) => {
