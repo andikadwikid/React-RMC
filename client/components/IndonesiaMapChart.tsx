@@ -172,18 +172,14 @@ const IndonesiaMapChart: React.FC = () => {
             });
           } else {
             // Fallback: Create a simple chart or display an error message
-            chartRef.current.innerHTML = `
-              <div class="flex items-center justify-center h-full bg-gray-100 rounded border-2 border-dashed border-gray-300">
-                <div class="text-center">
-                  <p class="text-gray-600 mb-2">Peta Indonesia tidak dapat dimuat</p>
-                  <p class="text-sm text-gray-500">Gagal memuat data geografis</p>
-                </div>
-              </div>
-            `;
+            setError("Gagal memuat data geografis peta Indonesia");
           }
         }
+        setIsLoading(false);
       } catch (error) {
         console.error("Error initializing chart:", error);
+        setError(error instanceof Error ? error.message : "Terjadi kesalahan saat memuat peta");
+        setIsLoading(false);
       }
     };
 
