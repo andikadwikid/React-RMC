@@ -415,28 +415,75 @@ export function ProjectReadinessForm({
                           </div>
                         </div>
 
-                        {/* Comment/Keterangan Section */}
-                        <div className="space-y-2">
-                          <Label
-                            htmlFor={`comment-${item.id}`}
-                            className="text-sm font-medium text-gray-700"
-                          >
-                            Keterangan
-                          </Label>
-                          <Textarea
-                            id={`comment-${item.id}`}
-                            placeholder="Tambahkan keterangan atau catatan terkait item readiness ini..."
-                            value={item.userComment || ""}
-                            onChange={(e) =>
-                              updateItemComment(
-                                category.id,
-                                item.id,
-                                e.target.value,
-                              )
-                            }
-                            className="w-full resize-none"
-                            rows={2}
-                          />
+                        {/* Comments/Keterangan Section */}
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-sm font-medium text-gray-700">
+                              Keterangan
+                            </Label>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={() => addComment(category.id, item.id)}
+                              className="text-blue-600 border-blue-200 hover:bg-blue-50"
+                            >
+                              <Plus className="w-4 h-4 mr-1" />
+                              Tambah Keterangan
+                            </Button>
+                          </div>
+
+                          {item.userComments.length === 0 && (
+                            <div className="text-sm text-gray-500 italic p-3 border border-dashed border-gray-300 rounded-lg text-center">
+                              Belum ada keterangan. Klik "Tambah Keterangan" untuk menambahkan.
+                            </div>
+                          )}
+
+                          <div className="space-y-3">
+                            {item.userComments.map((comment, commentIndex) => (
+                              <div
+                                key={comment.id}
+                                className="relative p-3 border border-gray-200 rounded-lg bg-gray-50"
+                              >
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-xs text-gray-500 font-medium">
+                                    Keterangan #{commentIndex + 1}
+                                  </span>
+                                  {item.userComments.length > 1 && (
+                                    <Button
+                                      type="button"
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() =>
+                                        removeComment(
+                                          category.id,
+                                          item.id,
+                                          comment.id,
+                                        )
+                                      }
+                                      className="text-red-600 hover:bg-red-50 h-6 w-6 p-0"
+                                    >
+                                      <Trash2 className="w-3 h-3" />
+                                    </Button>
+                                  )}
+                                </div>
+                                <Textarea
+                                  placeholder="Tambahkan keterangan atau catatan terkait item readiness ini..."
+                                  value={comment.text}
+                                  onChange={(e) =>
+                                    updateComment(
+                                      category.id,
+                                      item.id,
+                                      comment.id,
+                                      e.target.value,
+                                    )
+                                  }
+                                  className="w-full resize-none border-0 bg-white shadow-sm"
+                                  rows={2}
+                                />
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     ))}
