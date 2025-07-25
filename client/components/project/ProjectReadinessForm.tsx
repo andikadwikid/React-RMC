@@ -482,7 +482,7 @@ export function ProjectReadinessForm({
                                   <span className="text-xs text-gray-500 font-medium">
                                     Keterangan #{commentIndex + 1}
                                   </span>
-                                  {item.userComments.length > 1 && (
+                                  {item.userComments && item.userComments.length > 1 && (
                                     <Button
                                       type="button"
                                       variant="ghost"
