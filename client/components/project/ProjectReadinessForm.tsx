@@ -173,6 +173,25 @@ export function ProjectReadinessForm({
     );
   };
 
+  const updateItemComment = (
+    categoryId: string,
+    itemId: string,
+    comment: string,
+  ) => {
+    setReadinessData((prev) =>
+      prev.map((category) =>
+        category.id === categoryId
+          ? {
+              ...category,
+              items: category.items.map((item) =>
+                item.id === itemId ? { ...item, userComment: comment } : item,
+              ),
+            }
+          : category,
+      ),
+    );
+  };
+
   const handleSave = async () => {
     setIsSubmitting(true);
     try {
