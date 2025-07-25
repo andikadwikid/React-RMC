@@ -35,7 +35,7 @@ import {
   Plus,
   Trash2,
 } from "lucide-react";
-import { getReadinessTemplate, getProjectReadiness } from "@/utils/dataLoader";
+import { getReadinessTemplate, getProjectReadiness, getProjectReadinessItems } from "@/utils/dataLoader";
 import type { ReadinessStatus } from "@/types";
 
 interface UserComment {
