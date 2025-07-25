@@ -277,23 +277,43 @@ export function ProjectReadinessVerificationModal({
                           </div>
                         </div>
 
-                        {/* User Comment Section */}
-                        {item.userComment && item.userComment.trim() !== "" && (
-                          <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
-                            <div className="flex items-center gap-2 mb-2">
+                        {/* User Comments Section */}
+                        {item.userComments && item.userComments.length > 0 ? (
+                          <div className="bg-green-50 border border-green-200 p-3 rounded-lg space-y-3">
+                            <div className="flex items-center gap-2">
                               <MessageSquare className="w-4 h-4 text-green-600" />
                               <span className="text-sm font-medium text-green-700">
-                                Keterangan User:
+                                Keterangan User ({item.userComments.length}):
                               </span>
                             </div>
-                            <p className="text-sm text-green-800 leading-relaxed">
-                              {item.userComment}
-                            </p>
+                            <div className="space-y-2">
+                              {item.userComments.map((comment, index) => (
+                                <div
+                                  key={comment.id}
+                                  className="bg-white border border-green-200 p-2 rounded"
+                                >
+                                  <div className="flex items-center justify-between mb-1">
+                                    <span className="text-xs font-medium text-green-600">
+                                      Keterangan #{index + 1}
+                                    </span>
+                                    <span className="text-xs text-gray-500">
+                                      {new Date(comment.createdAt).toLocaleString('id-ID', {
+                                        day: '2-digit',
+                                        month: '2-digit',
+                                        year: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                      })}
+                                    </span>
+                                  </div>
+                                  <p className="text-sm text-green-800 leading-relaxed">
+                                    {comment.text}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        )}
-
-                        {/* Show placeholder if no user comment */}
-                        {(!item.userComment || item.userComment.trim() === "") && (
+                        ) : (
                           <div className="bg-gray-50 border border-gray-200 p-3 rounded-lg">
                             <div className="flex items-center gap-2 mb-1">
                               <MessageSquare className="w-4 h-4 text-gray-400" />
