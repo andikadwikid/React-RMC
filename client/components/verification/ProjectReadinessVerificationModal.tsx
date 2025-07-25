@@ -390,6 +390,15 @@ export function ProjectReadinessVerificationModal({
                             />
                           </div>
                         </div>
+
+                        {/* Risk Capture Section */}
+                        <RiskCaptureSection
+                          readinessItemId={item.id}
+                          readinessItemTitle={item.item}
+                          riskCapture={item.riskCapture || []}
+                          onRiskCaptureChange={updateRiskCapture}
+                          disabled={isSubmitting}
+                        />
                       </div>
                     ))}
                   </div>
