@@ -192,13 +192,13 @@
       "category": "administrative",
       "item": "Jadwal kerja disetujui",
       "user_status": "lengkap",
-      "verifier_status": null,
+      "verifier_status": "lengkap",
       "user_comment": "Jadwal sudah final dan approved",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Jadwal kerja sudah komprehensif dan realistis. Timeline milestone sudah sesuai dengan kompleksitas project.",
+      "verifier_name": "John Risk Officer",
+      "verified_at": "2024-01-21T09:25:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-21T09:25:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442004",
