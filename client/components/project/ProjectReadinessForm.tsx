@@ -506,7 +506,7 @@ export function ProjectReadinessForm({
                               <SelectContent>
                                 <SelectItem value="lengkap">Lengkap</SelectItem>
                                 <SelectItem value="parsial">Parsial</SelectItem>
-                                <SelectItem value="tidak-tersedia">
+                                <SelectItem value="tidak_tersedia">
                                   Tidak Tersedia
                                 </SelectItem>
                               </SelectContent>
