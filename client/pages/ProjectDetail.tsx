@@ -332,9 +332,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={openReadinessForm}>
+                <DropdownMenuItem onClick={openReadinessResults}>
                   <ClipboardCheck className="w-4 h-4 mr-2" />
-                  Project Readiness
+                  View Readiness Results
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={openRiskCaptureForm}>
                   <Shield className="w-4 h-4 mr-2" />
