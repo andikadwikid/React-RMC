@@ -337,19 +337,25 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     {readinessStatus === "verified" && (
                       <div className="flex items-center">
                         <CheckCircle className="w-3 h-3 text-green-600" />
-                        <span className="ml-1 text-xs font-medium text-green-700">Verified</span>
+                        <span className="ml-1 text-xs font-medium text-green-700">
+                          Verified
+                        </span>
                       </div>
                     )}
                     {readinessStatus === "under_review" && (
                       <div className="flex items-center">
                         <Clock className="w-3 h-3 text-yellow-600" />
-                        <span className="ml-1 text-xs font-medium text-yellow-700">Review</span>
+                        <span className="ml-1 text-xs font-medium text-yellow-700">
+                          Review
+                        </span>
                       </div>
                     )}
                     {readinessStatus === "submitted" && (
                       <div className="flex items-center">
                         <AlertTriangle className="w-3 h-3 text-orange-600" />
-                        <span className="ml-1 text-xs font-medium text-orange-700">Pending</span>
+                        <span className="ml-1 text-xs font-medium text-orange-700">
+                          Pending
+                        </span>
                       </div>
                     )}
                   </div>
@@ -437,16 +443,24 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   More
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-64 shadow-lg border-0 bg-white/95 backdrop-blur-sm">
+              <DropdownMenuContent
+                align="end"
+                className="w-64 shadow-lg border-0 bg-white/95 backdrop-blur-sm"
+              >
                 <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b bg-gray-50/50">
                   Project Actions
                 </div>
-                <DropdownMenuItem asChild className="py-3 hover:bg-blue-50 transition-colors">
+                <DropdownMenuItem
+                  asChild
+                  className="py-3 hover:bg-blue-50 transition-colors"
+                >
                   <Link to={`/projects/${project.id}/timeline`}>
                     <GitBranch className="w-4 h-4 mr-3 text-gray-600" />
                     <div>
                       <div className="font-medium">Timeline</div>
-                      <div className="text-xs text-gray-500">View project milestones</div>
+                      <div className="text-xs text-gray-500">
+                        View project milestones
+                      </div>
                     </div>
                   </Link>
                 </DropdownMenuItem>
@@ -457,35 +471,59 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 </div>
 
                 {readinessStatus && (
-                  <DropdownMenuItem onClick={openReadinessResults} className="py-3 hover:bg-blue-50 transition-colors">
+                  <DropdownMenuItem
+                    onClick={openReadinessResults}
+                    className="py-3 hover:bg-blue-50 transition-colors"
+                  >
                     <ClipboardCheck className="w-4 h-4 mr-3 text-blue-600" />
                     <div>
                       <div className="font-medium">View Readiness Results</div>
-                      <div className="text-xs text-gray-500">Check verification status</div>
+                      <div className="text-xs text-gray-500">
+                        Check verification status
+                      </div>
                     </div>
                   </DropdownMenuItem>
                 )}
                 {canEditReadiness(readinessStatus) && (
-                  <DropdownMenuItem onClick={openReadinessForm} className="py-3 hover:bg-green-50 transition-colors">
+                  <DropdownMenuItem
+                    onClick={openReadinessForm}
+                    className="py-3 hover:bg-green-50 transition-colors"
+                  >
                     <FileText className="w-4 h-4 mr-3 text-green-600" />
                     <div>
-                      <div className="font-medium">{readinessStatus ? "Update Assessment" : "Create Assessment"}</div>
-                      <div className="text-xs text-gray-500">Manage readiness items</div>
+                      <div className="font-medium">
+                        {readinessStatus
+                          ? "Update Assessment"
+                          : "Create Assessment"}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Manage readiness items
+                      </div>
                     </div>
                   </DropdownMenuItem>
                 )}
-                <DropdownMenuItem onClick={openRiskCaptureForm} className="py-3 hover:bg-orange-50 transition-colors">
+                <DropdownMenuItem
+                  onClick={openRiskCaptureForm}
+                  className="py-3 hover:bg-orange-50 transition-colors"
+                >
                   <Shield className="w-4 h-4 mr-3 text-orange-600" />
                   <div>
                     <div className="font-medium">Risk Assessment</div>
-                    <div className="text-xs text-gray-500">Capture project risks</div>
+                    <div className="text-xs text-gray-500">
+                      Capture project risks
+                    </div>
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={generateReport} className="py-3 hover:bg-purple-50 transition-colors">
+                <DropdownMenuItem
+                  onClick={generateReport}
+                  className="py-3 hover:bg-purple-50 transition-colors"
+                >
                   <FileText className="w-4 h-4 mr-3 text-purple-600" />
                   <div>
                     <div className="font-medium">Generate Report</div>
-                    <div className="text-xs text-gray-500">Download project summary</div>
+                    <div className="text-xs text-gray-500">
+                      Download project summary
+                    </div>
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -508,14 +546,21 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                         <div className="absolute -top-1 -right-1 w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
                       )}
                     </div>
-                    <span className="text-sm font-semibold text-gray-700">Actions</span>
+                    <span className="text-sm font-semibold text-gray-700">
+                      Actions
+                    </span>
                     <MoreHorizontal className="w-3 h-3 text-gray-500" />
                   </div>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-72 shadow-xl border-0 bg-white/95 backdrop-blur-md rounded-xl">
+              <DropdownMenuContent
+                align="end"
+                className="w-72 shadow-xl border-0 bg-white/95 backdrop-blur-md rounded-xl"
+              >
                 <div className="px-4 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-b text-center">
-                  <h3 className="text-sm font-semibold text-gray-700">Project Actions</h3>
+                  <h3 className="text-sm font-semibold text-gray-700">
+                    Project Actions
+                  </h3>
                   <p className="text-xs text-gray-500 mt-1">{project.name}</p>
                 </div>
 
@@ -524,21 +569,35 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                     Project Management
                   </div>
-                  <DropdownMenuItem asChild className="rounded-lg my-1 py-3 hover:bg-blue-50 transition-all duration-200">
+                  <DropdownMenuItem
+                    asChild
+                    className="rounded-lg my-1 py-3 hover:bg-blue-50 transition-all duration-200"
+                  >
                     <Link to={`/projects/${project.id}/edit`}>
                       <Edit className="w-5 h-5 mr-3 text-blue-600" />
                       <div>
-                        <div className="font-semibold text-gray-700">Edit Project</div>
-                        <div className="text-xs text-gray-500">Modify project details</div>
+                        <div className="font-semibold text-gray-700">
+                          Edit Project
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          Modify project details
+                        </div>
                       </div>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-lg my-1 py-3 hover:bg-purple-50 transition-all duration-200">
+                  <DropdownMenuItem
+                    asChild
+                    className="rounded-lg my-1 py-3 hover:bg-purple-50 transition-all duration-200"
+                  >
                     <Link to={`/projects/${project.id}/timeline`}>
                       <GitBranch className="w-5 h-5 mr-3 text-purple-600" />
                       <div>
-                        <div className="font-semibold text-gray-700">Timeline</div>
-                        <div className="text-xs text-gray-500">View milestones & progress</div>
+                        <div className="font-semibold text-gray-700">
+                          Timeline
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          View milestones & progress
+                        </div>
                       </div>
                     </Link>
                   </DropdownMenuItem>
@@ -550,7 +609,10 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     Assessment Tools
                   </div>
                   {readinessStatus && (
-                    <DropdownMenuItem onClick={openReadinessResults} className="rounded-lg my-1 py-3 hover:bg-blue-50 transition-all duration-200">
+                    <DropdownMenuItem
+                      onClick={openReadinessResults}
+                      className="rounded-lg my-1 py-3 hover:bg-blue-50 transition-all duration-200"
+                    >
                       <div className="relative mr-3">
                         <ClipboardCheck className="w-5 h-5 text-blue-600" />
                         {readinessStatus === "verified" && (
@@ -561,40 +623,65 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                         )}
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-700">View Readiness Results</div>
-                        <div className="text-xs text-gray-500">Check verification status & feedback</div>
+                        <div className="font-semibold text-gray-700">
+                          View Readiness Results
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          Check verification status & feedback
+                        </div>
                       </div>
                     </DropdownMenuItem>
                   )}
                   {canEditReadiness(readinessStatus) && (
-                    <DropdownMenuItem onClick={openReadinessForm} className="rounded-lg my-1 py-3 hover:bg-green-50 transition-all duration-200">
+                    <DropdownMenuItem
+                      onClick={openReadinessForm}
+                      className="rounded-lg my-1 py-3 hover:bg-green-50 transition-all duration-200"
+                    >
                       <FileText className="w-5 h-5 mr-3 text-green-600" />
                       <div>
                         <div className="font-semibold text-gray-700">
-                          {readinessStatus ? "Update Assessment" : "Create Assessment"}
+                          {readinessStatus
+                            ? "Update Assessment"
+                            : "Create Assessment"}
                         </div>
                         <div className="text-xs text-gray-500">
-                          {readinessStatus ? "Modify readiness data" : "Fill readiness assessment"}
+                          {readinessStatus
+                            ? "Modify readiness data"
+                            : "Fill readiness assessment"}
                         </div>
                       </div>
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem onClick={openRiskCaptureForm} className="rounded-lg my-1 py-3 hover:bg-orange-50 transition-all duration-200">
+                  <DropdownMenuItem
+                    onClick={openRiskCaptureForm}
+                    className="rounded-lg my-1 py-3 hover:bg-orange-50 transition-all duration-200"
+                  >
                     <Shield className="w-5 h-5 mr-3 text-orange-600" />
                     <div>
-                      <div className="font-semibold text-gray-700">Risk Assessment</div>
-                      <div className="text-xs text-gray-500">Capture & analyze project risks</div>
+                      <div className="font-semibold text-gray-700">
+                        Risk Assessment
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Capture & analyze project risks
+                      </div>
                     </div>
                   </DropdownMenuItem>
                 </div>
 
                 {/* Additional Actions */}
                 <div className="p-2 border-t">
-                  <DropdownMenuItem onClick={generateReport} className="rounded-lg py-3 hover:bg-indigo-50 transition-all duration-200">
+                  <DropdownMenuItem
+                    onClick={generateReport}
+                    className="rounded-lg py-3 hover:bg-indigo-50 transition-all duration-200"
+                  >
                     <FileText className="w-5 h-5 mr-3 text-indigo-600" />
                     <div>
-                      <div className="font-semibold text-gray-700">Generate Report</div>
-                      <div className="text-xs text-gray-500">Download comprehensive project report</div>
+                      <div className="font-semibold text-gray-700">
+                        Generate Report
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Download comprehensive project report
+                      </div>
                     </div>
                   </DropdownMenuItem>
                 </div>
@@ -1247,7 +1334,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 "before:absolute before:inset-0 before:rounded-full",
                 "before:bg-gradient-to-br before:from-blue-400 before:to-purple-400",
                 "before:opacity-0 hover:before:opacity-20 before:transition-opacity",
-                "group"
+                "group",
               )}
             >
               <div className="relative flex items-center justify-center">
@@ -1271,22 +1358,33 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   <Shield className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-gray-800">Quick Actions</h3>
-                  <p className="text-xs text-gray-500">Project assessments & tools</p>
+                  <h3 className="text-sm font-bold text-gray-800">
+                    Quick Actions
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    Project assessments & tools
+                  </p>
                 </div>
               </div>
             </div>
 
             <div className="p-3 space-y-1">
               {readinessStatus && (
-                <DropdownMenuItem onClick={openReadinessResults} className="rounded-xl py-4 px-3 hover:bg-blue-50 transition-all duration-200 group">
+                <DropdownMenuItem
+                  onClick={openReadinessResults}
+                  className="rounded-xl py-4 px-3 hover:bg-blue-50 transition-all duration-200 group"
+                >
                   <div className="flex items-center w-full">
                     <div className="w-10 h-10 rounded-xl bg-blue-100 group-hover:bg-blue-200 flex items-center justify-center mr-3 transition-colors">
                       <ClipboardCheck className="w-5 h-5 text-blue-600" />
                     </div>
                     <div className="flex-1">
-                      <div className="font-semibold text-gray-800 text-sm">View Readiness Results</div>
-                      <div className="text-xs text-gray-500">Check verification status & feedback</div>
+                      <div className="font-semibold text-gray-800 text-sm">
+                        View Readiness Results
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Check verification status & feedback
+                      </div>
                     </div>
                     {readinessStatus === "verified" && (
                       <CheckCircle className="w-4 h-4 text-green-500 ml-2" />
@@ -1299,31 +1397,45 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
               )}
 
               {canEditReadiness(readinessStatus) && (
-                <DropdownMenuItem onClick={openReadinessForm} className="rounded-xl py-4 px-3 hover:bg-green-50 transition-all duration-200 group">
+                <DropdownMenuItem
+                  onClick={openReadinessForm}
+                  className="rounded-xl py-4 px-3 hover:bg-green-50 transition-all duration-200 group"
+                >
                   <div className="flex items-center w-full">
                     <div className="w-10 h-10 rounded-xl bg-green-100 group-hover:bg-green-200 flex items-center justify-center mr-3 transition-colors">
                       <FileText className="w-5 h-5 text-green-600" />
                     </div>
                     <div className="flex-1">
                       <div className="font-semibold text-gray-800 text-sm">
-                        {readinessStatus ? "Update Assessment" : "Create Assessment"}
+                        {readinessStatus
+                          ? "Update Assessment"
+                          : "Create Assessment"}
                       </div>
                       <div className="text-xs text-gray-500">
-                        {readinessStatus ? "Modify readiness data" : "Fill readiness assessment"}
+                        {readinessStatus
+                          ? "Modify readiness data"
+                          : "Fill readiness assessment"}
                       </div>
                     </div>
                   </div>
                 </DropdownMenuItem>
               )}
 
-              <DropdownMenuItem onClick={openRiskCaptureForm} className="rounded-xl py-4 px-3 hover:bg-orange-50 transition-all duration-200 group">
+              <DropdownMenuItem
+                onClick={openRiskCaptureForm}
+                className="rounded-xl py-4 px-3 hover:bg-orange-50 transition-all duration-200 group"
+              >
                 <div className="flex items-center w-full">
                   <div className="w-10 h-10 rounded-xl bg-orange-100 group-hover:bg-orange-200 flex items-center justify-center mr-3 transition-colors">
                     <Shield className="w-5 h-5 text-orange-600" />
                   </div>
                   <div className="flex-1">
-                    <div className="font-semibold text-gray-800 text-sm">Risk Assessment</div>
-                    <div className="text-xs text-gray-500">Capture & analyze project risks</div>
+                    <div className="font-semibold text-gray-800 text-sm">
+                      Risk Assessment
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Capture & analyze project risks
+                    </div>
                   </div>
                 </div>
               </DropdownMenuItem>
@@ -1343,7 +1455,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <div className="font-semibold text-gray-800 text-sm">
                       {isGeneratingReport ? "Generating..." : "Generate Report"}
                     </div>
-                    <div className="text-xs text-gray-500">Download comprehensive project report</div>
+                    <div className="text-xs text-gray-500">
+                      Download comprehensive project report
+                    </div>
                   </div>
                   {isGeneratingReport && (
                     <div className="w-4 h-4 border-2 border-purple-300 border-t-purple-600 rounded-full animate-spin ml-2"></div>

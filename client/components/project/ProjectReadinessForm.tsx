@@ -156,7 +156,7 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
     const finalItems = category.items.map((templateItem) => {
       // Find matching existing item by title
       const existingItem = categoryExistingItems.find(
-        (existing) => existing.title === templateItem.title
+        (existing) => existing.title === templateItem.title,
       );
 
       return existingItem || templateItem;
@@ -167,8 +167,6 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
       items: finalItems,
     };
   });
-
-
 
   return result;
 };

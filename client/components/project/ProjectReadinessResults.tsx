@@ -141,7 +141,7 @@ const loadReadinessResults = (projectId: string) => {
   if (readinessItems.length === 0) {
     return null;
   }
-  
+
   const itemsByCategory = readinessItems.reduce(
     (acc, item) => {
       if (!acc[item.category]) {
@@ -189,10 +189,14 @@ const loadReadinessResults = (projectId: string) => {
   };
 };
 
-const getStatusBadge = (status: ReadinessStatus, variant: 'user' | 'verifier' = 'user') => {
+const getStatusBadge = (
+  status: ReadinessStatus,
+  variant: "user" | "verifier" = "user",
+) => {
   const config = STATUS_CONFIG[status];
   const IconComponent = config.icon;
-  const colorClass = variant === 'user' ? config.userColor : config.verifierColor;
+  const colorClass =
+    variant === "user" ? config.userColor : config.verifierColor;
 
   return (
     <Badge className={colorClass}>
@@ -204,13 +208,18 @@ const getStatusBadge = (status: ReadinessStatus, variant: 'user' | 'verifier' = 
 
 const getCategoryProgress = (items: ReadinessItem[]) => {
   const verifiedItems = items.filter((item) => item.verifierStatus);
-  const completed = verifiedItems.filter((item) => item.verifierStatus === "lengkap").length;
-  const partial = verifiedItems.filter((item) => item.verifierStatus === "parsial").length;
+  const completed = verifiedItems.filter(
+    (item) => item.verifierStatus === "lengkap",
+  ).length;
+  const partial = verifiedItems.filter(
+    (item) => item.verifierStatus === "parsial",
+  ).length;
   const total = items.length;
 
-  const completionPercentage = verifiedItems.length > 0 ? Math.round(
-    ((completed + partial * 0.5) / total) * 100,
-  ) : 0;
+  const completionPercentage =
+    verifiedItems.length > 0
+      ? Math.round(((completed + partial * 0.5) / total) * 100)
+      : 0;
 
   return {
     completed,
@@ -232,22 +241,24 @@ export function ProjectReadinessResults({
     submission: any;
     categories: ReadinessCategory[];
   } | null>(null);
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+    new Set(),
+  );
 
   useEffect(() => {
     if (isOpen && projectId) {
       const data = loadReadinessResults(projectId);
       setReadinessData(data);
-      
+
       // Expand all categories by default
       if (data) {
-        setExpandedCategories(new Set(data.categories.map(cat => cat.id)));
+        setExpandedCategories(new Set(data.categories.map((cat) => cat.id)));
       }
     }
   }, [isOpen, projectId]);
 
   const toggleCategory = (categoryId: string) => {
-    setExpandedCategories(prev => {
+    setExpandedCategories((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(categoryId)) {
         newSet.delete(categoryId);
@@ -277,8 +288,13 @@ export function ProjectReadinessResults({
   }
 
   const { submission, categories } = readinessData;
-  const overallProgress = getCategoryProgress(categories.flatMap(cat => cat.items));
-  const verificationStatus = VERIFICATION_STATUS_CONFIG[submission.status as keyof typeof VERIFICATION_STATUS_CONFIG];
+  const overallProgress = getCategoryProgress(
+    categories.flatMap((cat) => cat.items),
+  );
+  const verificationStatus =
+    VERIFICATION_STATUS_CONFIG[
+      submission.status as keyof typeof VERIFICATION_STATUS_CONFIG
+    ];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -291,7 +307,8 @@ export function ProjectReadinessResults({
             </div>
           </DialogTitle>
           <DialogDescription className="text-sm lg:text-base">
-            Hasil assessment dan feedback dari Risk Officer untuk project: <strong>{projectName}</strong>
+            Hasil assessment dan feedback dari Risk Officer untuk project:{" "}
+            <strong>{projectName}</strong>
           </DialogDescription>
         </DialogHeader>
 
@@ -353,7 +370,7 @@ export function ProjectReadinessResults({
                   </div>
                 )}
               </div>
-              
+
               {submission.overall_comment && (
                 <div className="mt-4 pt-4 border-t">
                   <label className="text-sm font-medium text-gray-600">
@@ -386,10 +403,16 @@ export function ProjectReadinessResults({
               </div>
               <div className="flex flex-wrap gap-4 text-sm text-gray-600">
                 <span>
-                  Lengkap: <strong className="text-green-600">{overallProgress.completed}</strong>
+                  Lengkap:{" "}
+                  <strong className="text-green-600">
+                    {overallProgress.completed}
+                  </strong>
                 </span>
                 <span>
-                  Parsial: <strong className="text-yellow-600">{overallProgress.partial}</strong>
+                  Parsial:{" "}
+                  <strong className="text-yellow-600">
+                    {overallProgress.partial}
+                  </strong>
                 </span>
                 <span>
                   Total: <strong>{overallProgress.total}</strong>
@@ -408,14 +431,16 @@ export function ProjectReadinessResults({
               return (
                 <Card key={category.id}>
                   <CardHeader className="pb-3">
-                    <CardTitle 
+                    <CardTitle
                       className="flex items-center justify-between cursor-pointer"
                       onClick={() => toggleCategory(category.id)}
                     >
                       <div className="flex items-center gap-3">
                         <IconComponent className="h-5 w-5 text-blue-600" />
                         <span className="text-base font-medium">
-                          {CATEGORY_DISPLAY_NAMES[category.id as keyof typeof CATEGORY_DISPLAY_NAMES] || category.title}
+                          {CATEGORY_DISPLAY_NAMES[
+                            category.id as keyof typeof CATEGORY_DISPLAY_NAMES
+                          ] || category.title}
                         </span>
                         <span className="text-sm text-gray-500">
                           ({categoryProgress.verified}/{categoryProgress.total})
@@ -436,7 +461,7 @@ export function ProjectReadinessResults({
                       </div>
                     </CardTitle>
                   </CardHeader>
-                  
+
                   {isExpanded && (
                     <CardContent className="pt-0">
                       <div className="space-y-4">
@@ -455,14 +480,17 @@ export function ProjectReadinessResults({
                                     <span className="text-xs text-gray-500 font-medium">
                                       Status User:
                                     </span>
-                                    {getStatusBadge(item.userStatus, 'user')}
+                                    {getStatusBadge(item.userStatus, "user")}
                                   </div>
                                   {item.verifierStatus && (
                                     <div className="flex items-center gap-2">
                                       <span className="text-xs text-gray-500 font-medium">
                                         Status Verifier:
                                       </span>
-                                      {getStatusBadge(item.verifierStatus, 'verifier')}
+                                      {getStatusBadge(
+                                        item.verifierStatus,
+                                        "verifier",
+                                      )}
                                     </div>
                                   )}
                                 </div>
@@ -470,42 +498,46 @@ export function ProjectReadinessResults({
                             </div>
 
                             {/* User Comments */}
-                            {item.userComments && item.userComments.length > 0 && (
-                              <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <MessageSquare className="w-4 h-4 text-green-600" />
-                                  <span className="text-sm font-medium text-green-700">
-                                    Keterangan User ({item.userComments.length}):
-                                  </span>
-                                </div>
-                                <div className="space-y-2">
-                                  {item.userComments.map((comment, index) => (
-                                    <div
-                                      key={comment.id}
-                                      className="bg-white border border-green-200 p-2 rounded"
-                                    >
-                                      <div className="flex items-center justify-between mb-1">
-                                        <span className="text-xs font-medium text-green-600">
-                                          Keterangan #{index + 1}
-                                        </span>
-                                        <span className="text-xs text-gray-500">
-                                          {new Date(comment.createdAt).toLocaleString("id-ID", {
-                                            day: "2-digit",
-                                            month: "2-digit",
-                                            year: "numeric",
-                                            hour: "2-digit",
-                                            minute: "2-digit",
-                                          })}
-                                        </span>
+                            {item.userComments &&
+                              item.userComments.length > 0 && (
+                                <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <MessageSquare className="w-4 h-4 text-green-600" />
+                                    <span className="text-sm font-medium text-green-700">
+                                      Keterangan User (
+                                      {item.userComments.length}):
+                                    </span>
+                                  </div>
+                                  <div className="space-y-2">
+                                    {item.userComments.map((comment, index) => (
+                                      <div
+                                        key={comment.id}
+                                        className="bg-white border border-green-200 p-2 rounded"
+                                      >
+                                        <div className="flex items-center justify-between mb-1">
+                                          <span className="text-xs font-medium text-green-600">
+                                            Keterangan #{index + 1}
+                                          </span>
+                                          <span className="text-xs text-gray-500">
+                                            {new Date(
+                                              comment.createdAt,
+                                            ).toLocaleString("id-ID", {
+                                              day: "2-digit",
+                                              month: "2-digit",
+                                              year: "numeric",
+                                              hour: "2-digit",
+                                              minute: "2-digit",
+                                            })}
+                                          </span>
+                                        </div>
+                                        <p className="text-sm text-green-800 leading-relaxed">
+                                          {comment.text}
+                                        </p>
                                       </div>
-                                      <p className="text-sm text-green-800 leading-relaxed">
-                                        {comment.text}
-                                      </p>
-                                    </div>
-                                  ))}
+                                    ))}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
 
                             {/* Verifier Feedback */}
                             {item.verifierComment ? (
@@ -519,13 +551,16 @@ export function ProjectReadinessResults({
                                   </div>
                                   {item.verifiedAt && (
                                     <span className="text-xs text-blue-600">
-                                      {new Date(item.verifiedAt).toLocaleString("id-ID", {
-                                        day: "2-digit",
-                                        month: "2-digit",
-                                        year: "numeric",
-                                        hour: "2-digit",
-                                        minute: "2-digit",
-                                      })}
+                                      {new Date(item.verifiedAt).toLocaleString(
+                                        "id-ID",
+                                        {
+                                          day: "2-digit",
+                                          month: "2-digit",
+                                          year: "numeric",
+                                          hour: "2-digit",
+                                          minute: "2-digit",
+                                        },
+                                      )}
                                     </span>
                                   )}
                                 </div>
@@ -566,7 +601,9 @@ export function ProjectReadinessResults({
             {canEditReadiness(submission.status) && onEdit && (
               <div className="flex items-center gap-2 text-sm text-orange-600">
                 <AlertTriangle className="w-4 h-4" />
-                <span>Assessment dapat diupdate sampai terverifikasi final</span>
+                <span>
+                  Assessment dapat diupdate sampai terverifikasi final
+                </span>
               </div>
             )}
             <div className="flex gap-2 w-full sm:w-auto">
@@ -583,9 +620,7 @@ export function ProjectReadinessResults({
                   Update Assessment
                 </Button>
               )}
-              <Button onClick={onClose}>
-                Tutup
-              </Button>
+              <Button onClick={onClose}>Tutup</Button>
             </div>
           </div>
         </div>
