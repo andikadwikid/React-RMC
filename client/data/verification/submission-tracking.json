@@ -112,7 +112,22 @@
       "estimatedHours": 2.5,
       "notes": "Waiting for verifier assignment",
       "createdAt": "2024-01-21T16:45:00Z",
-      "items": []
+      "items": [
+        {
+          "id": "item-8",
+          "category": "administrative",
+          "item": "Jadwal kerja disetujui",
+          "userStatus": "parsial",
+          "userComment": "Jadwal high-level sudah approved, detail weekly plan masih disesuaikan"
+        },
+        {
+          "id": "item-9",
+          "category": "personnel",
+          "item": "Approval SDM internal/outsourcing",
+          "userStatus": "tidak_tersedia",
+          "userComment": "Masih menunggu approval budget untuk outsourcing developer"
+        }
+      ]
     }
   ],
   "risk_capture_submissions": [
