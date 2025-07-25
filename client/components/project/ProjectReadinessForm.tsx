@@ -94,6 +94,16 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   return existingData.categories.map((category) => ({
     ...category,
     icon: iconMap[category.icon as keyof typeof iconMap],
+    items: category.items.map((item) => ({
+      ...item,
+      userComments: item.userComment
+        ? [{
+            id: `comment-${Date.now()}`,
+            text: item.userComment,
+            createdAt: new Date().toISOString(),
+          }]
+        : [],
+    })),
   }));
 };
 
