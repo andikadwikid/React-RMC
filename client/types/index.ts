@@ -203,6 +203,7 @@ export interface ReadinessItem {
   verifierComment?: string;
   verifierName?: string;
   verifiedAt?: string;
+  riskCapture?: RiskItem[];
 }
 
 export interface ReadinessCategory {
