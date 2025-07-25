@@ -235,12 +235,11 @@ const App = () => (
 
 const container = document.getElementById("root")!;
 
-// Check if root already exists to prevent duplicate createRoot calls
+// Only create root once
 if (!container._reactRoot) {
   const root = createRoot(container);
   container._reactRoot = root;
-  root.render(<App />);
-} else {
-  // Reuse existing root
-  container._reactRoot.render(<App />);
 }
+
+// Always render using the existing root
+container._reactRoot.render(<App />);
