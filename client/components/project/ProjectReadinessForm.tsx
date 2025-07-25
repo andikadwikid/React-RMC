@@ -80,6 +80,7 @@ const getDefaultReadinessData = (): ReadinessCategory[] => {
     items: category.items.map((item) => ({
       ...item,
       status: "tidak-tersedia" as ReadinessStatus,
+      userComments: [],
     })),
   }));
 };
