@@ -857,7 +857,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             {/* <ProjectDistributionChart data={provinceData} title="" /> */}
-            <IndonesiaMap />
+            <IndonesiaMap data={provinceData} />
           </CardContent>
         </Card>
         {/* Charts Section - Geographic Distribution and Risk Capture - Row 5 */}
