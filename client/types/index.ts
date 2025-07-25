@@ -152,6 +152,11 @@ export interface RiskItem extends BaseEntity {
     dampak: number;
     level: number;
   };
+  risikoSaatIni: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
   resikoAkhir: {
     kejadian: number;
     dampak: number;
