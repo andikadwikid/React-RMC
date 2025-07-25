@@ -206,13 +206,25 @@
       "category": "administrative",
       "item": "Rencana kerja mingguan disampaikan",
       "user_status": "tidak_tersedia",
-      "verifier_status": null,
+      "verifier_status": "tidak_tersedia",
+      "user_comments": [
+        {
+          "id": "comment-4-1",
+          "text": "Template weekly plan sudah disiapkan tapi masih dalam tahap penyusunan konten",
+          "createdAt": "2024-01-20T10:30:00Z"
+        },
+        {
+          "id": "comment-4-2",
+          "text": "Menunggu finalisasi resource allocation dari management untuk dapat menyusun detailed weekly schedule",
+          "createdAt": "2024-01-20T11:00:00Z"
+        }
+      ],
       "user_comment": "Masih dalam tahap penyusunan",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Weekly planning merupakan critical success factor untuk project monitoring. Harap diprioritaskan completion dalam 2 hari kerja setelah resource allocation confirmed.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T09:30:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-21T09:30:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442005",
