@@ -495,6 +495,14 @@ CREATE INDEX idx_readiness_project ON project_readiness(project_id);
 CREATE INDEX idx_readiness_status ON project_readiness(status);
 CREATE INDEX idx_readiness_items_readiness ON readiness_items(readiness_id);
 CREATE INDEX idx_readiness_verifier ON project_readiness(verifier_name);
+CREATE INDEX idx_readiness_items_status ON readiness_items(user_status, verifier_status);
+CREATE INDEX idx_readiness_items_verified ON readiness_items(verified_at) WHERE verified_at IS NOT NULL;
+
+-- Multiple comments indexes **NEW**
+CREATE INDEX idx_readiness_user_comments_item ON readiness_user_comments(readiness_item_id);
+CREATE INDEX idx_readiness_user_comments_order ON readiness_user_comments(readiness_item_id, comment_order);
+CREATE INDEX idx_readiness_user_comments_created ON readiness_user_comments(created_at);
+CREATE INDEX idx_readiness_user_comments_item_created ON readiness_user_comments(readiness_item_id, created_at);
 
 -- User indexes
 CREATE INDEX idx_users_role ON users(role);
