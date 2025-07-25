@@ -36,11 +36,17 @@ import {
 import { getReadinessTemplate, getProjectReadiness } from "@/utils/dataLoader";
 import type { ReadinessStatus } from "@/types";
 
+interface UserComment {
+  id: string;
+  text: string;
+  createdAt: string;
+}
+
 interface ReadinessItem {
   id: string;
   title: string;
   status: ReadinessStatus;
-  userComment?: string;
+  userComments: UserComment[];
   verifierStatus?: ReadinessStatus;
   verifierComment?: string;
   verifierName?: string;
