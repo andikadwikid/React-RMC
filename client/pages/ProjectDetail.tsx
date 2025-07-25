@@ -400,6 +400,15 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     </div>
                   </div>
                 </DropdownMenuItem>
+                <DropdownMenuItem onClick={openReadinessForm}>
+                  <FileText className="w-4 h-4 mr-2 text-green-600" />
+                  <div>
+                    <div className="font-medium">Create Assessment</div>
+                    <div className="text-xs text-gray-500">
+                      Fill readiness assessment
+                    </div>
+                  </div>
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={openRiskCaptureForm}>
                   <Shield className="w-4 h-4 mr-2 text-orange-600" />
                   <div>
