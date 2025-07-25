@@ -150,6 +150,15 @@ export const getProjectReadiness = (projectId: string) => {
   );
 };
 
+export const getProjectReadinessItems = (projectId: string) => {
+  const readiness = getProjectReadiness(projectId);
+  if (!readiness) return [];
+
+  return projectReadinessData.readiness_items.filter(
+    (item) => item.readiness_id === readiness.id,
+  );
+};
+
 // Risk capture data loaders
 export const loadProjectRiskCaptureData = () => {
   return projectRiskCaptureData;
