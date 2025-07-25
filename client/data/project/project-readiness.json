@@ -305,13 +305,30 @@
       "category": "personnel",
       "item": "Daftar personel dan penanggung jawab teknis",
       "user_status": "lengkap",
-      "verifier_status": null,
+      "verifier_status": "lengkap",
+      "user_comments": [
+        {
+          "id": "comment-9-1",
+          "text": "Tim project sudah terbentuk lengkap: 1 Project Manager, 2 Senior Developer, 3 Developer, 1 QA Engineer, 1 UI/UX Designer",
+          "createdAt": "2024-01-20T10:30:00Z"
+        },
+        {
+          "id": "comment-9-2",
+          "text": "Technical lead sudah ditunjuk dengan pengalaman 8 tahun di ERP development",
+          "createdAt": "2024-01-20T10:45:00Z"
+        },
+        {
+          "id": "comment-9-3",
+          "text": "Backup personnel sudah diidentifikasi untuk setiap critical role untuk mitigasi risiko",
+          "createdAt": "2024-01-20T11:00:00Z"
+        }
+      ],
       "user_comment": "Tim sudah terbentuk lengkap",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Komposisi tim sudah ideal untuk project scale. Technical lead memiliki track record yang baik. Backup plan sudah memadai untuk continuity.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T09:35:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-21T09:35:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442010",
