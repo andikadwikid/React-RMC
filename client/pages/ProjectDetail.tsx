@@ -1064,6 +1064,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
         onClose={closeReadinessResults}
         projectId={readinessResults.projectId}
         projectName={readinessResults.projectName}
+        onEdit={openReadinessForm}
       />
 
       {/* Project Readiness Form */}
