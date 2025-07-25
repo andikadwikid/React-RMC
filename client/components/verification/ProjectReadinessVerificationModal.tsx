@@ -85,7 +85,8 @@ export function ProjectReadinessVerificationModal({
       item: item.item,
       userStatus: item.user_status,
       verifierStatus: item.verifier_status || undefined,
-      userComment: item.user_comment || "",
+      userComments: item.user_comments || [],
+      userComment: item.user_comment || "", // Keep for backward compatibility
       verifierComment: item.verifier_comment || "",
       verifierName: item.verifier_name || undefined,
       verifiedAt: item.verified_at || undefined,
