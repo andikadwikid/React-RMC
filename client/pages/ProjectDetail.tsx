@@ -378,12 +378,12 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 <div className="px-2 py-1.5 text-xs font-medium text-gray-500 border-b">
                   Quick Assessments
                 </div>
-                <DropdownMenuItem onClick={openReadinessForm}>
+                <DropdownMenuItem onClick={openReadinessResults}>
                   <ClipboardCheck className="w-4 h-4 mr-2 text-blue-600" />
                   <div>
-                    <div className="font-medium">Project Readiness</div>
+                    <div className="font-medium">View Readiness Results</div>
                     <div className="text-xs text-gray-500">
-                      Assess project status
+                      View verification results
                     </div>
                   </div>
                 </DropdownMenuItem>
