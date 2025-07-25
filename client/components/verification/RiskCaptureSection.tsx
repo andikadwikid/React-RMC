@@ -276,26 +276,31 @@ export function RiskCaptureSection({
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <Label className="text-xs">Kode</Label>
-                          <Input
+                          <Select
                             value={risk.kode}
-                            onChange={(e) =>
-                              updateRiskItem(risk.id, "kode", e.target.value)
-                            }
-                            placeholder="Kode risk"
-                            className="h-8 text-xs"
+                            onValueChange={(value) => handleKodeSelection(risk.id, value)}
                             disabled={disabled}
-                          />
+                          >
+                            <SelectTrigger className="h-8 text-xs">
+                              <SelectValue placeholder="Pilih kode risk" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {taksonomiData.taksonomi.map((item) => (
+                                <SelectItem key={item.kode} value={item.kode}>
+                                  <span className="text-xs">{item.kode} - {item.title}</span>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </div>
                         <div>
                           <Label className="text-xs">Taksonomi</Label>
                           <Input
                             value={risk.taksonomi}
-                            onChange={(e) =>
-                              updateRiskItem(risk.id, "taksonomi", e.target.value)
-                            }
-                            placeholder="Taksonomi"
-                            className="h-8 text-xs"
-                            disabled={disabled}
+                            placeholder="Auto-populated dari kode"
+                            className="h-8 text-xs bg-gray-50"
+                            disabled={true}
+                            readOnly
                           />
                         </div>
                       </div>
