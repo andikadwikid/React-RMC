@@ -138,6 +138,14 @@ export function ProjectReadinessVerificationModal({
     );
   };
 
+  const updateRiskCapture = (itemId: string, risks: RiskItem[]) => {
+    setVerificationItems((prev) =>
+      prev.map((item) =>
+        item.id === itemId ? { ...item, riskCapture: risks } : item,
+      ),
+    );
+  };
+
   const handleSave = async () => {
     setIsSubmitting(true);
 
