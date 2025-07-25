@@ -280,16 +280,32 @@ export function ProjectReadinessVerificationModal({
                           </div>
                         </div>
 
-                        {item.userComment && (
-                          <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg">
+                        {/* User Comment Section */}
+                        {item.userComment && item.userComment.trim() !== "" && (
+                          <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
                             <div className="flex items-center gap-2 mb-2">
-                              <MessageSquare className="w-4 h-4 text-blue-600" />
-                              <span className="text-sm font-medium text-blue-700">
-                                Komentar User:
+                              <MessageSquare className="w-4 h-4 text-green-600" />
+                              <span className="text-sm font-medium text-green-700">
+                                Keterangan User:
                               </span>
                             </div>
-                            <p className="text-sm text-blue-800 leading-relaxed">
+                            <p className="text-sm text-green-800 leading-relaxed">
                               {item.userComment}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Show placeholder if no user comment */}
+                        {(!item.userComment || item.userComment.trim() === "") && (
+                          <div className="bg-gray-50 border border-gray-200 p-3 rounded-lg">
+                            <div className="flex items-center gap-2 mb-1">
+                              <MessageSquare className="w-4 h-4 text-gray-400" />
+                              <span className="text-sm font-medium text-gray-500">
+                                Keterangan User:
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-500 italic">
+                              Tidak ada keterangan dari user untuk item ini
                             </p>
                           </div>
                         )}
