@@ -70,7 +70,7 @@ export default function Layout({ children }: LayoutProps) {
         {
           id: "verify-dashboard",
           label: "Dashbaord Risk Officer",
-          href: "verify-dashboard",
+          href: "/verify-dashboard",
           icon: TrendingUp,
         },
         {
