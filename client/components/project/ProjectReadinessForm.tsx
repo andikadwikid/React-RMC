@@ -262,7 +262,7 @@ export function ProjectReadinessForm({
                 item.id === itemId
                   ? {
                       ...item,
-                      userComments: item.userComments.map((comment) =>
+                      userComments: (item.userComments || []).map((comment) =>
                         comment.id === commentId
                           ? { ...comment, text }
                           : comment,
