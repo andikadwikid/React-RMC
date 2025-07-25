@@ -94,46 +94,20 @@ export function ProjectReadinessVerificationModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // Initialize verification items based on submission
-    const allItems: ReadinessItem[] = [];
+    // Load actual readiness items that user submitted for this project
+    const projectReadinessItems = getProjectReadinessItems(submission.projectId);
 
-    // First, use items directly from submission if they exist
-    if (submission.items && submission.items.length > 0) {
-      submission.items.forEach((item) => {
-        allItems.push({
-          id: item.id,
-          category: item.category,
-          item: item.item,
-          userStatus: item.userStatus,
-          verifierStatus: item.verifierStatus,
-          userComment: item.userComment || "",
-          verifierComment: item.verifierComment || "",
-          verifierName: item.verifierName,
-          verifiedAt: item.verifiedAt,
-        });
-      });
-    } else {
-      // Fallback to template-based initialization
-      Object.entries(READINESS_CATEGORIES).forEach(([category, items]) => {
-        items.forEach((item, index) => {
-          const existingItem = submission.items?.find(
-            (subItem) => subItem.category === category && subItem.item === item,
-          );
-
-          allItems.push({
-            id: existingItem?.id || `${category}-${index}`,
-            category,
-            item,
-            userStatus: existingItem?.userStatus || "tidak_tersedia",
-            verifierStatus: existingItem?.verifierStatus,
-            userComment: existingItem?.userComment || "",
-            verifierComment: existingItem?.verifierComment || "",
-            verifierName: existingItem?.verifierName,
-            verifiedAt: existingItem?.verifiedAt,
-          });
-        });
-      });
-    }
+    const allItems: ReadinessItem[] = projectReadinessItems.map((item) => ({
+      id: item.id,
+      category: item.category,
+      item: item.item,
+      userStatus: item.user_status,
+      verifierStatus: item.verifier_status || undefined,
+      userComment: item.user_comment || "",
+      verifierComment: item.verifier_comment || "",
+      verifierName: item.verifier_name || undefined,
+      verifiedAt: item.verified_at || undefined,
+    }));
 
     setVerificationItems(allItems);
   }, [submission]);
