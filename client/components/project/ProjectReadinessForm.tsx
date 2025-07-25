@@ -242,7 +242,6 @@ export function ProjectReadinessForm({
   // Reload data when projectId changes
   useEffect(() => {
     if (isOpen && projectId) {
-      console.log("🔄 Reloading data for projectId:", projectId);
       const newData = loadExistingReadinessData(projectId);
       setReadinessData(newData);
     }
