@@ -3,142 +3,465 @@
     "2024": [
       {
         "name": "DKI Jakarta",
-        "value": 12,
-        "revenue": 15800000000,
+        "value": 5,
+        "revenue": 8500000000,
         "projects": [
           "ERP System Bank Central",
           "Mobile Banking App",
-          "E-Government Portal",
-          "Smart City Dashboard",
-          "Fintech Integration"
+          "E-Government Portal"
         ]
       },
       {
         "name": "Jawa Barat",
-        "value": 8,
-        "revenue": 9200000000,
+        "value": 4,
+        "revenue": 5200000000,
         "projects": [
           "Manufacturing ERP",
           "Supply Chain Management",
-          "Hospital Information System",
-          "E-Commerce Platform"
+          "Hospital Information System"
         ]
       },
       {
         "name": "Jawa Tengah",
-        "value": 6,
-        "revenue": 6500000000,
+        "value": 3,
+        "revenue": 3500000000,
         "projects": [
           "Agricultural Management System",
-          "Tourism Portal",
-          "Educational Platform"
+          "Tourism Portal"
         ]
       },
       {
         "name": "Jawa Timur",
-        "value": 7,
-        "revenue": 8100000000,
+        "value": 3,
+        "revenue": 4100000000,
         "projects": [
           "Port Management System",
-          "Logistics Platform",
-          "Industrial IoT",
-          "Smart Factory"
+          "Logistics Platform"
         ]
       },
       {
         "name": "Sumatera Utara",
-        "value": 4,
-        "revenue": 4300000000,
-        "projects": ["Palm Oil Tracking", "Mining Management System"]
+        "value": 6,
+        "revenue": 7300000000,
+        "projects": [
+          "Palm Oil Tracking System",
+          "Mining Management System",
+          "Agricultural Processing Hub",
+          "Transportation Network",
+          "Smart Plantation Management"
+        ]
       },
       {
         "name": "Sumatera Barat",
+        "value": 5,
+        "revenue": 5800000000,
+        "projects": [
+          "Tourism Management System",
+          "Cultural Heritage Portal",
+          "Digital Marketplace Platform",
+          "Minang Culture App"
+        ]
+      },
+      {
+        "name": "Sumatera Selatan",
+        "value": 4,
+        "revenue": 4900000000,
+        "projects": [
+          "River Transport Management",
+          "Coal Mining Optimization",
+          "Fisheries Management System"
+        ]
+      },
+      {
+        "name": "Riau",
+        "value": 5,
+        "revenue": 6200000000,
+        "projects": [
+          "Oil & Gas Management",
+          "Industrial Park System",
+          "Smart Factory Automation",
+          "Environmental Monitoring"
+        ]
+      },
+      {
+        "name": "Jambi",
         "value": 3,
-        "revenue": 2800000000,
-        "projects": ["Tourism Management", "Cultural Heritage Portal"]
+        "revenue": 3400000000,
+        "projects": [
+          "Forest Management System",
+          "Agricultural Cooperative Platform"
+        ]
+      },
+      {
+        "name": "Lampung",
+        "value": 4,
+        "revenue": 4600000000,
+        "projects": [
+          "Pepper Export Management",
+          "Port Automation System",
+          "Agricultural Processing Hub"
+        ]
       },
       {
         "name": "Kalimantan Timur",
-        "value": 2,
-        "revenue": 3200000000,
-        "projects": ["Coal Mining System"]
+        "value": 7,
+        "revenue": 8800000000,
+        "projects": [
+          "Coal Mining Management",
+          "Smart Mining Operations",
+          "Environmental Compliance System",
+          "Industrial Logistics Platform",
+          "Energy Management System",
+          "Forest Conservation App"
+        ]
+      },
+      {
+        "name": "Kalimantan Selatan",
+        "value": 5,
+        "revenue": 6100000000,
+        "projects": [
+          "Diamond Mining System",
+          "River Transportation Hub",
+          "Agricultural Export Platform",
+          "Tourism Management System"
+        ]
+      },
+      {
+        "name": "Kalimantan Barat",
+        "value": 4,
+        "revenue": 4700000000,
+        "projects": [
+          "Border Trade Management",
+          "Cross-Border Logistics",
+          "Agriculture Processing System"
+        ]
+      },
+      {
+        "name": "Kalimantan Tengah",
+        "value": 3,
+        "revenue": 3800000000,
+        "projects": [
+          "Orangutan Conservation System",
+          "Eco-Tourism Platform"
+        ]
+      },
+      {
+        "name": "Kalimantan Utara",
+        "value": 3,
+        "revenue": 3600000000,
+        "projects": [
+          "Industrial Development Hub",
+          "Mining Equipment Management"
+        ]
       },
       {
         "name": "Sulawesi Selatan",
+        "value": 6,
+        "revenue": 7100000000,
+        "projects": [
+          "Fisheries Management System",
+          "Maritime Transportation Hub",
+          "Cocoa Export Platform",
+          "Smart Aquaculture System",
+          "Cultural Tourism App"
+        ]
+      },
+      {
+        "name": "Sulawesi Utara",
+        "value": 4,
+        "revenue": 4800000000,
+        "projects": [
+          "Marine Conservation System",
+          "Tourism Development Platform",
+          "Coconut Processing Hub"
+        ]
+      },
+      {
+        "name": "Sulawesi Tengah",
+        "value": 3,
+        "revenue": 3700000000,
+        "projects": [
+          "Nickel Mining System",
+          "National Park Management"
+        ]
+      },
+      {
+        "name": "Sulawesi Tenggara",
+        "value": 4,
+        "revenue": 4500000000,
+        "projects": [
+          "Mining Operations System",
+          "Maritime Logistics Platform",
+          "Agricultural Processing Hub"
+        ]
+      },
+      {
+        "name": "Gorontalo",
+        "value": 2,
+        "revenue": 2300000000,
+        "projects": [
+          "Corn Processing System",
+          "Educational Technology Platform"
+        ]
+      },
+      {
+        "name": "Sulawesi Barat",
         "value": 2,
         "revenue": 2100000000,
-        "projects": ["Fisheries Management"]
+        "projects": [
+          "Coffee Export Management",
+          "Community Development App"
+        ]
+      },
+      {
+        "name": "Nusa Tenggara Barat",
+        "value": 5,
+        "revenue": 5500000000,
+        "projects": [
+          "Tourism Management System",
+          "Halal Tourism Platform",
+          "Pearl Cultivation System",
+          "Disaster Management App"
+        ]
+      },
+      {
+        "name": "Nusa Tenggara Timur",
+        "value": 4,
+        "revenue": 4200000000,
+        "projects": [
+          "Livestock Management System",
+          "Sandalwood Trading Platform",
+          "Tourism Development Hub"
+        ]
+      },
+      {
+        "name": "Maluku",
+        "value": 4,
+        "revenue": 4300000000,
+        "projects": [
+          "Spice Trading Platform",
+          "Marine Conservation System",
+          "Inter-Island Transportation Hub"
+        ]
+      },
+      {
+        "name": "Maluku Utara",
+        "value": 3,
+        "revenue": 3400000000,
+        "projects": [
+          "Nutmeg Export Management",
+          "Fishing Fleet Management"
+        ]
+      },
+      {
+        "name": "Papua",
+        "value": 5,
+        "revenue": 6800000000,
+        "projects": [
+          "Mining Operations System",
+          "Indigenous Culture Preservation App",
+          "Remote Area Connectivity Platform",
+          "Natural Resource Management"
+        ]
+      },
+      {
+        "name": "Papua Barat",
+        "value": 4,
+        "revenue": 5200000000,
+        "projects": [
+          "Marine Park Management",
+          "Eco-Tourism Development",
+          "Fisheries Export System"
+        ]
       },
       {
         "name": "Bali",
-        "value": 1,
-        "revenue": 1500000000,
-        "projects": ["Resort Management System"]
+        "value": 4,
+        "revenue": 5500000000,
+        "projects": [
+          "Smart Tourism Management",
+          "Cultural Heritage Preservation",
+          "Hotel Management System"
+        ]
       }
     ],
     "2023": [
       {
         "name": "DKI Jakarta",
-        "value": 10,
-        "revenue": 13200000000,
+        "value": 4,
+        "revenue": 6200000000,
         "projects": [
           "Banking Core System",
           "Government Portal V1",
-          "Digital Payment Platform",
-          "Smart Transport"
+          "Digital Payment Platform"
         ]
       },
       {
         "name": "Jawa Barat",
-        "value": 6,
-        "revenue": 7800000000,
+        "value": 3,
+        "revenue": 4800000000,
         "projects": [
           "Factory Automation",
-          "Healthcare System",
-          "E-Commerce Backend"
+          "Healthcare System"
         ]
       },
       {
         "name": "Jawa Tengah",
-        "value": 5,
-        "revenue": 5200000000,
-        "projects": ["Agricultural Portal", "Education Management"]
+        "value": 2,
+        "revenue": 3200000000,
+        "projects": ["Agricultural Portal"]
       },
       {
         "name": "Jawa Timur",
-        "value": 6,
-        "revenue": 6900000000,
-        "projects": ["Port System V1", "Supply Chain", "Manufacturing IoT"]
+        "value": 3,
+        "revenue": 3900000000,
+        "projects": ["Port System V1", "Supply Chain"]
       },
       {
         "name": "Sumatera Utara",
-        "value": 3,
-        "revenue": 3500000000,
-        "projects": ["Mining System", "Plantation Management"]
+        "value": 5,
+        "revenue": 6500000000,
+        "projects": [
+          "Mining System V1",
+          "Plantation Management",
+          "Agricultural Hub",
+          "Transportation Network"
+        ]
       },
       {
         "name": "Sumatera Barat",
-        "value": 2,
-        "revenue": 2100000000,
-        "projects": ["Tourism Portal V1"]
+        "value": 4,
+        "revenue": 4100000000,
+        "projects": [
+          "Tourism Portal V1",
+          "Cultural App",
+          "Digital Marketplace"
+        ]
+      },
+      {
+        "name": "Sumatera Selatan",
+        "value": 3,
+        "revenue": 3800000000,
+        "projects": [
+          "River Management",
+          "Mining Operations"
+        ]
+      },
+      {
+        "name": "Riau",
+        "value": 4,
+        "revenue": 5100000000,
+        "projects": [
+          "Oil Management V1",
+          "Industrial System",
+          "Environmental Monitor"
+        ]
       },
       {
         "name": "Kalimantan Timur",
-        "value": 2,
-        "revenue": 2800000000,
-        "projects": ["Coal Management"]
+        "value": 6,
+        "revenue": 7200000000,
+        "projects": [
+          "Coal Management V1",
+          "Mining Operations",
+          "Environmental System",
+          "Logistics Platform V1"
+        ]
+      },
+      {
+        "name": "Kalimantan Selatan",
+        "value": 4,
+        "revenue": 4900000000,
+        "projects": [
+          "Diamond System",
+          "River Transport",
+          "Agricultural Export"
+        ]
+      },
+      {
+        "name": "Kalimantan Barat",
+        "value": 3,
+        "revenue": 3600000000,
+        "projects": [
+          "Border Trade",
+          "Cross-Border System"
+        ]
       },
       {
         "name": "Sulawesi Selatan",
-        "value": 1,
-        "revenue": 1600000000,
-        "projects": ["Marine System"]
+        "value": 5,
+        "revenue": 5800000000,
+        "projects": [
+          "Marine System V1",
+          "Maritime Hub",
+          "Cocoa Platform",
+          "Aquaculture System"
+        ]
+      },
+      {
+        "name": "Sulawesi Utara",
+        "value": 3,
+        "revenue": 3700000000,
+        "projects": [
+          "Marine Conservation",
+          "Tourism Platform"
+        ]
+      },
+      {
+        "name": "Nusa Tenggara Barat",
+        "value": 4,
+        "revenue": 4200000000,
+        "projects": [
+          "Tourism System V1",
+          "Halal Platform",
+          "Pearl System"
+        ]
+      },
+      {
+        "name": "Nusa Tenggara Timur",
+        "value": 3,
+        "revenue": 3300000000,
+        "projects": [
+          "Livestock System",
+          "Sandalwood Platform"
+        ]
+      },
+      {
+        "name": "Maluku",
+        "value": 3,
+        "revenue": 3100000000,
+        "projects": [
+          "Spice Platform V1",
+          "Marine System"
+        ]
+      },
+      {
+        "name": "Papua",
+        "value": 4,
+        "revenue": 5400000000,
+        "projects": [
+          "Mining System",
+          "Culture App",
+          "Connectivity Platform"
+        ]
+      },
+      {
+        "name": "Papua Barat",
+        "value": 3,
+        "revenue": 4100000000,
+        "projects": [
+          "Marine Park",
+          "Tourism Development"
+        ]
       },
       {
         "name": "Bali",
-        "value": 1,
-        "revenue": 1200000000,
-        "projects": ["Hotel Management"]
+        "value": 3,
+        "revenue": 4200000000,
+        "projects": [
+          "Hotel Management V1",
+          "Cultural Heritage"
+        ]
       }
     ]
   },
@@ -146,65 +469,170 @@
     "q4-2024": [
       {
         "name": "DKI Jakarta",
-        "value": 4,
-        "revenue": 5800000000,
-        "projects": ["Smart City Phase 2", "Fintech Integration"]
+        "value": 2,
+        "revenue": 3800000000,
+        "projects": ["Smart City Phase 2"]
       },
       {
         "name": "Jawa Barat",
-        "value": 3,
-        "revenue": 3200000000,
-        "projects": ["E-Commerce Platform", "Hospital System"]
+        "value": 2,
+        "revenue": 2200000000,
+        "projects": ["E-Commerce Platform"]
       },
       {
         "name": "Jawa Tengah",
-        "value": 2,
-        "revenue": 2500000000,
+        "value": 1,
+        "revenue": 1500000000,
         "projects": ["Educational Platform"]
       },
       {
-        "name": "Jawa Timur",
-        "value": 2,
-        "revenue": 2100000000,
-        "projects": ["Smart Factory"]
+        "name": "Sumatera Utara",
+        "value": 3,
+        "revenue": 3300000000,
+        "projects": [
+          "Mining Management Phase 2",
+          "Agricultural Processing",
+          "Smart Plantation"
+        ]
       },
       {
-        "name": "Sumatera Utara",
-        "value": 1,
-        "revenue": 1300000000,
-        "projects": ["Mining Management Phase 2"]
+        "name": "Sumatera Barat",
+        "value": 2,
+        "revenue": 2400000000,
+        "projects": [
+          "Tourism Management Phase 2",
+          "Digital Marketplace"
+        ]
+      },
+      {
+        "name": "Kalimantan Timur",
+        "value": 3,
+        "revenue": 3600000000,
+        "projects": [
+          "Smart Mining Phase 2",
+          "Environmental Compliance",
+          "Energy Management"
+        ]
+      },
+      {
+        "name": "Kalimantan Selatan",
+        "value": 2,
+        "revenue": 2700000000,
+        "projects": [
+          "Diamond Mining Phase 2",
+          "Tourism Management"
+        ]
+      },
+      {
+        "name": "Sulawesi Selatan",
+        "value": 3,
+        "revenue": 3400000000,
+        "projects": [
+          "Smart Aquaculture Phase 2",
+          "Maritime Hub Enhancement",
+          "Cultural Tourism"
+        ]
+      },
+      {
+        "name": "Nusa Tenggara Barat",
+        "value": 2,
+        "revenue": 2500000000,
+        "projects": [
+          "Halal Tourism Phase 2",
+          "Disaster Management"
+        ]
+      },
+      {
+        "name": "Papua",
+        "value": 2,
+        "revenue": 2800000000,
+        "projects": [
+          "Remote Connectivity Phase 2",
+          "Natural Resource Management"
+        ]
       }
     ],
     "q3-2024": [
       {
         "name": "DKI Jakarta",
-        "value": 3,
-        "revenue": 4200000000,
-        "projects": ["E-Government Portal", "Banking App"]
+        "value": 2,
+        "revenue": 3200000000,
+        "projects": ["E-Government Portal"]
       },
       {
         "name": "Jawa Barat",
-        "value": 2,
-        "revenue": 2800000000,
+        "value": 1,
+        "revenue": 1800000000,
         "projects": ["Supply Chain Management"]
       },
       {
         "name": "Jawa Tengah",
-        "value": 2,
-        "revenue": 2000000000,
+        "value": 1,
+        "revenue": 1200000000,
         "projects": ["Agricultural System"]
       },
       {
-        "name": "Jawa Timur",
-        "value": 3,
-        "revenue": 3800000000,
-        "projects": ["Port Management", "Industrial IoT"]
+        "name": "Sumatera Utara",
+        "value": 2,
+        "revenue": 2500000000,
+        "projects": [
+          "Palm Oil Tracking",
+          "Transportation Network"
+        ]
       },
       {
-        "name": "Sumatera Utara",
-        "value": 1,
-        "revenue": 1500000000,
-        "projects": ["Palm Oil Tracking"]
+        "name": "Riau",
+        "value": 2,
+        "revenue": 2400000000,
+        "projects": [
+          "Oil & Gas Management",
+          "Industrial Park"
+        ]
+      },
+      {
+        "name": "Kalimantan Timur",
+        "value": 2,
+        "revenue": 2800000000,
+        "projects": [
+          "Coal Mining Enhancement",
+          "Environmental Monitoring"
+        ]
+      },
+      {
+        "name": "Sulawesi Selatan",
+        "value": 2,
+        "revenue": 2300000000,
+        "projects": [
+          "Fisheries Management",
+          "Maritime Transportation"
+        ]
+      },
+      {
+        "name": "Sulawesi Utara",
+        "value": 2,
+        "revenue": 2200000000,
+        "projects": [
+          "Marine Conservation",
+          "Tourism Development"
+        ]
+      },
+      {
+        "name": "Nusa Tenggara Timur",
+        "value": 2,
+        "revenue": 2000000000,
+        "projects": [
+          "Livestock Management",
+          "Tourism Hub"
+        ]
+      },
+      {
+        "name": "Papua Barat",
+        "value": 2,
+        "revenue": 2100000000,
+        "projects": [
+          "Marine Park Management",
+          "Eco-Tourism"
+        ]
       }
     ]
   }
