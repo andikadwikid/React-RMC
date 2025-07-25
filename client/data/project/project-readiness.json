@@ -239,9 +239,9 @@
         }
       ],
       "user_comment": "Semua drawing teknis sudah tersedia",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Drawing sudah lengkap dan sesuai standar. Network infrastructure design sudah mempertimbangkan security requirements dengan baik.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T09:25:00Z",
       "created_at": "2024-01-20T10:30:00Z",
       "updated_at": "2024-01-20T10:30:00Z"
     },
