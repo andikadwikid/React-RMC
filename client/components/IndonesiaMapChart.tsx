@@ -188,8 +188,19 @@ const IndonesiaMapChart: React.FC = () => {
         setIsLoading(false);
       } catch (error) {
         console.error("Error initializing chart:", error);
-        setError(error instanceof Error ? error.message : "Terjadi kesalahan saat memuat peta");
+        // Still set loading to false so the chart container is visible
         setIsLoading(false);
+        // Try to show a basic chart or message in the chart container
+        if (chartRef.current) {
+          chartRef.current.innerHTML = `
+            <div class="flex items-center justify-center h-full bg-gray-50 rounded border border-gray-200">
+              <div class="text-center p-4">
+                <p class="text-gray-600 mb-2">Peta Indonesia tidak dapat dimuat</p>
+                <p class="text-sm text-gray-500">Gagal memuat library atau data peta</p>
+              </div>
+            </div>
+          `;
+        }
       }
     };
 
