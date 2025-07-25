@@ -104,7 +104,7 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
     (item) => item.verifier_comment,
   );
   console.log(
-    "✅ Items with verifier comments:",
+    "��� Items with verifier comments:",
     itemsWithVerifierComments.length,
   );
   itemsWithVerifierComments.forEach((item) => {
@@ -141,18 +141,11 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
         verifiedAt: item.verified_at,
       };
 
-      // Log each processed item
-      console.log(
-        `  📝 Processing item "${processedItem.title}": status="${processedItem.status}", comments=${processedItem.userComments.length}`,
-      );
-
       acc[item.category].push(processedItem);
       return acc;
     },
     {} as Record<string, any[]>,
   );
-
-  console.log("🗂️ Items grouped by category:", itemsByCategory);
 
   // Map to template structure with real data
   const template = getDefaultReadinessData();
