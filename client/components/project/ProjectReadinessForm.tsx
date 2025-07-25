@@ -191,14 +191,10 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
 
   console.log("🏁 Final result with categories:", result.length);
   result.forEach((category) => {
-    const itemsWithComments = category.items.filter(
-      (item) => item.verifierComment,
-    );
-    if (itemsWithComments.length > 0) {
-      console.log(
-        `  📂 Category "${category.title}" has ${itemsWithComments.length} items with verifier comments`,
-      );
-    }
+    console.log(`📂 Category "${category.title}":`);
+    category.items.forEach((item) => {
+      console.log(`  - ${item.title}: status="${item.status}", comments=${item.userComments?.length || 0}`);
+    });
   });
 
   return result;
