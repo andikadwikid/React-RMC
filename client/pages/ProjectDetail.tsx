@@ -1237,74 +1237,120 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             <Button
               size="lg"
               className={cn(
-                "h-14 w-14 rounded-full shadow-lg",
-                "bg-blue-600 hover:bg-blue-700 text-white",
-                "border-2 border-white",
-                "transition-all duration-200",
-                "hover:scale-105 active:scale-95",
+                "relative h-16 w-16 rounded-full shadow-xl",
+                "bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600",
+                "hover:from-blue-600 hover:via-blue-700 hover:to-purple-700",
+                "text-white border-4 border-white/20",
+                "transition-all duration-300 ease-out",
+                "hover:scale-110 active:scale-95",
+                "hover:shadow-2xl hover:shadow-blue-500/25",
+                "before:absolute before:inset-0 before:rounded-full",
+                "before:bg-gradient-to-br before:from-blue-400 before:to-purple-400",
+                "before:opacity-0 hover:before:opacity-20 before:transition-opacity",
+                "group"
               )}
             >
-              <Shield className="w-6 h-6" />
+              <div className="relative flex items-center justify-center">
+                <Shield className="w-7 h-7 group-hover:rotate-12 transition-transform duration-300" />
+                {readinessStatus && (
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full border-2 border-white animate-pulse flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                  </div>
+                )}
+              </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            sideOffset={8}
-            className="w-56 mb-2 shadow-xl"
+            sideOffset={12}
+            className="w-68 mb-4 shadow-2xl border-0 bg-white/95 backdrop-blur-md rounded-2xl overflow-hidden"
           >
-            <div className="p-2">
-              <p className="text-xs font-medium text-gray-500 mb-2 px-2">
-                Quick Actions
-              </p>
+            <div className="px-4 py-3 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border-b border-gray-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <Shield className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-gray-800">Quick Actions</h3>
+                  <p className="text-xs text-gray-500">Project assessments & tools</p>
+                </div>
+              </div>
             </div>
-            {readinessStatus && (
-              <DropdownMenuItem onClick={openReadinessResults} className="py-3">
-                <ClipboardCheck className="w-5 h-5 mr-3 text-blue-600" />
-                <div>
-                  <div className="font-medium">View Readiness Results</div>
-                  <div className="text-xs text-gray-500">
-                    View verification results
+
+            <div className="p-3 space-y-1">
+              {readinessStatus && (
+                <DropdownMenuItem onClick={openReadinessResults} className="rounded-xl py-4 px-3 hover:bg-blue-50 transition-all duration-200 group">
+                  <div className="flex items-center w-full">
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 group-hover:bg-blue-200 flex items-center justify-center mr-3 transition-colors">
+                      <ClipboardCheck className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-gray-800 text-sm">View Readiness Results</div>
+                      <div className="text-xs text-gray-500">Check verification status & feedback</div>
+                    </div>
+                    {readinessStatus === "verified" && (
+                      <CheckCircle className="w-4 h-4 text-green-500 ml-2" />
+                    )}
+                    {readinessStatus === "under_review" && (
+                      <Clock className="w-4 h-4 text-yellow-500 ml-2" />
+                    )}
+                  </div>
+                </DropdownMenuItem>
+              )}
+
+              {canEditReadiness(readinessStatus) && (
+                <DropdownMenuItem onClick={openReadinessForm} className="rounded-xl py-4 px-3 hover:bg-green-50 transition-all duration-200 group">
+                  <div className="flex items-center w-full">
+                    <div className="w-10 h-10 rounded-xl bg-green-100 group-hover:bg-green-200 flex items-center justify-center mr-3 transition-colors">
+                      <FileText className="w-5 h-5 text-green-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-gray-800 text-sm">
+                        {readinessStatus ? "Update Assessment" : "Create Assessment"}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {readinessStatus ? "Modify readiness data" : "Fill readiness assessment"}
+                      </div>
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+              )}
+
+              <DropdownMenuItem onClick={openRiskCaptureForm} className="rounded-xl py-4 px-3 hover:bg-orange-50 transition-all duration-200 group">
+                <div className="flex items-center w-full">
+                  <div className="w-10 h-10 rounded-xl bg-orange-100 group-hover:bg-orange-200 flex items-center justify-center mr-3 transition-colors">
+                    <Shield className="w-5 h-5 text-orange-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-semibold text-gray-800 text-sm">Risk Assessment</div>
+                    <div className="text-xs text-gray-500">Capture & analyze project risks</div>
                   </div>
                 </div>
               </DropdownMenuItem>
-            )}
-            {canEditReadiness(readinessStatus) && (
-              <DropdownMenuItem onClick={openReadinessForm} className="py-3">
-                <FileText className="w-5 h-5 mr-3 text-green-600" />
-                <div>
-                  <div className="font-medium">
-                    {readinessStatus ? "Update Assessment" : "Create Assessment"}
+
+              <div className="border-t border-gray-100 my-2"></div>
+
+              <DropdownMenuItem
+                onClick={generateReport}
+                disabled={isGeneratingReport}
+                className="rounded-xl py-4 px-3 hover:bg-purple-50 transition-all duration-200 group disabled:opacity-50"
+              >
+                <div className="flex items-center w-full">
+                  <div className="w-10 h-10 rounded-xl bg-purple-100 group-hover:bg-purple-200 flex items-center justify-center mr-3 transition-colors">
+                    <FileText className="w-5 h-5 text-purple-600" />
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {readinessStatus ? "Modify readiness data" : "Fill readiness assessment"}
+                  <div className="flex-1">
+                    <div className="font-semibold text-gray-800 text-sm">
+                      {isGeneratingReport ? "Generating..." : "Generate Report"}
+                    </div>
+                    <div className="text-xs text-gray-500">Download comprehensive project report</div>
                   </div>
+                  {isGeneratingReport && (
+                    <div className="w-4 h-4 border-2 border-purple-300 border-t-purple-600 rounded-full animate-spin ml-2"></div>
+                  )}
                 </div>
               </DropdownMenuItem>
-            )}
-            <DropdownMenuItem onClick={openRiskCaptureForm} className="py-3">
-              <Shield className="w-5 h-5 mr-3 text-orange-600" />
-              <div>
-                <div className="font-medium">Risk Assessment</div>
-                <div className="text-xs text-gray-500">
-                  Capture project risks
-                </div>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={generateReport}
-              disabled={isGeneratingReport}
-              className="py-3"
-            >
-              <FileText className="w-5 h-5 mr-3 text-green-600" />
-              <div>
-                <div className="font-medium">
-                  {isGeneratingReport ? "Generating..." : "Generate Report"}
-                </div>
-                <div className="text-xs text-gray-500">
-                  Download project report
-                </div>
-              </div>
-            </DropdownMenuItem>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
