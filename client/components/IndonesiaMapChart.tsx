@@ -56,10 +56,33 @@ const IndonesiaMapChart: React.FC = () => {
         // Load Highcharts
         const Highcharts = await loadHighchartsScripts();
 
-        // Fetch topology data
-        const topology: TopologyData = await fetch(
-          "https://code.highcharts.com/mapdata/countries/id/id-all.topo.json",
-        ).then((response) => response.json());
+        // Fetch topology data with error handling
+        let topology: TopologyData;
+        try {
+          const response = await fetch(
+            "https://code.highcharts.com/mapdata/countries/id/id-all.topo.json",
+            {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json',
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          topology = await response.json();
+        } catch (fetchError) {
+          console.error("Failed to fetch map topology data:", fetchError);
+          // Use a fallback or simplified topology if external data fails
+          topology = {
+            type: "Topology",
+            objects: {},
+            arcs: []
+          };
+        }
 
         // Prepare demo data
         const data: MapDataPoint[] = [
