@@ -195,11 +195,27 @@ const IndonesiaMapChart: React.FC = () => {
 
   return (
     <div className="w-full h-full">
-      <div
-        ref={chartRef}
-        className="w-full h-96 min-h-96"
-        style={{ minHeight: "400px" }}
-      />
+      {isLoading ? (
+        <div className="flex items-center justify-center h-96 min-h-96">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
+            <p className="text-sm text-gray-600">Memuat peta Indonesia...</p>
+          </div>
+        </div>
+      ) : error ? (
+        <div className="flex items-center justify-center h-96 min-h-96 bg-gray-50 rounded border-2 border-dashed border-gray-300">
+          <div className="text-center">
+            <p className="text-gray-600 mb-2">Peta Indonesia tidak dapat dimuat</p>
+            <p className="text-sm text-gray-500">{error}</p>
+          </div>
+        </div>
+      ) : (
+        <div
+          ref={chartRef}
+          className="w-full h-96 min-h-96"
+          style={{ minHeight: "400px" }}
+        />
+      )}
     </div>
   );
 };
