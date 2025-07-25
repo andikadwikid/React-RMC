@@ -72,7 +72,7 @@ export function RiskCaptureSection({
     const newRisk: RiskItem = {
       id: `risk-${readinessItemId}-${Date.now()}`,
       sasaran: readinessItemTitle,
-      kode: `${readinessItemId.toUpperCase()}-001`,
+      kode: "",
       taksonomi: "",
       peristiwaRisiko: "",
       sumberRisiko: "",
