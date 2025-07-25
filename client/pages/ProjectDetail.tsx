@@ -1006,6 +1006,14 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
         </TabsContent>
       </Tabs>
 
+      {/* Project Readiness Results */}
+      <ProjectReadinessResults
+        isOpen={readinessResults.isOpen}
+        onClose={closeReadinessResults}
+        projectId={readinessResults.projectId}
+        projectName={readinessResults.projectName}
+      />
+
       {/* Project Readiness Form */}
       <ProjectReadinessForm
         isOpen={readinessForm.isOpen}
