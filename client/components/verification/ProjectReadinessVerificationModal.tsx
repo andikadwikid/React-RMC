@@ -32,30 +32,12 @@ import { getProjectReadinessItems } from "@/utils/dataLoader";
 
 import type { ProjectReadinessVerificationModalProps } from "@/types";
 
-// Mock readiness categories and items
-const READINESS_CATEGORIES = {
-  Administrative: [
-    "Surat Izin Usaha",
-    "NPWP Perusahaan",
-    "Akta Pendirian Perusahaan",
-    "Surat Domisili Perusahaan",
-  ],
-  "User Data": [
-    "Master Data Customer",
-    "Master Data Supplier",
-    "Master Data Product/Service",
-  ],
-  Personnel: [
-    "CV Tim Project",
-    "Sertifikat Keahlian",
-    "Struktur Organisasi Tim",
-    "Job Description Role",
-  ],
-  "Legal & Financial": [
-    "Kontrak Kerjasama",
-    "Laporan Keuangan",
-    "Asuransi Project",
-  ],
+// Category display mapping for readiness items
+const CATEGORY_DISPLAY_NAMES = {
+  administrative: "Dokumen Administratif Lengkap",
+  "user-data": "Data dari User Tersedia",
+  personnel: "Personel Proyek Siap",
+  "legal-financial": "Legal & Finansial",
 };
 
 const STATUS_CONFIG = {
