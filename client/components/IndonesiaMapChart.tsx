@@ -10,13 +10,24 @@ interface TopologyData {
   [key: string]: any;
 }
 
+interface ProvinceData {
+  name: string;
+  value: number;
+  revenue: number;
+  projects: string[];
+}
+
+interface IndonesiaMapChartProps {
+  data: ProvinceData[];
+}
+
 declare global {
   interface Window {
     Highcharts: any;
   }
 }
 
-const IndonesiaMapChart: React.FC = () => {
+const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<any>(null);
   const [isLoading, setIsLoading] = useState(true);
