@@ -138,6 +138,36 @@ export const loadProjectReadinessData = () => {
   return projectReadinessData;
 };
 
+// Simple test function to verify data loading
+export const testDataLoading = () => {
+  console.log("Testing data loading...");
+  console.log("projectReadinessData:", projectReadinessData);
+  console.log("project_readiness array:", projectReadinessData.project_readiness);
+  console.log("readiness_items array:", projectReadinessData.readiness_items);
+
+  // Test specific project
+  const testProjectId = "550e8400-e29b-41d4-a716-446655440002";
+  console.log("Testing with project ID:", testProjectId);
+
+  const readiness = getProjectReadiness(testProjectId);
+  console.log("Found readiness for test project:", readiness);
+
+  if (readiness) {
+    const items = projectReadinessData.readiness_items.filter(
+      item => item.readiness_id === readiness.id
+    );
+    console.log("Found items for readiness:", items.length);
+
+    const itemsWithVerifierComments = items.filter(item => item.verifier_comment);
+    console.log("Items with verifier comments:", itemsWithVerifierComments.length);
+    itemsWithVerifierComments.forEach(item => {
+      console.log("- Item:", item.item, "Comment:", item.verifier_comment);
+    });
+  }
+
+  return true;
+};
+
 export const getReadinessTemplate = () => {
   return projectReadinessData.readinessTemplate;
 };
