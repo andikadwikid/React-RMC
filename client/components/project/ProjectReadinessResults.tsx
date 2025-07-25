@@ -125,12 +125,16 @@ const VERIFICATION_STATUS_CONFIG = {
 
 const loadReadinessResults = (projectId: string) => {
   const existingData = getProjectReadiness(projectId);
-  
+
   if (!existingData) {
     return null;
   }
 
   const readinessItems = getProjectReadinessItems(projectId);
+
+  if (readinessItems.length === 0) {
+    return null;
+  }
   
   const itemsByCategory = readinessItems.reduce(
     (acc, item) => {
