@@ -103,6 +103,7 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   // Load actual readiness items from JSON data
   const readinessItems = getProjectReadinessItems(projectId);
   console.log("📝 Found readiness items:", readinessItems.length);
+  console.log("📊 Raw readiness items:", readinessItems);
 
   // Log items with verifier comments
   const itemsWithVerifierComments = readinessItems.filter(
