@@ -151,10 +151,15 @@ export const getProjectReadiness = (projectId: string) => {
 };
 
 export const getProjectReadinessItems = (projectId: string) => {
+  console.log("DEBUG: getProjectReadinessItems called with projectId:", projectId);
   const readiness = getProjectReadiness(projectId);
-  if (!readiness) return [];
+  console.log("DEBUG: Found readiness:", readiness);
+  if (!readiness) {
+    console.log("DEBUG: No readiness found for projectId:", projectId);
+    return [];
+  }
 
-  return projectReadinessData.readiness_items
+  const items = projectReadinessData.readiness_items
     .filter((item) => item.readiness_id === readiness.id)
     .map((item) => ({
       ...item,
@@ -171,6 +176,15 @@ export const getProjectReadinessItems = (projectId: string) => {
             ]
           : []),
     }));
+
+  console.log("DEBUG: Found items:", items.length, "items");
+  items.forEach(item => {
+    if (item.verifier_comment) {
+      console.log("DEBUG: Item with verifier_comment:", item.item, "Comment:", item.verifier_comment);
+    }
+  });
+
+  return items;
 };
 
 // Risk capture data loaders
