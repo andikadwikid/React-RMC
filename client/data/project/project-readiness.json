@@ -167,6 +167,18 @@
       "item": "BA serah terima awal (jika ada)",
       "user_status": "parsial",
       "verifier_status": null,
+      "user_comments": [
+        {
+          "id": "comment-2-1",
+          "text": "Sebagian dokumen sudah diterima dari client",
+          "createdAt": "2024-01-20T10:30:00Z"
+        },
+        {
+          "id": "comment-2-2",
+          "text": "Masih menunggu dokumen teknis detil dan spesifikasi hardware",
+          "createdAt": "2024-01-20T11:15:00Z"
+        }
+      ],
       "user_comment": "Sebagian dokumen sudah diterima",
       "verifier_comment": null,
       "verifier_name": null,
