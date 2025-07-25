@@ -94,12 +94,12 @@
       "project_name": "Sistem ERP Perusahaan",
       "submitted_by": "Budi Santoso",
       "submitted_at": "2024-01-20T10:30:00Z",
-      "status": "submitted",
-      "verifier_name": null,
+      "status": "under_review",
+      "verifier_name": "John Risk Officer",
       "verified_at": null,
-      "overall_comment": null,
+      "overall_comment": "Sebagian besar dokumen sudah lengkap. Masih ada beberapa item yang perlu dilengkapi untuk dokumentasi teknis.",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-21T09:30:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655441002",
