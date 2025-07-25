@@ -84,6 +84,11 @@ export function RiskCaptureSection({
         dampak: 1,
         level: 1,
       },
+      risikoSaatIni: {
+        kejadian: 1,
+        dampak: 1,
+        level: 1,
+      },
       resikoAkhir: {
         kejadian: 1,
         dampak: 1,
