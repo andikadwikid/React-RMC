@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import type { ProjectReadiness, ReadinessItem, ReadinessStatus } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
+import { getProjectReadinessItems } from "@/utils/dataLoader";
 
 import type { ProjectReadinessVerificationModalProps } from "@/types";
 
