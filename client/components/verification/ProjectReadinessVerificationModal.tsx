@@ -96,7 +96,9 @@ export function ProjectReadinessVerificationModal({
 
   useEffect(() => {
     // Load actual readiness items that user submitted for this project
-    const projectReadinessItems = getProjectReadinessItems(submission.projectId);
+    const projectReadinessItems = getProjectReadinessItems(
+      submission.projectId,
+    );
 
     const allItems: ReadinessItem[] = projectReadinessItems.map((item) => ({
       id: item.id,
@@ -243,7 +245,9 @@ export function ProjectReadinessVerificationModal({
               <Card key={category}>
                 <CardHeader>
                   <CardTitle className="text-base">
-                    {CATEGORY_DISPLAY_NAMES[category as keyof typeof CATEGORY_DISPLAY_NAMES] || category}
+                    {CATEGORY_DISPLAY_NAMES[
+                      category as keyof typeof CATEGORY_DISPLAY_NAMES
+                    ] || category}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -297,12 +301,14 @@ export function ProjectReadinessVerificationModal({
                                       Keterangan #{index + 1}
                                     </span>
                                     <span className="text-xs text-gray-500">
-                                      {new Date(comment.createdAt).toLocaleString('id-ID', {
-                                        day: '2-digit',
-                                        month: '2-digit',
-                                        year: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit'
+                                      {new Date(
+                                        comment.createdAt,
+                                      ).toLocaleString("id-ID", {
+                                        day: "2-digit",
+                                        month: "2-digit",
+                                        year: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
                                       })}
                                     </span>
                                   </div>

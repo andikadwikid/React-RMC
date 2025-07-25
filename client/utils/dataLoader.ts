@@ -154,17 +154,23 @@ export const getProjectReadinessItems = (projectId: string) => {
   const readiness = getProjectReadiness(projectId);
   if (!readiness) return [];
 
-  return projectReadinessData.readiness_items.filter(
-    (item) => item.readiness_id === readiness.id,
-  ).map((item) => ({
-    ...item,
-    // Handle both old single comment and new multiple comments format
-    user_comments: item.user_comments || (item.user_comment ? [{
-      id: `legacy-${item.id}`,
-      text: item.user_comment,
-      createdAt: item.created_at || new Date().toISOString()
-    }] : [])
-  }));
+  return projectReadinessData.readiness_items
+    .filter((item) => item.readiness_id === readiness.id)
+    .map((item) => ({
+      ...item,
+      // Handle both old single comment and new multiple comments format
+      user_comments:
+        item.user_comments ||
+        (item.user_comment
+          ? [
+              {
+                id: `legacy-${item.id}`,
+                text: item.user_comment,
+                createdAt: item.created_at || new Date().toISOString(),
+              },
+            ]
+          : []),
+    }));
 };
 
 // Risk capture data loaders

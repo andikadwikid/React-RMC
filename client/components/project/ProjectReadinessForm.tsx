@@ -35,7 +35,11 @@ import {
   Plus,
   Trash2,
 } from "lucide-react";
-import { getReadinessTemplate, getProjectReadiness, getProjectReadinessItems } from "@/utils/dataLoader";
+import {
+  getReadinessTemplate,
+  getProjectReadiness,
+  getProjectReadinessItems,
+} from "@/utils/dataLoader";
 import type { ReadinessStatus } from "@/types";
 
 interface UserComment {
@@ -95,26 +99,35 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
   const readinessItems = getProjectReadinessItems(projectId);
 
   // Group items by category
-  const itemsByCategory = readinessItems.reduce((acc, item) => {
-    if (!acc[item.category]) {
-      acc[item.category] = [];
-    }
-    acc[item.category].push({
-      id: item.id,
-      title: item.item,
-      status: item.user_status,
-      userComments: item.user_comments || (item.user_comment ? [{
-        id: `legacy-${item.id}`,
-        text: item.user_comment,
-        createdAt: item.created_at || new Date().toISOString(),
-      }] : []),
-      verifierStatus: item.verifier_status,
-      verifierComment: item.verifier_comment,
-      verifierName: item.verifier_name,
-      verifiedAt: item.verified_at,
-    });
-    return acc;
-  }, {} as Record<string, any[]>);
+  const itemsByCategory = readinessItems.reduce(
+    (acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push({
+        id: item.id,
+        title: item.item,
+        status: item.user_status,
+        userComments:
+          item.user_comments ||
+          (item.user_comment
+            ? [
+                {
+                  id: `legacy-${item.id}`,
+                  text: item.user_comment,
+                  createdAt: item.created_at || new Date().toISOString(),
+                },
+              ]
+            : []),
+        verifierStatus: item.verifier_status,
+        verifierComment: item.verifier_comment,
+        verifierName: item.verifier_name,
+        verifiedAt: item.verified_at,
+      });
+      return acc;
+    },
+    {} as Record<string, any[]>,
+  );
 
   // Map to template structure with real data
   return getDefaultReadinessData().map((category) => ({
@@ -222,7 +235,10 @@ export function ProjectReadinessForm({
               ...category,
               items: category.items.map((item) =>
                 item.id === itemId
-                  ? { ...item, userComments: [...item.userComments, newComment] }
+                  ? {
+                      ...item,
+                      userComments: [...item.userComments, newComment],
+                    }
                   : item,
               ),
             }
@@ -451,7 +467,8 @@ export function ProjectReadinessForm({
 
                           {item.userComments.length === 0 && (
                             <div className="text-sm text-gray-500 italic p-3 border border-dashed border-gray-300 rounded-lg text-center">
-                              Belum ada keterangan. Klik "Tambah Keterangan" untuk menambahkan.
+                              Belum ada keterangan. Klik "Tambah Keterangan"
+                              untuk menambahkan.
                             </div>
                           )}
 
@@ -514,13 +531,16 @@ export function ProjectReadinessForm({
                               </div>
                               {item.verifiedAt && (
                                 <span className="text-xs text-blue-600">
-                                  {new Date(item.verifiedAt).toLocaleString('id-ID', {
-                                    day: '2-digit',
-                                    month: '2-digit',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                  })}
+                                  {new Date(item.verifiedAt).toLocaleString(
+                                    "id-ID",
+                                    {
+                                      day: "2-digit",
+                                      month: "2-digit",
+                                      year: "numeric",
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    },
+                                  )}
                                 </span>
                               )}
                             </div>

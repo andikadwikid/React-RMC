@@ -7,6 +7,7 @@
 #### A. Kategori: Dokumen Administratif Lengkap
 
 **Item 1: Kontrak atau PO dari user**
+
 - **Status User**: Lengkap
 - **User Comments**:
   1. "Kontrak sudah ditandatangani dengan nomor ERP-2024-001 pada tanggal 15 Januari 2024"
@@ -19,6 +20,7 @@
 - **Verified At**: 2024-01-21T09:15:00Z
 
 **Item 2: BA serah terima awal (jika ada)**
+
 - **Status User**: Parsial
 - **User Comments**:
   1. "Sebagian dokumen sudah diterima dari client meliputi: business requirement dan functional specification"
@@ -26,12 +28,13 @@
   3. "Client berkomitmen melengkapi dokumen yang kurang dalam 3 hari kerja"
 - **Verifier Status**: Parsial
 - **Verifier Comment**: "Perlu dipastikan kelengkapan dokumen teknis sebelum project kick-off. Harap koordinasi dengan client untuk memastikan timeline penyerahan dokumen sesuai jadwal project. Dokumentasi yang sudah ada sudah memadai untuk tahap awal."
-- **Verified By**: Senior Risk Officer  
+- **Verified By**: Senior Risk Officer
 - **Verified At**: 2024-01-21T09:20:00Z
 
 #### B. Kategori: Data dari User Tersedia
 
 **Item 3: Drawing atau layout teknis terkini**
+
 - **Status User**: Lengkap
 - **User Comments**:
   1. "Drawing arsitektur dan layout sudah final versi 3.2, sudah termasuk perubahan dari client review terakhir"
@@ -44,6 +47,7 @@
 - **Verified At**: 2024-01-21T09:25:00Z
 
 **Item 4: Spesifikasi teknis atau SOW rinci**
+
 - **Status User**: Lengkap
 - **User Comments**:
   1. "SOW detail sudah disusun mengacu pada RFP dari client dengan 127 functional requirements"
@@ -57,7 +61,8 @@
 #### C. Kategori: Personel Proyek Siap
 
 **Item 5: Daftar personel dan penanggung jawab teknis**
-- **Status User**: Lengkap  
+
+- **Status User**: Lengkap
 - **User Comments**:
   1. "Tim project sudah terbentuk lengkap: 1 Project Manager, 2 Senior Developer, 3 Developer, 1 QA Engineer, 1 UI/UX Designer"
   2. "Technical lead sudah ditunjuk dengan pengalaman 8 tahun di ERP development"
@@ -68,6 +73,7 @@
 - **Verified At**: 2024-01-21T09:35:00Z
 
 **Item 6: Sertifikasi yang relevan (jika dibutuhkan)**
+
 - **Status User**: Parsial
 - **User Comments**:
   1. "Project Manager sudah certified PMP dan Scrum Master"
@@ -81,6 +87,7 @@
 #### D. Kategori: Legal & Finansial
 
 **Item 7: Proses tagging ke ERP proyek**
+
 - **Status User**: Lengkap
 - **User Comments**:
   1. "Project sudah di-setup di ERP dengan project code ERP-MFG-2024-001"
@@ -93,6 +100,7 @@
 - **Verified At**: 2024-01-21T09:45:00Z
 
 **Item 8: Verifikasi skema pembayaran dan milestone**
+
 - **Status User**: Lengkap
 - **User Comments**:
   1. "Payment scheme sudah disepakati: 30% down payment, 50% milestone payments (5 milestones), 20% final payment"
@@ -108,9 +116,10 @@
 
 ### 2. Project: Mobile Banking Application
 
-#### A. Kategori: Dokumen Administratif Lengkap  
+#### A. Kategori: Dokumen Administratif Lengkap
 
 **Item 1: Kontrak atau PO dari user**
+
 - **Status User**: Lengkap
 - **User Comments**:
   1. "Master agreement signed dengan Bank Central Indonesia, nilai kontrak 2.5M"
@@ -124,6 +133,7 @@
 #### B. Kategori: Legal & Finansial
 
 **Item 2: Verifikasi skema pembayaran dan milestone**
+
 - **Status User**: Lengkap
 - **User Comments**:
   1. "Payment terms: 25% after contract signing, 25% after UAT phase 1, 25% after security penetration testing, 25% after go-live"
@@ -142,6 +152,7 @@
 #### A. Kategori: Dokumen Administratif Lengkap
 
 **Item 1: Jadwal kerja disetujui**
+
 - **Status User**: Parsial
 - **User Comments**:
   1. "High-level timeline sudah approved: 6 bulan development, 2 bulan testing, 1 bulan deployment"
@@ -155,6 +166,7 @@
 #### B. Kategori: Personel Proyek Siap
 
 **Item 2: Approval SDM internal/outsourcing**
+
 - **Status User**: Tidak Tersedia
 - **User Comments**:
   1. "Budget request untuk 3 external developer sudah disubmit ke management"
@@ -216,7 +228,7 @@
 ## Database Implementation Notes
 
 1. **Backward Compatibility**: Field `user_comment` tetap ada untuk legacy support
-2. **Multiple Comments**: Table `readiness_user_comments` untuk flexible comment management  
+2. **Multiple Comments**: Table `readiness_user_comments` untuk flexible comment management
 3. **Performance**: Proper indexing untuk efficient querying
 4. **Data Integrity**: Foreign key constraints untuk data consistency
 5. **Audit Trail**: Timestamps untuk tracking comment creation dan updates

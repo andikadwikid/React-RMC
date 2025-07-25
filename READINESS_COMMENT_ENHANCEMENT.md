@@ -9,6 +9,7 @@ Peningkatan fitur Project Readiness Assessment dengan menambahkan kolom input ke
 ### 1. Frontend Components
 
 #### A. ProjectReadinessForm.tsx
+
 - **Added**: Textarea input untuk keterangan setiap readiness item
 - **Added**: `updateItemComment` function untuk menghandle update komentar
 - **Enhanced**: Layout UI untuk menampilkan textarea dengan proper labeling
@@ -20,6 +21,7 @@ Peningkatan fitur Project Readiness Assessment dengan menambahkan kolom input ke
   - Auto-resize disabled dengan fixed 2 rows
 
 #### B. Verification.tsx
+
 - **Added**: Display user comments di submission list
 - **Added**: Preview keterangan user dalam green-themed boxes
 - **Features**:
@@ -29,12 +31,14 @@ Peningkatan fitur Project Readiness Assessment dengan menambahkan kolom input ke
   - MessageSquare icon untuk visual indicator
 
 #### C. ProjectReadinessVerificationModal.tsx
+
 - **Already Available**: Display user comments dalam verification modal
 - **Features**: Blue-themed comment boxes showing user input
 
 ### 2. Database Design
 
 #### Updated Schema (DATABASE_DESIGN.md)
+
 ```sql
 CREATE TABLE readiness_items (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -55,11 +59,13 @@ CREATE TABLE readiness_items (
 ### 3. JSON Data Updates
 
 #### A. project-readiness.json
+
 - **Already contains**: User comments di `readiness_items` section
 - **Structure**: `user_comment` field untuk setiap item
 - **Examples**: Comments seperti "Kontrak sudah ditandatangani dan disimpan"
 
 #### B. submission-tracking.json
+
 - **Updated**: Added user comments untuk readiness submissions
 - **Enhanced**: Items array dengan realistic user comments
 - **Examples**:
@@ -70,6 +76,7 @@ CREATE TABLE readiness_items (
 ### 4. Type Definitions
 
 #### ReadinessItem Interface (types/index.ts)
+
 ```typescript
 export interface ReadinessItem {
   id: string;
@@ -87,6 +94,7 @@ export interface ReadinessItem {
 ## User Experience Flow
 
 ### 1. Input Phase (Project Readiness Form)
+
 1. User opens "Project Readiness Assessment" dialog
 2. For each readiness item:
    - User selects status (Lengkap/Parsial/Tidak Tersedia)
@@ -94,14 +102,16 @@ export interface ReadinessItem {
 3. Comments are saved with the assessment
 
 ### 2. Verification Phase (Verification Page)
+
 1. Verifier sees submission list dengan preview user comments
 2. Green-themed comment boxes show key user inputs
 3. Click "Review" to open detailed verification modal
 4. Modal shows full user comments untuk setiap item
 
 ### 3. Data Flow
+
 ```
-ProjectReadinessForm → user_comment field → JSON data → 
+ProjectReadinessForm → user_comment field → JSON data →
 Verification List (preview) → Verification Modal (full display)
 ```
 
@@ -116,16 +126,19 @@ Verification List (preview) → Verification Modal (full display)
 ## Technical Implementation
 
 ### Key Functions Added:
+
 - `updateItemComment()` - Handle comment updates
 - Enhanced `SubmissionsList` component - Display comment previews
 - Textarea component integration dengan proper validation
 
 ### Styling:
+
 - Green theme untuk user comments (berbeda dari verifier comments yang blue)
 - Responsive design dengan mobile-first approach
 - Consistent spacing dan typography
 
 ### Data Validation:
+
 - Optional field (tidak required)
 - Text area dengan reasonable character limits
 - Proper sanitization untuk security
@@ -141,11 +154,13 @@ Verification List (preview) → Verification Modal (full display)
 ## Testing Considerations
 
 1. **Functional Testing**:
+
    - Comment input dan save functionality
    - Display di verification list dan modal
    - Responsive behavior across devices
 
 2. **Data Testing**:
+
    - Comment persistence dalam JSON structure
    - Proper handling of empty/null comments
    - Special characters dan long text handling
