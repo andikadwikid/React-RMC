@@ -83,7 +83,7 @@ CREATE TYPE readiness_assessment_status AS ENUM ('submitted', 'under_review', 'v
 
 ### 4. **readiness_items**
 
-Tabel untuk item-item readiness individual dengan support user comment (keterangan)
+Tabel untuk item-item readiness individual dengan support multiple user comments
 
 ```sql
 CREATE TABLE readiness_items (
@@ -93,7 +93,7 @@ CREATE TABLE readiness_items (
     item VARCHAR(255) NOT NULL,
     user_status readiness_status NOT NULL,
     verifier_status readiness_status,
-    user_comment TEXT, -- Keterangan yang diinput user untuk setiap item readiness
+    user_comment TEXT, -- Legacy single comment (for backward compatibility)
     verifier_comment TEXT, -- Komentar verifier untuk setiap item
     verifier_name VARCHAR(255),
     verified_at TIMESTAMP WITH TIME ZONE,
@@ -103,6 +103,25 @@ CREATE TABLE readiness_items (
 
 -- Enum for readiness status
 CREATE TYPE readiness_status AS ENUM ('lengkap', 'parsial', 'tidak_tersedia');
+```
+
+### 4a. **readiness_user_comments** **NEW**
+
+Tabel untuk multiple user comments per readiness item
+
+```sql
+CREATE TABLE readiness_user_comments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    readiness_item_id UUID NOT NULL REFERENCES readiness_items(id) ON DELETE CASCADE,
+    comment_text TEXT NOT NULL,
+    comment_order INTEGER DEFAULT 1, -- Order of comments for display
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Index for performance
+CREATE INDEX idx_readiness_user_comments_item ON readiness_user_comments(readiness_item_id);
+CREATE INDEX idx_readiness_user_comments_order ON readiness_user_comments(readiness_item_id, comment_order);
 ```
 
 ### 5. **risk_captures**
