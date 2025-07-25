@@ -48,8 +48,9 @@ interface ReadinessItem {
 }
 import { formatDateTime } from "@/utils/formatters";
 import { getProjectReadinessItems } from "@/utils/dataLoader";
+import { RiskCaptureSection } from "./RiskCaptureSection";
 
-import type { ProjectReadinessVerificationModalProps } from "@/types";
+import type { ProjectReadinessVerificationModalProps, RiskItem } from "@/types";
 
 // Category display mapping for readiness items
 const CATEGORY_DISPLAY_NAMES = {
