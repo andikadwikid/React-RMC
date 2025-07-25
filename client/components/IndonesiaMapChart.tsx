@@ -116,44 +116,49 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
           };
         }
 
-        // Prepare demo data
-        const data: MapDataPoint[] = [
-          ["id-3700", 10],
-          ["id-ac", 11],
-          ["id-jt", 12],
-          ["id-be", 13],
-          ["id-bt", 14],
-          ["id-kb", 15],
-          ["id-bb", 16],
-          ["id-ba", 17],
-          ["id-ji", 18],
-          ["id-ks", 19],
-          ["id-nt", 20],
-          ["id-se", 21],
-          ["id-kr", 22],
-          ["id-ib", 23],
-          ["id-su", 24],
-          ["id-ri", 25],
-          ["id-sw", 26],
-          ["id-ku", 27],
-          ["id-la", 28],
-          ["id-sb", 29],
-          ["id-ma", 30],
-          ["id-nb", 31],
-          ["id-sg", 32],
-          ["id-st", 33],
-          ["id-pa", 34],
-          ["id-jr", 35],
-          ["id-ki", 36],
-          ["id-1024", 37],
-          ["id-jk", 38],
-          ["id-go", 39],
-          ["id-yo", 40],
-          ["id-sl", 41],
-          ["id-sr", 42],
-          ["id-ja", 43],
-          ["id-kt", 44],
-        ];
+        // Convert province data to map data format
+        const mapData: MapDataPoint[] = data.map((province, index) => {
+          // Map province names to Indonesian regional codes
+          const provinceCodeMap: { [key: string]: string } = {
+            "DKI Jakarta": "id-jk",
+            "Jawa Barat": "id-jr",
+            "Jawa Tengah": "id-ji",
+            "Jawa Timur": "id-jt",
+            "Yogyakarta": "id-yo",
+            "Banten": "id-bt",
+            "Bali": "id-ba",
+            "Nusa Tenggara Barat": "id-nb",
+            "Nusa Tenggara Timur": "id-nt",
+            "Kalimantan Barat": "id-kb",
+            "Kalimantan Tengah": "id-kt",
+            "Kalimantan Selatan": "id-ks",
+            "Kalimantan Timur": "id-ki",
+            "Kalimantan Utara": "id-ku",
+            "Sulawesi Utara": "id-su",
+            "Sulawesi Tengah": "id-st",
+            "Sulawesi Selatan": "id-sl",
+            "Sulawesi Tenggara": "id-sg",
+            "Gorontalo": "id-go",
+            "Sulawesi Barat": "id-sr",
+            "Maluku": "id-ma",
+            "Maluku Utara": "id-1024",
+            "Papua": "id-pa",
+            "Papua Barat": "id-pb",
+            "Sumatera Utara": "id-su",
+            "Sumatera Barat": "id-sb",
+            "Riau": "id-ri",
+            "Kepulauan Riau": "id-kr",
+            "Jambi": "id-ja",
+            "Sumatera Selatan": "id-ss",
+            "Bangka Belitung": "id-bb",
+            "Bengkulu": "id-be",
+            "Lampung": "id-la",
+            "Aceh": "id-ac",
+          };
+
+          const regionCode = provinceCodeMap[province.name] || `id-${index}`;
+          return [regionCode, province.value];
+        });
 
         // Create the chart
         if (chartRef.current) {
