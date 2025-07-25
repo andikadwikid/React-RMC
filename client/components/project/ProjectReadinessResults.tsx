@@ -63,6 +63,7 @@ interface ProjectReadinessResultsProps {
   onClose: () => void;
   projectId: string;
   projectName: string;
+  onEdit?: () => void;
 }
 
 const iconMap = {
