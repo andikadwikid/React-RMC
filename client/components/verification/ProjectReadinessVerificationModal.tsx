@@ -429,11 +429,11 @@ export function ProjectReadinessVerificationModal({
             const allRisks = verificationItems.flatMap(item => item.riskCapture || []);
             const totalRisks = allRisks.length;
             const riskSummary = {
-              sangatRendah: allRisks.filter(r => r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5).length,
-              rendah: allRisks.filter(r => r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10).length,
-              sedang: allRisks.filter(r => r.risikoAwal.level >= 11 && r.risikoAwal.level <= 15).length,
-              tinggi: allRisks.filter(r => r.risikoAwal.level >= 16 && r.risikoAwal.level <= 20).length,
-              sangatTinggi: allRisks.filter(r => r.risikoAwal.level >= 21 && r.risikoAwal.level <= 25).length,
+              sangatRendah: allRisks.filter(r => r.risikoSaatIni.level >= 1 && r.risikoSaatIni.level <= 5).length,
+              rendah: allRisks.filter(r => r.risikoSaatIni.level >= 6 && r.risikoSaatIni.level <= 10).length,
+              sedang: allRisks.filter(r => r.risikoSaatIni.level >= 11 && r.risikoSaatIni.level <= 15).length,
+              tinggi: allRisks.filter(r => r.risikoSaatIni.level >= 16 && r.risikoSaatIni.level <= 20).length,
+              sangatTinggi: allRisks.filter(r => r.risikoSaatIni.level >= 21 && r.risikoSaatIni.level <= 25).length,
             };
 
             return totalRisks > 0 ? (
