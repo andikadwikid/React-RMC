@@ -154,9 +154,9 @@
         }
       ],
       "user_comment": "Kontrak sudah ditandatangani dan disimpan",
-      "verifier_comment": null,
-      "verifier_name": null,
-      "verified_at": null,
+      "verifier_comment": "Kontrak sudah diverifikasi dan sesuai dengan standar legal. Nomor kontrak telah tercatat dengan benar di sistem.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T09:15:00Z",
       "created_at": "2024-01-20T10:30:00Z",
       "updated_at": "2024-01-20T10:30:00Z"
     },
