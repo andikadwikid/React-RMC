@@ -54,6 +54,7 @@ import {
   formatCurrencyShort,
   getStatusColor,
 } from "@/hooks/useDashboardCalculations";
+import IndonesiaMap from "@/components/IndonesiaMapChart";
 
 // Loading component
 function LoadingSpinner() {
@@ -777,10 +778,92 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
+        {/* Project per Provinsi */}
+
+        <Card className="my-10">
+          <CardHeader>
+            <div className="flex flex-col md:flex-row items-start justify-between gap-5">
+              <div className="flex items-center gap-2">
+                <div>
+                  <div className="flex gap-3">
+                    <BarChart3 className="h-6 w-6 text-blue-500" />
+                    <CardTitle>Distribusi Project per Provinsi</CardTitle>
+                  </div>
+                  <div className="flex items-center my-2">
+                    <p className="text-sm text-gray-600">
+                      {selectedGeographicPeriod.label}
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className={`ml-2 ${
+                        selectedGeographicPeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
+                      }`}
+                    >
+                      {selectedGeographicPeriod.type === "yearly" ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
+              <PeriodSelector
+                periods={availableGeographicPeriods}
+                selectedPeriod={selectedGeographicPeriod}
+                onPeriodChange={handleGeographicPeriodChange}
+                className="mb-3"
+              />
+            </div>
+
+            <FallbackMessage
+              title="Menampilkan Data Geografis Triwulan"
+              description={`Data distribusi proyek tahun ${new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.`}
+              show={shouldShowFallbackMessage(
+                geographicAutoSelected,
+                selectedGeographicPeriod,
+              )}
+            />
+
+            <InsightCardsGrid
+              insights={(() => {
+                const insights = getGeographicInsights(provinceData);
+                return [
+                  {
+                    title: "Total Proyek",
+                    value: insights.totalProjects,
+                    bgColor: "bg-blue-50",
+                    textColor: "text-blue-800",
+                  },
+                  {
+                    title: "Total Revenue",
+                    value: formatCurrencyShort(insights.totalRevenue),
+                    bgColor: "bg-green-50",
+                    textColor: "text-green-800",
+                  },
+                ];
+              })()}
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3"
+            />
+          </CardHeader>
+          <CardContent>
+            {/* <ProjectDistributionChart data={provinceData} title="" /> */}
+            <IndonesiaMap />
+          </CardContent>
+        </Card>
         {/* Charts Section - Geographic Distribution and Risk Capture - Row 5 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 sm:mb-8">
           {/* Geographic Distribution Chart */}
-          <Card>
+          {/* <Card>
             <CardHeader>
               <div className="flex flex-col md:flex-row items-start justify-between gap-5">
                 <div className="flex items-center gap-2">
@@ -834,7 +917,6 @@ export default function Dashboard() {
                 )}
               />
 
-              {/* Geographic Insights */}
               <InsightCardsGrid
                 insights={(() => {
                   const insights = getGeographicInsights(provinceData);
@@ -859,7 +941,7 @@ export default function Dashboard() {
             <CardContent>
               <ProjectDistributionChart data={provinceData} title="" />
             </CardContent>
-          </Card>
+          </Card> */}
 
           <Card>
             <CardHeader>

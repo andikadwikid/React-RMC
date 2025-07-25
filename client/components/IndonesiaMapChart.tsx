@@ -1,220 +1,168 @@
-import { useEffect, useRef } from "react";
-import * as Highcharts from "highcharts";
-import HighchartsMap from "highcharts/modules/map";
+import React, { useEffect, useRef } from "react";
 
-// Initialize the map module
-if (typeof Highcharts === "object") {
-  HighchartsMap(Highcharts);
+// Define types for the component
+interface MapDataPoint {
+  0: string; // region code
+  1: number; // value
 }
 
-import type { RegionData, IndonesiaMapChartProps } from "@/types";
-
-// Extended props for this specific implementation
-interface ExtendedIndonesiaMapChartProps extends IndonesiaMapChartProps {
-  title?: string;
+interface TopologyData {
+  [key: string]: any;
 }
 
-export default function IndonesiaMapChart({
-  data,
-  title = "Distribusi Project per Provinsi",
-}: ExtendedIndonesiaMapChartProps) {
+declare global {
+  interface Window {
+    Highcharts: any;
+  }
+}
+
+const IndonesiaMapChart: React.FC = () => {
   const chartRef = useRef<HTMLDivElement>(null);
-  const chartInstance = useRef<Highcharts.Chart | null>(null);
+  const chartInstance = useRef<any>(null);
 
   useEffect(() => {
-    if (!chartRef.current) return;
+    // Load Highcharts scripts dynamically
+    const loadHighchartsScripts = async () => {
+      // Load main Highmaps library
+      if (!window.Highcharts) {
+        const highmapsScript = document.createElement("script");
+        highmapsScript.src = "https://code.highcharts.com/maps/highmaps.js";
+        highmapsScript.async = true;
+        document.head.appendChild(highmapsScript);
 
-    // Simplified Indonesia map data (major provinces)
-    const indonesiaMapData = [
-      {
-        "hc-key": "id-jk",
-        name: "DKI Jakarta",
-        path: "M 400 200 L 420 200 L 420 220 L 400 220 Z",
-      },
-      {
-        "hc-key": "id-jr",
-        name: "Jawa Barat",
-        path: "M 380 210 L 430 210 L 430 240 L 380 240 Z",
-      },
-      {
-        "hc-key": "id-jt",
-        name: "Jawa Tengah",
-        path: "M 430 210 L 480 210 L 480 240 L 430 240 Z",
-      },
-      {
-        "hc-key": "id-ji",
-        name: "Jawa Timur",
-        path: "M 480 210 L 530 210 L 530 240 L 480 240 Z",
-      },
-      {
-        "hc-key": "id-su",
-        name: "Sumatera Utara",
-        path: "M 200 100 L 250 100 L 250 150 L 200 150 Z",
-      },
-      {
-        "hc-key": "id-sb",
-        name: "Sumatera Barat",
-        path: "M 180 150 L 230 150 L 230 200 L 180 200 Z",
-      },
-      {
-        "hc-key": "id-ri",
-        name: "Riau",
-        path: "M 230 120 L 280 120 L 280 170 L 230 170 Z",
-      },
-      {
-        "hc-key": "id-ss",
-        name: "Sumatera Selatan",
-        path: "M 200 200 L 250 200 L 250 250 L 200 250 Z",
-      },
-      {
-        "hc-key": "id-kb",
-        name: "Kalimantan Barat",
-        path: "M 300 150 L 350 150 L 350 200 L 300 200 Z",
-      },
-      {
-        "hc-key": "id-kt",
-        name: "Kalimantan Tengah",
-        path: "M 350 150 L 400 150 L 400 200 L 350 200 Z",
-      },
-      {
-        "hc-key": "id-ks",
-        name: "Kalimantan Selatan",
-        path: "M 350 200 L 400 200 L 400 250 L 350 250 Z",
-      },
-      {
-        "hc-key": "id-ki",
-        name: "Kalimantan Timur",
-        path: "M 400 120 L 450 120 L 450 180 L 400 180 Z",
-      },
-      {
-        "hc-key": "id-sl",
-        name: "Sulawesi",
-        path: "M 500 150 L 580 150 L 580 250 L 500 250 Z",
-      },
-      {
-        "hc-key": "id-ba",
-        name: "Bali",
-        path: "M 530 240 L 560 240 L 560 260 L 530 260 Z",
-      },
-      {
-        "hc-key": "id-nb",
-        name: "Nusa Tenggara Barat",
-        path: "M 560 240 L 590 240 L 590 260 L 560 260 Z",
-      },
-      {
-        "hc-key": "id-nt",
-        name: "Nusa Tenggara Timur",
-        path: "M 590 240 L 620 240 L 620 260 L 590 260 Z",
-      },
-      {
-        "hc-key": "id-pa",
-        name: "Papua",
-        path: "M 650 200 L 750 200 L 750 300 L 650 300 Z",
-      },
-      {
-        "hc-key": "id-ma",
-        name: "Maluku",
-        path: "M 600 150 L 650 150 L 650 200 L 600 200 Z",
-      },
-    ];
+        await new Promise((resolve) => {
+          highmapsScript.onload = resolve;
+        });
+      }
 
-    const chartOptions: Highcharts.Options = {
-      chart: {
-        map: indonesiaMapData as any,
-        backgroundColor: "transparent",
-        height: 400,
-      },
-      title: {
-        text: title,
-        style: {
-          fontSize: "16px",
-          fontWeight: "600",
-          color: "#1f2937",
-        },
-      },
-      mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-          verticalAlign: "bottom",
-        },
-      },
-      colorAxis: {
-        min: 0,
-        minColor: "#e0f2fe",
-        maxColor: "#0369a1",
-        labels: {
-          style: {
-            color: "#6b7280",
-            fontSize: "12px",
-          },
-        },
-      },
-      legend: {
-        align: "right",
-        verticalAlign: "middle",
-        layout: "vertical",
-        itemStyle: {
-          fontSize: "12px",
-          color: "#6b7280",
-        },
-      },
-      series: [
-        {
-          type: "map",
-          name: "Jumlah Project",
-          data: data,
-          borderColor: "#e5e7eb",
-          borderWidth: 1,
-          states: {
-            hover: {
-              color: "#1d4ed8",
-              borderColor: "#1e40af",
-              borderWidth: 2,
-            },
-          },
-          dataLabels: {
-            enabled: true,
-            format: "{point.value}",
-            style: {
-              fontSize: "10px",
-              fontWeight: "bold",
-              color: "#ffffff",
-              textOutline: "1px contrast",
-            },
-          },
-          tooltip: {
-            pointFormat:
-              "<b>{point.name}</b><br/>Jumlah Project: <b>{point.value}</b><br/>Projects: {point.projects}",
-          },
-        } as any,
-      ],
-      credits: {
-        enabled: false,
-      },
-      exporting: {
-        enabled: false,
-      },
+      // Load exporting module
+      if (!window.Highcharts.exporting) {
+        const exportingScript = document.createElement("script");
+        exportingScript.src =
+          "https://code.highcharts.com/maps/modules/exporting.js";
+        exportingScript.async = true;
+        document.head.appendChild(exportingScript);
+
+        await new Promise((resolve) => {
+          exportingScript.onload = resolve;
+        });
+      }
+
+      return window.Highcharts;
     };
 
-    // Destroy existing chart if it exists
-    if (chartInstance.current) {
-      chartInstance.current.destroy();
-    }
+    const initializeChart = async () => {
+      try {
+        // Load Highcharts
+        const Highcharts = await loadHighchartsScripts();
 
-    // Create new chart
-    chartInstance.current = Highcharts.mapChart(chartRef.current, chartOptions);
+        // Fetch topology data
+        const topology: TopologyData = await fetch(
+          "https://code.highcharts.com/mapdata/countries/id/id-all.topo.json",
+        ).then((response) => response.json());
 
+        // Prepare demo data
+        const data: MapDataPoint[] = [
+          ["id-3700", 10],
+          ["id-ac", 11],
+          ["id-jt", 12],
+          ["id-be", 13],
+          ["id-bt", 14],
+          ["id-kb", 15],
+          ["id-bb", 16],
+          ["id-ba", 17],
+          ["id-ji", 18],
+          ["id-ks", 19],
+          ["id-nt", 20],
+          ["id-se", 21],
+          ["id-kr", 22],
+          ["id-ib", 23],
+          ["id-su", 24],
+          ["id-ri", 25],
+          ["id-sw", 26],
+          ["id-ku", 27],
+          ["id-la", 28],
+          ["id-sb", 29],
+          ["id-ma", 30],
+          ["id-nb", 31],
+          ["id-sg", 32],
+          ["id-st", 33],
+          ["id-pa", 34],
+          ["id-jr", 35],
+          ["id-ki", 36],
+          ["id-1024", 37],
+          ["id-jk", 38],
+          ["id-go", 39],
+          ["id-yo", 40],
+          ["id-sl", 41],
+          ["id-sr", 42],
+          ["id-ja", 43],
+          ["id-kt", 44],
+        ];
+
+        // Create the chart
+        if (chartRef.current) {
+          chartInstance.current = Highcharts.mapChart(chartRef.current, {
+            chart: {
+              map: topology,
+            },
+
+            title: {
+              text: "Distribusi Project Data di Indonesia",
+            },
+
+            mapNavigation: {
+              enabled: true,
+              buttonOptions: {
+                verticalAlign: "bottom",
+              },
+            },
+
+            colorAxis: {
+              min: 0,
+            },
+
+            series: [
+              {
+                data: data,
+                name: "Random data",
+                states: {
+                  hover: {
+                    color: "#BADA55",
+                  },
+                },
+                dataLabels: {
+                  enabled: true,
+                  format: "{point.name}",
+                },
+              },
+            ],
+          });
+        }
+      } catch (error) {
+        console.error("Error initializing chart:", error);
+      }
+    };
+
+    initializeChart();
+
+    // Cleanup function
     return () => {
       if (chartInstance.current) {
         chartInstance.current.destroy();
-        chartInstance.current = null;
       }
     };
-  }, [data, title]);
+  }, []);
 
   return (
-    <div className="w-full">
-      <div ref={chartRef} className="w-full" />
+    <div className="w-full h-full">
+      <div
+        ref={chartRef}
+        className="w-full h-96 min-h-96"
+        style={{ minHeight: "400px" }}
+      />
     </div>
   );
-}
+};
+
+export default IndonesiaMapChart;
