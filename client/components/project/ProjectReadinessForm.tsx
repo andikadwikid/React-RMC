@@ -170,6 +170,9 @@ const loadExistingReadinessData = (projectId: string): ReadinessCategory[] => {
           (existing) => existing.title === templateItem.title
         );
 
+        console.log(`🔍 Looking for template item "${templateItem.title}" in category ${category.id}`);
+        console.log(`  Found existing item:`, existingItem ? existingItem.title : 'NOT FOUND');
+
         if (existingItem) {
           // Use existing data for this item
           return existingItem;
