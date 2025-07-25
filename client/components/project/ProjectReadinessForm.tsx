@@ -198,9 +198,11 @@ export function ProjectReadinessForm({
   projectName,
   onSave,
 }: ProjectReadinessFormProps) {
-  const [readinessData, setReadinessData] = useState<ReadinessCategory[]>(() =>
-    loadExistingReadinessData(projectId),
-  );
+  const [readinessData, setReadinessData] = useState<ReadinessCategory[]>(() => {
+    console.log("ProjectReadinessForm initializing for projectId:", projectId);
+    testDataLoading(); // Run test to verify data loading
+    return loadExistingReadinessData(projectId);
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateItemStatus = (
