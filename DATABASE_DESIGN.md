@@ -607,7 +607,7 @@ LEFT JOIN risk_capture_verification_assignments rcva ON u.id = rcva.assigned_to
 WHERE u.role = 'risk_officer' AND u.is_active = true
 GROUP BY u.id, u.full_name, u.department;
 
--- Readiness status view
+-- Readiness status view with comments statistics
 CREATE VIEW readiness_status_summary AS
 SELECT
     pr.project_id,
@@ -621,6 +621,10 @@ SELECT
     COUNT(CASE WHEN ri.verifier_status = 'lengkap' THEN 1 END) as verified_lengkap,
     COUNT(CASE WHEN ri.verifier_status = 'parsial' THEN 1 END) as verified_parsial,
     COUNT(CASE WHEN ri.verifier_status = 'tidak_tersedia' THEN 1 END) as verified_tidak_tersedia,
+    COUNT(CASE WHEN ri.user_comment IS NOT NULL OR EXISTS(
+        SELECT 1 FROM readiness_user_comments ruc WHERE ruc.readiness_item_id = ri.id
+    ) THEN 1 END) as items_with_user_comments,
+    COUNT(CASE WHEN ri.verifier_comment IS NOT NULL AND ri.verifier_comment != '' THEN 1 END) as items_with_verifier_comments,
     ROUND(
         (COUNT(CASE WHEN ri.user_status = 'lengkap' THEN 1 END) * 100.0 +
          COUNT(CASE WHEN ri.user_status = 'parsial' THEN 1 END) * 50.0) /
@@ -634,6 +638,36 @@ SELECT
 FROM project_readiness pr
 LEFT JOIN readiness_items ri ON pr.id = ri.readiness_id
 GROUP BY pr.project_id, pr.status, pr.verifier_name, pr.verified_at;
+
+-- Readiness comments detail view **NEW**
+CREATE VIEW readiness_comments_detail AS
+SELECT
+    ri.id as item_id,
+    ri.readiness_id,
+    ri.category,
+    ri.item,
+    ri.user_status,
+    ri.verifier_status,
+    ri.verifier_comment,
+    ri.verifier_name,
+    ri.verified_at,
+    COALESCE(comment_stats.total_user_comments, 0) as total_user_comments,
+    COALESCE(comment_stats.latest_comment_date, ri.created_at) as latest_user_comment_date,
+    comment_stats.first_comment_date,
+    CASE
+        WHEN ri.verifier_comment IS NOT NULL AND ri.verifier_comment != '' THEN true
+        ELSE false
+    END as has_verifier_feedback
+FROM readiness_items ri
+LEFT JOIN (
+    SELECT
+        readiness_item_id,
+        COUNT(*) as total_user_comments,
+        MIN(created_at) as first_comment_date,
+        MAX(created_at) as latest_comment_date
+    FROM readiness_user_comments
+    GROUP BY readiness_item_id
+) comment_stats ON ri.id = comment_stats.readiness_item_id;
 
 -- Verification workload view
 CREATE VIEW verifier_workload AS
