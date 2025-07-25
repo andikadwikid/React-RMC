@@ -127,6 +127,21 @@ export function RiskCaptureSection({
     onRiskCaptureChange(readinessItemId, updatedRisks);
   };
 
+  const handleKodeSelection = (riskId: string, kode: string) => {
+    const selectedTaksonomi = taksonomiData.taksonomi.find(t => t.kode === kode);
+    const updatedRisks = riskCapture.map((risk) => {
+      if (risk.id !== riskId) return risk;
+
+      return {
+        ...risk,
+        kode: kode,
+        taksonomi: selectedTaksonomi ? selectedTaksonomi.taksonomi : "",
+      };
+    });
+
+    onRiskCaptureChange(readinessItemId, updatedRisks);
+  };
+
   const totalRisks = riskCapture.length;
   const riskSummary = {
     sangatRendah: riskCapture.filter(
