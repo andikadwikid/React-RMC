@@ -152,14 +152,26 @@ export function ProjectReadinessVerificationModal({
 
     try {
       // Calculate total risk capture summary across all readiness items
-      const allRisks = verificationItems.flatMap(item => item.riskCapture || []);
+      const allRisks = verificationItems.flatMap(
+        (item) => item.riskCapture || [],
+      );
       const totalRiskCapture = allRisks.length;
       const riskLevelDistribution = {
-        sangatRendah: allRisks.filter(r => r.risikoSaatIni.level >= 1 && r.risikoSaatIni.level <= 5).length,
-        rendah: allRisks.filter(r => r.risikoSaatIni.level >= 6 && r.risikoSaatIni.level <= 10).length,
-        sedang: allRisks.filter(r => r.risikoSaatIni.level >= 11 && r.risikoSaatIni.level <= 15).length,
-        tinggi: allRisks.filter(r => r.risikoSaatIni.level >= 16 && r.risikoSaatIni.level <= 20).length,
-        sangatTinggi: allRisks.filter(r => r.risikoSaatIni.level >= 21 && r.risikoSaatIni.level <= 25).length,
+        sangatRendah: allRisks.filter(
+          (r) => r.risikoSaatIni.level >= 1 && r.risikoSaatIni.level <= 5,
+        ).length,
+        rendah: allRisks.filter(
+          (r) => r.risikoSaatIni.level >= 6 && r.risikoSaatIni.level <= 10,
+        ).length,
+        sedang: allRisks.filter(
+          (r) => r.risikoSaatIni.level >= 11 && r.risikoSaatIni.level <= 15,
+        ).length,
+        tinggi: allRisks.filter(
+          (r) => r.risikoSaatIni.level >= 16 && r.risikoSaatIni.level <= 20,
+        ).length,
+        sangatTinggi: allRisks.filter(
+          (r) => r.risikoSaatIni.level >= 21 && r.risikoSaatIni.level <= 25,
+        ).length,
       };
 
       const verificationData = {
@@ -426,14 +438,30 @@ export function ProjectReadinessVerificationModal({
 
           {/* Risk Capture Summary */}
           {(() => {
-            const allRisks = verificationItems.flatMap(item => item.riskCapture || []);
+            const allRisks = verificationItems.flatMap(
+              (item) => item.riskCapture || [],
+            );
             const totalRisks = allRisks.length;
             const riskSummary = {
-              sangatRendah: allRisks.filter(r => r.risikoSaatIni.level >= 1 && r.risikoSaatIni.level <= 5).length,
-              rendah: allRisks.filter(r => r.risikoSaatIni.level >= 6 && r.risikoSaatIni.level <= 10).length,
-              sedang: allRisks.filter(r => r.risikoSaatIni.level >= 11 && r.risikoSaatIni.level <= 15).length,
-              tinggi: allRisks.filter(r => r.risikoSaatIni.level >= 16 && r.risikoSaatIni.level <= 20).length,
-              sangatTinggi: allRisks.filter(r => r.risikoSaatIni.level >= 21 && r.risikoSaatIni.level <= 25).length,
+              sangatRendah: allRisks.filter(
+                (r) => r.risikoSaatIni.level >= 1 && r.risikoSaatIni.level <= 5,
+              ).length,
+              rendah: allRisks.filter(
+                (r) =>
+                  r.risikoSaatIni.level >= 6 && r.risikoSaatIni.level <= 10,
+              ).length,
+              sedang: allRisks.filter(
+                (r) =>
+                  r.risikoSaatIni.level >= 11 && r.risikoSaatIni.level <= 15,
+              ).length,
+              tinggi: allRisks.filter(
+                (r) =>
+                  r.risikoSaatIni.level >= 16 && r.risikoSaatIni.level <= 20,
+              ).length,
+              sangatTinggi: allRisks.filter(
+                (r) =>
+                  r.risikoSaatIni.level >= 21 && r.risikoSaatIni.level <= 25,
+              ).length,
             };
 
             return totalRisks > 0 ? (
@@ -447,27 +475,41 @@ export function ProjectReadinessVerificationModal({
                 <CardContent>
                   <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900">{totalRisks}</div>
+                      <div className="text-2xl font-bold text-gray-900">
+                        {totalRisks}
+                      </div>
                       <div className="text-xs text-gray-600">Total Risks</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-green-700">{riskSummary.sangatRendah}</div>
-                      <div className="text-xs text-green-600">Sangat Rendah</div>
+                      <div className="text-xl font-bold text-green-700">
+                        {riskSummary.sangatRendah}
+                      </div>
+                      <div className="text-xs text-green-600">
+                        Sangat Rendah
+                      </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-yellow-700">{riskSummary.rendah}</div>
+                      <div className="text-xl font-bold text-yellow-700">
+                        {riskSummary.rendah}
+                      </div>
                       <div className="text-xs text-yellow-600">Rendah</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-orange-700">{riskSummary.sedang}</div>
+                      <div className="text-xl font-bold text-orange-700">
+                        {riskSummary.sedang}
+                      </div>
                       <div className="text-xs text-orange-600">Sedang</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-red-700">{riskSummary.tinggi}</div>
+                      <div className="text-xl font-bold text-red-700">
+                        {riskSummary.tinggi}
+                      </div>
                       <div className="text-xs text-red-600">Tinggi</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-red-900">{riskSummary.sangatTinggi}</div>
+                      <div className="text-xl font-bold text-red-900">
+                        {riskSummary.sangatTinggi}
+                      </div>
                       <div className="text-xs text-red-800">Sangat Tinggi</div>
                     </div>
                   </div>

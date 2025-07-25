@@ -102,14 +102,14 @@ export function RiskCaptureSection({
   const removeRiskItem = (riskId: string) => {
     onRiskCaptureChange(
       readinessItemId,
-      riskCapture.filter((risk) => risk.id !== riskId)
+      riskCapture.filter((risk) => risk.id !== riskId),
     );
   };
 
   const updateRiskItem = (
     riskId: string,
     field: keyof RiskItem | string,
-    value: string | number
+    value: string | number,
   ) => {
     const updatedRisks = riskCapture.map((risk) => {
       if (risk.id !== riskId) return risk;
@@ -133,7 +133,9 @@ export function RiskCaptureSection({
   };
 
   const handleKodeSelection = (riskId: string, kode: string) => {
-    const selectedTaksonomi = taksonomiData.taksonomi.find(t => t.kode === kode);
+    const selectedTaksonomi = taksonomiData.taksonomi.find(
+      (t) => t.kode === kode,
+    );
     const updatedRisks = riskCapture.map((risk) => {
       if (risk.id !== riskId) return risk;
 
@@ -150,19 +152,19 @@ export function RiskCaptureSection({
   const totalRisks = riskCapture.length;
   const riskSummary = {
     sangatRendah: riskCapture.filter(
-      (r) => r.risikoSaatIni.level >= 1 && r.risikoSaatIni.level <= 5
+      (r) => r.risikoSaatIni.level >= 1 && r.risikoSaatIni.level <= 5,
     ).length,
     rendah: riskCapture.filter(
-      (r) => r.risikoSaatIni.level >= 6 && r.risikoSaatIni.level <= 10
+      (r) => r.risikoSaatIni.level >= 6 && r.risikoSaatIni.level <= 10,
     ).length,
     sedang: riskCapture.filter(
-      (r) => r.risikoSaatIni.level >= 11 && r.risikoSaatIni.level <= 15
+      (r) => r.risikoSaatIni.level >= 11 && r.risikoSaatIni.level <= 15,
     ).length,
     tinggi: riskCapture.filter(
-      (r) => r.risikoSaatIni.level >= 16 && r.risikoSaatIni.level <= 20
+      (r) => r.risikoSaatIni.level >= 16 && r.risikoSaatIni.level <= 20,
     ).length,
     sangatTinggi: riskCapture.filter(
-      (r) => r.risikoSaatIni.level >= 21 && r.risikoSaatIni.level <= 25
+      (r) => r.risikoSaatIni.level >= 21 && r.risikoSaatIni.level <= 25,
     ).length,
   };
 
@@ -257,7 +259,7 @@ export function RiskCaptureSection({
                           {isValidRange(risk.risikoSaatIni.level) && (
                             <Badge
                               className={`${getRiskColor(
-                                risk.risikoSaatIni.level
+                                risk.risikoSaatIni.level,
                               )} text-xs`}
                               size="sm"
                             >
@@ -283,7 +285,9 @@ export function RiskCaptureSection({
                           <Label className="text-xs">Kode</Label>
                           <Select
                             value={risk.kode}
-                            onValueChange={(value) => handleKodeSelection(risk.id, value)}
+                            onValueChange={(value) =>
+                              handleKodeSelection(risk.id, value)
+                            }
                             disabled={disabled}
                           >
                             <SelectTrigger className="h-8 text-xs">
@@ -292,7 +296,9 @@ export function RiskCaptureSection({
                             <SelectContent>
                               {taksonomiData.taksonomi.map((item) => (
                                 <SelectItem key={item.kode} value={item.kode}>
-                                  <span className="text-xs">{item.kode} - {item.title}</span>
+                                  <span className="text-xs">
+                                    {item.kode} - {item.title}
+                                  </span>
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -318,7 +324,7 @@ export function RiskCaptureSection({
                             updateRiskItem(
                               risk.id,
                               "peristiwaRisiko",
-                              e.target.value
+                              e.target.value,
                             )
                           }
                           placeholder="Jelaskan peristiwa risiko yang mungkin terjadi"
@@ -335,7 +341,7 @@ export function RiskCaptureSection({
                             updateRiskItem(
                               risk.id,
                               "sumberRisiko",
-                              e.target.value
+                              e.target.value,
                             )
                           }
                           placeholder="Sumber risiko"
@@ -353,7 +359,7 @@ export function RiskCaptureSection({
                               updateRiskItem(
                                 risk.id,
                                 "dampakKualitatif",
-                                e.target.value
+                                e.target.value,
                               )
                             }
                             placeholder="Dampak kualitatif"
@@ -369,7 +375,7 @@ export function RiskCaptureSection({
                               updateRiskItem(
                                 risk.id,
                                 "dampakKuantitatif",
-                                e.target.value
+                                e.target.value,
                               )
                             }
                             placeholder="Dampak kuantitatif"
@@ -387,7 +393,7 @@ export function RiskCaptureSection({
                             updateRiskItem(
                               risk.id,
                               "kontrolEksisting",
-                              e.target.value
+                              e.target.value,
                             )
                           }
                           placeholder="Kontrol yang sudah ada"
@@ -416,7 +422,7 @@ export function RiskCaptureSection({
                                   updateRiskItem(
                                     risk.id,
                                     "risikoAwal.kejadian",
-                                    1
+                                    1,
                                   );
                                 } else {
                                   const kejadian = parseInt(value);
@@ -424,7 +430,7 @@ export function RiskCaptureSection({
                                     updateRiskItem(
                                       risk.id,
                                       "risikoAwal.kejadian",
-                                      kejadian
+                                      kejadian,
                                     );
                                   }
                                 }
@@ -449,14 +455,18 @@ export function RiskCaptureSection({
                               onChange={(e) => {
                                 const value = e.target.value;
                                 if (value === "") {
-                                  updateRiskItem(risk.id, "risikoAwal.dampak", 1);
+                                  updateRiskItem(
+                                    risk.id,
+                                    "risikoAwal.dampak",
+                                    1,
+                                  );
                                 } else {
                                   const dampak = parseInt(value);
                                   if (!isNaN(dampak)) {
                                     updateRiskItem(
                                       risk.id,
                                       "risikoAwal.dampak",
-                                      dampak
+                                      dampak,
                                     );
                                   }
                                 }
@@ -481,14 +491,18 @@ export function RiskCaptureSection({
                               onChange={(e) => {
                                 const value = e.target.value;
                                 if (value === "") {
-                                  updateRiskItem(risk.id, "risikoAwal.level", 1);
+                                  updateRiskItem(
+                                    risk.id,
+                                    "risikoAwal.level",
+                                    1,
+                                  );
                                 } else {
                                   const level = parseInt(value);
                                   if (!isNaN(level)) {
                                     updateRiskItem(
                                       risk.id,
                                       "risikoAwal.level",
-                                      level
+                                      level,
                                     );
                                   }
                                 }
@@ -524,7 +538,7 @@ export function RiskCaptureSection({
                                   updateRiskItem(
                                     risk.id,
                                     "risikoSaatIni.kejadian",
-                                    1
+                                    1,
                                   );
                                 } else {
                                   const kejadian = parseInt(value);
@@ -532,7 +546,7 @@ export function RiskCaptureSection({
                                     updateRiskItem(
                                       risk.id,
                                       "risikoSaatIni.kejadian",
-                                      kejadian
+                                      kejadian,
                                     );
                                   }
                                 }
@@ -557,14 +571,18 @@ export function RiskCaptureSection({
                               onChange={(e) => {
                                 const value = e.target.value;
                                 if (value === "") {
-                                  updateRiskItem(risk.id, "risikoSaatIni.dampak", 1);
+                                  updateRiskItem(
+                                    risk.id,
+                                    "risikoSaatIni.dampak",
+                                    1,
+                                  );
                                 } else {
                                   const dampak = parseInt(value);
                                   if (!isNaN(dampak)) {
                                     updateRiskItem(
                                       risk.id,
                                       "risikoSaatIni.dampak",
-                                      dampak
+                                      dampak,
                                     );
                                   }
                                 }
@@ -589,14 +607,18 @@ export function RiskCaptureSection({
                               onChange={(e) => {
                                 const value = e.target.value;
                                 if (value === "") {
-                                  updateRiskItem(risk.id, "risikoSaatIni.level", 1);
+                                  updateRiskItem(
+                                    risk.id,
+                                    "risikoSaatIni.level",
+                                    1,
+                                  );
                                 } else {
                                   const level = parseInt(value);
                                   if (!isNaN(level)) {
                                     updateRiskItem(
                                       risk.id,
                                       "risikoSaatIni.level",
-                                      level
+                                      level,
                                     );
                                   }
                                 }
@@ -632,7 +654,7 @@ export function RiskCaptureSection({
                                   updateRiskItem(
                                     risk.id,
                                     "resikoAkhir.kejadian",
-                                    1
+                                    1,
                                   );
                                 } else {
                                   const kejadian = parseInt(value);
@@ -640,7 +662,7 @@ export function RiskCaptureSection({
                                     updateRiskItem(
                                       risk.id,
                                       "resikoAkhir.kejadian",
-                                      kejadian
+                                      kejadian,
                                     );
                                   }
                                 }
@@ -665,14 +687,18 @@ export function RiskCaptureSection({
                               onChange={(e) => {
                                 const value = e.target.value;
                                 if (value === "") {
-                                  updateRiskItem(risk.id, "resikoAkhir.dampak", 1);
+                                  updateRiskItem(
+                                    risk.id,
+                                    "resikoAkhir.dampak",
+                                    1,
+                                  );
                                 } else {
                                   const dampak = parseInt(value);
                                   if (!isNaN(dampak)) {
                                     updateRiskItem(
                                       risk.id,
                                       "resikoAkhir.dampak",
-                                      dampak
+                                      dampak,
                                     );
                                   }
                                 }
@@ -697,14 +723,18 @@ export function RiskCaptureSection({
                               onChange={(e) => {
                                 const value = e.target.value;
                                 if (value === "") {
-                                  updateRiskItem(risk.id, "resikoAkhir.level", 1);
+                                  updateRiskItem(
+                                    risk.id,
+                                    "resikoAkhir.level",
+                                    1,
+                                  );
                                 } else {
                                   const level = parseInt(value);
                                   if (!isNaN(level)) {
                                     updateRiskItem(
                                       risk.id,
                                       "resikoAkhir.level",
-                                      level
+                                      level,
                                     );
                                   }
                                 }
