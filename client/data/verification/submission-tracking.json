@@ -69,7 +69,29 @@
       "estimatedHours": 3.0,
       "notes": "Excellent documentation, all security requirements met",
       "createdAt": "2024-01-25T14:20:00Z",
-      "items": []
+      "items": [
+        {
+          "id": "item-5",
+          "category": "administrative",
+          "item": "Kontrak atau PO dari user",
+          "userStatus": "lengkap",
+          "userComment": "Kontrak master agreement signed dengan Bank Central Indonesia"
+        },
+        {
+          "id": "item-6",
+          "category": "user-data",
+          "item": "Spesifikasi teknis atau SOW rinci",
+          "userStatus": "lengkap",
+          "userComment": "SOW detail telah disiapkan dengan security requirements lengkap"
+        },
+        {
+          "id": "item-7",
+          "category": "legal-financial",
+          "item": "Verifikasi skema pembayaran dan milestone",
+          "userStatus": "lengkap",
+          "userComment": "Payment scheme approved dengan 5 milestone pembayaran"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655441005",
