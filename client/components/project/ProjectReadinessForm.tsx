@@ -83,7 +83,7 @@ const getDefaultReadinessData = (): ReadinessCategory[] => {
     icon: iconMap[category.icon as keyof typeof iconMap],
     items: category.items.map((item) => ({
       ...item,
-      status: "tidak-tersedia" as ReadinessStatus,
+      status: "tidak_tersedia" as ReadinessStatus,
       userComments: [],
     })),
   }));
