@@ -32,6 +32,8 @@ import {
   UserCheck,
   Calendar,
   AlertTriangle,
+  Plus,
+  Trash2,
 } from "lucide-react";
 import { getReadinessTemplate, getProjectReadiness } from "@/utils/dataLoader";
 import type { ReadinessStatus } from "@/types";
