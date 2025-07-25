@@ -270,6 +270,15 @@ export function ProjectReadinessForm({
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Reload data when projectId changes
+  useEffect(() => {
+    if (isOpen && projectId) {
+      console.log("🔄 Reloading data for projectId:", projectId);
+      const newData = loadExistingReadinessData(projectId);
+      setReadinessData(newData);
+    }
+  }, [isOpen, projectId]);
+
   const updateItemStatus = (
     categoryId: string,
     itemId: string,
