@@ -219,7 +219,7 @@ const getStatusBadge = (status: ReadinessStatus) => {
           Parsial
         </Badge>
       );
-    case "tidak-tersedia":
+    case "tidak_tersedia":
       return (
         <Badge className="bg-red-100 text-red-800 border-red-200">
           <XCircle className="w-3 h-3 mr-1" />
