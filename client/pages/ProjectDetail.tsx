@@ -380,46 +380,113 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
           </div>
 
           {/* Tablet Actions */}
-          <div className="hidden sm:flex lg:hidden items-center gap-2">
+          <div className="hidden sm:flex lg:hidden items-center gap-3">
+            {/* Most Important Actions Visible */}
             <Link to={`/projects/${project.id}/edit`}>
-              <Button variant="outline" size="sm">
+              <Button
+                variant="outline"
+                size="sm"
+                className="font-medium shadow-sm hover:shadow-md transition-all duration-200"
+              >
                 <Edit className="w-4 h-4 mr-2" />
                 Edit
               </Button>
             </Link>
+
+            {/* Primary Readiness Action */}
+            {readinessStatus ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={openReadinessResults}
+                className="font-medium text-blue-700 border-blue-300 bg-blue-50/50 hover:bg-blue-100 shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <ClipboardCheck className="w-4 h-4 mr-2" />
+                Readiness
+                {readinessStatus === "verified" && (
+                  <CheckCircle className="w-3 h-3 ml-2 text-green-600" />
+                )}
+                {readinessStatus === "under_review" && (
+                  <Clock className="w-3 h-3 ml-2 text-yellow-600" />
+                )}
+                {readinessStatus === "submitted" && (
+                  <AlertTriangle className="w-3 h-3 ml-2 text-orange-600" />
+                )}
+              </Button>
+            ) : canEditReadiness(readinessStatus) ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={openReadinessForm}
+                className="font-medium text-green-700 border-green-300 bg-green-50/50 hover:bg-green-100 shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                Create
+              </Button>
+            ) : null}
+
+            {/* More Actions Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <MoreHorizontal className="w-4 h-4" />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="font-medium shadow-sm hover:shadow-md transition-all duration-200 border-gray-300 hover:border-gray-400"
+                >
+                  <MoreHorizontal className="w-4 h-4 mr-2" />
+                  More
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuItem asChild>
+              <DropdownMenuContent align="end" className="w-64 shadow-lg border-0 bg-white/95 backdrop-blur-sm">
+                <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b bg-gray-50/50">
+                  Project Actions
+                </div>
+                <DropdownMenuItem asChild className="py-3 hover:bg-blue-50 transition-colors">
                   <Link to={`/projects/${project.id}/timeline`}>
-                    <GitBranch className="w-4 h-4 mr-2" />
-                    Timeline
+                    <GitBranch className="w-4 h-4 mr-3 text-gray-600" />
+                    <div>
+                      <div className="font-medium">Timeline</div>
+                      <div className="text-xs text-gray-500">View project milestones</div>
+                    </div>
                   </Link>
                 </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
+                <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b bg-gray-50/50">
+                  Assessment Actions
+                </div>
+
                 {readinessStatus && (
-                  <DropdownMenuItem onClick={openReadinessResults}>
-                    <ClipboardCheck className="w-4 h-4 mr-2" />
-                    View Readiness Results
+                  <DropdownMenuItem onClick={openReadinessResults} className="py-3 hover:bg-blue-50 transition-colors">
+                    <ClipboardCheck className="w-4 h-4 mr-3 text-blue-600" />
+                    <div>
+                      <div className="font-medium">View Readiness Results</div>
+                      <div className="text-xs text-gray-500">Check verification status</div>
+                    </div>
                   </DropdownMenuItem>
                 )}
                 {canEditReadiness(readinessStatus) && (
-                  <DropdownMenuItem onClick={openReadinessForm}>
-                    <FileText className="w-4 h-4 mr-2" />
-                    {readinessStatus ? "Update Assessment" : "Create Assessment"}
+                  <DropdownMenuItem onClick={openReadinessForm} className="py-3 hover:bg-green-50 transition-colors">
+                    <FileText className="w-4 h-4 mr-3 text-green-600" />
+                    <div>
+                      <div className="font-medium">{readinessStatus ? "Update Assessment" : "Create Assessment"}</div>
+                      <div className="text-xs text-gray-500">Manage readiness items</div>
+                    </div>
                   </DropdownMenuItem>
                 )}
-                <DropdownMenuItem onClick={openRiskCaptureForm}>
-                  <Shield className="w-4 h-4 mr-2" />
-                  Risk Assessment
+                <DropdownMenuItem onClick={openRiskCaptureForm} className="py-3 hover:bg-orange-50 transition-colors">
+                  <Shield className="w-4 h-4 mr-3 text-orange-600" />
+                  <div>
+                    <div className="font-medium">Risk Assessment</div>
+                    <div className="text-xs text-gray-500">Capture project risks</div>
+                  </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={generateReport}>
-                  <FileText className="w-4 h-4 mr-2" />
-                  Generate Report
+                <DropdownMenuItem onClick={generateReport} className="py-3 hover:bg-purple-50 transition-colors">
+                  <FileText className="w-4 h-4 mr-3 text-purple-600" />
+                  <div>
+                    <div className="font-medium">Generate Report</div>
+                    <div className="text-xs text-gray-500">Download project summary</div>
+                  </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
