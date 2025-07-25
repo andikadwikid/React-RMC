@@ -92,6 +92,10 @@ export default function ProjectDetail() {
       const foundProject = getProjectById(projectId);
       if (foundProject) {
         setProject(foundProject);
+
+        // Load readiness status
+        const readinessData = getProjectReadiness(projectId);
+        setReadinessStatus(readinessData?.status || null);
       } else {
         navigate("/projects");
       }
