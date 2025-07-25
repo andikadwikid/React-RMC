@@ -80,6 +80,10 @@ const CATEGORY_DISPLAY_NAMES = {
   "legal-financial": "Legal & Finansial",
 };
 
+const canEditReadiness = (status: string) => {
+  return status !== "verified";
+};
+
 const STATUS_CONFIG = {
   lengkap: {
     label: "Lengkap",
