@@ -290,7 +290,7 @@ export function ProjectReadinessForm({
                 item.id === itemId
                   ? {
                       ...item,
-                      userComments: item.userComments.filter(
+                      userComments: (item.userComments || []).filter(
                         (comment) => comment.id !== commentId,
                       ),
                     }
