@@ -88,6 +88,16 @@ export default function ProjectDetail() {
   }, [projectId, navigate]);
 
   // Quick Actions handlers
+  const openReadinessResults = () => {
+    if (project) {
+      setReadinessResults({
+        isOpen: true,
+        projectId: project.id,
+        projectName: project.name,
+      });
+    }
+  };
+
   const openReadinessForm = () => {
     if (project) {
       setReadinessForm({
