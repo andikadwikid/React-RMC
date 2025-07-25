@@ -254,15 +254,15 @@ export function RiskCaptureSection({
                           Risk #{index + 1}
                         </CardTitle>
                         <div className="flex items-center gap-1">
-                          {isValidRange(risk.risikoAwal.level) && (
+                          {isValidRange(risk.risikoSaatIni.level) && (
                             <Badge
                               className={`${getRiskColor(
-                                risk.risikoAwal.level
+                                risk.risikoSaatIni.level
                               )} text-xs`}
                               size="sm"
                             >
-                              Level {risk.risikoAwal.level} -{" "}
-                              {getRiskLabel(risk.risikoAwal.level)}
+                              Current: {risk.risikoSaatIni.level} -{" "}
+                              {getRiskLabel(risk.risikoSaatIni.level)}
                             </Badge>
                           )}
                           <Button
