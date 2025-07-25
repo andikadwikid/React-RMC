@@ -302,6 +302,15 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             <Button
               variant="outline"
               size="sm"
+              onClick={openReadinessForm}
+              className="text-green-600 border-green-200 hover:bg-green-50"
+            >
+              <FileText className="w-4 h-4 mr-2" />
+              Create Assessment
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
               onClick={openRiskCaptureForm}
               className="text-orange-600 border-orange-200 hover:bg-orange-50"
             >
