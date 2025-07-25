@@ -473,7 +473,7 @@ export function ProjectReadinessForm({
                           )}
 
                           <div className="space-y-3">
-                            {item.userComments.map((comment, commentIndex) => (
+                            {(item.userComments || []).map((comment, commentIndex) => (
                               <div
                                 key={comment.id}
                                 className="relative p-3 border border-gray-200 rounded-lg bg-gray-50"
