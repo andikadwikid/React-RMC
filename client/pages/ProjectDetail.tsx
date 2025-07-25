@@ -293,11 +293,11 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             <Button
               variant="outline"
               size="sm"
-              onClick={openReadinessForm}
+              onClick={openReadinessResults}
               className="text-blue-600 border-blue-200 hover:bg-blue-50"
             >
               <ClipboardCheck className="w-4 h-4 mr-2" />
-              Readiness
+              View Readiness
             </Button>
             <Button
               variant="outline"
