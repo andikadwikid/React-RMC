@@ -339,7 +339,10 @@ export function ProjectReadinessForm({
 
                         {/* Comment/Keterangan Section */}
                         <div className="space-y-2">
-                          <Label htmlFor={`comment-${item.id}`} className="text-sm font-medium text-gray-700">
+                          <Label
+                            htmlFor={`comment-${item.id}`}
+                            className="text-sm font-medium text-gray-700"
+                          >
                             Keterangan
                           </Label>
                           <Textarea
