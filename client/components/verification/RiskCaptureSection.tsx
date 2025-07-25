@@ -26,6 +26,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import type { RiskItem } from "@/types";
+import { loadTaksonomiData } from "@/utils/dataLoader";
 
 interface RiskCaptureSectionProps {
   readinessItemId: string;
