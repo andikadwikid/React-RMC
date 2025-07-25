@@ -96,12 +96,12 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
             objects: {
               "id-all": {
                 type: "GeometryCollection",
-                geometries: data.map((item, index) => ({
+                geometries: mapData.map((item, index) => ({
                   type: "Polygon",
                   properties: {
                     "hc-key": item[0],
                     "hc-a2": item[0].toUpperCase(),
-                    name: `Province ${index + 1}`
+                    name: data[index]?.name || `Province ${index + 1}`
                   },
                   coordinates: [[[100 + index * 2, -5 + index * 0.5], [101 + index * 2, -5 + index * 0.5], [101 + index * 2, -4 + index * 0.5], [100 + index * 2, -4 + index * 0.5], [100 + index * 2, -5 + index * 0.5]]]
                 }))
