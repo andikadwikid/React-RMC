@@ -147,13 +147,16 @@ export function ReadinessDetailDialog({
                             Komentar #{index + 1}
                           </span>
                           <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">
-                            {new Date(comment.createdAt).toLocaleString("id-ID", {
-                              day: "2-digit",
-                              month: "short",
-                              year: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
+                            {new Date(comment.createdAt).toLocaleString(
+                              "id-ID",
+                              {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              },
+                            )}
                           </span>
                         </div>
                         <div className="bg-white border border-green-200 p-3 rounded">

@@ -533,50 +533,53 @@ export function ProjectReadinessResults({
 
                             {/* User Comments */}
                             {item.userComments &&
-                              item.userComments.length > 0 ? (
-                                <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
-                                  <div className="flex items-center justify-between mb-2">
-                                    <div className="flex items-center gap-2">
-                                      <MessageSquare className="w-4 h-4 text-green-600" />
-                                      <span className="text-sm font-medium text-green-700">
-                                        Keterangan User ({item.userComments.length}):
-                                      </span>
-                                    </div>
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() =>
-                                        openDetailDialog(
-                                          "user-comments",
-                                          item.title,
-                                          {
-                                            userComments: item.userComments,
-                                            userStatus: item.userStatus,
-                                          },
-                                        )
-                                      }
-                                      className="text-green-600 border-green-300 hover:bg-green-50 h-7 px-2 text-xs"
-                                    >
-                                      Lihat Detail
-                                    </Button>
+                            item.userComments.length > 0 ? (
+                              <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                  <div className="flex items-center gap-2">
+                                    <MessageSquare className="w-4 h-4 text-green-600" />
+                                    <span className="text-sm font-medium text-green-700">
+                                      Keterangan User (
+                                      {item.userComments.length}):
+                                    </span>
                                   </div>
-                                  <div className="bg-white border border-green-200 p-3 rounded text-center">
-                                    <p className="text-sm text-green-700">
-                                      {item.userComments.length} keterangan tersedia
-                                    </p>
-                                    <p className="text-xs text-green-600 mt-1">
-                                      Klik "Lihat Detail" untuk melihat semua keterangan
-                                    </p>
-                                  </div>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() =>
+                                      openDetailDialog(
+                                        "user-comments",
+                                        item.title,
+                                        {
+                                          userComments: item.userComments,
+                                          userStatus: item.userStatus,
+                                        },
+                                      )
+                                    }
+                                    className="text-green-600 border-green-300 hover:bg-green-50 h-7 px-2 text-xs"
+                                  >
+                                    Lihat Detail
+                                  </Button>
                                 </div>
-                              ) : (
-                                <div className="bg-gray-50 border border-gray-200 p-3 rounded-lg text-center">
-                                  <MessageSquare className="w-4 h-4 text-gray-400 mx-auto mb-1" />
-                                  <p className="text-sm text-gray-500 italic">
-                                    Belum ada keterangan dari user
+                                <div className="bg-white border border-green-200 p-3 rounded text-center">
+                                  <p className="text-sm text-green-700">
+                                    {item.userComments.length} keterangan
+                                    tersedia
+                                  </p>
+                                  <p className="text-xs text-green-600 mt-1">
+                                    Klik "Lihat Detail" untuk melihat semua
+                                    keterangan
                                   </p>
                                 </div>
-                              )}
+                              </div>
+                            ) : (
+                              <div className="bg-gray-50 border border-gray-200 p-3 rounded-lg text-center">
+                                <MessageSquare className="w-4 h-4 text-gray-400 mx-auto mb-1" />
+                                <p className="text-sm text-gray-500 italic">
+                                  Belum ada keterangan dari user
+                                </p>
+                              </div>
+                            )}
 
                             {/* Verifier Feedback */}
                             {item.verifierComment ? (
@@ -614,7 +617,8 @@ export function ProjectReadinessResults({
                                     {item.verifierName || "Risk Officer"}
                                   </p>
                                   <p className="text-xs text-blue-600 mt-1">
-                                    Klik "Lihat Detail" untuk melihat feedback lengkap
+                                    Klik "Lihat Detail" untuk melihat feedback
+                                    lengkap
                                   </p>
                                 </div>
                               </div>
