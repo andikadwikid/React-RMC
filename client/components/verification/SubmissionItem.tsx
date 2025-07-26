@@ -70,10 +70,11 @@ export function SubmissionItem({
             variant="outline"
             size="sm"
             onClick={() => onOpenModal(submission)}
-            className="w-full sm:w-auto hover:bg-blue-50 hover:border-blue-300"
+            className="w-full sm:w-auto hover:bg-blue-50 hover:border-blue-300 min-h-[40px] px-4"
           >
-            <Eye className="w-4 h-4 mr-2" />
-            Review
+            <Eye className="w-4 h-4 mr-2 flex-shrink-0" />
+            <span className="hidden xs:inline sm:hidden lg:inline">Lihat Detail</span>
+            <span className="xs:hidden sm:inline lg:hidden">Review</span>
           </Button>
         </div>
       </div>
