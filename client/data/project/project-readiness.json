@@ -357,7 +357,71 @@
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T09:25:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-20T10:30:00Z"
+      "updated_at": "2024-01-20T10:30:00Z",
+      "risk_capture": [
+        {
+          "id": "risk-tech-001",
+          "sasaran": "Integritas Data Teknis",
+          "kode": "TECH-INT-001",
+          "taksonomi": "Teknis & Infrastruktur",
+          "peristiwaRisiko": "Ketidakcocokan spesifikasi sistem dengan infrastructure existing",
+          "sumberRisiko": "Mapping infrastruktur yang tidak komprehensif",
+          "dampakKualitatif": "Gangguan operasional dan delay implementasi sistem",
+          "dampakKuantitatif": "Kerugian waktu 2-4 minggu dan biaya tambahan 150 juta",
+          "kontrolEksisting": "Technical review, infrastructure audit, compatibility testing",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
+          },
+          "risikoSaatIni": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 2,
+            "level": 2
+          },
+          "verifierComment": "Technical mapping sudah comprehensive. Risk dapat diminimalkan dengan testing protocol yang ketat.",
+          "verifierName": "Senior Risk Officer",
+          "verifiedAt": "2024-01-21T09:25:00Z",
+          "isVerified": true,
+          "createdAt": "2024-01-20T10:30:00Z"
+        },
+        {
+          "id": "risk-tech-002",
+          "sasaran": "Keamanan Sistem",
+          "kode": "TECH-SEC-001",
+          "taksonomi": "Keamanan Informasi",
+          "peristiwaRisiko": "Vulnerability pada network infrastructure design",
+          "sumberRisiko": "Security assessment yang belum komprehensif",
+          "dampakKualitatif": "Potensi security breach dan akses unauthorized",
+          "dampakKuantitatif": "Kerugian data dan finansial hingga 500 juta",
+          "kontrolEksisting": "Security audit, penetration testing, firewall configuration",
+          "risikoAwal": {
+            "kejadian": 4,
+            "dampak": 5,
+            "level": 20
+          },
+          "risikoSaatIni": {
+            "kejadian": 2,
+            "dampak": 4,
+            "level": 8
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 3,
+            "level": 3
+          },
+          "verifierComment": "Security controls sudah adequate. Perlu monitoring berkelanjutan untuk maintain security posture.",
+          "verifierName": "Senior Risk Officer",
+          "verifiedAt": "2024-01-21T09:25:00Z",
+          "isVerified": true,
+          "createdAt": "2024-01-20T10:30:00Z"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442006",
