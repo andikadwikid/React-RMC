@@ -12,7 +12,7 @@ declare global {
 }
 
 // Dashboard pages
-import Dashboard from "./pages/dashboard/SimpleTest";
+import Dashboard from "./pages/dashboard/SafeDashboard";
 
 // Simple NotFound component
 function NotFound() {
