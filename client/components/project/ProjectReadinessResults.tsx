@@ -245,6 +245,17 @@ export function ProjectReadinessResults({
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(),
   );
+  const [detailDialog, setDetailDialog] = useState<{
+    isOpen: boolean;
+    type: "user-comments" | "verifier-feedback";
+    title: string;
+    data: any;
+  }>({
+    isOpen: false,
+    type: "user-comments",
+    title: "",
+    data: {},
+  });
 
   useEffect(() => {
     if (isOpen && projectId) {
