@@ -666,6 +666,15 @@ export function ProjectReadinessResults({
           </div>
         </div>
       </DialogContent>
+
+      {/* Detail Dialog */}
+      <ReadinessDetailDialog
+        isOpen={detailDialog.isOpen}
+        onClose={closeDetailDialog}
+        type={detailDialog.type}
+        title={detailDialog.title}
+        data={detailDialog.data}
+      />
     </Dialog>
   );
 }
