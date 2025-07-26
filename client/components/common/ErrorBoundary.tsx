@@ -1,51 +1,36 @@
-import React, { Component, ErrorInfo, ReactNode } from "react";
+import React, { Component, ReactNode } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 
-import type { ErrorBoundaryProps } from "@/types";
-
-interface State {
+interface ErrorBoundaryState {
   hasError: boolean;
-  error: Error | null;
-  errorInfo: ErrorInfo | null;
+  error?: Error;
+  errorInfo?: any;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
+interface ErrorBoundaryProps {
+  children: ReactNode;
+  fallback?: ReactNode;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = {
-      hasError: false,
-      error: null,
-      errorInfo: null,
-    };
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
-    return {
-      hasError: true,
-      error,
-      errorInfo: null,
-    };
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: any) {
     console.error("Error caught by boundary:", error, errorInfo);
-    this.setState({
-      error,
-      errorInfo,
-    });
-
-    // Here you could send error to logging service
-    // logErrorToService(error, errorInfo);
+    this.setState({ error, errorInfo });
   }
 
   handleRetry = () => {
-    this.setState({
-      hasError: false,
-      error: null,
-      errorInfo: null,
-    });
+    this.setState({ hasError: false, error: undefined, errorInfo: undefined });
   };
 
   render() {
@@ -55,50 +40,28 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
       }
 
       return (
-        <div className="flex items-center justify-center min-h-[400px] p-6">
-          <Card className="max-w-md w-full">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-4 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                <AlertTriangle className="w-6 h-6 text-red-600" />
-              </div>
-              <CardTitle className="text-xl text-gray-900">
-                Terjadi Kesalahan
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <p className="text-gray-600">
-                Maaf, terjadi kesalahan yang tidak terduga. Silakan coba lagi
-                atau hubungi administrator jika masalah berlanjut.
-              </p>
-              {process.env.NODE_ENV === "development" && this.state.error && (
-                <details className="text-left bg-gray-50 p-4 rounded-lg">
-                  <summary className="cursor-pointer font-medium mb-2">
-                    Detail Error (Development Mode)
-                  </summary>
-                  <pre className="text-xs text-red-600 whitespace-pre-wrap overflow-auto">
-                    {this.state.error.toString()}
-                    {this.state.errorInfo?.componentStack}
-                  </pre>
-                </details>
-              )}
-              <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                <Button
-                  onClick={this.handleRetry}
-                  className="flex items-center gap-2"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                  Coba Lagi
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => window.location.reload()}
-                >
-                  Reload Halaman
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <Card className="border-red-200 bg-red-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-red-700">
+              <AlertTriangle className="w-5 h-5" />
+              Something went wrong
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="text-sm text-red-600">
+              {this.state.error?.message || "An unexpected error occurred"}
+            </div>
+            <Button
+              onClick={this.handleRetry}
+              variant="outline"
+              size="sm"
+              className="border-red-300 text-red-700 hover:bg-red-100"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Try again
+            </Button>
+          </CardContent>
+        </Card>
       );
     }
 
@@ -106,11 +69,4 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
   }
 }
 
-// Hook for functional components to handle errors
-export function useErrorHandler() {
-  return (error: Error, errorInfo?: string) => {
-    console.error("Error handled:", error, errorInfo);
-    // Here you could send to logging service
-    throw error; // Re-throw to be caught by ErrorBoundary
-  };
-}
+export default ErrorBoundary;
