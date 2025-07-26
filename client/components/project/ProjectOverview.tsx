@@ -17,8 +17,8 @@ interface ProjectOverviewProps {
 }
 
 export function ProjectOverview({ project }: ProjectOverviewProps) {
-  const startDate = project.start_date || project.startDate;
-  const endDate = project.end_date || project.endDate;
+  const startDate = project.startDate;
+  const endDate = project.endDate;
   const totalDays = Math.floor(
     (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)
   );
