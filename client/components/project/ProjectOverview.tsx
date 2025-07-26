@@ -90,10 +90,10 @@ export function ProjectOverview({ project }: ProjectOverviewProps) {
             <div className="flex items-center gap-2 text-sm">
               <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
               <a
-                href={`mailto:${project.client_email || project.clientEmail}`}
+                href={`mailto:${project.clientEmail}`}
                 className="text-blue-600 hover:underline truncate"
               >
-                {project.client_email || project.clientEmail}
+                {project.clientEmail}
               </a>
             </div>
             {(project.client_phone || project.clientPhone) && (
