@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import {
   Dialog,
@@ -17,7 +17,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { PageHeader } from "@/components/common/PageHeader";
 import {
   Search,
@@ -40,10 +44,10 @@ import {
 } from "lucide-react";
 import type { RiskItem } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
-import { 
+import {
   getReadinessTemplate,
   getAllProjects,
-  getProjectReadinessItems 
+  getProjectReadinessItems,
 } from "@/utils/dataLoader";
 
 // Icon mapping
@@ -115,11 +119,27 @@ interface ReadinessItemWithRisks {
 }
 
 const RISK_LEVEL_CONFIG = {
-  1: { label: "Sangat Rendah", color: "bg-green-100 text-green-800", range: "1-5" },
+  1: {
+    label: "Sangat Rendah",
+    color: "bg-green-100 text-green-800",
+    range: "1-5",
+  },
   2: { label: "Rendah", color: "bg-green-100 text-green-800", range: "6-10" },
-  3: { label: "Sedang", color: "bg-yellow-100 text-yellow-800", range: "11-15" },
-  4: { label: "Tinggi", color: "bg-orange-100 text-orange-800", range: "16-20" },
-  5: { label: "Sangat Tinggi", color: "bg-red-100 text-red-800", range: "21-25" },
+  3: {
+    label: "Sedang",
+    color: "bg-yellow-100 text-yellow-800",
+    range: "11-15",
+  },
+  4: {
+    label: "Tinggi",
+    color: "bg-orange-100 text-orange-800",
+    range: "16-20",
+  },
+  5: {
+    label: "Sangat Tinggi",
+    color: "bg-red-100 text-red-800",
+    range: "21-25",
+  },
 };
 
 const getRiskLevel = (level: number): number => {
@@ -134,7 +154,7 @@ const getRiskLevel = (level: number): number => {
 const getRiskLevelBadge = (level: number) => {
   const riskLevel = getRiskLevel(level);
   const config = RISK_LEVEL_CONFIG[riskLevel as keyof typeof RISK_LEVEL_CONFIG];
-  
+
   return (
     <Badge className={config.color}>
       {config.label} ({level})
@@ -149,36 +169,53 @@ const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
   try {
     const template = getReadinessTemplate();
     const projects = getAllProjects();
-    
+
     const projectRiskSummaries: ProjectRiskSummary[] = [];
 
     projects.forEach((project) => {
       const readinessItems = getProjectReadinessItems(project.id);
-      
+
       // Count all risks across all readiness items
-      const allProjectRisks = readinessItems.flatMap(item => item.risk_capture || []);
-      const itemsWithRisks = readinessItems.filter(item => item.risk_capture && item.risk_capture.length > 0);
-      
+      const allProjectRisks = readinessItems.flatMap(
+        (item) => item.risk_capture || [],
+      );
+      const itemsWithRisks = readinessItems.filter(
+        (item) => item.risk_capture && item.risk_capture.length > 0,
+      );
+
       // Get categories that have risks
-      const categoriesWithRisks = Array.from(new Set(
-        readinessItems
-          .filter(item => item.risk_capture && item.risk_capture.length > 0)
-          .map(item => item.category)
-      ));
+      const categoriesWithRisks = Array.from(
+        new Set(
+          readinessItems
+            .filter((item) => item.risk_capture && item.risk_capture.length > 0)
+            .map((item) => item.category),
+        ),
+      );
 
       // Calculate risk distribution
       const riskDistribution = {
-        sangatRendah: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 1).length,
-        rendah: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 2).length,
-        sedang: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 3).length,
-        tinggi: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 4).length,
-        sangatTinggi: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 5).length,
+        sangatRendah: allProjectRisks.filter(
+          (r) => getRiskLevel(r.risikoSaatIni.level) === 1,
+        ).length,
+        rendah: allProjectRisks.filter(
+          (r) => getRiskLevel(r.risikoSaatIni.level) === 2,
+        ).length,
+        sedang: allProjectRisks.filter(
+          (r) => getRiskLevel(r.risikoSaatIni.level) === 3,
+        ).length,
+        tinggi: allProjectRisks.filter(
+          (r) => getRiskLevel(r.risikoSaatIni.level) === 4,
+        ).length,
+        sangatTinggi: allProjectRisks.filter(
+          (r) => getRiskLevel(r.risikoSaatIni.level) === 5,
+        ).length,
       };
 
       // Find highest risk level
-      const highestRiskLevel = allProjectRisks.length > 0 
-        ? Math.max(...allProjectRisks.map(r => r.risikoSaatIni.level))
-        : 0;
+      const highestRiskLevel =
+        allProjectRisks.length > 0
+          ? Math.max(...allProjectRisks.map((r) => r.risikoSaatIni.level))
+          : 0;
 
       // Only include projects that have readiness data (even if no risks)
       if (readinessItems.length > 0) {
@@ -207,60 +244,80 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
   try {
     const template = getReadinessTemplate();
     const projects = getAllProjects();
-    const project = projects.find(p => p.id === projectId);
-    
+    const project = projects.find((p) => p.id === projectId);
+
     if (!project) return null;
 
     const readinessItems = getProjectReadinessItems(projectId);
-    
+
     // Group readiness items by category
-    const itemsByCategory = readinessItems.reduce((acc, item) => {
-      if (!acc[item.category]) {
-        acc[item.category] = [];
-      }
-      acc[item.category].push(item);
-      return acc;
-    }, {} as Record<string, any[]>);
+    const itemsByCategory = readinessItems.reduce(
+      (acc, item) => {
+        if (!acc[item.category]) {
+          acc[item.category] = [];
+        }
+        acc[item.category].push(item);
+        return acc;
+      },
+      {} as Record<string, any[]>,
+    );
 
     // Build categories with risks
-    const readinessCategories: ReadinessCategoryWithRisks[] = template.categories.map((categoryTemplate) => {
-      const categoryItems = itemsByCategory[categoryTemplate.id] || [];
-      
-      const itemsWithRisks: ReadinessItemWithRisks[] = categoryTemplate.items.map((itemTemplate) => {
-        // Find actual readiness item
-        const actualItem = categoryItems.find(item => item.item === itemTemplate.title);
-        const risks = actualItem?.risk_capture || [];
-        
+    const readinessCategories: ReadinessCategoryWithRisks[] =
+      template.categories.map((categoryTemplate) => {
+        const categoryItems = itemsByCategory[categoryTemplate.id] || [];
+
+        const itemsWithRisks: ReadinessItemWithRisks[] =
+          categoryTemplate.items.map((itemTemplate) => {
+            // Find actual readiness item
+            const actualItem = categoryItems.find(
+              (item) => item.item === itemTemplate.title,
+            );
+            const risks = actualItem?.risk_capture || [];
+
+            return {
+              id: itemTemplate.id,
+              title: itemTemplate.title,
+              risks: risks,
+              hasRisks: risks.length > 0,
+            };
+          });
+
+        const totalCategoryRisks = itemsWithRisks.reduce(
+          (sum, item) => sum + item.risks.length,
+          0,
+        );
+
         return {
-          id: itemTemplate.id,
-          title: itemTemplate.title,
-          risks: risks,
-          hasRisks: risks.length > 0,
+          id: categoryTemplate.id,
+          title: categoryTemplate.title,
+          icon: iconMap[categoryTemplate.icon as keyof typeof iconMap],
+          items: itemsWithRisks,
+          totalRisks: totalCategoryRisks,
         };
       });
 
-      const totalCategoryRisks = itemsWithRisks.reduce((sum, item) => sum + item.risks.length, 0);
-
-      return {
-        id: categoryTemplate.id,
-        title: categoryTemplate.title,
-        icon: iconMap[categoryTemplate.icon as keyof typeof iconMap],
-        items: itemsWithRisks,
-        totalRisks: totalCategoryRisks,
-      };
-    });
-
     // Calculate total risks and distribution for project
-    const allProjectRisks = readinessCategories.flatMap(cat => 
-      cat.items.flatMap(item => item.risks)
+    const allProjectRisks = readinessCategories.flatMap((cat) =>
+      cat.items.flatMap((item) => item.risks),
     );
 
     const riskDistribution = {
-      sangatRendah: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 1).length,
-      rendah: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 2).length,
-      sedang: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 3).length,
-      tinggi: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 4).length,
-      sangatTinggi: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 5).length,
+      sangatRendah: allProjectRisks.filter(
+        (r) => getRiskLevel(r.risikoSaatIni.level) === 1,
+      ).length,
+      rendah: allProjectRisks.filter(
+        (r) => getRiskLevel(r.risikoSaatIni.level) === 2,
+      ).length,
+      sedang: allProjectRisks.filter(
+        (r) => getRiskLevel(r.risikoSaatIni.level) === 3,
+      ).length,
+      tinggi: allProjectRisks.filter(
+        (r) => getRiskLevel(r.risikoSaatIni.level) === 4,
+      ).length,
+      sangatTinggi: allProjectRisks.filter(
+        (r) => getRiskLevel(r.risikoSaatIni.level) === 5,
+      ).length,
     };
 
     return {
@@ -296,11 +353,13 @@ function RiskItemDetail({ risk }: RiskItemDetailProps) {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
           <h4 className="font-medium text-gray-900">{risk.peristiwaRisiko}</h4>
-          <p className="text-sm text-gray-600">{risk.kode} - {risk.taksonomi}</p>
+          <p className="text-sm text-gray-600">
+            {risk.kode} - {risk.taksonomi}
+          </p>
         </div>
         {getRiskLevelBadge(risk.risikoSaatIni.level)}
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div>
           <span className="font-medium text-gray-700">Sumber Risiko:</span>
@@ -324,23 +383,32 @@ function RiskItemDetail({ risk }: RiskItemDetailProps) {
         <div className="p-3 bg-red-50 border border-red-200 rounded">
           <span className="font-medium text-red-700">Risiko Awal:</span>
           <p className="text-red-900">
-            Kejadian: {risk.risikoAwal.kejadian}, Dampak: {risk.risikoAwal.dampak}
+            Kejadian: {risk.risikoAwal.kejadian}, Dampak:{" "}
+            {risk.risikoAwal.dampak}
           </p>
-          <p className="text-red-900 font-semibold">Level: {risk.risikoAwal.level}</p>
+          <p className="text-red-900 font-semibold">
+            Level: {risk.risikoAwal.level}
+          </p>
         </div>
         <div className="p-3 bg-yellow-50 border border-yellow-200 rounded">
           <span className="font-medium text-yellow-700">Risiko Saat Ini:</span>
           <p className="text-yellow-900">
-            Kejadian: {risk.risikoSaatIni.kejadian}, Dampak: {risk.risikoSaatIni.dampak}
+            Kejadian: {risk.risikoSaatIni.kejadian}, Dampak:{" "}
+            {risk.risikoSaatIni.dampak}
           </p>
-          <p className="text-yellow-900 font-semibold">Level: {risk.risikoSaatIni.level}</p>
+          <p className="text-yellow-900 font-semibold">
+            Level: {risk.risikoSaatIni.level}
+          </p>
         </div>
         <div className="p-3 bg-green-50 border border-green-200 rounded">
           <span className="font-medium text-green-700">Risiko Akhir:</span>
           <p className="text-green-900">
-            Kejadian: {risk.resikoAkhir.kejadian}, Dampak: {risk.resikoAkhir.dampak}
+            Kejadian: {risk.resikoAkhir.kejadian}, Dampak:{" "}
+            {risk.resikoAkhir.dampak}
           </p>
-          <p className="text-green-900 font-semibold">Level: {risk.resikoAkhir.level}</p>
+          <p className="text-green-900 font-semibold">
+            Level: {risk.resikoAkhir.level}
+          </p>
         </div>
       </div>
 
@@ -364,16 +432,18 @@ interface ProjectRiskDetailModalProps {
   projectDetail: ProjectRiskDetail | null;
 }
 
-function ProjectRiskDetailModal({ 
-  isOpen, 
-  onClose, 
-  projectDetail 
+function ProjectRiskDetailModal({
+  isOpen,
+  onClose,
+  projectDetail,
 }: ProjectRiskDetailModalProps) {
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+    new Set(),
+  );
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 
   const toggleCategory = (categoryId: string) => {
-    setExpandedCategories(prev => {
+    setExpandedCategories((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(categoryId)) {
         newSet.delete(categoryId);
@@ -385,7 +455,7 @@ function ProjectRiskDetailModal({
   };
 
   const toggleItem = (itemId: string) => {
-    setExpandedItems(prev => {
+    setExpandedItems((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(itemId)) {
         newSet.delete(itemId);
@@ -412,7 +482,9 @@ function ProjectRiskDetailModal({
           {/* Risk Distribution Summary */}
           {projectDetail.totalRisks > 0 && (
             <div className="p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium text-gray-900 mb-3">Distribusi Risiko:</h4>
+              <h4 className="font-medium text-gray-900 mb-3">
+                Distribusi Risiko:
+              </h4>
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 text-sm">
                 <Badge className="bg-green-100 text-green-800 justify-center">
                   Sangat Rendah: {projectDetail.riskDistribution.sangatRendah}
@@ -437,7 +509,7 @@ function ProjectRiskDetailModal({
             {projectDetail.readinessCategories.map((category) => {
               const IconComponent = category.icon;
               const isExpanded = expandedCategories.has(category.id);
-              const hasAnyRisks = category.items.some(item => item.hasRisks);
+              const hasAnyRisks = category.items.some((item) => item.hasRisks);
 
               return (
                 <div key={category.id} className="border rounded-lg">
@@ -450,9 +522,13 @@ function ProjectRiskDetailModal({
                         <div className="flex items-center gap-3">
                           <IconComponent className="w-5 h-5 text-blue-600" />
                           <span className="font-medium">
-                            {CATEGORY_DISPLAY_NAMES[category.id as keyof typeof CATEGORY_DISPLAY_NAMES] || category.title}
+                            {CATEGORY_DISPLAY_NAMES[
+                              category.id as keyof typeof CATEGORY_DISPLAY_NAMES
+                            ] || category.title}
                           </span>
-                          <Badge variant={hasAnyRisks ? "default" : "secondary"}>
+                          <Badge
+                            variant={hasAnyRisks ? "default" : "secondary"}
+                          >
                             {category.totalRisks} risks
                           </Badge>
                         </div>
@@ -471,7 +547,10 @@ function ProjectRiskDetailModal({
                             const isItemExpanded = expandedItems.has(itemKey);
 
                             return (
-                              <div key={itemKey} className="bg-white border rounded-lg">
+                              <div
+                                key={itemKey}
+                                className="bg-white border rounded-lg"
+                              >
                                 <div
                                   onClick={() => toggleItem(itemKey)}
                                   className="p-3 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors"
@@ -482,29 +561,35 @@ function ProjectRiskDetailModal({
                                     </span>
                                     {item.hasRisks ? (
                                       <Badge className="bg-orange-100 text-orange-800">
-                                        {item.risks.length} risk{item.risks.length > 1 ? 's' : ''}
+                                        {item.risks.length} risk
+                                        {item.risks.length > 1 ? "s" : ""}
                                       </Badge>
                                     ) : (
-                                      <Badge variant="secondary" className="bg-gray-100 text-gray-600">
+                                      <Badge
+                                        variant="secondary"
+                                        className="bg-gray-100 text-gray-600"
+                                      >
                                         <Info className="w-3 h-3 mr-1" />
                                         Tidak ada risk capture
                                       </Badge>
                                     )}
                                   </div>
-                                  {item.hasRisks && (
-                                    isItemExpanded ? (
+                                  {item.hasRisks &&
+                                    (isItemExpanded ? (
                                       <ChevronDown className="w-4 h-4 text-gray-400" />
                                     ) : (
                                       <ChevronRight className="w-4 h-4 text-gray-400" />
-                                    )
-                                  )}
+                                    ))}
                                 </div>
-                                
+
                                 {isItemExpanded && item.hasRisks && (
                                   <div className="px-3 pb-3 border-t bg-gray-50">
                                     <div className="space-y-3 mt-3">
                                       {item.risks.map((risk, riskIndex) => (
-                                        <RiskItemDetail key={riskIndex} risk={risk} />
+                                        <RiskItemDetail
+                                          key={riskIndex}
+                                          risk={risk}
+                                        />
                                       ))}
                                     </div>
                                   </div>
@@ -524,9 +609,12 @@ function ProjectRiskDetailModal({
           {projectDetail.totalRisks === 0 && (
             <div className="text-center py-8">
               <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500">Tidak ada risk capture data untuk project ini</p>
+              <p className="text-gray-500">
+                Tidak ada risk capture data untuk project ini
+              </p>
               <p className="text-sm text-gray-400 mt-1">
-                Risk capture dapat ditambahkan melalui halaman verifikasi readiness
+                Risk capture dapat ditambahkan melalui halaman verifikasi
+                readiness
               </p>
             </div>
           )}
@@ -539,8 +627,11 @@ function ProjectRiskDetailModal({
 export default function RiskCaptureVerification() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [projectRiskSummaries, setProjectRiskSummaries] = useState<ProjectRiskSummary[]>([]);
-  const [selectedProjectDetail, setSelectedProjectDetail] = useState<ProjectRiskDetail | null>(null);
+  const [projectRiskSummaries, setProjectRiskSummaries] = useState<
+    ProjectRiskSummary[]
+  >([]);
+  const [selectedProjectDetail, setSelectedProjectDetail] =
+    useState<ProjectRiskDetail | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   useEffect(() => {
@@ -554,13 +645,20 @@ export default function RiskCaptureVerification() {
   }, []);
 
   const filteredProjects = projectRiskSummaries.filter((project) =>
-    project.projectName.toLowerCase().includes(searchTerm.toLowerCase())
+    project.projectName.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const totalRisks = projectRiskSummaries.reduce((sum, project) => sum + project.totalRisks, 0);
-  const projectsWithRisks = projectRiskSummaries.filter(project => project.totalRisks > 0).length;
-  const highRiskProjects = projectRiskSummaries.filter(project => 
-    project.riskDistribution.tinggi + project.riskDistribution.sangatTinggi > 0
+  const totalRisks = projectRiskSummaries.reduce(
+    (sum, project) => sum + project.totalRisks,
+    0,
+  );
+  const projectsWithRisks = projectRiskSummaries.filter(
+    (project) => project.totalRisks > 0,
+  ).length;
+  const highRiskProjects = projectRiskSummaries.filter(
+    (project) =>
+      project.riskDistribution.tinggi + project.riskDistribution.sangatTinggi >
+      0,
   ).length;
 
   const handleViewDetail = (projectId: string) => {
@@ -607,9 +705,7 @@ export default function RiskCaptureVerification() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
-              {totalRisks}
-            </div>
+            <div className="text-2xl font-bold text-blue-600">{totalRisks}</div>
             <p className="text-xs text-blue-600 mt-1">Semua risk items</p>
           </CardContent>
         </Card>
@@ -677,10 +773,9 @@ export default function RiskCaptureVerification() {
             <div className="text-center py-12">
               <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-500">
-                {searchTerm 
+                {searchTerm
                   ? "Tidak ada project yang ditemukan dengan kriteria pencarian"
-                  : "Tidak ada project dengan data risk capture"
-                }
+                  : "Tidak ada project dengan data risk capture"}
               </p>
             </div>
           ) : (
@@ -695,20 +790,30 @@ export default function RiskCaptureVerification() {
                 </TableHeader>
                 <TableBody>
                   {filteredProjects.map((project) => (
-                    <TableRow key={project.projectId} className="hover:bg-gray-50">
+                    <TableRow
+                      key={project.projectId}
+                      className="hover:bg-gray-50"
+                    >
                       <TableCell>
                         <div>
                           <div className="font-medium text-gray-900">
                             {project.projectName}
                           </div>
                           <div className="text-sm text-gray-500">
-                            {project.totalReadinessItems} readiness items • {project.itemsWithRisks} with risks
+                            {project.totalReadinessItems} readiness items •{" "}
+                            {project.itemsWithRisks} with risks
                           </div>
                         </div>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Badge variant={project.totalRisks > 0 ? "default" : "secondary"} className="text-sm">
-                          {project.totalRisks} risk{project.totalRisks !== 1 ? 's' : ''}
+                        <Badge
+                          variant={
+                            project.totalRisks > 0 ? "default" : "secondary"
+                          }
+                          className="text-sm"
+                        >
+                          {project.totalRisks} risk
+                          {project.totalRisks !== 1 ? "s" : ""}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-center">
