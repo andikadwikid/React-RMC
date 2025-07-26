@@ -242,7 +242,7 @@ export function ProjectReadinessVerificationModal({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 space-y-4 sm:space-y-6">
           {/* Project Information */}
           <Card>
             <CardHeader>
