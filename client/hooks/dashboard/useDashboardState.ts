@@ -179,11 +179,11 @@ export const useDashboardState = (): [DashboardState, DashboardActions] => {
     setSelectedRiskCategory(null);
   }, []);
 
-  // Initialize loading state
-  useState(() => {
+  // Initialize loading state with useEffect
+  React.useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 600);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   const state: DashboardState = {
     selectedPerformancePeriod,
