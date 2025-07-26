@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Calendar, TrendingUp } from "lucide-react";
-import { availableAgingReceivablesPeriods } from "@/hooks/useDashboardData";
+import { availableAgingReceivablesPeriods } from "@/hooks/dashboard";
 import type {
   AgingReceivable,
   AgingReceivablesDataPeriod,
@@ -15,7 +15,7 @@ import {
   formatCurrency,
   formatCurrencyShort,
   getAgingColor,
-} from "@/hooks/useDashboardCalculations";
+} from "@/hooks/dashboard";
 
 // AgingReceivablesSectionProps extended from base types
 interface AgingReceivablesSectionProps {
