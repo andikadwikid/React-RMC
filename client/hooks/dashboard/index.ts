@@ -46,3 +46,15 @@ export {
   detectBestInvoiceStatusPeriod,
   detectBestAgingReceivablesPeriod,
 } from "./usePeriodDetection";
+
+// Re-export optimized hooks
+export { useDashboardState } from "./useDashboardState";
+export { usePerformanceChart } from "./usePerformanceChart";
+export {
+  useFallbackMessage,
+  usePerformanceInsights,
+  useRiskInsights,
+  useGeographicInsights,
+  useFinancialInsights,
+  useRiskCaptureInsightsData,
+} from "./useDashboardHelpers";
