@@ -303,17 +303,19 @@ export function ProjectReadinessVerificationModal({
                               size="sm"
                               variant="outline"
                               className="text-xs h-7 px-2 w-full sm:w-auto"
-                              onClick={() =>
-                                setDetailDialog({
-                                  isOpen: true,
-                                  type: "user-comments",
-                                  title: `User Comments - ${item.category}`,
-                                  data: {
-                                    userComments: item.userComments,
-                                    userStatus: item.userStatus,
-                                  },
-                                })
-                              }
+                              onClick={() => {
+                                if (item.userComments && item.userComments.length > 0) {
+                                  setDetailDialog({
+                                    isOpen: true,
+                                    type: "user-comments",
+                                    title: `User Comments - ${item.category}`,
+                                    data: {
+                                      userComments: item.userComments,
+                                      userStatus: item.userStatus,
+                                    },
+                                  });
+                                }
+                              }}
                             >
                               <Eye className="w-3 h-3 mr-1" />
                               View Details ({item.userComments.length})
