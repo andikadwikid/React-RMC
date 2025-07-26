@@ -76,7 +76,7 @@ const App = () => (
           path="/verify-riskcapture"
           element={
             <Layout>
-              <RiskCaptureVerification />
+              <RiskCaptureVerificationOptimized />
             </Layout>
           }
         />
