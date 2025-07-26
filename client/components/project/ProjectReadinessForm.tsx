@@ -74,6 +74,9 @@ const iconMap = {
   Database,
   Users,
   DollarSign,
+  Cpu: require('lucide-react').Cpu,
+  Leaf: require('lucide-react').Leaf,
+  Target: require('lucide-react').Target,
 };
 
 const getDefaultReadinessData = (): ReadinessCategory[] => {
