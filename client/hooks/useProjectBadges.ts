@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-import { Badge } from "@/components/ui/badge";
 import {
   CheckCircle,
   Clock,
@@ -91,109 +89,70 @@ export const READINESS_STATUS_CONFIG: Record<string, BadgeConfig> = {
 };
 
 export const useProjectBadges = () => {
-  const getStatusBadge = useMemo(() => {
-    return (progress: number) => {
-      const status = progress === 100 ? "completed" : progress > 0 ? "running" : "planning";
-      const config = PROJECT_STATUS_CONFIG[status];
-      const IconComponent = config.icon;
-      
-      return (
-        <Badge className={config.color}>
-          {IconComponent && <IconComponent className="w-3 h-3 mr-1" />}
-          {config.label}
-        </Badge>
-      );
-    };
-  }, []);
+  const getStatusConfig = (progress: number): BadgeConfig => {
+    const status = progress === 100 ? "completed" : progress > 0 ? "running" : "planning";
+    return PROJECT_STATUS_CONFIG[status];
+  };
 
-  const getRiskBadge = useMemo(() => {
-    return (riskCaptureScore?: number) => {
-      let status: string;
-      if (!riskCaptureScore || riskCaptureScore === 0) {
-        status = "not_assessed";
-      } else if (riskCaptureScore >= 80) {
-        status = "low";
-      } else if (riskCaptureScore >= 60) {
-        status = "medium";
-      } else {
-        status = "high";
-      }
-      
-      const config = RISK_STATUS_CONFIG[status];
-      return <Badge className={config.color}>{config.label}</Badge>;
-    };
-  }, []);
+  const getRiskConfig = (riskCaptureScore?: number): BadgeConfig => {
+    let status: string;
+    if (!riskCaptureScore || riskCaptureScore === 0) {
+      status = "not_assessed";
+    } else if (riskCaptureScore >= 80) {
+      status = "low";
+    } else if (riskCaptureScore >= 60) {
+      status = "medium";
+    } else {
+      status = "high";
+    }
+    
+    return RISK_STATUS_CONFIG[status];
+  };
 
-  const getVerificationBadge = useMemo(() => {
-    return (projectId: string) => {
-      // Mock verification statuses - in real app, this would come from API
-      const mockStatuses: Record<string, string> = {
-        "proj-001": "verified",
-        "proj-002": "needs_revision",
-        "proj-003": "under_review",
-        "proj-004": "submitted",
-        "proj-005": "verified",
+  const getVerificationConfig = (projectId: string): BadgeConfig => {
+    // Mock verification statuses - in real app, this would come from API
+    const mockStatuses: Record<string, string> = {
+      "proj-001": "verified",
+      "proj-002": "needs_revision",
+      "proj-003": "under_review",
+      "proj-004": "submitted",
+      "proj-005": "verified",
+    };
+
+    const status = mockStatuses[projectId] || "not_submitted";
+    return VERIFICATION_STATUS_CONFIG[status];
+  };
+
+  const getReadinessConfig = (status?: Project["readinessStatus"]): BadgeConfig => {
+    if (!status) {
+      return {
+        label: "Belum Diisi",
+        color: "bg-gray-100 text-gray-800",
+        icon: ClipboardCheck,
       };
+    }
 
-      const status = mockStatuses[projectId] || "not_submitted";
-      const config = VERIFICATION_STATUS_CONFIG[status];
-      
-      return <Badge className={config.color}>{config.label}</Badge>;
-    };
-  }, []);
+    return READINESS_STATUS_CONFIG[status];
+  };
 
-  const getReadinessBadge = useMemo(() => {
-    return (status?: Project["readinessStatus"], score?: number) => {
-      if (!status) {
-        return (
-          <Badge className="bg-gray-100 text-gray-800">
-            <ClipboardCheck className="w-3 h-3 mr-1" />
-            Belum Diisi
-          </Badge>
-        );
-      }
+  const getRiskCaptureConfig = (status?: Project["riskCaptureStatus"]): BadgeConfig => {
+    if (!status) {
+      return {
+        label: "Belum Diisi",
+        color: "bg-gray-100 text-gray-800",
+        icon: Shield,
+      };
+    }
 
-      const config = READINESS_STATUS_CONFIG[status];
-      return (
-        <div className="space-y-1">
-          <Badge className={config.color}>{config.label}</Badge>
-          {score !== undefined && (
-            <div className="text-xs text-gray-600">{score}% ready</div>
-          )}
-        </div>
-      );
-    };
-  }, []);
-
-  const getRiskCaptureBadge = useMemo(() => {
-    return (status?: Project["riskCaptureStatus"], score?: number) => {
-      if (!status) {
-        return (
-          <Badge className="bg-gray-100 text-gray-800">
-            <Shield className="w-3 h-3 mr-1" />
-            Belum Diisi
-          </Badge>
-        );
-      }
-
-      const config = READINESS_STATUS_CONFIG[status];
-      return (
-        <div className="space-y-1">
-          <Badge className={config.color}>{config.label}</Badge>
-          {score !== undefined && (
-            <div className="text-xs text-gray-600">{score}% captured</div>
-          )}
-        </div>
-      );
-    };
-  }, []);
+    return READINESS_STATUS_CONFIG[status];
+  };
 
   return {
-    getStatusBadge,
-    getRiskBadge,
-    getVerificationBadge,
-    getReadinessBadge,
-    getRiskCaptureBadge,
+    getStatusConfig,
+    getRiskConfig,
+    getVerificationConfig,
+    getReadinessConfig,
+    getRiskCaptureConfig,
     PROJECT_STATUS_CONFIG,
     RISK_STATUS_CONFIG,
     VERIFICATION_STATUS_CONFIG,
