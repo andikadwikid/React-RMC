@@ -527,7 +527,40 @@
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T09:35:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-21T09:35:00Z"
+      "updated_at": "2024-01-21T09:35:00Z",
+      "risk_capture": [
+        {
+          "id": "risk-pers-001",
+          "sasaran": "Ketersediaan SDM",
+          "kode": "HR-AVL-001",
+          "taksonomi": "Sumber Daya Manusia",
+          "peristiwaRisiko": "Key personnel resign atau tidak tersedia di masa critical development",
+          "sumberRisiko": "Ketergantungan pada specific expertise dan market competition",
+          "dampakKualitatif": "Delay project timeline dan penurunan kualitas deliverable",
+          "dampakKuantitatif": "Delay 3-6 minggu dengan biaya rekrutmen dan training 300 juta",
+          "kontrolEksisting": "Backup personnel plan, knowledge transfer, competitive compensation",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
+          },
+          "risikoSaatIni": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 2,
+            "level": 2
+          },
+          "verifierComment": "Backup plan sudah comprehensive. Perlu retention strategy yang lebih kuat untuk key personnel.",
+          "verifierName": "Senior Risk Officer",
+          "verifiedAt": "2024-01-21T09:35:00Z",
+          "isVerified": true,
+          "createdAt": "2024-01-20T10:30:00Z"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442010",
