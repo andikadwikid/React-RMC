@@ -11,7 +11,9 @@ import RiskCaptureStatsCards from "@/components/verification/RiskCaptureStatsCar
 import VirtualizedProjectTable from "@/components/verification/VirtualizedProjectTable";
 
 // Lazy load the modal component for better performance
-const ProjectRiskDetailModal = lazy(() => import("@/components/verification/ProjectRiskDetailModal"));
+const ProjectRiskDetailModal = lazy(
+  () => import("@/components/verification/ProjectRiskDetailModal"),
+);
 
 const RiskCaptureVerificationOptimized = () => {
   const {
@@ -23,23 +25,30 @@ const RiskCaptureVerificationOptimized = () => {
     loadDetailData,
   } = useRiskCaptureData();
 
-  const [selectedProjectDetail, setSelectedProjectDetail] = useState<ProjectRiskDetail | null>(null);
+  const [selectedProjectDetail, setSelectedProjectDetail] =
+    useState<ProjectRiskDetail | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
-  const handleViewDetail = useCallback((projectId: string) => {
-    const projectDetail = loadDetailData(projectId);
-    setSelectedProjectDetail(projectDetail);
-    setIsDetailModalOpen(true);
-  }, [loadDetailData]);
+  const handleViewDetail = useCallback(
+    (projectId: string) => {
+      const projectDetail = loadDetailData(projectId);
+      setSelectedProjectDetail(projectDetail);
+      setIsDetailModalOpen(true);
+    },
+    [loadDetailData],
+  );
 
   const handleCloseDetail = useCallback(() => {
     setIsDetailModalOpen(false);
     setSelectedProjectDetail(null);
   }, []);
 
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  }, [setSearchTerm]);
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
+    [setSearchTerm],
+  );
 
   if (isLoading) {
     return (

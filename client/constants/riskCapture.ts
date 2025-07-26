@@ -37,10 +37,10 @@ export const RISK_LEVEL_CONFIG = {
     color: "bg-green-100 text-green-800",
     range: "1-5",
   },
-  2: { 
-    label: "Rendah", 
-    color: "bg-green-100 text-green-800", 
-    range: "6-10" 
+  2: {
+    label: "Rendah",
+    color: "bg-green-100 text-green-800",
+    range: "6-10",
   },
   3: {
     label: "Sedang",
@@ -73,7 +73,7 @@ export const getRiskLevel = (level: number): number => {
 export const getRiskLevelBadge = (level: number) => {
   const riskLevel = getRiskLevel(level);
   const config = RISK_LEVEL_CONFIG[riskLevel as keyof typeof RISK_LEVEL_CONFIG];
-  
+
   return {
     label: config.label,
     color: config.color,

@@ -1,11 +1,15 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import type { RiskItem } from "@/types";
-import { 
-  getReadinessTemplate, 
-  getAllProjects, 
-  getProjectReadinessItems 
+import {
+  getReadinessTemplate,
+  getAllProjects,
+  getProjectReadinessItems,
 } from "@/utils/dataLoader";
-import { getRiskLevel, ICON_MAP, CATEGORY_DISPLAY_NAMES } from "@/constants/riskCapture";
+import {
+  getRiskLevel,
+  ICON_MAP,
+  CATEGORY_DISPLAY_NAMES,
+} from "@/constants/riskCapture";
 
 export interface ProjectRiskSummary {
   projectId: string;
@@ -83,7 +87,7 @@ const calculateRiskDistribution = (risks: RiskItem[]) => {
       sedang: 0,
       tinggi: 0,
       sangatTinggi: 0,
-    }
+    },
   );
 };
 
@@ -93,46 +97,50 @@ const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
     const template = getReadinessTemplate();
     const projects = getAllProjects();
 
-    return projects.map((project) => {
-      const readinessItems = getProjectReadinessItems(project.id);
+    return projects
+      .map((project) => {
+        const readinessItems = getProjectReadinessItems(project.id);
 
-      // Count all risks across all readiness items
-      const allProjectRisks = readinessItems.flatMap(
-        (item) => item.risk_capture || []
-      );
-      const itemsWithRisks = readinessItems.filter(
-        (item) => item.risk_capture && item.risk_capture.length > 0
-      );
+        // Count all risks across all readiness items
+        const allProjectRisks = readinessItems.flatMap(
+          (item) => item.risk_capture || [],
+        );
+        const itemsWithRisks = readinessItems.filter(
+          (item) => item.risk_capture && item.risk_capture.length > 0,
+        );
 
-      // Get categories that have risks
-      const categoriesWithRisks = Array.from(
-        new Set(
-          readinessItems
-            .filter((item) => item.risk_capture && item.risk_capture.length > 0)
-            .map((item) => item.category)
-        )
-      );
+        // Get categories that have risks
+        const categoriesWithRisks = Array.from(
+          new Set(
+            readinessItems
+              .filter(
+                (item) => item.risk_capture && item.risk_capture.length > 0,
+              )
+              .map((item) => item.category),
+          ),
+        );
 
-      // Calculate risk distribution using memoized function
-      const riskDistribution = calculateRiskDistribution(allProjectRisks);
+        // Calculate risk distribution using memoized function
+        const riskDistribution = calculateRiskDistribution(allProjectRisks);
 
-      // Find highest risk level
-      const highestRiskLevel =
-        allProjectRisks.length > 0
-          ? Math.max(...allProjectRisks.map((r) => r.risikoSaatIni.level))
-          : 0;
+        // Find highest risk level
+        const highestRiskLevel =
+          allProjectRisks.length > 0
+            ? Math.max(...allProjectRisks.map((r) => r.risikoSaatIni.level))
+            : 0;
 
-      return {
-        projectId: project.id,
-        projectName: project.name,
-        totalRisks: allProjectRisks.length,
-        totalReadinessItems: readinessItems.length,
-        itemsWithRisks: itemsWithRisks.length,
-        riskDistribution,
-        highestRiskLevel,
-        categoriesWithRisks,
-      };
-    }).filter(project => project.totalReadinessItems > 0);
+        return {
+          projectId: project.id,
+          projectName: project.name,
+          totalRisks: allProjectRisks.length,
+          totalReadinessItems: readinessItems.length,
+          itemsWithRisks: itemsWithRisks.length,
+          riskDistribution,
+          highestRiskLevel,
+          categoriesWithRisks,
+        };
+      })
+      .filter((project) => project.totalReadinessItems > 0);
   } catch (error) {
     console.error("Error loading project risk summary:", error);
     return [];
@@ -159,7 +167,7 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
         acc[item.category].push(item);
         return acc;
       },
-      {} as Record<string, any[]>
+      {} as Record<string, any[]>,
     );
 
     // Build categories with risks
@@ -171,7 +179,7 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
           categoryTemplate.items.map((itemTemplate) => {
             // Find actual readiness item
             const actualItem = categoryItems.find(
-              (item) => item.item === itemTemplate.title
+              (item) => item.item === itemTemplate.title,
             );
             const risks = actualItem?.risk_capture || [];
 
@@ -185,7 +193,7 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
 
         const totalCategoryRisks = itemsWithRisks.reduce(
           (sum, item) => sum + item.risks.length,
-          0
+          0,
         );
 
         return {
@@ -199,7 +207,7 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
 
     // Calculate total risks and distribution for project
     const allProjectRisks = readinessCategories.flatMap((cat) =>
-      cat.items.flatMap((item) => item.risks)
+      cat.items.flatMap((item) => item.risks),
     );
 
     const riskDistribution = calculateRiskDistribution(allProjectRisks);
@@ -218,7 +226,9 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
 };
 
 export const useRiskCaptureData = () => {
-  const [projectRiskSummaries, setProjectRiskSummaries] = useState<ProjectRiskSummary[]>([]);
+  const [projectRiskSummaries, setProjectRiskSummaries] = useState<
+    ProjectRiskSummary[]
+  >([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -236,7 +246,7 @@ export const useRiskCaptureData = () => {
   // Memoized filtered projects
   const filteredProjects = useMemo(() => {
     return projectRiskSummaries.filter((project) =>
-      project.projectName.toLowerCase().includes(searchTerm.toLowerCase())
+      project.projectName.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [projectRiskSummaries, searchTerm]);
 
@@ -244,14 +254,16 @@ export const useRiskCaptureData = () => {
   const statistics = useMemo(() => {
     const totalRisks = projectRiskSummaries.reduce(
       (sum, project) => sum + project.totalRisks,
-      0
+      0,
     );
     const projectsWithRisks = projectRiskSummaries.filter(
-      (project) => project.totalRisks > 0
+      (project) => project.totalRisks > 0,
     ).length;
     const highRiskProjects = projectRiskSummaries.filter(
       (project) =>
-        project.riskDistribution.tinggi + project.riskDistribution.sangatTinggi > 0
+        project.riskDistribution.tinggi +
+          project.riskDistribution.sangatTinggi >
+        0,
     ).length;
 
     return {
