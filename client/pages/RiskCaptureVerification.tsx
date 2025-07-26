@@ -142,15 +142,7 @@ const getRiskLevelBadge = (level: number) => {
   );
 };
 
-const getRiskPriorityBadge = (highestLevel: number) => {
-  if (highestLevel >= 16) {
-    return <Badge className="bg-red-100 text-red-800">High Priority</Badge>;
-  } else if (highestLevel >= 11) {
-    return <Badge className="bg-yellow-100 text-yellow-800">Medium Priority</Badge>;
-  } else {
-    return <Badge className="bg-green-100 text-green-800">Low Priority</Badge>;
-  }
-};
+// Removed getRiskPriorityBadge as Priority column is no longer used
 
 // Main data loading function for summary table
 const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
