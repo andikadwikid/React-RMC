@@ -17,6 +17,13 @@ import Dashboard from "./pages/dashboard/SafeDashboard";
 
 // Project pages
 import Projects from "./pages/project/Projects";
+import ProjectDetail from "./pages/project/ProjectDetail";
+
+// Verification pages
+import Verification from "./pages/verification/Verification";
+
+// Common pages
+import PlaceholderPage from "./pages/common/PlaceholderPage";
 
 // Simple NotFound component
 function NotFound() {
