@@ -24,6 +24,9 @@ import {
   Database,
   Users,
   DollarSign,
+  Cpu,
+  Leaf,
+  Target,
   CheckCircle,
   AlertCircle,
   XCircle,
@@ -74,9 +77,9 @@ const iconMap = {
   Database,
   Users,
   DollarSign,
-  Cpu: require('lucide-react').Cpu,
-  Leaf: require('lucide-react').Leaf,
-  Target: require('lucide-react').Target,
+  Cpu,
+  Leaf,
+  Target,
 };
 
 const getDefaultReadinessData = (): ReadinessCategory[] => {
