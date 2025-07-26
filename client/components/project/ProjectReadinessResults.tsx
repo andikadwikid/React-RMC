@@ -588,32 +588,34 @@ export function ProjectReadinessResults({
                                       Feedback Risk Officer:
                                     </span>
                                   </div>
-                                  {item.verifiedAt && (
-                                    <span className="text-xs text-blue-600">
-                                      {new Date(item.verifiedAt).toLocaleString(
-                                        "id-ID",
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() =>
+                                      openDetailDialog(
+                                        "verifier-feedback",
+                                        item.title,
                                         {
-                                          day: "2-digit",
-                                          month: "2-digit",
-                                          year: "numeric",
-                                          hour: "2-digit",
-                                          minute: "2-digit",
+                                          verifierComment: item.verifierComment,
+                                          verifierName: item.verifierName,
+                                          verifiedAt: item.verifiedAt,
+                                          verifierStatus: item.verifierStatus,
                                         },
-                                      )}
-                                    </span>
-                                  )}
+                                      )
+                                    }
+                                    className="text-blue-600 border-blue-300 hover:bg-blue-50 h-7 px-2 text-xs"
+                                  >
+                                    Lihat Detail
+                                  </Button>
                                 </div>
-                                <div className="bg-white border border-blue-200 p-3 rounded">
-                                  <p className="text-sm text-blue-800 leading-relaxed">
-                                    {item.verifierComment}
+                                <div className="bg-white border border-blue-200 p-3 rounded text-center">
+                                  <p className="text-sm text-blue-700">
+                                    Feedback tersedia dari{" "}
+                                    {item.verifierName || "Risk Officer"}
                                   </p>
-                                  {item.verifierName && (
-                                    <div className="mt-2 pt-2 border-t border-blue-200">
-                                      <span className="text-xs text-blue-600 font-medium">
-                                        — {item.verifierName}
-                                      </span>
-                                    </div>
-                                  )}
+                                  <p className="text-xs text-blue-600 mt-1">
+                                    Klik "Lihat Detail" untuk melihat feedback lengkap
+                                  </p>
                                 </div>
                               </div>
                             ) : (
