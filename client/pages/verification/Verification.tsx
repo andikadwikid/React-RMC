@@ -196,8 +196,8 @@ export default function Verification() {
         onValueChange={setActiveTab}
         className="space-y-6"
       >
-        <div className="overflow-x-auto">
-          <TabsList className="grid w-full grid-cols-5 min-w-[600px] lg:min-w-0">
+        <div className="overflow-x-auto pb-2">
+          <TabsList className="grid w-full grid-cols-5 min-w-[500px] sm:min-w-[600px] lg:min-w-0">
             <TabsTrigger
               value="all"
               className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
