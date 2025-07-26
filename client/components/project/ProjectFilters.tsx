@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search, Filter } from "lucide-react";
-import type { ProjectFilters } from "@/hooks/useProjectsData";
+import type { ProjectFilters } from "@/hooks/project";
 
 interface ProjectFiltersProps {
   filters: ProjectFilters;
