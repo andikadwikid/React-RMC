@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-import { Badge } from "@/components/ui/badge";
 import {
   CheckCircle,
   Clock,
@@ -37,20 +35,9 @@ export const STATUS_CONFIG: Record<string, StatusConfig> = {
 };
 
 export const useStatusConfig = () => {
-  const getStatusBadge = useMemo(() => {
-    return (status: string) => {
-      const config = STATUS_CONFIG[status];
-      if (!config) return null;
+  const getStatusConfig = (status: string): StatusConfig | null => {
+    return STATUS_CONFIG[status] || null;
+  };
 
-      const IconComponent = config.icon;
-      return (
-        <Badge className={config.color}>
-          <IconComponent className="w-3 h-3 mr-1" />
-          {config.label}
-        </Badge>
-      );
-    };
-  }, []);
-
-  return { getStatusBadge, STATUS_CONFIG };
+  return { getStatusConfig, STATUS_CONFIG };
 };
