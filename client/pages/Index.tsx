@@ -53,7 +53,7 @@ import {
   formatCurrency,
   formatCurrencyShort,
   getStatusColor,
-} from "@/hooks/useDashboardCalculations";
+} from "@/hooks/dashboard";
 import IndonesiaMap from "@/components/IndonesiaMapChart";
 
 // Loading component
