@@ -14,6 +14,9 @@ import {
   Database,
   Users,
   DollarSign,
+  Cpu,
+  Leaf,
+  Target,
   CheckCircle,
   AlertTriangle,
   XCircle,
@@ -73,13 +76,19 @@ const iconMap = {
   Database,
   Users,
   DollarSign,
+  Cpu,
+  Leaf,
+  Target,
 };
 
 const CATEGORY_DISPLAY_NAMES = {
-  administrative: "Dokumen Administratif Lengkap",
-  "user-data": "Data dari User Tersedia",
-  personnel: "Personel Proyek Siap",
+  administrative: "Dokumen Administratif",
+  "user-technical-data": "Data Teknis dari User",
+  personnel: "Personel Proyek",
   "legal-financial": "Legal & Finansial",
+  "system-equipment": "Kesiapan Sistem & Peralatan",
+  "hsse-permits": "HSSE & Perizinan Lapangan",
+  "deliverable-output": "Kesiapan Deliverable & Output",
 };
 
 const canEditReadiness = (status: string) => {
