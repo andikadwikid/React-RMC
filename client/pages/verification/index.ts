@@ -1,7 +1,6 @@
-// Verification pages - Optimized responsive versions
-export { default as Verification } from "./VerificationOptimized";
+// Verification pages
+export { default as Verification } from "./Verification";
 export { default as RiskCaptureVerification } from "./RiskCaptureVerification";
 
-// Legacy versions (for backup)
-export { default as VerificationLegacy } from "./Verification";
+// Optimized versions (for reference)
 // export { default as VerificationOptimized } from './VerificationOptimized';
