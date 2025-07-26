@@ -8,7 +8,10 @@ const loadHighcharts = async () => {
   return Highcharts.default;
 };
 
-export const usePerformanceChart = (selectedPeriod: DataPeriod, isLoading: boolean) => {
+export const usePerformanceChart = (
+  selectedPeriod: DataPeriod,
+  isLoading: boolean,
+) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstanceRef = useRef<any>(null);
 
@@ -126,14 +129,17 @@ export const usePerformanceChart = (selectedPeriod: DataPeriod, isLoading: boole
 
     try {
       const Highcharts = await loadHighcharts();
-      
+
       // Destroy existing chart instance
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
       }
 
       // Create new chart instance
-      chartInstanceRef.current = Highcharts.chart(chartRef.current, chartConfig);
+      chartInstanceRef.current = Highcharts.chart(
+        chartRef.current,
+        chartConfig,
+      );
     } catch (error) {
       console.error("Failed to load or render chart:", error);
     }

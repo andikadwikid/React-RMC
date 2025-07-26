@@ -3,32 +3,38 @@
 ## Optimasi yang Telah Dilakukan
 
 ### 1. **State Management Optimization** ✅
+
 - **Sebelum**: 15+ individual useState hooks menyebabkan excessive re-renders
 - **Sesudah**: Centralized state management dengan `useDashboardState` hook
 - **Benefit**: Mengurangi re-renders dan meningkatkan performance
 
 ### 2. **Memoization Implementation** ✅
+
 - **Calculations**: Semua expensive calculations di-memoize dengan `useMemo`
 - **Event Handlers**: Menggunakan `useCallback` untuk mencegah unnecessary re-renders
 - **Components**: Komponen utama di-memoize dengan `React.memo`
 - **Benefit**: Menghindari recalculation yang tidak perlu
 
 ### 3. **Data Loading Separation** ✅
+
 - **Sebelum**: Data loading logic dicampur dengan render logic
 - **Sesudah**: Terpisah ke custom hooks (`useDashboardState`, `useDashboardHelpers`)
 - **Benefit**: Better separation of concerns dan code maintainability
 
 ### 4. **Lazy Loading Implementation** ✅
+
 - **Charts**: Highcharts di-lazy load hanya saat dibutuhkan
 - **Heavy Components**: ProjectDistributionChart, RiskCapturePieChart, IndonesiaMap
 - **Benefit**: Mengurangi initial bundle size dan improving First Contentful Paint
 
 ### 5. **Code Splitting** ✅
+
 - **Komponen**: Memisahkan komponen menjadi chunk terpisah
 - **Charts**: Chart libraries di-load secara async
 - **Benefit**: Smaller initial bundle dan faster loading
 
 ### 6. **Performance Hooks** ✅
+
 - `usePerformanceChart`: Optimized chart rendering dengan lazy loading
 - `useDashboardHelpers`: Memoized insight calculations
 - `useFallbackMessage`: Optimized fallback logic
@@ -53,6 +59,7 @@ client/
 ## Performance Improvements
 
 ### Before Optimization:
+
 - ❌ 15+ useState hooks causing excessive re-renders
 - ❌ Expensive calculations in render cycle
 - ❌ Highcharts recreated on every render
@@ -60,9 +67,10 @@ client/
 - ❌ Duplicated logic across components
 
 ### After Optimization:
+
 - ✅ Centralized state with minimal re-renders
 - ✅ Memoized calculations and components
-- ✅ Lazy-loaded charts and heavy components  
+- ✅ Lazy-loaded charts and heavy components
 - ✅ Code splitting for better loading performance
 - ✅ Reusable hooks and components
 
@@ -93,6 +101,7 @@ export { default as DashboardLegacy } from "./Index"; // backup
 ## Monitoring
 
 Dashboard kini lebih performant dengan:
+
 - Reduced Time to Interactive (TTI)
 - Lower Memory Usage
 - Smoother User Interactions

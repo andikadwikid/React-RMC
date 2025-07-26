@@ -102,7 +102,7 @@ export function ProjectReadinessVerificationModal({
       ...item,
       verifierStatus: item.verifierStatus || "lengkap",
       verifierComment: item.verifierComment || "",
-    })) || []
+    })) || [],
   );
 
   const [overallComment, setOverallComment] = useState("");
@@ -119,19 +119,18 @@ export function ProjectReadinessVerificationModal({
     data: null,
   });
 
-  const handleItemVerification = useCallback((
-    itemId: string,
-    status: ReadinessStatus,
-    comment: string
-  ) => {
-    setVerificationItems((prev) =>
-      prev.map((item) =>
-        item.id === itemId
-          ? { ...item, verifierStatus: status, verifierComment: comment }
-          : item
-      )
-    );
-  }, []);
+  const handleItemVerification = useCallback(
+    (itemId: string, status: ReadinessStatus, comment: string) => {
+      setVerificationItems((prev) =>
+        prev.map((item) =>
+          item.id === itemId
+            ? { ...item, verifierStatus: status, verifierComment: comment }
+            : item,
+        ),
+      );
+    },
+    [],
+  );
 
   const handleSave = useCallback(async () => {
     setIsSubmitting(true);
@@ -181,10 +180,16 @@ export function ProjectReadinessVerificationModal({
   // Memoized summary stats
   const summaryStats = useMemo(() => {
     const total = verificationItems.length;
-    const verified = verificationItems.filter(item => item.verifierStatus === "lengkap").length;
-    const partial = verificationItems.filter(item => item.verifierStatus === "parsial").length;
-    const notAvailable = verificationItems.filter(item => item.verifierStatus === "tidak_tersedia").length;
-    
+    const verified = verificationItems.filter(
+      (item) => item.verifierStatus === "lengkap",
+    ).length;
+    const partial = verificationItems.filter(
+      (item) => item.verifierStatus === "parsial",
+    ).length;
+    const notAvailable = verificationItems.filter(
+      (item) => item.verifierStatus === "tidak_tersedia",
+    ).length;
+
     return { total, verified, partial, notAvailable };
   }, [verificationItems]);
 
@@ -238,25 +243,41 @@ export function ProjectReadinessVerificationModal({
                     </p>
                   </div>
                 </div>
-                
+
                 {/* Summary Statistics - Mobile Optimized */}
                 <div className="mt-4 pt-4 border-t">
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div className="text-center p-2 sm:p-3 bg-gray-50 rounded-lg">
-                      <div className="text-lg sm:text-xl font-bold text-gray-900">{summaryStats.total}</div>
-                      <div className="text-xs sm:text-sm text-gray-600">Total Items</div>
+                      <div className="text-lg sm:text-xl font-bold text-gray-900">
+                        {summaryStats.total}
+                      </div>
+                      <div className="text-xs sm:text-sm text-gray-600">
+                        Total Items
+                      </div>
                     </div>
                     <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
-                      <div className="text-lg sm:text-xl font-bold text-green-600">{summaryStats.verified}</div>
-                      <div className="text-xs sm:text-sm text-green-600">Verified</div>
+                      <div className="text-lg sm:text-xl font-bold text-green-600">
+                        {summaryStats.verified}
+                      </div>
+                      <div className="text-xs sm:text-sm text-green-600">
+                        Verified
+                      </div>
                     </div>
                     <div className="text-center p-2 sm:p-3 bg-yellow-50 rounded-lg">
-                      <div className="text-lg sm:text-xl font-bold text-yellow-600">{summaryStats.partial}</div>
-                      <div className="text-xs sm:text-sm text-yellow-600">Partial</div>
+                      <div className="text-lg sm:text-xl font-bold text-yellow-600">
+                        {summaryStats.partial}
+                      </div>
+                      <div className="text-xs sm:text-sm text-yellow-600">
+                        Partial
+                      </div>
                     </div>
                     <div className="text-center p-2 sm:p-3 bg-red-50 rounded-lg">
-                      <div className="text-lg sm:text-xl font-bold text-red-600">{summaryStats.notAvailable}</div>
-                      <div className="text-xs sm:text-sm text-red-600">Issues</div>
+                      <div className="text-lg sm:text-xl font-bold text-red-600">
+                        {summaryStats.notAvailable}
+                      </div>
+                      <div className="text-xs sm:text-sm text-red-600">
+                        Issues
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -266,7 +287,9 @@ export function ProjectReadinessVerificationModal({
             {/* Verification Items - Mobile Optimized */}
             <Card>
               <CardHeader className="pb-3">
-                <CardTitle className="text-base sm:text-lg">Items Verification</CardTitle>
+                <CardTitle className="text-base sm:text-lg">
+                  Items Verification
+                </CardTitle>
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="space-y-3 sm:space-y-4">
@@ -279,10 +302,15 @@ export function ProjectReadinessVerificationModal({
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="outline" className="text-xs px-2 py-0.5">
+                            <Badge
+                              variant="outline"
+                              className="text-xs px-2 py-0.5"
+                            >
                               {index + 1}
                             </Badge>
-                            <Badge className={`text-xs px-2 py-0.5 ${getStatusColor(item.userStatus)}`}>
+                            <Badge
+                              className={`text-xs px-2 py-0.5 ${getStatusColor(item.userStatus)}`}
+                            >
                               User: {item.userStatus}
                             </Badge>
                           </div>
@@ -298,29 +326,33 @@ export function ProjectReadinessVerificationModal({
                           <Label className="text-xs sm:text-sm font-medium text-green-800">
                             User Comments
                           </Label>
-                          {item.userComments && item.userComments.length > 0 && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-xs h-7 px-2 w-full sm:w-auto"
-                              onClick={() => {
-                                if (item.userComments && item.userComments.length > 0) {
-                                  setDetailDialog({
-                                    isOpen: true,
-                                    type: "user-comments",
-                                    title: `User Comments - ${item.category}`,
-                                    data: {
-                                      userComments: item.userComments,
-                                      userStatus: item.userStatus,
-                                    },
-                                  });
-                                }
-                              }}
-                            >
-                              <Eye className="w-3 h-3 mr-1" />
-                              View Details ({item.userComments.length})
-                            </Button>
-                          )}
+                          {item.userComments &&
+                            item.userComments.length > 0 && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-xs h-7 px-2 w-full sm:w-auto"
+                                onClick={() => {
+                                  if (
+                                    item.userComments &&
+                                    item.userComments.length > 0
+                                  ) {
+                                    setDetailDialog({
+                                      isOpen: true,
+                                      type: "user-comments",
+                                      title: `User Comments - ${item.category}`,
+                                      data: {
+                                        userComments: item.userComments,
+                                        userStatus: item.userStatus,
+                                      },
+                                    });
+                                  }
+                                }}
+                              >
+                                <Eye className="w-3 h-3 mr-1" />
+                                View Details ({item.userComments.length})
+                              </Button>
+                            )}
                         </div>
                         {item.userComment && (
                           <p className="text-xs sm:text-sm text-green-800 break-words">
@@ -334,14 +366,20 @@ export function ProjectReadinessVerificationModal({
                         <Label className="text-xs sm:text-sm font-medium text-blue-800">
                           Verifier Assessment
                         </Label>
-                        
+
                         {/* Status Selection - Full Width on Mobile */}
                         <div className="space-y-2">
-                          <Label className="text-xs text-blue-700">Status</Label>
+                          <Label className="text-xs text-blue-700">
+                            Status
+                          </Label>
                           <Select
                             value={item.verifierStatus}
                             onValueChange={(value: ReadinessStatus) =>
-                              handleItemVerification(item.id, value, item.verifierComment)
+                              handleItemVerification(
+                                item.id,
+                                value,
+                                item.verifierComment,
+                              )
                             }
                           >
                             <SelectTrigger className="h-8 text-xs sm:text-sm">
@@ -372,11 +410,17 @@ export function ProjectReadinessVerificationModal({
 
                         {/* Comment Section - Full Width */}
                         <div className="space-y-2">
-                          <Label className="text-xs text-blue-700">Komentar</Label>
+                          <Label className="text-xs text-blue-700">
+                            Komentar
+                          </Label>
                           <Textarea
                             value={item.verifierComment}
                             onChange={(e) =>
-                              handleItemVerification(item.id, item.verifierStatus, e.target.value)
+                              handleItemVerification(
+                                item.id,
+                                item.verifierStatus,
+                                e.target.value,
+                              )
                             }
                             placeholder="Tambahkan komentar verifikasi..."
                             className="min-h-[60px] text-xs sm:text-sm resize-none"

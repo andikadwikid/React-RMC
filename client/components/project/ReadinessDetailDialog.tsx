@@ -92,7 +92,9 @@ export function ReadinessDetailDialog({
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
           <DialogHeader className="pb-4 border-b">
             <DialogTitle>Data tidak tersedia</DialogTitle>
-            <DialogDescription>Data untuk dialog ini tidak valid.</DialogDescription>
+            <DialogDescription>
+              Data untuk dialog ini tidak valid.
+            </DialogDescription>
           </DialogHeader>
           <div className="flex-1 overflow-y-auto py-4">
             <div className="text-center py-8">
@@ -263,7 +265,8 @@ export function ReadinessDetailDialog({
                   <div className="flex items-center gap-2">
                     <UserCheck className="w-4 h-4 text-blue-600" />
                     <span className="text-sm font-medium text-blue-700">
-                      Feedback Risk Officer ({data.verifierComments.length} feedback):
+                      Feedback Risk Officer ({data.verifierComments.length}{" "}
+                      feedback):
                     </span>
                   </div>
                   <div className="space-y-3">
@@ -316,16 +319,15 @@ export function ReadinessDetailDialog({
                         Feedback
                       </span>
                       <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
-                        {data.verifiedAt ? new Date(data.verifiedAt).toLocaleString(
-                          "id-ID",
-                          {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          },
-                        ) : 'Tanggal tidak tersedia'}
+                        {data.verifiedAt
+                          ? new Date(data.verifiedAt).toLocaleString("id-ID", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })
+                          : "Tanggal tidak tersedia"}
                       </span>
                     </div>
                     <div className="bg-white border border-blue-200 p-3 rounded mb-2">

@@ -20,63 +20,67 @@ import {
 import type { ProjectReadiness } from "@/types";
 
 // Memoized SubmissionsList component to prevent unnecessary re-renders
-const SubmissionsList = React.memo(({
-  submissions,
-  onOpenModal,
-  isLoading,
-}: {
-  submissions: ProjectReadiness[];
-  onOpenModal: (submission: ProjectReadiness) => void;
-  isLoading: boolean;
-}) => {
-  if (isLoading) {
-    return <LoadingSpinner message="Memuat data submission..." />;
-  }
+const SubmissionsList = React.memo(
+  ({
+    submissions,
+    onOpenModal,
+    isLoading,
+  }: {
+    submissions: ProjectReadiness[];
+    onOpenModal: (submission: ProjectReadiness) => void;
+    isLoading: boolean;
+  }) => {
+    if (isLoading) {
+      return <LoadingSpinner message="Memuat data submission..." />;
+    }
 
-  if (submissions.length === 0) {
-    return (
-      <EmptyState
-        icon={FileX}
-        message="Tidak ada submission yang ditemukan"
-      />
-    );
-  }
-
-  return (
-    <div className="space-y-4">
-      {submissions.map((submission) => (
-        <SubmissionItem
-          key={submission.id}
-          submission={submission}
-          onOpenModal={onOpenModal}
+    if (submissions.length === 0) {
+      return (
+        <EmptyState
+          icon={FileX}
+          message="Tidak ada submission yang ditemukan"
         />
-      ))}
-    </div>
-  );
-});
+      );
+    }
+
+    return (
+      <div className="space-y-4">
+        {submissions.map((submission) => (
+          <SubmissionItem
+            key={submission.id}
+            submission={submission}
+            onOpenModal={onOpenModal}
+          />
+        ))}
+      </div>
+    );
+  },
+);
 
 SubmissionsList.displayName = "SubmissionsList";
 
 // Memoized TabContent component
-const TabContent = React.memo(({
-  value,
-  submissions,
-  onOpenModal,
-  isLoading,
-}: {
-  value: string;
-  submissions: ProjectReadiness[];
-  onOpenModal: (submission: ProjectReadiness) => void;
-  isLoading: boolean;
-}) => (
-  <TabsContent value={value}>
-    <SubmissionsList
-      submissions={submissions}
-      onOpenModal={onOpenModal}
-      isLoading={isLoading}
-    />
-  </TabsContent>
-));
+const TabContent = React.memo(
+  ({
+    value,
+    submissions,
+    onOpenModal,
+    isLoading,
+  }: {
+    value: string;
+    submissions: ProjectReadiness[];
+    onOpenModal: (submission: ProjectReadiness) => void;
+    isLoading: boolean;
+  }) => (
+    <TabsContent value={value}>
+      <SubmissionsList
+        submissions={submissions}
+        onOpenModal={onOpenModal}
+        isLoading={isLoading}
+      />
+    </TabsContent>
+  ),
+);
 
 TabContent.displayName = "TabContent";
 
@@ -92,7 +96,8 @@ export default function Verification() {
     getCounts,
   } = useVerificationData();
 
-  const [selectedSubmission, setSelectedSubmission] = useState<ProjectReadiness | null>(null);
+  const [selectedSubmission, setSelectedSubmission] =
+    useState<ProjectReadiness | null>(null);
   const [verificationModal, setVerificationModal] = useState(false);
 
   // Debounce search term for better performance
@@ -102,8 +107,12 @@ export default function Verification() {
   const filteredByTab = useMemo(() => {
     return filteredSubmissions.filter((submission) => {
       const matchesSearch =
-        submission.projectName.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-        submission.submittedBy.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+        submission.projectName
+          .toLowerCase()
+          .includes(debouncedSearchTerm.toLowerCase()) ||
+        submission.submittedBy
+          .toLowerCase()
+          .includes(debouncedSearchTerm.toLowerCase());
 
       return matchesSearch;
     });
@@ -123,14 +132,14 @@ export default function Verification() {
     setSelectedSubmission(null);
   }, []);
 
-  const handleVerificationSave = useCallback((
-    submissionId: string,
-    verificationData: any,
-  ) => {
-    console.log("Verification updated:", submissionId, verificationData);
-    updateSubmission(submissionId, verificationData);
-    closeVerificationModal();
-  }, [updateSubmission, closeVerificationModal]);
+  const handleVerificationSave = useCallback(
+    (submissionId: string, verificationData: any) => {
+      console.log("Verification updated:", submissionId, verificationData);
+      updateSubmission(submissionId, verificationData);
+      closeVerificationModal();
+    },
+    [updateSubmission, closeVerificationModal],
+  );
 
   return (
     <div className="space-y-6">
@@ -148,7 +157,7 @@ export default function Verification() {
           description="Total keseluruhan"
           icon={Shield}
         />
-        
+
         <SummaryCard
           title="Menunggu Review"
           value={counts.pending}
@@ -159,7 +168,7 @@ export default function Verification() {
           valueColor="text-yellow-600"
           descriptionColor="text-yellow-600"
         />
-        
+
         <SummaryCard
           title="Terverifikasi"
           value={counts.verified}
@@ -170,7 +179,7 @@ export default function Verification() {
           valueColor="text-green-600"
           descriptionColor="text-green-600"
         />
-        
+
         <SummaryCard
           title="Perlu Revisi"
           value={counts.revision}
@@ -255,28 +264,30 @@ export default function Verification() {
 
         <TabContent
           value="submitted"
-          submissions={filteredByTab.filter(s => s.status === "submitted")}
+          submissions={filteredByTab.filter((s) => s.status === "submitted")}
           onOpenModal={openVerificationModal}
           isLoading={isLoading}
         />
 
         <TabContent
           value="under_review"
-          submissions={filteredByTab.filter(s => s.status === "under_review")}
+          submissions={filteredByTab.filter((s) => s.status === "under_review")}
           onOpenModal={openVerificationModal}
           isLoading={isLoading}
         />
 
         <TabContent
           value="verified"
-          submissions={filteredByTab.filter(s => s.status === "verified")}
+          submissions={filteredByTab.filter((s) => s.status === "verified")}
           onOpenModal={openVerificationModal}
           isLoading={isLoading}
         />
 
         <TabContent
           value="needs_revision"
-          submissions={filteredByTab.filter(s => s.status === "needs_revision")}
+          submissions={filteredByTab.filter(
+            (s) => s.status === "needs_revision",
+          )}
           onOpenModal={openVerificationModal}
           isLoading={isLoading}
         />

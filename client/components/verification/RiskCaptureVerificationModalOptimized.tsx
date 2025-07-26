@@ -88,25 +88,28 @@ export function RiskCaptureVerificationModal({
       ...risk,
       verifierStatus: risk.verifierStatus || "pending",
       verifierComment: risk.verifierComment || "",
-    })) || []
+    })) || [],
   );
-  
+
   const [overallComment, setOverallComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleRiskVerification = useCallback((
-    riskId: string,
-    status: "approved" | "rejected" | "pending",
-    comment: string
-  ) => {
-    setVerificationRisks((prev) =>
-      prev.map((risk) =>
-        risk.id === riskId
-          ? { ...risk, verifierStatus: status, verifierComment: comment }
-          : risk
-      )
-    );
-  }, []);
+  const handleRiskVerification = useCallback(
+    (
+      riskId: string,
+      status: "approved" | "rejected" | "pending",
+      comment: string,
+    ) => {
+      setVerificationRisks((prev) =>
+        prev.map((risk) =>
+          risk.id === riskId
+            ? { ...risk, verifierStatus: status, verifierComment: comment }
+            : risk,
+        ),
+      );
+    },
+    [],
+  );
 
   const handleSave = useCallback(async () => {
     setIsSubmitting(true);
@@ -158,29 +161,35 @@ export function RiskCaptureVerificationModal({
   // Memoized statistics
   const verificationStats = useMemo(() => {
     const total = verificationRisks.length;
-    const approved = verificationRisks.filter(r => r.verifierStatus === "approved").length;
-    const rejected = verificationRisks.filter(r => r.verifierStatus === "rejected").length;
-    const pending = verificationRisks.filter(r => r.verifierStatus === "pending").length;
-    
+    const approved = verificationRisks.filter(
+      (r) => r.verifierStatus === "approved",
+    ).length;
+    const rejected = verificationRisks.filter(
+      (r) => r.verifierStatus === "rejected",
+    ).length;
+    const pending = verificationRisks.filter(
+      (r) => r.verifierStatus === "pending",
+    ).length;
+
     return { total, approved, rejected, pending };
   }, [verificationRisks]);
 
   const riskDistribution = useMemo(() => {
     const distribution = {
       "sangat rendah": 0,
-      "rendah": 0,
-      "sedang": 0,
-      "tinggi": 0,
-      "sangat tinggi": 0
+      rendah: 0,
+      sedang: 0,
+      tinggi: 0,
+      "sangat tinggi": 0,
     };
-    
-    verificationRisks.forEach(risk => {
+
+    verificationRisks.forEach((risk) => {
       const level = risk.riskLevel.toLowerCase();
       if (distribution.hasOwnProperty(level)) {
         distribution[level as keyof typeof distribution]++;
       }
     });
-    
+
     return distribution;
   }, [verificationRisks]);
 
@@ -208,7 +217,9 @@ export function RiskCaptureVerificationModal({
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                     <div className="flex items-center gap-2">
                       <User className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 flex-shrink-0" />
-                      <span className="font-medium text-xs sm:text-sm">Submitted by:</span>
+                      <span className="font-medium text-xs sm:text-sm">
+                        Submitted by:
+                      </span>
                     </div>
                     <span className="text-gray-900 text-xs sm:text-sm break-words">
                       {submission.submittedBy}
@@ -217,16 +228,22 @@ export function RiskCaptureVerificationModal({
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 flex-shrink-0" />
-                      <span className="font-medium text-xs sm:text-sm">Date:</span>
+                      <span className="font-medium text-xs sm:text-sm">
+                        Date:
+                      </span>
                     </div>
                     <span className="text-gray-900 text-xs sm:text-sm">
-                      {new Date(submission.submittedAt).toLocaleDateString("id-ID")}
+                      {new Date(submission.submittedAt).toLocaleDateString(
+                        "id-ID",
+                      )}
                     </span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                     <div className="flex items-center gap-2">
                       <Target className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 flex-shrink-0" />
-                      <span className="font-medium text-xs sm:text-sm">Total Risks:</span>
+                      <span className="font-medium text-xs sm:text-sm">
+                        Total Risks:
+                      </span>
                     </div>
                     <Badge variant="outline" className="w-fit text-xs">
                       {submission.totalRisks}
@@ -239,20 +256,32 @@ export function RiskCaptureVerificationModal({
             {/* Statistics Overview - Mobile Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <Card className="p-3 text-center">
-                <div className="text-lg sm:text-xl font-bold text-gray-900">{verificationStats.total}</div>
+                <div className="text-lg sm:text-xl font-bold text-gray-900">
+                  {verificationStats.total}
+                </div>
                 <div className="text-xs sm:text-sm text-gray-600">Total</div>
               </Card>
               <Card className="p-3 text-center bg-green-50">
-                <div className="text-lg sm:text-xl font-bold text-green-600">{verificationStats.approved}</div>
-                <div className="text-xs sm:text-sm text-green-600">Approved</div>
+                <div className="text-lg sm:text-xl font-bold text-green-600">
+                  {verificationStats.approved}
+                </div>
+                <div className="text-xs sm:text-sm text-green-600">
+                  Approved
+                </div>
               </Card>
               <Card className="p-3 text-center bg-red-50">
-                <div className="text-lg sm:text-xl font-bold text-red-600">{verificationStats.rejected}</div>
+                <div className="text-lg sm:text-xl font-bold text-red-600">
+                  {verificationStats.rejected}
+                </div>
                 <div className="text-xs sm:text-sm text-red-600">Rejected</div>
               </Card>
               <Card className="p-3 text-center bg-yellow-50">
-                <div className="text-lg sm:text-xl font-bold text-yellow-600">{verificationStats.pending}</div>
-                <div className="text-xs sm:text-sm text-yellow-600">Pending</div>
+                <div className="text-lg sm:text-xl font-bold text-yellow-600">
+                  {verificationStats.pending}
+                </div>
+                <div className="text-xs sm:text-sm text-yellow-600">
+                  Pending
+                </div>
               </Card>
             </div>
 
@@ -268,10 +297,14 @@ export function RiskCaptureVerificationModal({
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
                   {Object.entries(riskDistribution).map(([level, count]) => (
                     <div key={level} className="text-center">
-                      <Badge className={`w-full justify-center mb-1 text-xs ${getRiskLevelColor(level)}`}>
+                      <Badge
+                        className={`w-full justify-center mb-1 text-xs ${getRiskLevelColor(level)}`}
+                      >
                         {count}
                       </Badge>
-                      <div className="text-xs text-gray-600 capitalize">{level.replace('_', ' ')}</div>
+                      <div className="text-xs text-gray-600 capitalize">
+                        {level.replace("_", " ")}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -281,7 +314,9 @@ export function RiskCaptureVerificationModal({
             {/* Risk Items - Mobile Optimized */}
             <Card>
               <CardHeader className="pb-3">
-                <CardTitle className="text-base sm:text-lg">Risk Items Verification</CardTitle>
+                <CardTitle className="text-base sm:text-lg">
+                  Risk Items Verification
+                </CardTitle>
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="space-y-3 sm:space-y-4">
@@ -293,10 +328,15 @@ export function RiskCaptureVerificationModal({
                       {/* Risk Header - Mobile Stacked */}
                       <div className="space-y-2">
                         <div className="flex items-start justify-between gap-2">
-                          <Badge variant="outline" className="text-xs px-2 py-0.5">
+                          <Badge
+                            variant="outline"
+                            className="text-xs px-2 py-0.5"
+                          >
                             #{index + 1}
                           </Badge>
-                          <Badge className={`text-xs px-2 py-0.5 ${getRiskLevelColor(risk.riskLevel)}`}>
+                          <Badge
+                            className={`text-xs px-2 py-0.5 ${getRiskLevelColor(risk.riskLevel)}`}
+                          >
                             {risk.riskLevel}
                           </Badge>
                         </div>
@@ -311,7 +351,9 @@ export function RiskCaptureVerificationModal({
                       {/* Risk Details - Mobile Grid */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 text-xs sm:text-sm">
                         <div className="space-y-1">
-                          <Label className="text-xs text-gray-500">Sasaran</Label>
+                          <Label className="text-xs text-gray-500">
+                            Sasaran
+                          </Label>
                           <p className="break-words">{risk.sasaran}</p>
                         </div>
                         <div className="space-y-1">
@@ -320,20 +362,26 @@ export function RiskCaptureVerificationModal({
                         </div>
                         <div className="space-y-1">
                           <Label className="text-xs text-gray-500">Score</Label>
-                          <Badge variant="outline" className="w-fit">{risk.riskScore}</Badge>
+                          <Badge variant="outline" className="w-fit">
+                            {risk.riskScore}
+                          </Badge>
                         </div>
                       </div>
 
                       {/* Impact & Control - Mobile Optimized */}
                       <div className="space-y-2">
                         <div className="bg-orange-50 p-2 sm:p-3 rounded border border-orange-200">
-                          <Label className="text-xs text-orange-700 font-medium">Dampak</Label>
+                          <Label className="text-xs text-orange-700 font-medium">
+                            Dampak
+                          </Label>
                           <p className="text-xs sm:text-sm text-orange-800 mt-1 break-words">
                             {risk.dampakKualitatif}
                           </p>
                         </div>
                         <div className="bg-blue-50 p-2 sm:p-3 rounded border border-blue-200">
-                          <Label className="text-xs text-blue-700 font-medium">Kontrol Eksisting</Label>
+                          <Label className="text-xs text-blue-700 font-medium">
+                            Kontrol Eksisting
+                          </Label>
                           <p className="text-xs sm:text-sm text-blue-800 mt-1 break-words">
                             {risk.kontrolEksisting}
                           </p>
@@ -345,14 +393,22 @@ export function RiskCaptureVerificationModal({
                         <Label className="text-xs sm:text-sm font-medium text-gray-800">
                           Verifier Assessment
                         </Label>
-                        
+
                         {/* Status Selection - Full Width on Mobile */}
                         <div className="space-y-2">
-                          <Label className="text-xs text-gray-700">Status</Label>
+                          <Label className="text-xs text-gray-700">
+                            Status
+                          </Label>
                           <Select
                             value={risk.verifierStatus || "pending"}
-                            onValueChange={(value: "approved" | "rejected" | "pending") =>
-                              handleRiskVerification(risk.id, value, risk.verifierComment || "")
+                            onValueChange={(
+                              value: "approved" | "rejected" | "pending",
+                            ) =>
+                              handleRiskVerification(
+                                risk.id,
+                                value,
+                                risk.verifierComment || "",
+                              )
                             }
                           >
                             <SelectTrigger className="h-8 text-xs sm:text-sm">
@@ -383,14 +439,16 @@ export function RiskCaptureVerificationModal({
 
                         {/* Comment Section - Full Width */}
                         <div className="space-y-2">
-                          <Label className="text-xs text-gray-700">Komentar</Label>
+                          <Label className="text-xs text-gray-700">
+                            Komentar
+                          </Label>
                           <Textarea
                             value={risk.verifierComment || ""}
                             onChange={(e) =>
                               handleRiskVerification(
-                                risk.id, 
-                                risk.verifierStatus || "pending", 
-                                e.target.value
+                                risk.id,
+                                risk.verifierStatus || "pending",
+                                e.target.value,
                               )
                             }
                             placeholder="Tambahkan komentar verifikasi..."
@@ -407,7 +465,9 @@ export function RiskCaptureVerificationModal({
             {/* Overall Comment - Mobile Optimized */}
             <Card>
               <CardHeader className="pb-3">
-                <CardTitle className="text-base sm:text-lg">Overall Assessment</CardTitle>
+                <CardTitle className="text-base sm:text-lg">
+                  Overall Assessment
+                </CardTitle>
               </CardHeader>
               <CardContent className="pt-0">
                 <Textarea
