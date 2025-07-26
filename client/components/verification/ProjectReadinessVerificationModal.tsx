@@ -362,7 +362,7 @@ export function ProjectReadinessVerificationModal({
                                   },
                                 })
                               }
-                              className="h-8 px-3 hover:bg-green-100 hover:border-green-300"
+                              className="min-h-[36px] px-3 py-2 text-xs sm:text-sm hover:bg-green-100 hover:border-green-300 w-full sm:w-auto"
                             >
                               <Eye className="w-3 h-3 mr-1" />
                               {item.userComments && item.userComments.length > 0
