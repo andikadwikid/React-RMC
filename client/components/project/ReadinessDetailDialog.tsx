@@ -16,7 +16,6 @@ import {
   AlertTriangle,
   CheckCircle,
   XCircle,
-  X,
 } from "lucide-react";
 
 interface UserComment {
