@@ -28,7 +28,7 @@ export function SubmissionItem({
             <StatusBadge status={submission.status} />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600">
             <div className="flex flex-col">
               <span className="font-medium text-gray-700">Submitter:</span>
               <span className="text-gray-900">{submission.submittedBy}</span>
