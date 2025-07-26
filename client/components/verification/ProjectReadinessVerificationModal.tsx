@@ -434,7 +434,7 @@ export function ProjectReadinessVerificationModal({
                               Verifier Status
                             </Label>
                             <Select
-                              value=""
+                              value={item.verifierStatus || ""}
                               onValueChange={(value: ReadinessStatus) =>
                                 updateVerificationStatus(item.id, value)
                               }
