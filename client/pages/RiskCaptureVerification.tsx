@@ -696,12 +696,8 @@ export default function RiskCaptureVerification() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[300px]">Project Name</TableHead>
+                    <TableHead className="w-[400px]">Project Name</TableHead>
                     <TableHead className="text-center">Total Risks</TableHead>
-                    <TableHead className="text-center">Items with Risks</TableHead>
-                    <TableHead className="text-center">Risk Distribution</TableHead>
-                    <TableHead className="text-center">Priority</TableHead>
-                    <TableHead className="text-center">Categories</TableHead>
                     <TableHead className="text-center">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -714,72 +710,14 @@ export default function RiskCaptureVerification() {
                             {project.projectName}
                           </div>
                           <div className="text-sm text-gray-500">
-                            {project.totalReadinessItems} readiness items
+                            {project.totalReadinessItems} readiness items • {project.itemsWithRisks} with risks
                           </div>
                         </div>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Badge variant={project.totalRisks > 0 ? "default" : "secondary"}>
-                          {project.totalRisks}
+                        <Badge variant={project.totalRisks > 0 ? "default" : "secondary"} className="text-sm">
+                          {project.totalRisks} risk{project.totalRisks !== 1 ? 's' : ''}
                         </Badge>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <span className="text-sm">
-                          {project.itemsWithRisks}/{project.totalReadinessItems}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex flex-wrap gap-1 justify-center">
-                          {project.totalRisks > 0 ? (
-                            <>
-                              {project.riskDistribution.sangatRendah > 0 && (
-                                <Badge className="bg-green-100 text-green-800 text-xs">
-                                  SR: {project.riskDistribution.sangatRendah}
-                                </Badge>
-                              )}
-                              {project.riskDistribution.rendah > 0 && (
-                                <Badge className="bg-green-100 text-green-800 text-xs">
-                                  R: {project.riskDistribution.rendah}
-                                </Badge>
-                              )}
-                              {project.riskDistribution.sedang > 0 && (
-                                <Badge className="bg-yellow-100 text-yellow-800 text-xs">
-                                  S: {project.riskDistribution.sedang}
-                                </Badge>
-                              )}
-                              {project.riskDistribution.tinggi > 0 && (
-                                <Badge className="bg-orange-100 text-orange-800 text-xs">
-                                  T: {project.riskDistribution.tinggi}
-                                </Badge>
-                              )}
-                              {project.riskDistribution.sangatTinggi > 0 && (
-                                <Badge className="bg-red-100 text-red-800 text-xs">
-                                  ST: {project.riskDistribution.sangatTinggi}
-                                </Badge>
-                              )}
-                            </>
-                          ) : (
-                            <Badge variant="secondary" className="text-xs">No Risks</Badge>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {project.totalRisks > 0 ? (
-                          getRiskPriorityBadge(project.highestRiskLevel)
-                        ) : (
-                          <Badge variant="secondary">N/A</Badge>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <div className="text-sm">
-                          {project.categoriesWithRisks.length > 0 ? (
-                            <Badge variant="outline">
-                              {project.categoriesWithRisks.length} categories
-                            </Badge>
-                          ) : (
-                            <span className="text-gray-500">No categories</span>
-                          )}
-                        </div>
                       </TableCell>
                       <TableCell className="text-center">
                         <Button
