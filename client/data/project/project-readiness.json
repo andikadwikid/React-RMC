@@ -994,13 +994,13 @@
       "category": "administrative",
       "item": "Berita Acara (BA) serah terima awal",
       "user_status": "tidak_tersedia",
-      "verifier_status": "tidak_tersedia",
+      "verifier_status": null,
       "user_comment": "BA serah terima belum dilakukan, menunggu approval final dari stakeholder",
-      "verifier_comment": "BA serah terima perlu segera diproses untuk memulai tahap development",
-      "verifier_name": "Senior Verifier",
-      "verified_at": "2024-01-26T09:15:00Z",
+      "verifier_comment": null,
+      "verifier_name": null,
+      "verified_at": null,
       "created_at": "2024-01-25T14:20:00Z",
-      "updated_at": "2024-01-26T09:15:00Z"
+      "updated_at": "2024-01-25T14:20:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442104",
