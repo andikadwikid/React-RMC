@@ -10,7 +10,7 @@ interface TopologyData {
   [key: string]: any;
 }
 
-import type { ProvinceData } from "@/hooks/useDashboardData";
+import type { ProvinceData } from "@/hooks/dashboard";
 
 interface IndonesiaMapChartProps {
   data: ProvinceData[];
