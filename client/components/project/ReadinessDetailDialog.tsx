@@ -77,6 +77,32 @@ export function ReadinessDetailDialog({
   title,
   data,
 }: ReadinessDetailDialogProps) {
+  // Early return if data is null or undefined
+  if (!data) {
+    return (
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+          <DialogHeader className="pb-4 border-b">
+            <DialogTitle>Data tidak tersedia</DialogTitle>
+            <DialogDescription>Data untuk dialog ini tidak valid.</DialogDescription>
+          </DialogHeader>
+          <div className="flex-1 overflow-y-auto py-4">
+            <div className="text-center py-8">
+              <p className="text-sm text-gray-500">
+                Tidak ada data yang dapat ditampilkan.
+              </p>
+            </div>
+          </div>
+          <div className="pt-4 border-t">
+            <div className="flex justify-end">
+              <Button onClick={onClose}>Tutup</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
