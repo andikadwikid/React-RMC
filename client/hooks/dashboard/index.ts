@@ -1,7 +1,7 @@
 // Dashboard hooks
-export { useDashboardCalculations } from './useDashboardCalculations';
-export { useDashboardData } from './useDashboardData';
-export { usePeriodDetection } from './usePeriodDetection';
+export { useDashboardCalculations } from "./useDashboardCalculations";
+export { useDashboardData } from "./useDashboardData";
+export { usePeriodDetection } from "./usePeriodDetection";
 
 // Re-export all types and functions from useDashboardData
 export type {
@@ -16,7 +16,7 @@ export type {
   InvoiceStatus,
   AgingReceivable,
   ProvinceData,
-} from './useDashboardData';
+} from "./useDashboardData";
 
 export {
   availablePerformancePeriods,
@@ -25,7 +25,7 @@ export {
   availableRiskCapturePeriods,
   availableInvoiceStatusPeriods,
   availableAgingReceivablesPeriods,
-} from './useDashboardData';
+} from "./useDashboardData";
 
 // Re-export all functions from useDashboardCalculations
 export {
@@ -49,7 +49,7 @@ export {
   getInvoiceInsights,
   getAgingReceivablesInsights,
   getAgingColor,
-} from './useDashboardCalculations';
+} from "./useDashboardCalculations";
 
 // Re-export all functions from usePeriodDetection
 export {
@@ -59,4 +59,4 @@ export {
   detectBestRiskCapturePeriod,
   detectBestInvoiceStatusPeriod,
   detectBestAgingReceivablesPeriod,
-} from './usePeriodDetection';
+} from "./usePeriodDetection";

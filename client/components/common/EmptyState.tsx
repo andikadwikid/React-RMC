@@ -8,11 +8,11 @@ interface EmptyStateProps {
   className?: string;
 }
 
-export function EmptyState({ 
-  icon: Icon, 
-  message, 
+export function EmptyState({
+  icon: Icon,
+  message,
   description,
-  className = "" 
+  className = "",
 }: EmptyStateProps) {
   return (
     <Card className={className}>

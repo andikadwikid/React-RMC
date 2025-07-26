@@ -1,11 +1,11 @@
 // Verification hooks
-export * from './verification';
+export * from "./verification";
 
-// Project hooks  
-export * from './project';
+// Project hooks
+export * from "./project";
 
 // Dashboard hooks
-export * from './dashboard';
+export * from "./dashboard";
 
 // Common/utility hooks
-export * from './common';
+export * from "./common";

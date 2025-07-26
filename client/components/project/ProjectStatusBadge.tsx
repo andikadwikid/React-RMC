@@ -7,7 +7,10 @@ interface ProjectStatusBadgeProps {
   className?: string;
 }
 
-export function ProjectStatusBadge({ progress, className }: ProjectStatusBadgeProps) {
+export function ProjectStatusBadge({
+  progress,
+  className,
+}: ProjectStatusBadgeProps) {
   const { getStatusConfig } = useProjectBadges();
   const config = getStatusConfig(progress);
   const IconComponent = config.icon;
@@ -41,7 +44,10 @@ interface VerificationBadgeProps {
   className?: string;
 }
 
-export function VerificationBadge({ projectId, className }: VerificationBadgeProps) {
+export function VerificationBadge({
+  projectId,
+  className,
+}: VerificationBadgeProps) {
   const { getVerificationConfig } = useProjectBadges();
   const config = getVerificationConfig(projectId);
 
@@ -58,7 +64,11 @@ interface ReadinessBadgeProps {
   className?: string;
 }
 
-export function ReadinessBadge({ status, score, className }: ReadinessBadgeProps) {
+export function ReadinessBadge({
+  status,
+  score,
+  className,
+}: ReadinessBadgeProps) {
   const { getReadinessConfig } = useProjectBadges();
   const config = getReadinessConfig(status);
   const IconComponent = config.icon;
@@ -82,7 +92,11 @@ interface RiskCaptureBadgeProps {
   className?: string;
 }
 
-export function RiskCaptureBadge({ status, score, className }: RiskCaptureBadgeProps) {
+export function RiskCaptureBadge({
+  status,
+  score,
+  className,
+}: RiskCaptureBadgeProps) {
   const { getRiskCaptureConfig } = useProjectBadges();
   const config = getRiskCaptureConfig(status);
   const IconComponent = config.icon;

@@ -20,7 +20,8 @@ export function ProjectOverview({ project }: ProjectOverviewProps) {
   const startDate = project.startDate;
   const endDate = project.endDate;
   const totalDays = Math.floor(
-    (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)
+    (new Date(endDate).getTime() - new Date(startDate).getTime()) /
+      (1000 * 60 * 60 * 24),
   );
 
   return (
@@ -83,9 +84,7 @@ export function ProjectOverview({ project }: ProjectOverviewProps) {
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
-              <p className="font-medium text-gray-900">
-                {project.client}
-              </p>
+              <p className="font-medium text-gray-900">{project.client}</p>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
@@ -125,9 +124,7 @@ export function ProjectOverview({ project }: ProjectOverviewProps) {
             </div>
 
             <div className="flex justify-between items-start">
-              <span className="text-sm text-gray-600">
-                Project Manager
-              </span>
+              <span className="text-sm text-gray-600">Project Manager</span>
               <span className="text-sm font-medium text-right max-w-[60%]">
                 {project.projectManager}
               </span>

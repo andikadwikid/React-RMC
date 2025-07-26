@@ -26,7 +26,9 @@ export interface UseProjectDetailReturn {
   canEditReadiness: (status: string | null) => boolean;
 }
 
-export const useProjectDetail = (projectId: string | undefined): UseProjectDetailReturn => {
+export const useProjectDetail = (
+  projectId: string | undefined,
+): UseProjectDetailReturn => {
   const navigate = useNavigate();
   const [project, setProject] = useState<Project | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -68,15 +70,17 @@ export const useProjectDetail = (projectId: string | undefined): UseProjectDetai
 
     const startDate = project.start_date || project.startDate;
     const endDate = project.end_date || project.endDate;
-    
+
     const budgetUsedPercentage = (project.spent / project.budget) * 100;
     const remainingBudget = project.budget - project.spent;
-    
+
     const daysElapsed = Math.floor(
-      (new Date().getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)
+      (new Date().getTime() - new Date(startDate).getTime()) /
+        (1000 * 60 * 60 * 24),
     );
     const totalDays = Math.floor(
-      (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)
+      (new Date(endDate).getTime() - new Date(startDate).getTime()) /
+        (1000 * 60 * 60 * 24),
     );
     const timeElapsedPercentage = (daysElapsed / totalDays) * 100;
 

@@ -9,11 +9,11 @@ interface SearchInputProps {
   className?: string;
 }
 
-export function SearchInput({ 
-  value, 
-  onChange, 
+export function SearchInput({
+  value,
+  onChange,
   placeholder = "Search...",
-  className = "" 
+  className = "",
 }: SearchInputProps) {
   return (
     <Card className={`shadow-sm ${className}`}>

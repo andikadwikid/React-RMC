@@ -3,7 +3,12 @@ import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Eye } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
-import { ProjectStatusBadge, ReadinessBadge, RiskCaptureBadge, VerificationBadge } from "./ProjectStatusBadge";
+import {
+  ProjectStatusBadge,
+  ReadinessBadge,
+  RiskCaptureBadge,
+  VerificationBadge,
+} from "./ProjectStatusBadge";
 import type { Project } from "@/types";
 
 interface ProjectTableRowProps {
@@ -24,13 +29,13 @@ export function ProjectTableRow({ project }: ProjectTableRowProps) {
           </p>
         </div>
       </TableCell>
-      
+
       <TableCell className="hidden sm:table-cell">
         <p className="text-xs lg:text-sm text-gray-900 break-words">
           {project.client}
         </p>
       </TableCell>
-      
+
       <TableCell>
         <div className="space-y-1">
           <div className="flex items-center gap-2">
@@ -47,7 +52,7 @@ export function ProjectTableRow({ project }: ProjectTableRowProps) {
           <ProjectStatusBadge progress={project.progress} />
         </div>
       </TableCell>
-      
+
       <TableCell>
         <div className="text-xs lg:text-sm">
           <p className="font-medium break-words">
@@ -58,7 +63,7 @@ export function ProjectTableRow({ project }: ProjectTableRowProps) {
           </p>
         </div>
       </TableCell>
-      
+
       <TableCell className="hidden sm:table-cell">
         <div className="text-xs lg:text-sm">
           <p className="whitespace-nowrap">
@@ -69,25 +74,25 @@ export function ProjectTableRow({ project }: ProjectTableRowProps) {
           </p>
         </div>
       </TableCell>
-      
+
       <TableCell className="hidden md:table-cell">
         <ReadinessBadge
           status={project.readinessStatus}
           score={project.readinessScore}
         />
       </TableCell>
-      
+
       <TableCell className="hidden md:table-cell">
         <RiskCaptureBadge
           status={project.riskCaptureStatus}
           score={project.riskCaptureScore}
         />
       </TableCell>
-      
+
       <TableCell className="hidden lg:table-cell">
         <VerificationBadge projectId={project.id} />
       </TableCell>
-      
+
       <TableCell>
         <div className="flex items-center gap-1 lg:gap-2">
           <Link to={`/projects/${project.id}`}>

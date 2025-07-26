@@ -9,14 +9,16 @@ Halaman Project List dan Project Detail telah dioptimasi untuk meningkatkan perf
 ### 1. ✅ State Management dengan Custom Hooks
 
 #### `useProjectsData.ts`
+
 - **Tujuan**: Centralized project data management untuk list page
 - **Fitur**:
   - Filtering logic untuk search, status, dan risk
-  - Memoized stats calculation 
+  - Memoized stats calculation
   - Utility functions untuk status dan risk determination
   - Clean separation of concerns
 
 #### `useProjectDetail.ts`
+
 - **Tujuan**: Project detail state management
 - **Fitur**:
   - Project loading dan validation
@@ -25,6 +27,7 @@ Halaman Project List dan Project Detail telah dioptimasi untuk meningkatkan perf
   - Readiness status management
 
 #### `useProjectBadges.ts`
+
 - **Tujuan**: Centralized badge configuration
 - **Fitur**:
   - Type-safe badge configurations
@@ -34,6 +37,7 @@ Halaman Project List dan Project Detail telah dioptimasi untuk meningkatkan perf
 ### 2. ✅ Modular Component Architecture
 
 #### Project List Components:
+
 - `ProjectStatsCards.tsx` - Summary statistics cards
 - `ProjectFilters.tsx` - Search dan filter controls
 - `ProjectTable.tsx` - Main project table
@@ -41,6 +45,7 @@ Halaman Project List dan Project Detail telah dioptimasi untuk meningkatkan perf
 - `ProjectStatusBadge.tsx` - Status badge components
 
 #### Project Detail Components:
+
 - `ProjectDetailHeader.tsx` - Page header dengan navigation
 - `ProjectQuickStats.tsx` - Progress, budget, time stats
 - `ProjectOverview.tsx` - Project information dan client details
@@ -48,6 +53,7 @@ Halaman Project List dan Project Detail telah dioptimasi untuk meningkatkan perf
 ### 3. ✅ Performance Optimizations
 
 #### React.memo Implementation:
+
 ```typescript
 const ProjectsHeader = React.memo(() => (
   // Header content that doesn't need frequent re-renders
@@ -59,11 +65,13 @@ const ProjectDetails = React.memo(({ project }) => (
 ```
 
 #### Debounced Search:
+
 ```typescript
 const debouncedSearchTerm = useDebounce(filters.searchTerm, 300);
 ```
 
 #### Memoized Computations:
+
 ```typescript
 const finalFilteredProjects = useMemo(() => {
   // Expensive filtering operations
@@ -73,6 +81,7 @@ const finalFilteredProjects = useMemo(() => {
 ### 4. ✅ Type Safety & Configuration
 
 #### Constants & Types:
+
 ```typescript
 export const PROJECT_STATUS_CONFIG: Record<string, BadgeConfig> = {
   completed: { label: "Selesai", color: "bg-blue-100 text-blue-800" },
@@ -84,6 +93,7 @@ export const PROJECT_STATUS_CONFIG: Record<string, BadgeConfig> = {
 ## 📊 Perbandingan Before vs After
 
 ### Before (Original):
+
 - ❌ Monolithic components (540+ lines Projects.tsx, 1470+ lines ProjectDetail.tsx)
 - ❌ Inline filtering dan state logic
 - ❌ Repetitive badge generation code
@@ -92,6 +102,7 @@ export const PROJECT_STATUS_CONFIG: Record<string, BadgeConfig> = {
 - ❌ Inline stats calculations
 
 ### After (Optimized):
+
 - ✅ Modular architecture dengan focused components
 - ✅ Custom hooks untuk business logic
 - ✅ Memoized computations dan components
@@ -102,12 +113,14 @@ export const PROJECT_STATUS_CONFIG: Record<string, BadgeConfig> = {
 ## 🎯 Performance Improvements
 
 ### Project List Page:
+
 1. **Search Performance**: 60% faster dengan debounced search
 2. **Rendering**: 45% reduction dalam unnecessary re-renders
 3. **Memory Usage**: Optimized dengan proper memoization
 4. **Bundle Size**: Smaller focused components
 
 ### Project Detail Page:
+
 1. **Loading Speed**: Streamlined data loading
 2. **Interactive Performance**: Memoized modal handlers
 3. **Component Efficiency**: React.memo untuk stable components
@@ -116,16 +129,19 @@ export const PROJECT_STATUS_CONFIG: Record<string, BadgeConfig> = {
 ## 🏗️ Architecture Benefits
 
 ### Separation of Concerns:
+
 - **Data Layer**: Custom hooks handle business logic
 - **Presentation Layer**: Components focus on UI
 - **Configuration Layer**: Centralized constants dan types
 
 ### Reusability:
+
 - Badge components dapat digunakan di seluruh aplikasi
 - Filter components reusable untuk halaman lain
 - Stats cards dapat di-customize untuk different metrics
 
 ### Maintainability:
+
 - Single source of truth untuk configurations
 - Modular components mudah di-test
 - Clear dependency injection patterns
@@ -159,6 +175,7 @@ pages/
 ## 🚀 Usage Examples
 
 ### Using Project List Hook:
+
 ```typescript
 const {
   filteredProjects,
@@ -171,22 +188,19 @@ const {
 ```
 
 ### Using Project Detail Hook:
+
 ```typescript
-const {
-  project,
-  stats,
-  readinessStatus,
-  generateReport,
-  canEditReadiness,
-} = useProjectDetail(projectId);
+const { project, stats, readinessStatus, generateReport, canEditReadiness } =
+  useProjectDetail(projectId);
 ```
 
 ### Using Badge Components:
+
 ```typescript
 <ProjectStatusBadge progress={project.progress} />
-<ReadinessBadge 
-  status={project.readinessStatus} 
-  score={project.readinessScore} 
+<ReadinessBadge
+  status={project.readinessStatus}
+  score={project.readinessScore}
 />
 ```
 
@@ -200,14 +214,14 @@ const {
 
 ## 📈 Metrics Achieved
 
-| **Metric** | **Before** | **After** | **Improvement** |
-|------------|------------|-----------|-----------------|
-| **Bundle Size** | Large monolithic | Modular chunks | -35% |
-| **Render Time** | Multiple re-renders | Optimized | -45% |
-| **Search Performance** | Immediate filtering | Debounced | +60% |
-| **Memory Usage** | Higher | Optimized | -25% |
-| **Maintainability** | Complex | Modular | +80% |
-| **Lines of Code** | 2000+ lines | ~800 lines | -60% |
+| **Metric**             | **Before**          | **After**      | **Improvement** |
+| ---------------------- | ------------------- | -------------- | --------------- |
+| **Bundle Size**        | Large monolithic    | Modular chunks | -35%            |
+| **Render Time**        | Multiple re-renders | Optimized      | -45%            |
+| **Search Performance** | Immediate filtering | Debounced      | +60%            |
+| **Memory Usage**       | Higher              | Optimized      | -25%            |
+| **Maintainability**    | Complex             | Modular        | +80%            |
+| **Lines of Code**      | 2000+ lines         | ~800 lines     | -60%            |
 
 ## 🎉 Key Benefits
 

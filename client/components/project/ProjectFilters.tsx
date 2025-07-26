@@ -49,7 +49,10 @@ export function ProjectFiltersComponent({
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex items-center gap-2 flex-1">
               <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
-              <Select value={filters.statusFilter} onValueChange={onStatusChange}>
+              <Select
+                value={filters.statusFilter}
+                onValueChange={onStatusChange}
+              >
                 <SelectTrigger className="w-full min-w-0">
                   <SelectValue placeholder="Filter Status" />
                 </SelectTrigger>

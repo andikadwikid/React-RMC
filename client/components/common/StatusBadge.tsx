@@ -8,12 +8,12 @@ interface StatusBadgeProps {
 
 export function StatusBadge({ status, className }: StatusBadgeProps) {
   const { getStatusConfig } = useStatusConfig();
-  
+
   const config = getStatusConfig(status);
   if (!config) return null;
 
   const IconComponent = config.icon;
-  
+
   return (
     <Badge className={`${config.color} ${className || ""}`}>
       <IconComponent className="w-3 h-3 mr-1" />

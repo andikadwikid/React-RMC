@@ -39,10 +39,38 @@ const App = () => (
   <ErrorBoundary>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout><Dashboard /></Layout>} />
-        <Route path="/projects" element={<Layout><Projects /></Layout>} />
-        <Route path="/projects/:projectId" element={<Layout><ProjectDetail /></Layout>} />
-        <Route path="/verify-readiness" element={<Layout><Verification /></Layout>} />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Dashboard />
+            </Layout>
+          }
+        />
+        <Route
+          path="/projects"
+          element={
+            <Layout>
+              <Projects />
+            </Layout>
+          }
+        />
+        <Route
+          path="/projects/:projectId"
+          element={
+            <Layout>
+              <ProjectDetail />
+            </Layout>
+          }
+        />
+        <Route
+          path="/verify-readiness"
+          element={
+            <Layout>
+              <Verification />
+            </Layout>
+          }
+        />
         <Route
           path="/settings"
           element={

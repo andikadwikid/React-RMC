@@ -25,21 +25,21 @@ export function SummaryCard({
   className = "",
 }: SummaryCardProps) {
   return (
-    <Card className={`hover:shadow-md transition-shadow duration-200 ${borderColor || ""} ${className}`}>
+    <Card
+      className={`hover:shadow-md transition-shadow duration-200 ${borderColor || ""} ${className}`}
+    >
       <CardHeader className="pb-2">
-        <CardTitle className={`text-sm font-medium flex items-center gap-2 ${iconColor.includes("text-") ? iconColor : `text-${iconColor}`}`}>
+        <CardTitle
+          className={`text-sm font-medium flex items-center gap-2 ${iconColor.includes("text-") ? iconColor : `text-${iconColor}`}`}
+        >
           <Icon className="w-4 h-4" />
           {title}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className={`text-2xl font-bold ${valueColor}`}>
-          {value}
-        </div>
+        <div className={`text-2xl font-bold ${valueColor}`}>{value}</div>
         {description && (
-          <p className={`text-xs mt-1 ${descriptionColor}`}>
-            {description}
-          </p>
+          <p className={`text-xs mt-1 ${descriptionColor}`}>{description}</p>
         )}
       </CardContent>
     </Card>

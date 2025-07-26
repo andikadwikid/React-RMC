@@ -10,7 +10,10 @@ interface SubmissionItemProps {
   onOpenModal: (submission: ProjectReadiness) => void;
 }
 
-export function SubmissionItem({ submission, onOpenModal }: SubmissionItemProps) {
+export function SubmissionItem({
+  submission,
+  onOpenModal,
+}: SubmissionItemProps) {
   return (
     <div
       key={submission.id}
@@ -27,29 +30,19 @@ export function SubmissionItem({ submission, onOpenModal }: SubmissionItemProps)
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600">
             <div className="flex flex-col">
-              <span className="font-medium text-gray-700">
-                Submitter:
-              </span>
-              <span className="text-gray-900">
-                {submission.submittedBy}
-              </span>
+              <span className="font-medium text-gray-700">Submitter:</span>
+              <span className="text-gray-900">{submission.submittedBy}</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-medium text-gray-700">
-                Tanggal Submit:
-              </span>
+              <span className="font-medium text-gray-700">Tanggal Submit:</span>
               <span className="text-gray-900">
                 {formatDateTime(submission.submittedAt)}
               </span>
             </div>
             {submission.verifierName && (
               <div className="flex flex-col">
-                <span className="font-medium text-gray-700">
-                  Verifier:
-                </span>
-                <span className="text-gray-900">
-                  {submission.verifierName}
-                </span>
+                <span className="font-medium text-gray-700">Verifier:</span>
+                <span className="text-gray-900">{submission.verifierName}</span>
               </div>
             )}
           </div>
@@ -66,12 +59,8 @@ export function SubmissionItem({ submission, onOpenModal }: SubmissionItemProps)
 
           {submission.overallComment && (
             <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm">
-              <span className="font-medium text-blue-900">
-                Komentar:
-              </span>
-              <p className="mt-1 text-blue-800">
-                {submission.overallComment}
-              </p>
+              <span className="font-medium text-blue-900">Komentar:</span>
+              <p className="mt-1 text-blue-800">{submission.overallComment}</p>
             </div>
           )}
         </div>

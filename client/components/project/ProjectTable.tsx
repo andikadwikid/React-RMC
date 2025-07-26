@@ -18,7 +18,11 @@ interface ProjectTableProps {
   hasActiveFilters: boolean;
 }
 
-export function ProjectTable({ projects, onResetFilters, hasActiveFilters }: ProjectTableProps) {
+export function ProjectTable({
+  projects,
+  onResetFilters,
+  hasActiveFilters,
+}: ProjectTableProps) {
   return (
     <Card>
       <CardHeader className="pb-3 lg:pb-6">
