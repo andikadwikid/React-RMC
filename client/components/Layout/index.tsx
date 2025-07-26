@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Menu, X, Calendar } from "lucide-react";
 import { Sidebar } from "./Sidebar";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useLocalStorage } from "@/hooks/common";
 import { STORAGE_KEYS } from "@/constants";
 
 interface LayoutProps {
