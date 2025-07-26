@@ -15,18 +15,28 @@ declare global {
 }
 import Layout from "./components/Layout";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
-import Index from "./pages/Index";
-import Projects from "./pages/Projects";
-import CreateProject from "./pages/CreateProject";
-import ProjectDetail from "./pages/ProjectDetail";
-import ProjectTimeline from "./pages/ProjectTimeline";
-import Verification from "./pages/Verification";
-import RiskCaptureVerification from "./pages/RiskCaptureVerification";
-import VerifierDashboard from "./pages/VerifierDashboard";
-import MasterProvinces from "./pages/MasterProvinces";
-import MasterCategories from "./pages/MasterCategories";
-import PlaceholderPage from "./pages/PlaceholderPage";
-import NotFound from "./pages/NotFound";
+
+// Dashboard pages
+import Dashboard from "./pages/dashboard/Index";
+import VerifierDashboard from "./pages/dashboard/VerifierDashboard";
+
+// Project pages
+import Projects from "./pages/project/Projects";
+import CreateProject from "./pages/project/CreateProject";
+import ProjectDetail from "./pages/project/ProjectDetail";
+import ProjectTimeline from "./pages/project/ProjectTimeline";
+
+// Verification pages
+import Verification from "./pages/verification/Verification";
+import RiskCaptureVerification from "./pages/verification/RiskCaptureVerification";
+
+// Master data pages
+import MasterProvinces from "./pages/master/MasterProvinces";
+import MasterCategories from "./pages/master/MasterCategories";
+
+// Common pages
+import PlaceholderPage from "./pages/common/PlaceholderPage";
+import NotFound from "./pages/common/NotFound";
 
 const queryClient = new QueryClient();
 
