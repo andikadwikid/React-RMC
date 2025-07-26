@@ -100,8 +100,8 @@ export function ProjectReadinessVerificationModal({
   const [verificationItems, setVerificationItems] = useState<ReadinessItem[]>(
     submission.items?.map((item) => ({
       ...item,
-      verifierStatus: item.verifierStatus || "lengkap",
-      verifierComment: item.verifierComment || "",
+      verifierStatus: item.verifierStatus || undefined,
+      verifierComment: item.verifierComment || undefined,
     })) || [],
   );
 

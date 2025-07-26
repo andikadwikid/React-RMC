@@ -123,7 +123,7 @@ export function ProjectReadinessVerificationModal({
       verifierStatus: item.verifier_status || undefined,
       userComments: item.user_comments || [],
       userComment: item.user_comment || "", // Keep for backward compatibility
-      verifierComment: item.verifier_comment || "",
+      verifierComment: item.verifier_comment || undefined,
       verifierName: item.verifier_name || undefined,
       verifiedAt: item.verified_at || undefined,
       riskCapture: item.risk_capture || [],
