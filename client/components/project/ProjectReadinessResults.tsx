@@ -33,6 +33,7 @@ import {
 } from "@/utils/dataLoader";
 import { formatDateTime } from "@/utils/formatters";
 import type { ReadinessStatus } from "@/types";
+import { ReadinessDetailDialog } from "./ReadinessDetailDialog";
 
 interface UserComment {
   id: string;
