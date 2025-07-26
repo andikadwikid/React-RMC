@@ -396,6 +396,12 @@ export function ProjectReadinessVerificationModal({
                                   title: item.item,
                                   data: {
                                     verifierComment: item.verifierComment,
+                                    verifierComments: item.verifierComments || (item.verifierComment ? [{
+                                      id: `${item.id}-feedback-1`,
+                                      text: item.verifierComment,
+                                      verifierName: item.verifierName || 'Risk Officer',
+                                      createdAt: item.verifiedAt || new Date().toISOString(),
+                                    }] : []),
                                     verifierName: item.verifierName,
                                     verifiedAt: item.verifiedAt,
                                     verifierStatus: item.verifierStatus,
