@@ -65,16 +65,16 @@ export function SubmissionItem({
           )}
         </div>
 
-        <div className="flex justify-end lg:ml-4">
+        <div className="flex justify-end lg:ml-4 mt-2 lg:mt-0">
           <Button
             variant="outline"
             size="sm"
             onClick={() => onOpenModal(submission)}
-            className="w-full sm:w-auto hover:bg-blue-50 hover:border-blue-300 min-h-[40px] px-4"
+            className="w-full sm:w-auto hover:bg-blue-50 hover:border-blue-300 min-h-[44px] px-4 text-sm font-medium"
           >
             <Eye className="w-4 h-4 mr-2 flex-shrink-0" />
-            <span className="hidden xs:inline sm:hidden lg:inline">Lihat Detail</span>
-            <span className="xs:hidden sm:inline lg:hidden">Review</span>
+            <span className="sm:hidden">Lihat Detail</span>
+            <span className="hidden sm:inline">Review</span>
           </Button>
         </div>
       </div>
