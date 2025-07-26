@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page Fix</title>
+</head>
+<body>
+    <h1>Testing if the application is working...</h1>
+    <div id="status">Loading...</div>
+    
+    <script>
+        // Simple test to see if the app loads
+        setTimeout(() => {
+            const iframe = document.createElement('iframe');
+            iframe.src = 'http://localhost:8080';
+            iframe.style.width = '100%';
+            iframe.style.height = '600px';
+            iframe.onload = () => {
+                document.getElementById('status').textContent = 'Application loaded successfully!';
+                document.getElementById('status').style.color = 'green';
+            };
+            iframe.onerror = () => {
+                document.getElementById('status').textContent = 'Application failed to load';
+                document.getElementById('status').style.color = 'red';
+            };
+            document.body.appendChild(iframe);
+        }, 1000);
+    </script>
+</body>
+</html>
