@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useDebounce } from "@/hooks/common";
 import { useEffect } from "react";
 
 import type { SearchBarProps } from "@/types";
