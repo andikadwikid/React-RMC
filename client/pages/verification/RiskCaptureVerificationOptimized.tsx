@@ -91,70 +91,23 @@ const RiskCaptureVerificationOptimized = () => {
           <CardTitle>Risk Capture Summary Table</CardTitle>
         </CardHeader>
         <CardContent>
-          {filteredProjects.length === 0 ? (
-            <div className="text-center py-12">
-              <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500">
-                {searchTerm
-                  ? "Tidak ada project yang ditemukan dengan kriteria pencarian"
-                  : "Tidak ada project dengan data risk capture"}
-              </p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[400px]">Project Name</TableHead>
-                    <TableHead className="text-center">Total Risks</TableHead>
-                    <TableHead className="text-center">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredProjects.map((project) => (
-                    <TableRow
-                      key={project.projectId}
-                      className="hover:bg-gray-50"
-                    >
-                      <TableCell>
-                        <div>
-                          <div className="font-medium text-gray-900">
-                            {project.projectName}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {project.totalReadinessItems} readiness items •{" "}
-                            {project.itemsWithRisks} with risks
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <Badge
-                          variant={
-                            project.totalRisks > 0 ? "default" : "secondary"
-                          }
-                          className="text-sm"
-                        >
-                          {project.totalRisks} risk
-                          {project.totalRisks !== 1 ? "s" : ""}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleViewDetail(project.projectId)}
-                          className="hover:bg-blue-50 hover:border-blue-300"
-                        >
-                          <Eye className="w-4 h-4 mr-2" />
-                          View Detail
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          )}
+          <ErrorBoundary>
+            {filteredProjects.length === 0 ? (
+              <div className="text-center py-12">
+                <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-500">
+                  {searchTerm
+                    ? "Tidak ada project yang ditemukan dengan kriteria pencarian"
+                    : "Tidak ada project dengan data risk capture"}
+                </p>
+              </div>
+            ) : (
+              <VirtualizedProjectTable
+                projects={filteredProjects}
+                onViewDetail={handleViewDetail}
+              />
+            )}
+          </ErrorBoundary>
         </CardContent>
       </Card>
 
