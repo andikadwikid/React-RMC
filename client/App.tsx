@@ -41,6 +41,19 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Layout><Dashboard /></Layout>} />
         <Route path="/projects" element={<Layout><Projects /></Layout>} />
+        <Route path="/projects/:projectId" element={<Layout><ProjectDetail /></Layout>} />
+        <Route path="/verify-readiness" element={<Layout><Verification /></Layout>} />
+        <Route
+          path="/settings"
+          element={
+            <Layout>
+              <PlaceholderPage
+                title="Settings"
+                description="Konfigurasi sistem dan preferences. Fitur ini akan segera tersedia."
+              />
+            </Layout>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
