@@ -129,7 +129,7 @@ export function ProjectOverview({ project }: ProjectOverviewProps) {
                 Project Manager
               </span>
               <span className="text-sm font-medium text-right max-w-[60%]">
-                {project.project_manager || project.projectManager}
+                {project.projectManager}
               </span>
             </div>
 
