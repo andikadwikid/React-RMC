@@ -60,66 +60,72 @@ const RiskCaptureVerificationOptimized = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <PageHeader
-        title="Risk Capture Verification"
-        description="Review dan verifikasi risk capture data berdasarkan readiness categories dan items dari setiap project"
-        icon="Shield"
-      />
-
-      {/* Summary Cards */}
-      <RiskCaptureStatsCards statistics={statistics} />
-
-      {/* Search */}
-      <Card className="shadow-sm">
-        <CardContent className="p-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              placeholder="Cari berdasarkan nama project..."
-              className="pl-10 h-11 border-gray-200 focus:border-blue-400 focus:ring-blue-400"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Data Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Risk Capture Summary Table</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ErrorBoundary>
-            {filteredProjects.length === 0 ? (
-              <div className="text-center py-12">
-                <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500">
-                  {searchTerm
-                    ? "Tidak ada project yang ditemukan dengan kriteria pencarian"
-                    : "Tidak ada project dengan data risk capture"}
-                </p>
-              </div>
-            ) : (
-              <VirtualizedProjectTable
-                projects={filteredProjects}
-                onViewDetail={handleViewDetail}
-              />
-            )}
-          </ErrorBoundary>
-        </CardContent>
-      </Card>
-
-      {/* Detail Modal with Suspense for lazy loading */}
-      <Suspense fallback={<LoadingSpinner />}>
-        <ProjectRiskDetailModal
-          isOpen={isDetailModalOpen}
-          onClose={handleCloseDetail}
-          projectDetail={selectedProjectDetail}
+    <ErrorBoundary>
+      <div className="space-y-6">
+        <PageHeader
+          title="Risk Capture Verification"
+          description="Review dan verifikasi risk capture data berdasarkan readiness categories dan items dari setiap project"
+          icon="Shield"
         />
-      </Suspense>
-    </div>
+
+        {/* Summary Cards */}
+        <ErrorBoundary>
+          <RiskCaptureStatsCards statistics={statistics} />
+        </ErrorBoundary>
+
+        {/* Search */}
+        <Card className="shadow-sm">
+          <CardContent className="p-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Input
+                placeholder="Cari berdasarkan nama project..."
+                className="pl-10 h-11 border-gray-200 focus:border-blue-400 focus:ring-blue-400"
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Data Table */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Risk Capture Summary Table</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ErrorBoundary>
+              {filteredProjects.length === 0 ? (
+                <div className="text-center py-12">
+                  <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-500">
+                    {searchTerm
+                      ? "Tidak ada project yang ditemukan dengan kriteria pencarian"
+                      : "Tidak ada project dengan data risk capture"}
+                  </p>
+                </div>
+              ) : (
+                <VirtualizedProjectTable
+                  projects={filteredProjects}
+                  onViewDetail={handleViewDetail}
+                />
+              )}
+            </ErrorBoundary>
+          </CardContent>
+        </Card>
+
+        {/* Detail Modal with Suspense for lazy loading */}
+        <ErrorBoundary>
+          <Suspense fallback={<LoadingSpinner />}>
+            <ProjectRiskDetailModal
+              isOpen={isDetailModalOpen}
+              onClose={handleCloseDetail}
+              projectDetail={selectedProjectDetail}
+            />
+          </Suspense>
+        </ErrorBoundary>
+      </div>
+    </ErrorBoundary>
   );
 };
 
