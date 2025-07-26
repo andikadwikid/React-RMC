@@ -3,66 +3,70 @@
     "categories": [
       {
         "id": "administrative",
-        "title": "Dokumen Administratif Lengkap",
+        "title": "Dokumen Administratif",
         "icon": "FileText",
         "items": [
           {
-            "id": "contract",
-            "title": "Kontrak atau PO dari user"
+            "id": "contract-po",
+            "title": "Kontrak dan PO dari user"
           },
           {
-            "id": "handover",
-            "title": "BA serah terima awal (jika ada)"
+            "id": "berita-acara",
+            "title": "Berita Acara (BA) serah terima awal"
           },
           {
-            "id": "schedule",
-            "title": "Jadwal kerja disetujui"
+            "id": "schedule-approval",
+            "title": "Jadwal kerja yang telah disetujui user"
           },
           {
-            "id": "weekly-plan",
-            "title": "Rencana kerja mingguan disampaikan"
+            "id": "weekly-periodic",
+            "title": "Rencana kerja periodic (harian/mingguan/bulanan) disampaikan ke user"
           }
         ]
       },
       {
-        "id": "user-data",
-        "title": "Data dari User Tersedia",
+        "id": "user-technical-data",
+        "title": "Data Teknis dari User",
         "icon": "Database",
         "items": [
           {
-            "id": "drawings",
-            "title": "Drawing atau layout teknis terkini"
+            "id": "technical-drawings",
+            "title": "Data Teknis like (layout Drawing atau layout)"
           },
           {
-            "id": "specifications",
-            "title": "Spesifikasi teknis atau SOW rinci"
+            "id": "specifications-sow",
+            "title": "Spesifikasi teknis/SOW yang telah disetujui"
           },
           {
-            "id": "location-data",
+            "id": "location-access",
             "title": "Data lokasi dan akses kerja"
           },
           {
-            "id": "coordinates",
-            "title": "Informasi titik koordinat (jika applicable)"
+            "id": "coordination-info",
+            "title": "Titik koordinat atau informasi spesial"
           }
         ]
       },
       {
         "id": "personnel",
-        "title": "Personel Proyek Siap",
+        "title": "Personel Proyek",
         "icon": "Users",
         "items": [
           {
             "id": "personnel-list",
-            "title": "Daftar personel dan penanggung jawab teknis"
+            "title": "Daftar personel pelaksana proyek"
           },
           {
-            "id": "certifications",
-            "title": "Sertifikasi yang relevan (jika dibutuhkan)"
+            "id": "project-schedule",
+            "title": "Penugasan jadwal teknis proyek"
           },
           {
-            "id": "hr-approval",
-            "title": "Approval SDM internal/outsourcing"
+            "id": "certifications-competencies",
+            "title": "Sertifikat atau kompetensi teknis yang relevan"
+          },
+          {
+            "id": "sdm-approval",
+            "title": "Approval SDM internal maupun tenaga outsourcing"
           }
         ]
       },
@@ -72,16 +76,81 @@
         "icon": "DollarSign",
         "items": [
           {
-            "id": "erp-tagging",
-            "title": "Proses tagging ke ERP proyek"
+            "id": "payment-milestone",
+            "title": "Skema pembayaran dan milestone yang disepakati"
           },
           {
-            "id": "contract-number",
-            "title": "No. kontrak dan cost center disiapkan"
+            "id": "contract-spkpo",
+            "title": "Draft kontrak atau SP/KPO telah disusun"
           },
           {
-            "id": "payment-scheme",
-            "title": "Verifikasi skema pembayaran dan milestone"
+            "id": "legal-review",
+            "title": "Legal review internal"
+          },
+          {
+            "id": "cost-center",
+            "title": "Cost center telah disepakati"
+          }
+        ]
+      },
+      {
+        "id": "system-equipment",
+        "title": "Kesiapan Sistem & Peralatan",
+        "icon": "Cpu",
+        "items": [
+          {
+            "id": "system-readiness",
+            "title": "Peralatan kerja tersedia dan diidentifikasi"
+          },
+          {
+            "id": "communication-project",
+            "title": "Sistem komunikasi proyek siap (grup WA, email, dashboard)"
+          },
+          {
+            "id": "network-connection",
+            "title": "Koneksi internet atau sinyal yang tersedia di lokasi"
+          },
+          {
+            "id": "work-tools",
+            "title": "Tools kerja (form, aplikasi kerja, dashboard) sudah disediakan"
+          }
+        ]
+      },
+      {
+        "id": "hsse-permits",
+        "title": "HSSE & Perizinan Lapangan",
+        "icon": "Leaf",
+        "items": [
+          {
+            "id": "site-access",
+            "title": "Izin akses site dari user (permit, safety induction)"
+          },
+          {
+            "id": "hsse-project",
+            "title": "Rencana HSSE proyek : APD, HIRADC, JSA, dan emergency contact"
+          },
+          {
+            "id": "hsse-coordination",
+            "title": "Koordinasi awal dengan pejabat HSE di lokasi proyek"
+          }
+        ]
+      },
+      {
+        "id": "deliverable-output",
+        "title": "Kesiapan Deliverable & Output",
+        "icon": "Target",
+        "items": [
+          {
+            "id": "template-output",
+            "title": "Template output atau format laporan sudah disepakati"
+          },
+          {
+            "id": "deliverable-format",
+            "title": "Deliverable sudah didefinisikan jenis awal, format, volume, penempatan hasil"
+          },
+          {
+            "id": "user-approval",
+            "title": "Jalur approval dan feedback user sudah dikomunikasikan"
           }
         ]
       }
@@ -97,7 +166,7 @@
       "status": "under_review",
       "verifier_name": "John Risk Officer",
       "verified_at": null,
-      "overall_comment": "Sebagian besar dokumen sudah lengkap. Masih ada beberapa item yang perlu dilengkapi untuk dokumentasi teknis.",
+      "overall_comment": "Sebagian besar dokumen sudah lengkap. Masih ada beberapa item yang perlu dilengkapi untuk dokumentasi teknis dan perizinan lapangan.",
       "created_at": "2024-01-20T10:30:00Z",
       "updated_at": "2024-01-21T09:30:00Z"
     },
@@ -110,7 +179,7 @@
       "status": "verified",
       "verifier_name": "Senior Project Manager",
       "verified_at": "2024-01-26T09:15:00Z",
-      "overall_comment": "Excellent readiness preparation. All critical items are complete.",
+      "overall_comment": "Excellent readiness preparation. All critical items are complete with proper documentation and HSSE procedures.",
       "created_at": "2024-01-25T14:20:00Z",
       "updated_at": "2024-01-26T09:15:00Z"
     },
@@ -133,28 +202,28 @@
       "id": "550e8400-e29b-41d4-a716-446655442001",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
       "category": "administrative",
-      "item": "Kontrak atau PO dari user",
+      "item": "Kontrak dan PO dari user",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
       "user_comments": [
         {
           "id": "comment-1-1",
-          "text": "Kontrak sudah ditandatangani dengan nomor ERP-2024-001",
+          "text": "Kontrak sudah ditandatangani dengan nomor ERP-2024-001 dan PO approved dengan nilai Rp 850 juta",
           "createdAt": "2024-01-20T10:30:00Z"
         },
         {
           "id": "comment-1-2",
-          "text": "Sudah di-upload ke system dan folder backup tersedia",
+          "text": "Dokumen sudah di-upload ke system DMS dan backup tersedia di folder shared project",
           "createdAt": "2024-01-20T10:35:00Z"
         },
         {
           "id": "comment-1-3",
-          "text": "Legal team sudah review dan approve semua terms",
+          "text": "Legal team sudah review dan approve semua terms and conditions serta klausul pembayaran",
           "createdAt": "2024-01-20T10:40:00Z"
         }
       ],
-      "user_comment": "Kontrak sudah ditandatangani dan disimpan",
-      "verifier_comment": "Kontrak sudah diverifikasi dan sesuai dengan standar legal. Nomor kontrak telah tercatat dengan benar di sistem.",
+      "user_comment": "Kontrak sudah ditandatangani dan PO telah disetujui",
+      "verifier_comment": "Kontrak sudah diverifikasi dan sesuai dengan standar legal perusahaan. Nomor kontrak dan PO telah tercatat dengan benar di sistem ERP.",
       "verifier_name": "John Risk Officer",
       "verified_at": "2024-01-21T09:15:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -164,23 +233,23 @@
       "id": "550e8400-e29b-41d4-a716-446655442002",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
       "category": "administrative",
-      "item": "BA serah terima awal (jika ada)",
+      "item": "Berita Acara (BA) serah terima awal",
       "user_status": "parsial",
       "verifier_status": "parsial",
       "user_comments": [
         {
           "id": "comment-2-1",
-          "text": "Sebagian dokumen sudah diterima dari client",
+          "text": "BA serah terima existing system sudah dilakukan dan dokumentasi tersedia",
           "createdAt": "2024-01-20T10:30:00Z"
         },
         {
           "id": "comment-2-2",
-          "text": "Masih menunggu dokumen teknis detil dan spesifikasi hardware",
+          "text": "Masih menunggu handover dokumen teknis detil dan data migrasi dari sistem lama",
           "createdAt": "2024-01-20T11:15:00Z"
         }
       ],
-      "user_comment": "Sebagian dokumen sudah diterima",
-      "verifier_comment": "Perlu dilengkapi dokumen teknis detil sebelum project dapat dimulai. Harap koordinasi dengan client untuk kelengkapan dokumen.",
+      "user_comment": "BA awal sudah ada, masih menunggu handover teknis lengkap",
+      "verifier_comment": "BA serah terima sudah proper untuk tahap awal. Perlu dilengkapi dokumen teknis detil dan data migrasi sebelum development phase dimulai.",
       "verifier_name": "John Risk Officer",
       "verified_at": "2024-01-21T09:20:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -190,11 +259,11 @@
       "id": "550e8400-e29b-41d4-a716-446655442003",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
       "category": "administrative",
-      "item": "Jadwal kerja disetujui",
+      "item": "Jadwal kerja yang telah disetujui user",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
-      "user_comment": "Jadwal sudah final dan approved",
-      "verifier_comment": "Jadwal kerja sudah komprehensif dan realistis. Timeline milestone sudah sesuai dengan kompleksitas project.",
+      "user_comment": "Jadwal kerja master sudah final dan mendapat approval dari client dan internal stakeholder",
+      "verifier_comment": "Jadwal kerja sudah komprehensif dan realistis. Timeline milestone sudah sesuai dengan kompleksitas project dan resource availability.",
       "verifier_name": "John Risk Officer",
       "verified_at": "2024-01-21T09:25:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -204,23 +273,23 @@
       "id": "550e8400-e29b-41d4-a716-446655442004",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
       "category": "administrative",
-      "item": "Rencana kerja mingguan disampaikan",
+      "item": "Rencana kerja periodic (harian/mingguan/bulanan) disampaikan ke user",
       "user_status": "tidak_tersedia",
       "verifier_status": "tidak_tersedia",
       "user_comments": [
         {
           "id": "comment-4-1",
-          "text": "Template weekly plan sudah disiapkan tapi masih dalam tahap penyusunan konten",
+          "text": "Template weekly planning sudah disiapkan tapi masih dalam tahap penyusunan konten detil",
           "createdAt": "2024-01-20T10:30:00Z"
         },
         {
           "id": "comment-4-2",
-          "text": "Menunggu finalisasi resource allocation dari management untuk dapat menyusun detailed weekly schedule",
+          "text": "Menunggu finalisasi resource allocation dari management untuk dapat menyusun detailed periodic schedule",
           "createdAt": "2024-01-20T11:00:00Z"
         }
       ],
-      "user_comment": "Masih dalam tahap penyusunan",
-      "verifier_comment": "Weekly planning merupakan critical success factor untuk project monitoring. Harap diprioritaskan completion dalam 2 hari kerja setelah resource allocation confirmed.",
+      "user_comment": "Template ada tapi konten periodic planning masih dalam tahap penyusunan",
+      "verifier_comment": "Periodic planning merupakan critical success factor untuk project monitoring. Harap diprioritaskan completion dalam 2 hari kerja setelah resource allocation confirmed.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T09:30:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -229,29 +298,29 @@
     {
       "id": "550e8400-e29b-41d4-a716-446655442005",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
-      "category": "user-data",
-      "item": "Drawing atau layout teknis terkini",
+      "category": "user-technical-data",
+      "item": "Data Teknis like (layout Drawing atau layout)",
       "user_status": "lengkap",
-      "verifier_status": null,
+      "verifier_status": "lengkap",
       "user_comments": [
         {
           "id": "comment-5-1",
-          "text": "Drawing arsitektur dan layout sudah final versi 3.2",
+          "text": "Drawing arsitektur sistem dan network layout sudah final versi 3.2",
           "createdAt": "2024-01-20T10:30:00Z"
         },
         {
           "id": "comment-5-2",
-          "text": "Drawing MEP (mechanical, electrical, plumbing) tersedia lengkap",
+          "text": "Data flow diagram dan system architecture sudah divalidasi oleh IT infrastructure team",
           "createdAt": "2024-01-20T10:45:00Z"
         },
         {
           "id": "comment-5-3",
-          "text": "Drawing network infrastructure dan server room sudah diapprove",
+          "text": "Database ERD dan integration mapping dengan existing system sudah diapprove",
           "createdAt": "2024-01-20T11:00:00Z"
         }
       ],
-      "user_comment": "Semua drawing teknis sudah tersedia",
-      "verifier_comment": "Drawing sudah lengkap dan sesuai standar. Network infrastructure design sudah mempertimbangkan security requirements dengan baik.",
+      "user_comment": "Semua drawing teknis dan layout sistem sudah tersedia lengkap",
+      "verifier_comment": "Drawing sudah lengkap dan sesuai standar. Network infrastructure design sudah mempertimbangkan security requirements dan scalability dengan baik.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T09:25:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -260,12 +329,12 @@
     {
       "id": "550e8400-e29b-41d4-a716-446655442006",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
-      "category": "user-data",
-      "item": "Spesifikasi teknis atau SOW rinci",
+      "category": "user-technical-data",
+      "item": "Spesifikasi teknis/SOW yang telah disetujui",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
-      "user_comment": "SOW detail telah disiapkan",
-      "verifier_comment": "SOW sudah lengkap dan detail. Semua requirement sudah terdefinisi dengan jelas dan dapat dijadikan acuan untuk development.",
+      "user_comment": "SOW detail dan spesifikasi teknis telah difinalisasi dan mendapat sign-off dari client",
+      "verifier_comment": "SOW sudah lengkap dan detail. Semua functional dan non-functional requirement sudah terdefinisi dengan jelas dan dapat dijadikan acuan untuk development.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T09:45:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -274,12 +343,12 @@
     {
       "id": "550e8400-e29b-41d4-a716-446655442007",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
-      "category": "user-data",
+      "category": "user-technical-data",
       "item": "Data lokasi dan akses kerja",
       "user_status": "parsial",
       "verifier_status": "parsial",
-      "user_comment": "Data utama ada, detail akses masih dikonfirmasi",
-      "verifier_comment": "Data lokasi sudah cukup untuk tahap awal. Namun detail akses seperti security clearance dan working hours perlu dilengkapi segera untuk kelancaran operasional.",
+      "user_comment": "Data lokasi kerja utama ada, namun detail untuk site visit dan akses remote masih dikonfirmasi",
+      "verifier_comment": "Data lokasi sudah cukup untuk tahap awal. Namun detail akses seperti VPN access, security clearance dan working hours perlu dilengkapi segera untuk kelancaran operasional.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T10:00:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -288,12 +357,12 @@
     {
       "id": "550e8400-e29b-41d4-a716-446655442008",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
-      "category": "user-data",
-      "item": "Informasi titik koordinat (jika applicable)",
+      "category": "user-technical-data",
+      "item": "Titik koordinat atau informasi spesial",
       "user_status": "tidak_tersedia",
       "verifier_status": "tidak_tersedia",
-      "user_comment": "Tidak diperlukan untuk project ini",
-      "verifier_comment": "Sesuai dengan nature ERP project yang tidak memerlukan data geografis spesifik. Item ini dapat diabaikan untuk project tersebut.",
+      "user_comment": "Tidak diperlukan untuk project ERP berbasis cloud",
+      "verifier_comment": "Sesuai dengan nature ERP project yang berbasis cloud/software yang tidak memerlukan data geografis spesifik. Item ini dapat diabaikan untuk project tersebut.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T10:05:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -303,28 +372,28 @@
       "id": "550e8400-e29b-41d4-a716-446655442009",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
       "category": "personnel",
-      "item": "Daftar personel dan penanggung jawab teknis",
+      "item": "Daftar personel pelaksana proyek",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
       "user_comments": [
         {
           "id": "comment-9-1",
-          "text": "Tim project sudah terbentuk lengkap: 1 Project Manager, 2 Senior Developer, 3 Developer, 1 QA Engineer, 1 UI/UX Designer",
+          "text": "Tim project sudah terbentuk lengkap: 1 Project Manager, 2 Senior Developer, 3 Developer, 1 QA Engineer, 1 UI/UX Designer, 1 System Analyst",
           "createdAt": "2024-01-20T10:30:00Z"
         },
         {
           "id": "comment-9-2",
-          "text": "Technical lead sudah ditunjuk dengan pengalaman 8 tahun di ERP development",
+          "text": "Technical lead sudah ditunjuk dengan pengalaman 8 tahun di ERP development dan certified SAP consultant",
           "createdAt": "2024-01-20T10:45:00Z"
         },
         {
           "id": "comment-9-3",
-          "text": "Backup personnel sudah diidentifikasi untuk setiap critical role untuk mitigasi risiko",
+          "text": "Backup personnel sudah diidentifikasi untuk setiap critical role untuk mitigasi risiko ketersediaan resource",
           "createdAt": "2024-01-20T11:00:00Z"
         }
       ],
-      "user_comment": "Tim sudah terbentuk lengkap",
-      "verifier_comment": "Komposisi tim sudah ideal untuk project scale. Technical lead memiliki track record yang baik. Backup plan sudah memadai untuk continuity.",
+      "user_comment": "Tim sudah terbentuk lengkap dengan backup resource plan",
+      "verifier_comment": "Komposisi tim sudah ideal untuk project scale. Technical lead memiliki track record yang baik. Backup plan sudah memadai untuk business continuity.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T09:35:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -334,11 +403,11 @@
       "id": "550e8400-e29b-41d4-a716-446655442010",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
       "category": "personnel",
-      "item": "Sertifikasi yang relevan (jika dibutuhkan)",
-      "user_status": "parsial",
-      "verifier_status": "parsial",
-      "user_comment": "Beberapa sertifikasi masih dalam proses",
-      "verifier_comment": "Sertifikasi yang ada sudah mencukupi untuk start project. Sertifikasi yang masih pending dapat dilengkapi dalam parallel dengan development phase tanpa blocking progress.",
+      "item": "Penugasan jadwal teknis proyek",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Penugasan dan jadwal teknis sudah didistribusikan ke semua anggota tim dengan clear milestone",
+      "verifier_comment": "Penugasan sudah clear dan timeline realistic. Resource allocation per phase sudah optimal untuk mencapai milestone target.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T10:10:00Z",
       "created_at": "2024-01-20T10:30:00Z",
@@ -348,10 +417,24 @@
       "id": "550e8400-e29b-41d4-a716-446655442011",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
       "category": "personnel",
-      "item": "Approval SDM internal/outsourcing",
+      "item": "Sertifikat atau kompetensi teknis yang relevan",
+      "user_status": "parsial",
+      "verifier_status": "parsial",
+      "user_comment": "Sebagian sertifikasi sudah ada, beberapa masih dalam proses renewal dan training",
+      "verifier_comment": "Sertifikasi yang ada sudah mencukupi untuk start project. Sertifikasi yang masih pending dapat dilengkapi dalam parallel dengan development phase tanpa blocking progress.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:10:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:10:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442012",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "personnel",
+      "item": "Approval SDM internal maupun tenaga outsourcing",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
-      "user_comment": "Approval HR sudah selesai",
+      "user_comment": "Approval HR sudah selesai untuk internal resource dan kontrak outsourcing sudah signed",
       "verifier_comment": "Approval HR sudah lengkap dan mencakup semua resource yang dibutuhkan. Mix internal-outsourcing sudah optimal untuk project ini.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T10:15:00Z",
@@ -359,63 +442,35 @@
       "updated_at": "2024-01-21T10:15:00Z"
     },
     {
-      "id": "550e8400-e29b-41d4-a716-446655442012",
-      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
-      "category": "legal-financial",
-      "item": "Proses tagging ke ERP proyek",
-      "user_status": "lengkap",
-      "verifier_status": "lengkap",
-      "user_comment": "Project sudah tagged di ERP",
-      "verifier_comment": "Project berhasil di-tag ke ERP dengan proper code structure. Financial tracking dan reporting sudah dapat dilakukan dengan akurat.",
-      "verifier_name": "Senior Risk Officer",
-      "verified_at": "2024-01-21T10:20:00Z",
-      "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-21T10:20:00Z"
-    },
-    {
       "id": "550e8400-e29b-41d4-a716-446655442013",
       "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
       "category": "legal-financial",
-      "item": "No. kontrak dan cost center disiapkan",
-      "user_status": "lengkap",
-      "verifier_status": "lengkap",
-      "user_comment": "Nomor kontrak dan cost center aktif",
-      "verifier_comment": "Nomor kontrak dan cost center sudah properly configured. Financial system integration sudah berjalan dengan lancar untuk tracking expenses.",
-      "verifier_name": "Senior Risk Officer",
-      "verified_at": "2024-01-21T10:25:00Z",
-      "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-21T10:25:00Z"
-    },
-    {
-      "id": "550e8400-e29b-41d4-a716-446655442014",
-      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
-      "category": "legal-financial",
-      "item": "Verifikasi skema pembayaran dan milestone",
+      "item": "Skema pembayaran dan milestone yang disepakati",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
       "user_comments": [
         {
-          "id": "comment-14-1",
+          "id": "comment-13-1",
           "text": "Payment scheme sudah disepakati: 30% down payment, 50% milestone payments (5 milestones), 20% final payment",
           "createdAt": "2024-01-20T10:30:00Z"
         },
         {
-          "id": "comment-14-2",
-          "text": "Milestone criteria sudah didefinisikan dengan deliverables yang clear dan measurable",
+          "id": "comment-13-2",
+          "text": "Milestone criteria sudah didefinisikan dengan deliverables yang clear dan measurable dengan acceptance criteria",
           "createdAt": "2024-01-20T10:45:00Z"
         },
         {
-          "id": "comment-14-3",
-          "text": "Invoice template dan procedure sudah disepakati dengan finance department",
+          "id": "comment-13-3",
+          "text": "Invoice template dan procedure sudah disepakati dengan finance department kedua belah pihak",
           "createdAt": "2024-01-20T11:00:00Z"
         },
         {
-          "id": "comment-14-4",
-          "text": "Penalty clause untuk delay dan bonus untuk early delivery sudah included dalam contract",
+          "id": "comment-13-4",
+          "text": "Penalty clause untuk delay dan bonus untuk early delivery sudah included dalam contract terms",
           "createdAt": "2024-01-20T11:15:00Z"
         }
       ],
-      "user_comment": "Skema dasar OK, detail milestone review",
+      "user_comment": "Skema pembayaran lengkap dengan milestone criteria yang jelas",
       "verifier_comment": "Payment scheme sudah fair dan mengakomodasi cash flow project. Milestone criteria sudah realistic dan achievable. Risk mitigation untuk payment sudah adequate.",
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T09:50:00Z",
@@ -423,60 +478,186 @@
       "updated_at": "2024-01-21T09:50:00Z"
     },
     {
-      "id": "550e8400-e29b-41d4-a716-446655442015",
-      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
-      "category": "administrative",
-      "item": "Kontrak atau PO dari user",
+      "id": "550e8400-e29b-41d4-a716-446655442014",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "legal-financial",
+      "item": "Draft kontrak atau SP/KPO telah disusun",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
-      "user_comment": "Kontrak master agreement signed",
-      "verifier_comment": "Kontrak sudah sesuai dengan standar banking compliance. Semua klausul legal dan security sudah proper.",
-      "verifier_name": "Senior Verifier",
-      "verified_at": "2024-01-26T09:15:00Z",
-      "created_at": "2024-01-25T14:20:00Z",
-      "updated_at": "2024-01-26T09:15:00Z"
+      "user_comment": "Draft kontrak dan SP/KPO sudah final dan mendapat review dari legal team internal",
+      "verifier_comment": "Draft kontrak sudah proper dan sesuai template standar. Klausul legal dan commercial terms sudah balanced untuk kedua belah pihak.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:20:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:20:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442015",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "legal-financial",
+      "item": "Legal review internal",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Legal review internal sudah completed dengan approval dari corporate legal department",
+      "verifier_comment": "Legal review sudah thorough dan comprehensive. Semua compliance requirement sudah terpenuhi sesuai regulatory standard.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:25:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:25:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442016",
-      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
-      "category": "administrative",
-      "item": "BA serah terima awal (jika ada)",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "legal-financial",
+      "item": "Cost center telah disepakati",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
-      "user_comment": "Complete handover documentation",
-      "verifier_comment": "Dokumentasi handover sangat lengkap dan sistematis. Semua requirements dan acceptance criteria sudah jelas.",
-      "verifier_name": "Senior Verifier",
-      "verified_at": "2024-01-26T09:15:00Z",
-      "created_at": "2024-01-25T14:20:00Z",
-      "updated_at": "2024-01-26T09:15:00Z"
+      "user_comment": "Cost center sudah ditetapkan dan aktif di sistem ERP untuk expense tracking",
+      "verifier_comment": "Cost center sudah properly configured. Financial system integration sudah berjalan dengan lancar untuk tracking expenses dan budget monitoring.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:25:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:25:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442017",
-      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
-      "category": "administrative",
-      "item": "Jadwal kerja disetujui",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "system-equipment",
+      "item": "Peralatan kerja tersedia dan diidentifikasi",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
-      "user_comment": "Schedule approved by all stakeholders",
-      "verifier_comment": "Well-structured timeline",
-      "verifier_name": "Senior Project Manager",
-      "verified_at": "2024-01-26T09:15:00Z",
-      "created_at": "2024-01-25T14:20:00Z",
-      "updated_at": "2024-01-26T09:15:00Z"
+      "user_comment": "Semua peralatan development dan testing sudah tersedia dan telah diverifikasi compatibility",
+      "verifier_comment": "Equipment readiness sudah memadai. Development environment dan testing tools sudah properly configured untuk mendukung project execution.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:30:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:30:00Z"
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442018",
-      "readiness_id": "550e8400-e29b-41d4-a716-446655441002",
-      "category": "administrative",
-      "item": "Rencana kerja mingguan disampaikan",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "system-equipment",
+      "item": "Sistem komunikasi proyek siap (grup WA, email, dashboard)",
       "user_status": "lengkap",
       "verifier_status": "lengkap",
-      "user_comment": "Weekly plans established for all phases",
-      "verifier_comment": "Detailed weekly breakdown provided",
-      "verifier_name": "Senior Project Manager",
-      "verified_at": "2024-01-26T09:15:00Z",
-      "created_at": "2024-01-25T14:20:00Z",
-      "updated_at": "2024-01-26T09:15:00Z"
+      "user_comment": "Communication channel sudah established: WhatsApp group, project email, dan dashboard monitoring",
+      "verifier_comment": "Communication system sudah comprehensive dan mencakup semua stakeholder. Dashboard monitoring sudah integrated dengan project management tools.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:35:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:35:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442019",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "system-equipment",
+      "item": "Koneksi internet atau sinyal yang tersedia di lokasi",
+      "user_status": "parsial",
+      "verifier_status": "parsial",
+      "user_comment": "Koneksi utama stable, backup connection masih dalam proses setup",
+      "verifier_comment": "Primary connection sudah reliable. Backup connection perlu segera difinalisasi untuk business continuity selama development phase.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:40:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:40:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442020",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "system-equipment",
+      "item": "Tools kerja (form, aplikasi kerja, dashboard) sudah disediakan",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Development tools, project management dashboard, dan collaboration platform sudah ready",
+      "verifier_comment": "Work tools sudah comprehensive dan terintegrasi. Platform collaboration mendukung remote work dan real-time monitoring progress.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:45:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:45:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442021",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "hsse-permits",
+      "item": "Izin akses site dari user (permit, safety induction)",
+      "user_status": "parsial",
+      "verifier_status": "parsial",
+      "user_comment": "Permit akses sudah diproses, safety induction dijadwalkan minggu depan",
+      "verifier_comment": "Permit process sudah berjalan lancar. Safety induction wajib completed sebelum akses ke production environment atau client site.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:50:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:50:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442022",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "hsse-permits",
+      "item": "Rencana HSSE proyek : APD, HIRADC, JSA, dan emergency contact",
+      "user_status": "tidak_tersedia",
+      "verifier_status": "tidak_tersedia",
+      "user_comment": "Project berbasis software development, HSSE requirement minimal untuk office environment",
+      "verifier_comment": "Untuk software project, HSSE requirement dapat disederhanakan. Emergency contact dan basic safety protocol untuk remote work sudah adequate.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T10:55:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T10:55:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442023",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "hsse-permits",
+      "item": "Koordinasi awal dengan pejabat HSE di lokasi proyek",
+      "user_status": "parsial",
+      "verifier_status": "parsial",
+      "user_comment": "Initial meeting dengan HSE officer client sudah dilakukan, follow up untuk detailed protocol sedang dijadwalkan",
+      "verifier_comment": "Initial coordination sudah proper. Follow up meeting untuk establish detailed HSE protocol perlu completed sebelum site access.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T11:00:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T11:00:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442024",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "deliverable-output",
+      "item": "Template output atau format laporan sudah disepakati",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Template laporan progress, deliverable format, dan acceptance criteria sudah finalized dan approved",
+      "verifier_comment": "Template output sudah comprehensive dan sesuai standar project documentation. Format laporan memudahkan tracking progress dan quality assurance.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T11:05:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T11:05:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442025",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "deliverable-output",
+      "item": "Deliverable sudah didefinisikan jenis awal, format, volume, penempatan hasil",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Deliverable matrix sudah lengkap dengan spesifikasi format, volume data, dan deployment strategy",
+      "verifier_comment": "Deliverable definition sudah clear dan measurable. Volume specification dan deployment strategy sudah realistic dan achievable dalam timeline yang ditetapkan.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T11:10:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T11:10:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655442026",
+      "readiness_id": "550e8400-e29b-41d4-a716-446655441001",
+      "category": "deliverable-output",
+      "item": "Jalur approval dan feedback user sudah dikomunikasikan",
+      "user_status": "lengkap",
+      "verifier_status": "lengkap",
+      "user_comment": "Approval workflow dan feedback mechanism sudah established dengan clear escalation path",
+      "verifier_comment": "Approval process sudah well-defined dan mencakup semua stakeholder level. Feedback mechanism memungkinkan iterative improvement selama development.",
+      "verifier_name": "Senior Risk Officer",
+      "verified_at": "2024-01-21T11:15:00Z",
+      "created_at": "2024-01-20T10:30:00Z",
+      "updated_at": "2024-01-21T11:15:00Z"
     }
   ]
 }
