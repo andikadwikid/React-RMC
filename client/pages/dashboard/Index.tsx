@@ -1,7 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import ProjectDistributionChart from "@/components/ProjectDistributionChart";
+import RiskCapturePieChart from "@/components/RiskCapturePieChart";
+import { RiskCategoryDetailDialog } from "@/components/dashboard/RiskCategoryDetailDialog";
+import { InvoiceStatusSection } from "@/components/dashboard/InvoiceStatusSection";
+import { AgingReceivablesSection } from "@/components/dashboard/AgingReceivablesSection";
+import { PeriodSelector } from "@/components/dashboard/PeriodSelector";
+import { FallbackMessage } from "@/components/dashboard/FallbackMessage";
+import { InsightCardsGrid } from "@/components/dashboard/InsightCards";
 import {
   BarChart3,
   TrendingUp,
@@ -13,10 +21,40 @@ import {
   Activity,
   FileText,
   Users,
-  DollarSign,
-  MapPin,
-  Clock,
 } from "lucide-react";
+import * as Highcharts from "highcharts";
+import {
+  ProjectSummary,
+  RiskCategory,
+  DataPeriod,
+  RiskDataPeriod,
+  GeographicDataPeriod,
+  RiskCaptureDataPeriod,
+  InvoiceStatusDataPeriod,
+  AgingReceivablesDataPeriod,
+  availablePerformancePeriods,
+  availableRiskPeriods,
+  availableGeographicPeriods,
+  availableRiskCapturePeriods,
+} from "@/hooks/dashboard";
+import {
+  detectBestPerformancePeriod,
+  detectBestRiskPeriod,
+  detectBestGeographicPeriod,
+  detectBestRiskCapturePeriod,
+  detectBestInvoiceStatusPeriod,
+  detectBestAgingReceivablesPeriod,
+} from "@/hooks/dashboard";
+import {
+  calculateProjectSummary,
+  getRiskInsights,
+  getGeographicInsights,
+  getRiskCaptureInsights,
+  formatCurrency,
+  formatCurrencyShort,
+  getStatusColor,
+} from "@/hooks/dashboard";
+import IndonesiaMap from "@/components/IndonesiaMapChart";
 
 // Loading component
 function LoadingSpinner() {
@@ -27,135 +65,262 @@ function LoadingSpinner() {
   );
 }
 
-// Simple types for this dashboard
-interface DashboardStats {
-  totalProjects: number;
-  activeProjects: number;
-  completedProjects: number;
-  totalBudget: number;
-  totalRevenue: number;
-  riskItems: number;
-  provinces: number;
-}
-
-interface RecentActivity {
-  id: string;
-  title: string;
-  time: string;
-  type: "project" | "risk" | "finance";
-}
-
 export default function Dashboard() {
+  // Performance chart state
+  const performanceChartRef = useRef<HTMLDivElement>(null);
+  const [selectedPerformancePeriod, setSelectedPerformancePeriod] =
+    useState<DataPeriod>(detectBestPerformancePeriod());
+  const [performanceAutoSelected, setPerformanceAutoSelected] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [stats, setStats] = useState<DashboardStats>({
-    totalProjects: 0,
-    activeProjects: 0,
-    completedProjects: 0,
-    totalBudget: 0,
-    totalRevenue: 0,
-    riskItems: 0,
-    provinces: 0,
-  });
 
-  const [recentActivities] = useState<RecentActivity[]>([
-    {
-      id: "1",
-      title: "Project Alpha - New risk assessment submitted",
-      time: "2 jam yang lalu",
-      type: "risk",
-    },
-    {
-      id: "2",
-      title: "Project Beta - Payment received",
-      time: "4 jam yang lalu",
-      type: "finance",
-    },
-    {
-      id: "3",
-      title: "Project Gamma - Phase 1 completed",
-      time: "1 hari yang lalu",
-      type: "project",
-    },
-    {
-      id: "4",
-      title: "Project Delta - Risk mitigation approved",
-      time: "2 hari yang lalu",
-      type: "risk",
-    },
-    {
-      id: "5",
-      title: "Project Echo - New project initiated",
-      time: "3 hari yang lalu",
-      type: "project",
-    },
-  ]);
+  // Project summary state
+  const [projectSummary, setProjectSummary] = useState<ProjectSummary>(
+    calculateProjectSummary(detectBestPerformancePeriod()),
+  );
 
-  // Simulate loading data
+  // Risk categories state
+  const [selectedRiskPeriod, setSelectedRiskPeriod] = useState<RiskDataPeriod>(
+    detectBestRiskPeriod(),
+  );
+  const [riskAutoSelected, setRiskAutoSelected] = useState(true);
+  const [riskCategories, setRiskCategories] = useState(
+    detectBestRiskPeriod().data,
+  );
+
+  // Geographic data state
+  const [selectedGeographicPeriod, setSelectedGeographicPeriod] =
+    useState<GeographicDataPeriod>(detectBestGeographicPeriod());
+  const [geographicAutoSelected, setGeographicAutoSelected] = useState(true);
+  const [provinceData, setProvinceData] = useState(
+    detectBestGeographicPeriod().data,
+  );
+
+  // Risk capture data state
+  const [selectedRiskCapturePeriod, setSelectedRiskCapturePeriod] =
+    useState<RiskCaptureDataPeriod>(detectBestRiskCapturePeriod());
+  const [riskCaptureAutoSelected, setRiskCaptureAutoSelected] = useState(true);
+  const [riskCaptureData, setRiskCaptureData] = useState(
+    detectBestRiskCapturePeriod().data,
+  );
+
+  // Financial data state
+  const [selectedInvoiceStatusPeriod, setSelectedInvoiceStatusPeriod] =
+    useState<InvoiceStatusDataPeriod>(detectBestInvoiceStatusPeriod());
+  const [invoiceStatusAutoSelected, setInvoiceStatusAutoSelected] =
+    useState(true);
+  const [invoiceStatus, setInvoiceStatus] = useState(
+    detectBestInvoiceStatusPeriod().data,
+  );
+
+  const [selectedAgingReceivablesPeriod, setSelectedAgingReceivablesPeriod] =
+    useState<AgingReceivablesDataPeriod>(detectBestAgingReceivablesPeriod());
+  const [agingReceivablesAutoSelected, setAgingReceivablesAutoSelected] =
+    useState(true);
+  const [agingReceivables, setAgingReceivables] = useState(
+    detectBestAgingReceivablesPeriod().data,
+  );
+
+  // Dialog state for risk category details
+  const [selectedRiskCategory, setSelectedRiskCategory] =
+    useState<RiskCategory | null>(null);
+  const [isRiskDialogOpen, setIsRiskDialogOpen] = useState(false);
+
+  // Chart update function
+  const updatePerformanceChart = (dataPeriod: DataPeriod) => {
+    if (performanceChartRef.current) {
+      (Highcharts as any).chart(performanceChartRef.current, {
+        chart: {
+          type: "column",
+          height: window.innerWidth < 768 ? 280 : 350,
+          backgroundColor: "transparent",
+        },
+        title: {
+          text: "",
+        },
+        xAxis: {
+          categories: dataPeriod.data.map((stat) =>
+            dataPeriod.type === "yearly"
+              ? stat.period.split(" ")[0]
+              : stat.period,
+          ),
+          crosshair: true,
+        },
+        yAxis: [
+          {
+            min: 0,
+            title: {
+              text: "Jumlah Proyek & Risiko",
+              style: {
+                color: "#666",
+              },
+            },
+            labels: {
+              style: {
+                color: "#666",
+              },
+            },
+          },
+          {
+            title: {
+              text: "Revenue (Milyar IDR)",
+              style: {
+                color: "#f59e0b",
+              },
+            },
+            labels: {
+              formatter: function () {
+                return (this.value / 1000000000).toFixed(1) + "B";
+              },
+              style: {
+                color: "#f59e0b",
+              },
+            },
+            opposite: true,
+          },
+        ],
+        tooltip: {
+          shared: true,
+          formatter: function () {
+            let tooltip = `<b>${this.x}</b><br/>`;
+            this.points?.forEach((point) => {
+              if (point.series.name === "Revenue") {
+                tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${formatCurrency(point.y as number)}</b><br/>`;
+              } else {
+                tooltip += `<span style="color:${point.color}">●</span> ${point.series.name}: <b>${point.y}</b><br/>`;
+              }
+            });
+            return tooltip;
+          },
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+          },
+        },
+        series: [
+          {
+            name: "Proyek",
+            data: dataPeriod.data.map((stat) => stat.projects),
+            color: "#3b82f6",
+            yAxis: 0,
+          },
+          {
+            name: "Risiko",
+            data: dataPeriod.data.map((stat) => stat.risks),
+            color: "#ef4444",
+            yAxis: 0,
+          },
+          {
+            name: "Revenue",
+            data: dataPeriod.data.map((stat) => stat.revenue),
+            color: "#f59e0b",
+            type: "line",
+            yAxis: 1,
+            marker: {
+              enabled: true,
+              radius: 4,
+            },
+          },
+        ],
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          align: "center",
+          verticalAlign: "bottom",
+          layout: "horizontal",
+        },
+      });
+    }
+  };
+
+  // Event handlers
+  const handlePerformancePeriodChange = (period: DataPeriod) => {
+    setSelectedPerformancePeriod(period);
+    setProjectSummary(calculateProjectSummary(period));
+    setPerformanceAutoSelected(false);
+  };
+
+  const handleRiskPeriodChange = (period: RiskDataPeriod) => {
+    setSelectedRiskPeriod(period);
+    setRiskCategories(period.data);
+    setRiskAutoSelected(false);
+  };
+
+  const handleGeographicPeriodChange = (period: GeographicDataPeriod) => {
+    setSelectedGeographicPeriod(period);
+    setProvinceData(period.data);
+    setGeographicAutoSelected(false);
+  };
+
+  const handleRiskCapturePeriodChange = (period: RiskCaptureDataPeriod) => {
+    setSelectedRiskCapturePeriod(period);
+    setRiskCaptureData(period.data);
+    setRiskCaptureAutoSelected(false);
+  };
+
+  const handleInvoiceStatusPeriodChange = (period: InvoiceStatusDataPeriod) => {
+    setSelectedInvoiceStatusPeriod(period);
+    setInvoiceStatus(period.data);
+    setInvoiceStatusAutoSelected(false);
+  };
+
+  const handleAgingReceivablesPeriodChange = (
+    period: AgingReceivablesDataPeriod,
+  ) => {
+    setSelectedAgingReceivablesPeriod(period);
+    setAgingReceivables(period.data);
+    setAgingReceivablesAutoSelected(false);
+  };
+
+  const handleRiskCategoryClick = (category: RiskCategory) => {
+    setSelectedRiskCategory(category);
+    setIsRiskDialogOpen(true);
+  };
+
+  const closeRiskDialog = () => {
+    setIsRiskDialogOpen(false);
+    setSelectedRiskCategory(null);
+  };
+
+  // Helper functions for fallback messages
+  const shouldShowFallbackMessage = (
+    autoSelected: boolean,
+    period: { type: string; id: string },
+  ) => {
+    const currentYear = new Date().getFullYear().toString();
+    return (
+      autoSelected &&
+      period.type === "quarterly" &&
+      period.id.includes(currentYear)
+    );
+  };
+
+  // Effects
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        updatePerformanceChart(selectedPerformancePeriod);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedPerformancePeriod, isLoading]);
+
+  useEffect(() => {
+    setProjectSummary(calculateProjectSummary(selectedPerformancePeriod));
+  }, [selectedPerformancePeriod]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      setStats({
-        totalProjects: 24,
-        activeProjects: 18,
-        completedProjects: 6,
-        totalBudget: 15000000000, // 15 Billion IDR
-        totalRevenue: 12500000000, // 12.5 Billion IDR
-        riskItems: 45,
-        provinces: 12,
-      });
       setIsLoading(false);
-    }, 1000);
+    }, 600);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Format currency to IDR
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
-
-  // Format currency short
-  const formatCurrencyShort = (amount: number) => {
-    if (amount >= 1000000000) {
-      return `Rp ${(amount / 1000000000).toFixed(1)}M`;
-    } else if (amount >= 1000000) {
-      return `Rp ${(amount / 1000000).toFixed(1)}JT`;
-    }
-    return formatCurrency(amount);
-  };
-
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case "project":
-        return <BarChart3 className="w-4 h-4 text-blue-500" />;
-      case "risk":
-        return <AlertTriangle className="w-4 h-4 text-red-500" />;
-      case "finance":
-        return <DollarSign className="w-4 h-4 text-green-500" />;
-      default:
-        return <Activity className="w-4 h-4 text-gray-500" />;
-    }
-  };
-
-  const getBorderColor = (type: string) => {
-    switch (type) {
-      case "project":
-        return "border-l-blue-500";
-      case "risk":
-        return "border-l-red-500";
-      case "finance":
-        return "border-l-green-500";
-      default:
-        return "border-l-gray-500";
-    }
-  };
-
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="px-4 sm:px-6 py-4 sm:py-6">
@@ -168,7 +333,7 @@ export default function Dashboard() {
                 Monitor dan kelola risiko proyek secara real-time
               </p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center">
               <Badge
                 variant="outline"
                 className="px-2 sm:px-3 py-1 text-xs sm:text-sm"
@@ -190,33 +355,59 @@ export default function Dashboard() {
                   })}
                 </span>
               </Badge>
-              <Button size="sm" className="hidden sm:flex">
-                <FileText className="w-4 h-4 mr-2" />
-                Export Report
-              </Button>
             </div>
           </div>
         </div>
       </div>
 
       <div className="p-4 sm:p-6">
-        {/* Main Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-          {/* Total Projects */}
+        {/* Financial Section - Row 1 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 sm:mb-8">
+          <InvoiceStatusSection
+            selectedPeriod={selectedInvoiceStatusPeriod}
+            invoiceStatus={invoiceStatus}
+            agingReceivables={agingReceivables}
+            onPeriodChange={handleInvoiceStatusPeriodChange}
+            autoSelected={invoiceStatusAutoSelected}
+          />
+
+          <AgingReceivablesSection
+            selectedPeriod={selectedAgingReceivablesPeriod}
+            agingReceivables={agingReceivables}
+            invoiceStatus={invoiceStatus}
+            onPeriodChange={handleAgingReceivablesPeriodChange}
+            autoSelected={agingReceivablesAutoSelected}
+          />
+        </div>
+
+        {/* Project Overview Cards - Row 2 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
             <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-blue-100 text-sm font-medium">Total Proyek</p>
-                  {isLoading ? (
-                    <div className="h-8 bg-blue-400 rounded animate-pulse mt-2"></div>
-                  ) : (
-                    <p className="text-2xl sm:text-3xl font-bold mt-1">
-                      {stats.totalProjects}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
+                    <p className="text-blue-100 text-sm font-medium">
+                      Total Proyek
                     </p>
-                  )}
+                    <Badge
+                      variant="secondary"
+                      className={`text-xs px-2 py-0.5 w-fit ${
+                        selectedPerformancePeriod.type === "yearly"
+                          ? "bg-blue-200 text-blue-800"
+                          : "bg-orange-200 text-orange-800"
+                      }`}
+                    >
+                      {selectedPerformancePeriod.type === "yearly"
+                        ? "Tahunan"
+                        : "Triwulan"}
+                    </Badge>
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-bold">
+                    {projectSummary.total}
+                  </p>
                   <p className="text-blue-200 text-xs mt-1">
-                    Seluruh proyek aktif
+                    Periode: {selectedPerformancePeriod.label}
                   </p>
                 </div>
                 <BarChart3 className="h-10 w-10 sm:h-12 sm:w-12 text-blue-200 flex-shrink-0" />
@@ -224,21 +415,29 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Active Projects */}
           <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
             <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-green-100 text-sm font-medium">Proyek Berjalan</p>
-                  {isLoading ? (
-                    <div className="h-8 bg-green-400 rounded animate-pulse mt-2"></div>
-                  ) : (
-                    <p className="text-2xl sm:text-3xl font-bold mt-1">
-                      {stats.activeProjects}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
+                    <p className="text-green-100 text-sm font-medium">
+                      Proyek Berjalan
                     </p>
-                  )}
+                    <Badge
+                      variant="secondary"
+                      className="text-xs px-2 py-0.5 bg-green-200 text-green-800 w-fit"
+                    >
+                      {Math.round(
+                        (projectSummary.running / projectSummary.total) * 100,
+                      )}
+                      %
+                    </Badge>
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-bold">
+                    {projectSummary.running}
+                  </p>
                   <p className="text-green-200 text-xs mt-1">
-                    {!isLoading && Math.round((stats.activeProjects / stats.totalProjects) * 100)}% dari total
+                    Dari {projectSummary.total} total proyek
                   </p>
                 </div>
                 <TrendingUp className="h-10 w-10 sm:h-12 sm:w-12 text-green-200 flex-shrink-0" />
@@ -246,232 +445,709 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Completed Projects */}
-          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
+          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200 sm:col-span-2 lg:col-span-1">
             <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-purple-100 text-sm font-medium">Proyek Selesai</p>
-                  {isLoading ? (
-                    <div className="h-8 bg-purple-400 rounded animate-pulse mt-2"></div>
-                  ) : (
-                    <p className="text-2xl sm:text-3xl font-bold mt-1">
-                      {stats.completedProjects}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
+                    <p className="text-purple-100 text-sm font-medium">
+                      Proyek Selesai
                     </p>
-                  )}
+                    <Badge
+                      variant="secondary"
+                      className="text-xs px-2 py-0.5 bg-purple-200 text-purple-800 w-fit"
+                    >
+                      {Math.round(
+                        (projectSummary.completed / projectSummary.total) * 100,
+                      )}
+                      %
+                    </Badge>
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-bold">
+                    {projectSummary.completed}
+                  </p>
                   <p className="text-purple-200 text-xs mt-1">
-                    {!isLoading && Math.round((stats.completedProjects / stats.totalProjects) * 100)}% completion rate
+                    Completion rate
                   </p>
                 </div>
                 <CheckCircle className="h-10 w-10 sm:h-12 sm:w-12 text-purple-200 flex-shrink-0" />
               </div>
             </CardContent>
           </Card>
-
-          {/* Total Revenue */}
-          <Card className="bg-gradient-to-r from-amber-500 to-amber-600 text-white relative overflow-hidden hover:shadow-lg transition-shadow duration-200">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <p className="text-amber-100 text-sm font-medium">Total Revenue</p>
-                  {isLoading ? (
-                    <div className="h-8 bg-amber-400 rounded animate-pulse mt-2"></div>
-                  ) : (
-                    <p className="text-xl sm:text-2xl font-bold mt-1">
-                      {formatCurrencyShort(stats.totalRevenue)}
-                    </p>
-                  )}
-                  <p className="text-amber-200 text-xs mt-1">
-                    Revenue terealisasi
-                  </p>
-                </div>
-                <DollarSign className="h-10 w-10 sm:h-12 sm:w-12 text-amber-200 flex-shrink-0" />
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
-        {/* Secondary Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-          {/* Risk Items */}
-          <Card className="hover:shadow-md transition-shadow duration-200">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Shield className="w-4 h-4 text-red-500" />
-                    <p className="text-sm font-medium text-gray-600">Risk Items</p>
-                  </div>
-                  {isLoading ? (
-                    <div className="h-6 bg-gray-200 rounded animate-pulse"></div>
-                  ) : (
-                    <p className="text-xl font-bold text-gray-900">
-                      {stats.riskItems}
-                    </p>
-                  )}
-                  <p className="text-xs text-gray-500 mt-1">
-                    Butuh perhatian
-                  </p>
-                </div>
-                <Badge variant="secondary" className="bg-red-100 text-red-800">
-                  Active
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Budget Utilization */}
-          <Card className="hover:shadow-md transition-shadow duration-200">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <PieChart className="w-4 h-4 text-blue-500" />
-                    <p className="text-sm font-medium text-gray-600">Budget Used</p>
-                  </div>
-                  {isLoading ? (
-                    <div className="h-6 bg-gray-200 rounded animate-pulse"></div>
-                  ) : (
-                    <p className="text-xl font-bold text-gray-900">
-                      {Math.round((stats.totalRevenue / stats.totalBudget) * 100)}%
-                    </p>
-                  )}
-                  <p className="text-xs text-gray-500 mt-1">
-                    {!isLoading && formatCurrencyShort(stats.totalBudget)} total
-                  </p>
-                </div>
-                <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-                  On Track
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Geographic Coverage */}
-          <Card className="hover:shadow-md transition-shadow duration-200">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <MapPin className="w-4 h-4 text-green-500" />
-                    <p className="text-sm font-medium text-gray-600">Provinsi</p>
-                  </div>
-                  {isLoading ? (
-                    <div className="h-6 bg-gray-200 rounded animate-pulse"></div>
-                  ) : (
-                    <p className="text-xl font-bold text-gray-900">
-                      {stats.provinces}
-                    </p>
-                  )}
-                  <p className="text-xs text-gray-500 mt-1">
-                    Coverage area
-                  </p>
-                </div>
-                <Badge variant="secondary" className="bg-green-100 text-green-800">
-                  National
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Activity */}
-        <Card>
+        {/* Performance Overview Chart - Row 3 */}
+        <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Activity className="w-5 h-5 text-gray-600" />
-                <CardTitle className="text-lg sm:text-xl">Recent Activity</CardTitle>
+            <div className="flex flex-col lg:flex-row items-start justify-between gap-4 lg:gap-5">
+              <div className="flex items-center gap-2 w-full lg:w-auto">
+                <div className="flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                    <div className="flex items-center gap-2">
+                      <Activity className="w-5 h-5" />
+                      <CardTitle className="text-lg sm:text-xl">
+                        Performance Overview
+                      </CardTitle>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2">
+                    <p className="text-sm text-gray-600">
+                      {selectedPerformancePeriod.label}
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className={`w-fit ${
+                        selectedPerformancePeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
+                      }`}
+                    >
+                      {selectedPerformancePeriod.type === "yearly" ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
+                  </div>
+                </div>
               </div>
-              <Button variant="outline" size="sm">
-                <Clock className="w-4 h-4 mr-2" />
-                View All
-              </Button>
+
+              <PeriodSelector
+                periods={availablePerformancePeriods}
+                selectedPeriod={selectedPerformancePeriod}
+                onPeriodChange={handlePerformancePeriodChange}
+                className="mb-3"
+              />
             </div>
+
+            <FallbackMessage
+              title="Menampilkan Data Triwulan"
+              description={`Data tahun ${new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.`}
+              show={shouldShowFallbackMessage(
+                performanceAutoSelected,
+                selectedPerformancePeriod,
+              )}
+            />
+
+            {/* Performance Insights */}
+            <InsightCardsGrid
+              insights={[
+                {
+                  title: "Total Proyek",
+                  value: selectedPerformancePeriod.data.reduce(
+                    (sum, item) => sum + item.projects,
+                    0,
+                  ),
+                  bgColor: "bg-blue-50",
+                  textColor: "text-blue-800",
+                },
+                {
+                  title: "Total Revenue",
+                  value: formatCurrencyShort(
+                    selectedPerformancePeriod.data.reduce(
+                      (sum, item) => sum + item.revenue,
+                      0,
+                    ),
+                  ),
+                  bgColor: "bg-amber-50",
+                  textColor: "text-amber-800",
+                },
+                {
+                  title: "Total Risiko",
+                  value: selectedPerformancePeriod.data.reduce(
+                    (sum, item) => sum + item.risks,
+                    0,
+                  ),
+                  bgColor: "bg-red-50",
+                  textColor: "text-red-800",
+                },
+                {
+                  title: "Avg Revenue/Proyek",
+                  value: (() => {
+                    const totalProjects = selectedPerformancePeriod.data.reduce(
+                      (sum, item) => sum + item.projects,
+                      0,
+                    );
+                    const totalRevenue = selectedPerformancePeriod.data.reduce(
+                      (sum, item) => sum + item.revenue,
+                      0,
+                    );
+                    return formatCurrencyShort(totalRevenue / totalProjects);
+                  })(),
+                  bgColor: "bg-green-50",
+                  textColor: "text-green-800",
+                },
+              ]}
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
+            />
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
-                      <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <LoadingSpinner />
             ) : (
-              <div className="space-y-4">
-                {recentActivities.map((activity) => (
-                  <div
-                    key={activity.id}
-                    className={`border-l-4 pl-4 py-3 hover:bg-gray-50 transition-colors duration-200 rounded-r ${getBorderColor(activity.type)}`}
-                  >
-                    <div className="flex items-start gap-3">
-                      {getActivityIcon(activity.type)}
-                      <div className="flex-1">
-                        <p className="font-medium text-gray-900 text-sm">
-                          {activity.title}
-                        </p>
-                        <p className="text-xs text-gray-500 mt-1">
-                          {activity.time}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <div ref={performanceChartRef} className="w-full" />
             )}
           </CardContent>
         </Card>
 
-        {/* Quick Actions */}
-        <div className="mt-6 sm:mt-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Button variant="outline" className="justify-start h-auto p-4">
-              <div className="flex items-center gap-3">
-                <BarChart3 className="w-5 h-5 text-blue-500" />
-                <div className="text-left">
-                  <p className="font-medium">View Projects</p>
-                  <p className="text-xs text-gray-500">Manage all projects</p>
+        {/* Risk Status by RMC Categories - Row 4 */}
+        <Card className="mb-8">
+          <CardHeader>
+            <div className="flex flex-col md:flex-row items-start justify-between gap-5">
+              <div className="flex items-center gap-2">
+                <div>
+                  <div className="flex gap-3">
+                    <Shield className="h-6 w-6 text-red-500" />
+                    <CardTitle className="flex items-center gap-2">
+                      Status Risiko Proyek (Kategori RMC)
+                    </CardTitle>
+                  </div>
+                  <div className="flex items-center my-2">
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedRiskPeriod.label}
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className={`ml-2 ${
+                        selectedRiskPeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
+                      }`}
+                    >
+                      {selectedRiskPeriod.type === "yearly" ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
+                  </div>
                 </div>
               </div>
-            </Button>
 
-            <Button variant="outline" className="justify-start h-auto p-4">
-              <div className="flex items-center gap-3">
-                <Shield className="w-5 h-5 text-red-500" />
-                <div className="text-left">
-                  <p className="font-medium">Risk Assessment</p>
-                  <p className="text-xs text-gray-500">Review risk items</p>
-                </div>
-              </div>
-            </Button>
+              <PeriodSelector
+                periods={availableRiskPeriods}
+                selectedPeriod={selectedRiskPeriod}
+                onPeriodChange={handleRiskPeriodChange}
+                className="mb-3"
+              />
+            </div>
 
-            <Button variant="outline" className="justify-start h-auto p-4">
-              <div className="flex items-center gap-3">
-                <FileText className="w-5 h-5 text-green-500" />
-                <div className="text-left">
-                  <p className="font-medium">Generate Report</p>
-                  <p className="text-xs text-gray-500">Export dashboard data</p>
-                </div>
-              </div>
-            </Button>
+            <FallbackMessage
+              title="Menampilkan Data Risiko Triwulan"
+              description={`Data risiko tahun ${new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir yang tersedia.`}
+              show={shouldShowFallbackMessage(
+                riskAutoSelected,
+                selectedRiskPeriod,
+              )}
+            />
 
-            <Button variant="outline" className="justify-start h-auto p-4">
-              <div className="flex items-center gap-3">
-                <Users className="w-5 h-5 text-purple-500" />
-                <div className="text-left">
-                  <p className="font-medium">Team Management</p>
-                  <p className="text-xs text-gray-500">Manage team access</p>
+            {/* Risk Insights Summary */}
+            <InsightCardsGrid
+              insights={(() => {
+                const insights = getRiskInsights(riskCategories);
+                return [
+                  {
+                    title: "Total Risiko",
+                    value: insights.totalRisks,
+                    bgColor: "bg-gray-50",
+                    textColor: "text-gray-800",
+                  },
+                  {
+                    title: "Overdue",
+                    value: `${insights.totalOverdue} (${insights.overduePercentage}%)`,
+                    bgColor: "bg-red-50",
+                    textColor: "text-red-800",
+                  },
+                  {
+                    title: "In Process",
+                    value: insights.totalInProcess,
+                    bgColor: "bg-yellow-50",
+                    textColor: "text-yellow-800",
+                  },
+                  {
+                    title: "Closed",
+                    value: `${insights.totalClosed} (${insights.closedPercentage}%)`,
+                    bgColor: "bg-green-50",
+                    textColor: "text-green-800",
+                  },
+                ];
+              })()}
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
+            />
+
+            <div className="flex flex-wrap gap-4 text-sm mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <span>Belum ditindaklanjuti &gt;14 hari</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <span>Dalam proses mitigasi</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span>Closed dengan bukti mitigasi</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 mb-4">
+              💡 <strong>Klik pada card</strong> untuk melihat detail risiko per
+              kategori
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {riskCategories.map((category) => {
+                const IconComponent = category.icon;
+                return (
+                  <div
+                    key={category.id}
+                    className="border rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-300 hover:bg-blue-50"
+                    onClick={() => handleRiskCategoryClick(category)}
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <IconComponent className="h-5 w-5 text-gray-600 flex-shrink-0" />
+                      <h3 className="font-medium text-sm leading-tight">
+                        {category.name}
+                      </h3>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Total:</span>
+                        <span className="font-semibold text-gray-900">
+                          {category.total}
+                        </span>
+                      </div>
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-2 h-2 rounded-full ${getStatusColor("overdue")}`}
+                            ></div>
+                            <span className="text-xs text-gray-600">
+                              Overdue
+                            </span>
+                          </div>
+                          <span className="text-xs font-medium text-red-600">
+                            {category.overdue}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-2 h-2 rounded-full ${getStatusColor("inProcess")}`}
+                            ></div>
+                            <span className="text-xs text-gray-600">
+                              In Process
+                            </span>
+                          </div>
+                          <span className="text-xs font-medium text-yellow-600">
+                            {category.inProcess}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-2 h-2 rounded-full ${getStatusColor("closed")}`}
+                            ></div>
+                            <span className="text-xs text-gray-600">
+                              Closed
+                            </span>
+                          </div>
+                          <span className="text-xs font-medium text-green-600">
+                            {category.closed}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Project per Provinsi */}
+
+        <Card className="my-10">
+          <CardHeader>
+            <div className="flex flex-col md:flex-row items-start justify-between gap-5">
+              <div className="flex items-center gap-2">
+                <div>
+                  <div className="flex gap-3">
+                    <BarChart3 className="h-6 w-6 text-blue-500" />
+                    <CardTitle>Distribusi Project per Provinsi</CardTitle>
+                  </div>
+                  <div className="flex items-center my-2">
+                    <p className="text-sm text-gray-600">
+                      {selectedGeographicPeriod.label}
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className={`ml-2 ${
+                        selectedGeographicPeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
+                      }`}
+                    >
+                      {selectedGeographicPeriod.type === "yearly" ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
+                  </div>
                 </div>
               </div>
-            </Button>
-          </div>
+
+              <PeriodSelector
+                periods={availableGeographicPeriods}
+                selectedPeriod={selectedGeographicPeriod}
+                onPeriodChange={handleGeographicPeriodChange}
+                className="mb-3"
+              />
+            </div>
+
+            <FallbackMessage
+              title="Menampilkan Data Geografis Triwulan"
+              description={`Data distribusi proyek tahun ${new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.`}
+              show={shouldShowFallbackMessage(
+                geographicAutoSelected,
+                selectedGeographicPeriod,
+              )}
+            />
+
+            <InsightCardsGrid
+              insights={(() => {
+                const insights = getGeographicInsights(provinceData);
+                return [
+                  {
+                    title: "Total Proyek",
+                    value: insights.totalProjects,
+                    bgColor: "bg-blue-50",
+                    textColor: "text-blue-800",
+                  },
+                  {
+                    title: "Total Revenue",
+                    value: formatCurrencyShort(insights.totalRevenue),
+                    bgColor: "bg-green-50",
+                    textColor: "text-green-800",
+                  },
+                ];
+              })()}
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3"
+            />
+          </CardHeader>
+          <CardContent>
+            {/* <ProjectDistributionChart data={provinceData} title="" /> */}
+            <IndonesiaMap data={provinceData} />
+          </CardContent>
+        </Card>
+        {/* Charts Section - Geographic Distribution and Risk Capture - Row 5 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 sm:mb-8">
+          {/* Geographic Distribution Chart */}
+          {/* <Card>
+            <CardHeader>
+              <div className="flex flex-col md:flex-row items-start justify-between gap-5">
+                <div className="flex items-center gap-2">
+                  <div>
+                    <div className="flex gap-3">
+                      <BarChart3 className="h-6 w-6 text-blue-500" />
+                      <CardTitle>Distribusi Project per Provinsi</CardTitle>
+                    </div>
+                    <div className="flex items-center my-2">
+                      <p className="text-sm text-gray-600">
+                        {selectedGeographicPeriod.label}
+                      </p>
+                      <Badge
+                        variant="secondary"
+                        className={`ml-2 ${
+                          selectedGeographicPeriod.type === "yearly"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-orange-100 text-orange-800"
+                        }`}
+                      >
+                        {selectedGeographicPeriod.type === "yearly" ? (
+                          <>
+                            <Calendar className="w-3 h-3 mr-1" />
+                            Tahunan
+                          </>
+                        ) : (
+                          <>
+                            <TrendingUp className="w-3 h-3 mr-1" />
+                            Triwulan
+                          </>
+                        )}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+
+                <PeriodSelector
+                  periods={availableGeographicPeriods}
+                  selectedPeriod={selectedGeographicPeriod}
+                  onPeriodChange={handleGeographicPeriodChange}
+                  className="mb-3"
+                />
+              </div>
+
+              <FallbackMessage
+                title="Menampilkan Data Geografis Triwulan"
+                description={`Data distribusi proyek tahun ${new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.`}
+                show={shouldShowFallbackMessage(
+                  geographicAutoSelected,
+                  selectedGeographicPeriod,
+                )}
+              />
+
+              <InsightCardsGrid
+                insights={(() => {
+                  const insights = getGeographicInsights(provinceData);
+                  return [
+                    {
+                      title: "Total Proyek",
+                      value: insights.totalProjects,
+                      bgColor: "bg-blue-50",
+                      textColor: "text-blue-800",
+                    },
+                    {
+                      title: "Total Revenue",
+                      value: formatCurrencyShort(insights.totalRevenue),
+                      bgColor: "bg-green-50",
+                      textColor: "text-green-800",
+                    },
+                  ];
+                })()}
+                className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3"
+              />
+            </CardHeader>
+            <CardContent>
+              <ProjectDistributionChart data={provinceData} title="" />
+            </CardContent>
+          </Card> */}
+
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg">Ringkasan Geografis</CardTitle>
+                <Badge
+                  variant="outline"
+                  className={`${
+                    selectedGeographicPeriod.type === "yearly"
+                      ? "text-blue-600 border-blue-200"
+                      : "text-orange-600 border-orange-200"
+                  }`}
+                >
+                  {selectedGeographicPeriod.label}
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                {provinceData
+                  .sort((a, b) => b.revenue - a.revenue)
+                  .slice(0, 5)
+                  .map((province, index) => (
+                    <div
+                      key={province.name}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-xs font-semibold text-green-700">
+                          {index + 1}
+                        </div>
+                        <span className="text-sm font-medium text-gray-900">
+                          {province.name}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-semibold text-green-600">
+                          {formatCurrency(province.revenue)}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {province.value} project
+                          {province.value !== 1 ? "s" : ""}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              <div className="pt-4 border-t">
+                <div className="text-sm text-gray-600">
+                  <div className="flex justify-between mb-2">
+                    <span>Total Provinsi:</span>
+                    <span className="font-semibold">{provinceData.length}</span>
+                  </div>
+                  <div className="flex justify-between mb-2">
+                    <span>Total Pendapatan:</span>
+                    <span className="font-semibold text-green-600">
+                      {formatCurrency(
+                        provinceData.reduce((sum, p) => sum + p.revenue, 0),
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Rata-rata per Provinsi:</span>
+                    <span className="font-semibold text-green-600">
+                      {formatCurrency(
+                        Math.round(
+                          provinceData.reduce((sum, p) => sum + p.revenue, 0) /
+                            provinceData.length,
+                        ),
+                      )}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
+
+        {/* Risk Capture Pie Chart - Row 6 */}
+        <Card>
+          <CardHeader>
+            <div className="flex flex-col md:flex-row items-start justify-between gap-5">
+              <div className="flex items-center gap-2">
+                <div>
+                  <div className="flex gap-3">
+                    <PieChart className="h-6 w-6 text-blue-500" />
+                    <CardTitle className="flex items-center gap-2">
+                      Risk Capture Distribution
+                    </CardTitle>
+                  </div>
+                  <div className="flex items-center my-2">
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedRiskCapturePeriod.label} - Distribusi level
+                      risiko berdasarkan severity assessment
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className={`ml-2 ${
+                        selectedRiskCapturePeriod.type === "yearly"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-orange-100 text-orange-800"
+                      }`}
+                    >
+                      {selectedRiskCapturePeriod.type === "yearly" ? (
+                        <>
+                          <Calendar className="w-3 h-3 mr-1" />
+                          Tahunan
+                        </>
+                      ) : (
+                        <>
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Triwulan
+                        </>
+                      )}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
+              <PeriodSelector
+                periods={availableRiskCapturePeriods}
+                selectedPeriod={selectedRiskCapturePeriod}
+                onPeriodChange={handleRiskCapturePeriodChange}
+              />
+            </div>
+
+            <FallbackMessage
+              title="Menampilkan Data Risk Capture Triwulan"
+              description={`Data risk capture tahun ${new Date().getFullYear()} belum lengkap, menampilkan data triwulan terakhir.`}
+              show={shouldShowFallbackMessage(
+                riskCaptureAutoSelected,
+                selectedRiskCapturePeriod,
+              )}
+            />
+
+            {/* Risk Capture Insights */}
+            <div className="mb-4 flex flex-col md:flex-row gap-3">
+              {(() => {
+                const insights = getRiskCaptureInsights(riskCaptureData);
+                return (
+                  <>
+                    <div className="flex justify-between gap-5 mt-5">
+                      <div className="bg-red-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-red-800">
+                          High Risk
+                        </div>
+                        <div className="text-lg font-bold text-red-600">
+                          {insights.highRiskItems} (
+                          {insights.highRiskPercentage}
+                          %)
+                        </div>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded-lg">
+                        <div className="text-sm font-medium text-green-800">
+                          Low Risk
+                        </div>
+                        <div className="text-lg font-bold text-green-600">
+                          {insights.lowRiskItems} ({insights.lowRiskPercentage}
+                          %)
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          </CardHeader>
+          <CardContent>
+            <RiskCapturePieChart data={riskCaptureData} title="" />
+            <div className="mt-4 space-y-2">
+              <div className="text-sm text-gray-600">
+                <div className="flex gap-5 mb-1">
+                  <span>Total Risk Items:</span>
+                  <span className="font-semibold">
+                    {riskCaptureData.reduce((sum, item) => sum + item.y, 0)}
+                  </span>
+                </div>
+                <div className="flex gap-5">
+                  <span>High Risk Items:</span>
+                  <span className="font-semibold text-red-600">
+                    {riskCaptureData.find((item) => item.name === "High")?.y ||
+                      0}{" "}
+                    (
+                    {Math.round(
+                      ((riskCaptureData.find((item) => item.name === "High")
+                        ?.y || 0) /
+                        riskCaptureData.reduce(
+                          (sum, item) => sum + item.y,
+                          0,
+                        )) *
+                        100,
+                    )}
+                    %)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Risk Category Detail Dialog */}
+        <RiskCategoryDetailDialog
+          isOpen={isRiskDialogOpen}
+          onClose={closeRiskDialog}
+          category={selectedRiskCategory}
+        />
       </div>
     </div>
   );
