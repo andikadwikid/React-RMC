@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { useProjectBadges } from "@/hooks/useProjectBadges";
+import { useProjectBadges } from "@/hooks/project";
 import type { Project } from "@/types";
 
 interface ProjectStatusBadgeProps {
