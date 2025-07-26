@@ -281,6 +281,28 @@ export function ProjectReadinessResults({
     });
   };
 
+  const openDetailDialog = (
+    type: "user-comments" | "verifier-feedback",
+    title: string,
+    data: any,
+  ) => {
+    setDetailDialog({
+      isOpen: true,
+      type,
+      title,
+      data,
+    });
+  };
+
+  const closeDetailDialog = () => {
+    setDetailDialog({
+      isOpen: false,
+      type: "user-comments",
+      title: "",
+      data: {},
+    });
+  };
+
   if (!readinessData) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
