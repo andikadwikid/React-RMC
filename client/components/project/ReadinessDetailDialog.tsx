@@ -82,32 +82,22 @@ export function ReadinessDetailDialog({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader className="pb-4 border-b">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              {type === "user-comments" ? (
-                <MessageSquare className="w-5 h-5 text-green-600" />
-              ) : (
-                <UserCheck className="w-5 h-5 text-blue-600" />
-              )}
-              <div>
-                <DialogTitle className="text-lg">
-                  {type === "user-comments"
-                    ? "Detail Keterangan User"
-                    : "Detail Feedback Risk Officer"}
-                </DialogTitle>
-                <DialogDescription className="text-sm font-medium mt-1">
-                  {title}
-                </DialogDescription>
-              </div>
+          <div className="flex items-center gap-3">
+            {type === "user-comments" ? (
+              <MessageSquare className="w-5 h-5 text-green-600" />
+            ) : (
+              <UserCheck className="w-5 h-5 text-blue-600" />
+            )}
+            <div>
+              <DialogTitle className="text-lg">
+                {type === "user-comments"
+                  ? "Detail Keterangan User"
+                  : "Detail Feedback Risk Officer"}
+              </DialogTitle>
+              <DialogDescription className="text-sm font-medium mt-1">
+                {title}
+              </DialogDescription>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="h-6 w-6 p-0"
-            >
-              <X className="h-4 w-4" />
-            </Button>
           </div>
         </DialogHeader>
 
