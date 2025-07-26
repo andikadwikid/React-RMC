@@ -308,7 +308,10 @@ export function ProjectReadinessVerificationModal({
                                   isOpen: true,
                                   type: "user-comments",
                                   title: `User Comments - ${item.category}`,
-                                  data: item.userComments,
+                                  data: {
+                                    userComments: item.userComments,
+                                    userStatus: item.userStatus,
+                                  },
                                 })
                               }
                             >
