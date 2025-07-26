@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Building2, Clock, CheckCircle, DollarSign } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
-import type { ProjectStats } from "@/hooks/useProjectsData";
+import type { ProjectStats } from "@/hooks/project";
 
 interface ProjectStatsCardsProps {
   stats: ProjectStats;
