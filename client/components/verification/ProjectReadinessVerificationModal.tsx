@@ -26,7 +26,10 @@ import {
   User,
   Calendar,
   Shield,
+  UserCheck,
+  Eye,
 } from "lucide-react";
+import { ReadinessDetailDialog } from "@/components/project/ReadinessDetailDialog";
 import type { ProjectReadiness, ReadinessStatus } from "@/types";
 
 interface UserComment {
@@ -96,6 +99,12 @@ export function ProjectReadinessVerificationModal({
     submission.overallComment || "",
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [detailDialog, setDetailDialog] = useState<{
+    isOpen: boolean;
+    type: "user-comments" | "verifier-feedback";
+    title: string;
+    data: any;
+  }>({ isOpen: false, type: "user-comments", title: "", data: {} });
 
   useEffect(() => {
     // Load actual readiness items that user submitted for this project
@@ -321,57 +330,81 @@ export function ProjectReadinessVerificationModal({
                           </div>
                         </div>
 
-                        {/* User Comments Section */}
-                        {item.userComments && item.userComments.length > 0 ? (
-                          <div className="bg-green-50 border border-green-200 p-3 rounded-lg space-y-3">
+                        {/* User Comments Section with Detail Dialog */}
+                        <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
+                          <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <MessageSquare className="w-4 h-4 text-green-600" />
                               <span className="text-sm font-medium text-green-700">
-                                Keterangan User ({item.userComments.length}):
-                              </span>
-                            </div>
-                            <div className="space-y-2">
-                              {item.userComments.map((comment, index) => (
-                                <div
-                                  key={comment.id}
-                                  className="bg-white border border-green-200 p-2 rounded"
-                                >
-                                  <div className="flex items-center justify-between mb-1">
-                                    <span className="text-xs font-medium text-green-600">
-                                      Keterangan #{index + 1}
-                                    </span>
-                                    <span className="text-xs text-gray-500">
-                                      {new Date(
-                                        comment.createdAt,
-                                      ).toLocaleString("id-ID", {
-                                        day: "2-digit",
-                                        month: "2-digit",
-                                        year: "numeric",
-                                        hour: "2-digit",
-                                        minute: "2-digit",
-                                      })}
-                                    </span>
-                                  </div>
-                                  <p className="text-sm text-green-800 leading-relaxed">
-                                    {comment.text}
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="bg-gray-50 border border-gray-200 p-3 rounded-lg">
-                            <div className="flex items-center gap-2 mb-1">
-                              <MessageSquare className="w-4 h-4 text-gray-400" />
-                              <span className="text-sm font-medium text-gray-500">
                                 Keterangan User:
                               </span>
+                              {item.userComments && item.userComments.length > 0 && (
+                                <Badge className="bg-green-100 text-green-800 text-xs">
+                                  {item.userComments.length} komentar
+                                </Badge>
+                              )}
                             </div>
-                            <p className="text-sm text-gray-500 italic">
-                              Tidak ada keterangan dari user untuk item ini
-                            </p>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() =>
+                                setDetailDialog({
+                                  isOpen: true,
+                                  type: "user-comments",
+                                  title: item.item,
+                                  data: {
+                                    userComments: item.userComments || [],
+                                    userStatus: item.userStatus,
+                                  },
+                                })
+                              }
+                              className="h-8 px-3 hover:bg-green-100 hover:border-green-300"
+                            >
+                              <Eye className="w-3 h-3 mr-1" />
+                              {item.userComments && item.userComments.length > 0
+                                ? "Lihat Detail"
+                                : "Tidak Ada"}
+                            </Button>
                           </div>
-                        )}
+                        </div>
+
+                        {/* Verifier Feedback Section with Detail Dialog */}
+                        <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <UserCheck className="w-4 h-4 text-blue-600" />
+                              <span className="text-sm font-medium text-blue-700">
+                                Feedback Risk Officer:
+                              </span>
+                              {item.verifierComment && (
+                                <Badge className="bg-blue-100 text-blue-800 text-xs">
+                                  Ada feedback
+                                </Badge>
+                              )}
+                            </div>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() =>
+                                setDetailDialog({
+                                  isOpen: true,
+                                  type: "verifier-feedback",
+                                  title: item.item,
+                                  data: {
+                                    verifierComment: item.verifierComment,
+                                    verifierName: item.verifierName,
+                                    verifiedAt: item.verifiedAt,
+                                    verifierStatus: item.verifierStatus,
+                                  },
+                                })
+                              }
+                              className="h-8 px-3 hover:bg-blue-100 hover:border-blue-300"
+                            >
+                              <Eye className="w-3 h-3 mr-1" />
+                              {item.verifierComment ? "Lihat Detail" : "Tidak Ada"}
+                            </Button>
+                          </div>
+                        </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                           <div>
@@ -590,6 +623,15 @@ export function ProjectReadinessVerificationModal({
           </div>
         </DialogFooter>
       </DialogContent>
+
+      {/* Detail Dialog for User Comments and Verifier Feedback */}
+      <ReadinessDetailDialog
+        isOpen={detailDialog.isOpen}
+        onClose={() => setDetailDialog({ ...detailDialog, isOpen: false })}
+        type={detailDialog.type}
+        title={detailDialog.title}
+        data={detailDialog.data}
+      />
     </Dialog>
   );
 }
