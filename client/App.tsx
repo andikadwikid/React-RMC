@@ -52,7 +52,7 @@ const App = () => (
               path="/"
               element={
                 <Layout>
-                  <Index />
+                  <Dashboard />
                 </Layout>
               }
             />
