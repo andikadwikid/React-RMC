@@ -374,7 +374,7 @@ export function ProjectReadinessVerificationModal({
 
                         {/* Verifier Feedback Section with Detail Dialog */}
                         <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg">
-                          <div className="flex items-center justify-between mb-3">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-3">
                             <div className="flex items-center gap-2">
                               <UserCheck className="w-4 h-4 text-blue-600" />
                               <span className="text-sm font-medium text-blue-700">
