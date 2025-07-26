@@ -13,7 +13,7 @@ declare global {
 }
 
 // Dashboard pages
-import Dashboard from "./pages/dashboard/SafeDashboard";
+import { Dashboard } from "./pages/dashboard";
 
 // Project pages
 import Projects from "./pages/project/Projects";
