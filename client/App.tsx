@@ -13,8 +13,8 @@ declare global {
     _reactRoot?: Root;
   }
 }
-import Layout from "./components/Layout";
-import { ErrorBoundary } from "./components/common/ErrorBoundary";
+// import Layout from "./components/Layout";
+// import { ErrorBoundary } from "./components/common/ErrorBoundary";
 
 // Dashboard pages
 import Dashboard from "./pages/dashboard/SimpleTest";
