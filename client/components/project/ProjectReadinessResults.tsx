@@ -33,6 +33,7 @@ import {
 } from "@/utils/dataLoader";
 import { formatDateTime } from "@/utils/formatters";
 import type { ReadinessStatus } from "@/types";
+import { ReadinessDetailDialog } from "./ReadinessDetailDialog";
 
 interface UserComment {
   id: string;
@@ -244,6 +245,17 @@ export function ProjectReadinessResults({
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(),
   );
+  const [detailDialog, setDetailDialog] = useState<{
+    isOpen: boolean;
+    type: "user-comments" | "verifier-feedback";
+    title: string;
+    data: any;
+  }>({
+    isOpen: false,
+    type: "user-comments",
+    title: "",
+    data: {},
+  });
 
   useEffect(() => {
     if (isOpen && projectId) {
@@ -266,6 +278,28 @@ export function ProjectReadinessResults({
         newSet.add(categoryId);
       }
       return newSet;
+    });
+  };
+
+  const openDetailDialog = (
+    type: "user-comments" | "verifier-feedback",
+    title: string,
+    data: any,
+  ) => {
+    setDetailDialog({
+      isOpen: true,
+      type,
+      title,
+      data,
+    });
+  };
+
+  const closeDetailDialog = () => {
+    setDetailDialog({
+      isOpen: false,
+      type: "user-comments",
+      title: "",
+      data: {},
     });
   };
 
@@ -499,45 +533,53 @@ export function ProjectReadinessResults({
 
                             {/* User Comments */}
                             {item.userComments &&
-                              item.userComments.length > 0 && (
-                                <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
-                                  <div className="flex items-center gap-2 mb-2">
+                            item.userComments.length > 0 ? (
+                              <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                  <div className="flex items-center gap-2">
                                     <MessageSquare className="w-4 h-4 text-green-600" />
                                     <span className="text-sm font-medium text-green-700">
                                       Keterangan User (
                                       {item.userComments.length}):
                                     </span>
                                   </div>
-                                  <div className="space-y-2">
-                                    {item.userComments.map((comment, index) => (
-                                      <div
-                                        key={comment.id}
-                                        className="bg-white border border-green-200 p-2 rounded"
-                                      >
-                                        <div className="flex items-center justify-between mb-1">
-                                          <span className="text-xs font-medium text-green-600">
-                                            Keterangan #{index + 1}
-                                          </span>
-                                          <span className="text-xs text-gray-500">
-                                            {new Date(
-                                              comment.createdAt,
-                                            ).toLocaleString("id-ID", {
-                                              day: "2-digit",
-                                              month: "2-digit",
-                                              year: "numeric",
-                                              hour: "2-digit",
-                                              minute: "2-digit",
-                                            })}
-                                          </span>
-                                        </div>
-                                        <p className="text-sm text-green-800 leading-relaxed">
-                                          {comment.text}
-                                        </p>
-                                      </div>
-                                    ))}
-                                  </div>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() =>
+                                      openDetailDialog(
+                                        "user-comments",
+                                        item.title,
+                                        {
+                                          userComments: item.userComments,
+                                          userStatus: item.userStatus,
+                                        },
+                                      )
+                                    }
+                                    className="text-green-600 border-green-300 hover:bg-green-50 h-7 px-2 text-xs"
+                                  >
+                                    Lihat Detail
+                                  </Button>
                                 </div>
-                              )}
+                                <div className="bg-white border border-green-200 p-3 rounded text-center">
+                                  <p className="text-sm text-green-700">
+                                    {item.userComments.length} keterangan
+                                    tersedia
+                                  </p>
+                                  <p className="text-xs text-green-600 mt-1">
+                                    Klik "Lihat Detail" untuk melihat semua
+                                    keterangan
+                                  </p>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="bg-gray-50 border border-gray-200 p-3 rounded-lg text-center">
+                                <MessageSquare className="w-4 h-4 text-gray-400 mx-auto mb-1" />
+                                <p className="text-sm text-gray-500 italic">
+                                  Belum ada keterangan dari user
+                                </p>
+                              </div>
+                            )}
 
                             {/* Verifier Feedback */}
                             {item.verifierComment ? (
@@ -549,32 +591,35 @@ export function ProjectReadinessResults({
                                       Feedback Risk Officer:
                                     </span>
                                   </div>
-                                  {item.verifiedAt && (
-                                    <span className="text-xs text-blue-600">
-                                      {new Date(item.verifiedAt).toLocaleString(
-                                        "id-ID",
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() =>
+                                      openDetailDialog(
+                                        "verifier-feedback",
+                                        item.title,
                                         {
-                                          day: "2-digit",
-                                          month: "2-digit",
-                                          year: "numeric",
-                                          hour: "2-digit",
-                                          minute: "2-digit",
+                                          verifierComment: item.verifierComment,
+                                          verifierName: item.verifierName,
+                                          verifiedAt: item.verifiedAt,
+                                          verifierStatus: item.verifierStatus,
                                         },
-                                      )}
-                                    </span>
-                                  )}
+                                      )
+                                    }
+                                    className="text-blue-600 border-blue-300 hover:bg-blue-50 h-7 px-2 text-xs"
+                                  >
+                                    Lihat Detail
+                                  </Button>
                                 </div>
-                                <div className="bg-white border border-blue-200 p-3 rounded">
-                                  <p className="text-sm text-blue-800 leading-relaxed">
-                                    {item.verifierComment}
+                                <div className="bg-white border border-blue-200 p-3 rounded text-center">
+                                  <p className="text-sm text-blue-700">
+                                    Feedback tersedia dari{" "}
+                                    {item.verifierName || "Risk Officer"}
                                   </p>
-                                  {item.verifierName && (
-                                    <div className="mt-2 pt-2 border-t border-blue-200">
-                                      <span className="text-xs text-blue-600 font-medium">
-                                        — {item.verifierName}
-                                      </span>
-                                    </div>
-                                  )}
+                                  <p className="text-xs text-blue-600 mt-1">
+                                    Klik "Lihat Detail" untuk melihat feedback
+                                    lengkap
+                                  </p>
                                 </div>
                               </div>
                             ) : (
@@ -625,6 +670,15 @@ export function ProjectReadinessResults({
           </div>
         </div>
       </DialogContent>
+
+      {/* Detail Dialog */}
+      <ReadinessDetailDialog
+        isOpen={detailDialog.isOpen}
+        onClose={closeDetailDialog}
+        type={detailDialog.type}
+        title={detailDialog.title}
+        data={detailDialog.data}
+      />
     </Dialog>
   );
 }
