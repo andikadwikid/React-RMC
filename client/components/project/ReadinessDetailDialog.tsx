@@ -258,7 +258,51 @@ export function ReadinessDetailDialog({
               <Separator />
 
               {/* Verifier Feedback */}
-              {data.verifierComment ? (
+              {data.verifierComments && data.verifierComments.length > 0 ? (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <UserCheck className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm font-medium text-blue-700">
+                      Feedback Risk Officer ({data.verifierComments.length} feedback):
+                    </span>
+                  </div>
+                  <div className="space-y-3">
+                    {data.verifierComments.map((feedback, index) => (
+                      <div
+                        key={feedback.id}
+                        className="bg-blue-50 border border-blue-200 p-4 rounded-lg"
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm font-semibold text-blue-700">
+                            Feedback #{index + 1}
+                          </span>
+                          <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                            {new Date(feedback.createdAt).toLocaleString(
+                              "id-ID",
+                              {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              },
+                            )}
+                          </span>
+                        </div>
+                        <div className="bg-white border border-blue-200 p-3 rounded mb-2">
+                          <p className="text-sm text-blue-800 leading-relaxed whitespace-pre-wrap">
+                            {feedback.text}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-blue-600">
+                          <UserCheck className="w-3 h-3" />
+                          <span>oleh: {feedback.verifierName}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : data.verifierComment ? (
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <UserCheck className="w-4 h-4 text-blue-600" />
@@ -267,11 +311,34 @@ export function ReadinessDetailDialog({
                     </span>
                   </div>
                   <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-                    <div className="bg-white border border-blue-200 p-4 rounded">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-semibold text-blue-700">
+                        Feedback
+                      </span>
+                      <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                        {data.verifiedAt ? new Date(data.verifiedAt).toLocaleString(
+                          "id-ID",
+                          {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          },
+                        ) : 'Tanggal tidak tersedia'}
+                      </span>
+                    </div>
+                    <div className="bg-white border border-blue-200 p-3 rounded mb-2">
                       <p className="text-sm text-blue-800 leading-relaxed whitespace-pre-wrap">
                         {data.verifierComment}
                       </p>
                     </div>
+                    {data.verifierName && (
+                      <div className="flex items-center gap-2 text-xs text-blue-600">
+                        <UserCheck className="w-3 h-3" />
+                        <span>oleh: {data.verifierName}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               ) : (
