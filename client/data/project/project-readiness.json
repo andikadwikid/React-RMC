@@ -227,7 +227,40 @@
       "verifier_name": "John Risk Officer",
       "verified_at": "2024-01-21T09:15:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-21T09:15:00Z"
+      "updated_at": "2024-01-21T09:15:00Z",
+      "risk_capture": [
+        {
+          "id": "risk-adm-001",
+          "sasaran": "Keamanan Kontraktual",
+          "kode": "ADM-LEG-001",
+          "taksonomi": "Legal & Kontraktual",
+          "peristiwaRisiko": "Perubahan klausul kontrak yang merugikan perusahaan",
+          "sumberRisiko": "Negosiasi kontrak yang kurang detail",
+          "dampakKualitatif": "Potensi sengketa hukum dan kerugian reputasi",
+          "dampakKuantitatif": "Kerugian finansial hingga 10% dari nilai kontrak (85 juta)",
+          "kontrolEksisting": "Review legal team, approval workflow, dokumentasi lengkap",
+          "risikoAwal": {
+            "kejadian": 2,
+            "dampak": 4,
+            "level": 8
+          },
+          "risikoSaatIni": {
+            "kejadian": 1,
+            "dampak": 3,
+            "level": 3
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 2,
+            "level": 2
+          },
+          "verifierComment": "Risiko terkendali dengan baik. Legal review sudah comprehensive.",
+          "verifierName": "John Risk Officer",
+          "verifiedAt": "2024-01-21T09:15:00Z",
+          "isVerified": true,
+          "createdAt": "2024-01-20T10:30:00Z"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442002",
