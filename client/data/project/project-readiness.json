@@ -628,7 +628,40 @@
       "verifier_name": "Senior Risk Officer",
       "verified_at": "2024-01-21T10:30:00Z",
       "created_at": "2024-01-20T10:30:00Z",
-      "updated_at": "2024-01-21T10:30:00Z"
+      "updated_at": "2024-01-21T10:30:00Z",
+      "risk_capture": [
+        {
+          "id": "risk-sys-001",
+          "sasaran": "Ketersediaan Sistem",
+          "kode": "SYS-AVL-001",
+          "taksonomi": "Operasional",
+          "peristiwaRisiko": "Failure peralatan development yang critical saat peak development",
+          "sumberRisiko": "Hardware aging dan kurangnya redundancy",
+          "dampakKualitatif": "Delay development timeline dan penurunan produktivitas tim",
+          "dampakKuantitatif": "Delay 1-2 minggu dengan kerugian produktivitas 200 juta",
+          "kontrolEksisting": "Backup equipment, maintenance schedule, monitoring tools",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 3,
+            "level": 9
+          },
+          "risikoSaatIni": {
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
+          },
+          "resikoAkhir": {
+            "kejadian": 1,
+            "dampak": 2,
+            "level": 2
+          },
+          "verifierComment": "Equipment redundancy sudah adequate. Maintenance protocol perlu ditingkatkan untuk preventive care.",
+          "verifierName": "Senior Risk Officer",
+          "verifiedAt": "2024-01-21T10:30:00Z",
+          "isVerified": true,
+          "createdAt": "2024-01-20T10:30:00Z"
+        }
+      ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655442018",
