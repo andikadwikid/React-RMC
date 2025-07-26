@@ -241,15 +241,15 @@ export interface ProjectSummary {
 
 export interface InvoiceStatus {
   completed_no_invoice: number;
-  completed_invoiced: number;
-  completed_paid: number;
+  issued_unpaid: number;
+  paid: number;
 }
 
 export interface AgingReceivable {
   category: string;
-  total: number;
-  percentage: number;
-  color: string;
+  amount: number;
+  color: "green" | "yellow" | "red";
+  days: string;
 }
 
 export interface ProvinceData {
