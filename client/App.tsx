@@ -18,27 +18,29 @@ declare global {
 
 // Dashboard pages
 import Dashboard from "./pages/dashboard/SimpleTest";
-import VerifierDashboard from "./pages/dashboard/VerifierDashboard";
+// import VerifierDashboard from "./pages/dashboard/VerifierDashboard";
 
 // Project pages
-import Projects from "./pages/project/Projects";
-import CreateProject from "./pages/project/CreateProject";
-import ProjectDetail from "./pages/project/ProjectDetail";
-import ProjectTimeline from "./pages/project/ProjectTimeline";
+// import Projects from "./pages/project/Projects";
+// import CreateProject from "./pages/project/CreateProject";
+// import ProjectDetail from "./pages/project/ProjectDetail";
+// import ProjectTimeline from "./pages/project/ProjectTimeline";
 
 // Verification pages
-import Verification from "./pages/verification/Verification";
-import RiskCaptureVerification from "./pages/verification/RiskCaptureVerification";
+// import Verification from "./pages/verification/Verification";
+// import RiskCaptureVerification from "./pages/verification/RiskCaptureVerification";
 
 // Master data pages
-import MasterProvinces from "./pages/master/MasterProvinces";
-import MasterCategories from "./pages/master/MasterCategories";
+// import MasterProvinces from "./pages/master/MasterProvinces";
+// import MasterCategories from "./pages/master/MasterCategories";
 
 // Common pages
-import PlaceholderPage from "./pages/common/PlaceholderPage";
-import NotFound from "./pages/common/NotFound";
+// import PlaceholderPage from "./pages/common/PlaceholderPage";
+function NotFound() {
+  return <div>404 - Page Not Found</div>;
+}
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 const App = () => (
   <ErrorBoundary>
