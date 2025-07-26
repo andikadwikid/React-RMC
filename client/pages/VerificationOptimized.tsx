@@ -7,8 +7,8 @@ import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import { EmptyState } from "@/components/common/EmptyState";
 import { SubmissionItem } from "@/components/verification/SubmissionItem";
 import { ProjectReadinessVerificationModal } from "@/components/verification/ProjectReadinessVerificationModal";
-import { useVerificationData } from "@/hooks/useVerificationData";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useVerificationData } from "@/hooks/verification";
+import { useDebounce } from "@/hooks/common";
 import {
   Shield,
   Clock,
