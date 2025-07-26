@@ -52,7 +52,7 @@ const RiskCaptureVerificationOptimized = () => {
 
   if (isLoading) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 p-10">
         <PageHeader
           title="Risk Capture Verification"
           description="Review dan verifikasi risk capture data berdasarkan readiness categories dan items dari setiap project"
@@ -70,7 +70,7 @@ const RiskCaptureVerificationOptimized = () => {
 
   return (
     <ErrorBoundary>
-      <div className="space-y-6">
+      <div className="space-y-6 p-10">
         <PageHeader
           title="Risk Capture Verification"
           description="Review dan verifikasi risk capture data berdasarkan readiness categories dan items dari setiap project"

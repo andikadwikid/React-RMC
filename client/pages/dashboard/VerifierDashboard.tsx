@@ -444,7 +444,7 @@ export default function VerifierDashboard() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-10">
       <PageHeader
         title="Dashboard Verifikator"
         description="Panel kontrol untuk verifikasi Risk Capture dan Project Readiness"

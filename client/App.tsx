@@ -25,6 +25,7 @@ import Verification from "./pages/verification/Verification";
 // Common pages
 import PlaceholderPage from "./pages/common/PlaceholderPage";
 import RiskCaptureVerificationOptimized from "./pages/verification/RiskCaptureVerificationOptimized";
+import { CreateProject, VerifierDashboard } from "./pages/index.ts";
 
 // Simple NotFound component
 function NotFound() {
@@ -49,6 +50,14 @@ const App = () => (
           }
         />
         <Route
+          path="/projects/create"
+          element={
+            <Layout>
+              <CreateProject />
+            </Layout>
+          }
+        />
+        <Route
           path="/projects"
           element={
             <Layout>
@@ -64,6 +73,16 @@ const App = () => (
             </Layout>
           }
         />
+
+        <Route
+          path="/verify-dashboard"
+          element={
+            <Layout>
+              <VerifierDashboard />
+            </Layout>
+          }
+        />
+
         <Route
           path="/verify-readiness"
           element={

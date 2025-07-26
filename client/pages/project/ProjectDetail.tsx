@@ -172,13 +172,13 @@ export default function ProjectDetail() {
     });
   };
 
-  const handleRiskCaptureSave = (data: any) => {
-    console.log("Risk capture data saved for project:", project?.id, data);
-    // Here you would typically send the data to your API
-    closeRiskCaptureForm();
-    // Show success message
-    toast.success("Risk Assessment berhasil disimpan!");
-  };
+  // const handleRiskCaptureSave = (data: any) => {
+  //   console.log("Risk capture data saved for project:", project?.id, data);
+  //   // Here you would typically send the data to your API
+  //   closeRiskCaptureForm();
+  //   // Show success message
+  //   toast.success("Risk Assessment berhasil disimpan!");
+  // };
 
   const generateReport = async () => {
     if (!project) return;
@@ -267,7 +267,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
   const timeElapsedPercentage = (daysElapsed / totalDays) * 100;
 
   return (
-    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-10 space-y-4 sm:space-y-6 max-w-7xl mx-auto">
       {/* Header - Mobile Optimized */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div className="flex flex-col gap-4">
@@ -373,15 +373,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   {readinessStatus ? "Update Assessment" : "Create Assessment"}
                 </Button>
               )}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={openRiskCaptureForm}
-                className="font-medium text-orange-700 border-orange-300 bg-orange-50/50 hover:bg-orange-100 hover:border-orange-400 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105"
-              >
-                <Shield className="w-4 h-4 mr-2" />
-                Risk Assessment
-              </Button>
             </div>
           </div>
 
@@ -502,18 +493,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     </div>
                   </DropdownMenuItem>
                 )}
-                <DropdownMenuItem
-                  onClick={openRiskCaptureForm}
-                  className="py-3 hover:bg-orange-50 transition-colors"
-                >
-                  <Shield className="w-4 h-4 mr-3 text-orange-600" />
-                  <div>
-                    <div className="font-medium">Risk Assessment</div>
-                    <div className="text-xs text-gray-500">
-                      Capture project risks
-                    </div>
-                  </div>
-                </DropdownMenuItem>
+
                 <DropdownMenuItem
                   onClick={generateReport}
                   className="py-3 hover:bg-purple-50 transition-colors"
@@ -652,20 +632,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       </div>
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem
-                    onClick={openRiskCaptureForm}
-                    className="rounded-lg my-1 py-3 hover:bg-orange-50 transition-all duration-200"
-                  >
-                    <Shield className="w-5 h-5 mr-3 text-orange-600" />
-                    <div>
-                      <div className="font-semibold text-gray-700">
-                        Risk Assessment
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        Capture & analyze project risks
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
                 </div>
 
                 {/* Additional Actions */}
@@ -689,54 +655,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             </DropdownMenu>
           </div>
         </div>
-      </div>
-
-      {/* Quick Stats - Responsive Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Progress</p>
-                <p className="text-xl sm:text-2xl font-bold text-blue-600">
-                  {project.progress}%
-                </p>
-              </div>
-              <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
-            </div>
-            <Progress value={project.progress} className="mt-2" />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Budget Used</p>
-                <p className="text-xl sm:text-2xl font-bold text-green-600">
-                  {budgetUsedPercentage.toFixed(1)}%
-                </p>
-              </div>
-              <DollarSign className="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
-            </div>
-            <Progress value={budgetUsedPercentage} className="mt-2" />
-          </CardContent>
-        </Card>
-
-        <Card className="sm:col-span-2 lg:col-span-1">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Time Elapsed</p>
-                <p className="text-xl sm:text-2xl font-bold text-purple-600">
-                  {timeElapsedPercentage.toFixed(1)}%
-                </p>
-              </div>
-              <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />
-            </div>
-            <Progress value={timeElapsedPercentage} className="mt-2" />
-          </CardContent>
-        </Card>
       </div>
 
       {/* Main Content - Responsive Tabs */}
@@ -1308,15 +1226,6 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
         onSave={handleReadinessSave}
       />
 
-      {/* Risk Capture Form */}
-      <RiskCaptureForm
-        isOpen={riskCaptureForm.isOpen}
-        onClose={closeRiskCaptureForm}
-        projectId={riskCaptureForm.projectId}
-        projectName={riskCaptureForm.projectName}
-        onSave={handleRiskCaptureSave}
-      />
-
       {/* Floating Action Button for Mobile Quick Actions */}
       <div className="fixed bottom-6 right-6 sm:hidden z-50">
         <DropdownMenu>
@@ -1421,7 +1330,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 </DropdownMenuItem>
               )}
 
-              <DropdownMenuItem
+              {/* <DropdownMenuItem
                 onClick={openRiskCaptureForm}
                 className="rounded-xl py-4 px-3 hover:bg-orange-50 transition-all duration-200 group"
               >
@@ -1438,7 +1347,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     </div>
                   </div>
                 </div>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
 
               <div className="border-t border-gray-100 my-2"></div>
 
