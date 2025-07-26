@@ -63,7 +63,7 @@ export function ProjectOverview({ project }: ProjectOverviewProps) {
                 <User className="w-4 h-4 text-gray-400 flex-shrink-0" />
                 <span className="text-gray-600">PM:</span>
                 <span className="font-medium truncate">
-                  {project.project_manager || project.projectManager}
+                  {project.projectManager}
                 </span>
               </div>
             </div>
