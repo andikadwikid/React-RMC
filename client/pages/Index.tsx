@@ -44,7 +44,7 @@ import {
   detectBestRiskCapturePeriod,
   detectBestInvoiceStatusPeriod,
   detectBestAgingReceivablesPeriod,
-} from "@/hooks/usePeriodDetection";
+} from "@/hooks/dashboard";
 import {
   calculateProjectSummary,
   getRiskInsights,
