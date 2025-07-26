@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { useStatusConfig } from "@/hooks/useStatusConfig";
+import { useStatusConfig } from "@/hooks/verification";
 
 interface StatusBadgeProps {
   status: string;
