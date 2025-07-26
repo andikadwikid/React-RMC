@@ -434,13 +434,15 @@ export function ProjectReadinessVerificationModal({
       </DialogContent>
 
       {/* Detail Dialog for User Comments and Verifier Feedback */}
-      <ReadinessDetailDialog
-        isOpen={detailDialog.isOpen}
-        onClose={() => setDetailDialog({ ...detailDialog, isOpen: false })}
-        type={detailDialog.type}
-        title={detailDialog.title}
-        data={detailDialog.data}
-      />
+      {detailDialog.isOpen && (
+        <ReadinessDetailDialog
+          isOpen={detailDialog.isOpen}
+          onClose={() => setDetailDialog({ ...detailDialog, isOpen: false })}
+          type={detailDialog.type}
+          title={detailDialog.title}
+          data={detailDialog.data}
+        />
+      )}
     </Dialog>
   );
 }
