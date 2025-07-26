@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { useProjectDetail } from "@/hooks/useProjectDetail";
+import { useProjectDetail } from "@/hooks/project";
 import { ProjectDetailHeader } from "@/components/project/ProjectDetailHeader";
 import { ProjectQuickStats } from "@/components/project/ProjectQuickStats";
 import { ProjectOverview } from "@/components/project/ProjectOverview";
