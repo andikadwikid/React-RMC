@@ -15,6 +15,9 @@ declare global {
 // Dashboard pages
 import Dashboard from "./pages/dashboard/SafeDashboard";
 
+// Project pages
+import Projects from "./pages/project/Projects";
+
 // Simple NotFound component
 function NotFound() {
   return (
