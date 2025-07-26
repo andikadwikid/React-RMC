@@ -1,11 +1,11 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PageHeader } from "@/components/common/PageHeader";
-import { RiskCaptureVerificationModal } from "@/components/verification/RiskCaptureVerificationModal";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
   Search,
   Eye,
@@ -14,38 +14,78 @@ import {
   AlertTriangle,
   Shield,
   FileX,
+  ChevronDown,
+  ChevronRight,
+  FileText,
+  Database,
+  Users,
+  DollarSign,
+  Cpu,
+  Leaf,
+  Target,
+  Info,
+  XCircle,
+  AlertCircleIcon,
 } from "lucide-react";
-import type { RiskCapture } from "@/types";
+import type { RiskItem, ProjectReadiness } from "@/types";
 import { formatDateTime } from "@/utils/formatters";
-import { loadSubmissionTracking } from "@/utils/dataLoader";
+import { 
+  loadSubmissionTracking, 
+  getReadinessTemplate,
+  getAllProjects,
+  getProjectReadinessItems 
+} from "@/utils/dataLoader";
 
-// Load risk capture submissions from JSON data
-const getRiskCaptureSubmissions = (): RiskCapture[] => {
-  try {
-    const submissionData = loadSubmissionTracking();
-
-    if (!submissionData || !submissionData.risk_capture_submissions) {
-      console.error("No risk capture submissions found in data");
-      return [];
-    }
-
-    // Map the data to match RiskCapture interface
-    const mappedData = submissionData.risk_capture_submissions.map(
-      (submission) => ({
-        ...submission,
-        createdAt: submission.createdAt || submission.submittedAt,
-        updatedAt: submission.verifiedAt || undefined,
-        overallComment: submission.notes || "",
-        risks: submission.risks || [],
-      }),
-    );
-
-    return mappedData;
-  } catch (error) {
-    console.error("Error loading risk capture submissions:", error);
-    return [];
-  }
+// Icon mapping
+const iconMap = {
+  FileText,
+  Database,
+  Users,
+  DollarSign,
+  Cpu,
+  Leaf,
+  Target,
 };
+
+// Category display names
+const CATEGORY_DISPLAY_NAMES = {
+  administrative: "Dokumen Administratif",
+  "user-technical-data": "Data Teknis dari User",
+  personnel: "Personel Proyek",
+  "legal-financial": "Legal & Finansial",
+  "system-equipment": "Kesiapan Sistem & Peralatan",
+  "hsse-permits": "HSSE & Perizinan Lapangan",
+  "deliverable-output": "Kesiapan Deliverable & Output",
+};
+
+interface ProjectRiskData {
+  projectId: string;
+  projectName: string;
+  readinessCategories: ReadinessCategoryWithRisks[];
+  totalRisks: number;
+  riskDistribution: {
+    sangatRendah: number;
+    rendah: number;
+    sedang: number;
+    tinggi: number;
+    sangatTinggi: number;
+  };
+}
+
+interface ReadinessCategoryWithRisks {
+  id: string;
+  title: string;
+  icon: React.ComponentType<any>;
+  items: ReadinessItemWithRisks[];
+  totalRisks: number;
+}
+
+interface ReadinessItemWithRisks {
+  id: string;
+  title: string;
+  risks: RiskItem[];
+  hasRisks: boolean;
+}
 
 const STATUS_CONFIG = {
   submitted: {
@@ -70,6 +110,116 @@ const STATUS_CONFIG = {
   },
 };
 
+const RISK_LEVEL_CONFIG = {
+  1: { label: "Sangat Rendah", color: "bg-green-100 text-green-800", range: "1-5" },
+  2: { label: "Rendah", color: "bg-green-100 text-green-800", range: "6-10" },
+  3: { label: "Sedang", color: "bg-yellow-100 text-yellow-800", range: "11-15" },
+  4: { label: "Tinggi", color: "bg-orange-100 text-orange-800", range: "16-20" },
+  5: { label: "Sangat Tinggi", color: "bg-red-100 text-red-800", range: "21-25" },
+};
+
+const getRiskLevel = (level: number): number => {
+  if (level >= 1 && level <= 5) return 1;
+  if (level >= 6 && level <= 10) return 2;
+  if (level >= 11 && level <= 15) return 3;
+  if (level >= 16 && level <= 20) return 4;
+  if (level >= 21 && level <= 25) return 5;
+  return 1;
+};
+
+const getRiskLevelBadge = (level: number) => {
+  const riskLevel = getRiskLevel(level);
+  const config = RISK_LEVEL_CONFIG[riskLevel as keyof typeof RISK_LEVEL_CONFIG];
+  
+  return (
+    <Badge className={config.color}>
+      {config.label} ({level})
+    </Badge>
+  );
+};
+
+// Main data loading function
+const loadProjectRiskData = (): ProjectRiskData[] => {
+  try {
+    const template = getReadinessTemplate();
+    const projects = getAllProjects();
+    const submissionData = loadSubmissionTracking();
+    
+    const projectRiskData: ProjectRiskData[] = [];
+
+    // Iterate through all projects
+    projects.forEach((project) => {
+      const readinessItems = getProjectReadinessItems(project.id);
+      
+      // Group readiness items by category
+      const itemsByCategory = readinessItems.reduce((acc, item) => {
+        if (!acc[item.category]) {
+          acc[item.category] = [];
+        }
+        acc[item.category].push(item);
+        return acc;
+      }, {} as Record<string, any[]>);
+
+      // Build categories with risks
+      const readinessCategories: ReadinessCategoryWithRisks[] = template.categories.map((categoryTemplate) => {
+        const categoryItems = itemsByCategory[categoryTemplate.id] || [];
+        
+        const itemsWithRisks: ReadinessItemWithRisks[] = categoryTemplate.items.map((itemTemplate) => {
+          // Find actual readiness item
+          const actualItem = categoryItems.find(item => item.item === itemTemplate.title);
+          const risks = actualItem?.risk_capture || [];
+          
+          return {
+            id: itemTemplate.id,
+            title: itemTemplate.title,
+            risks: risks,
+            hasRisks: risks.length > 0,
+          };
+        });
+
+        const totalCategoryRisks = itemsWithRisks.reduce((sum, item) => sum + item.risks.length, 0);
+
+        return {
+          id: categoryTemplate.id,
+          title: categoryTemplate.title,
+          icon: iconMap[categoryTemplate.icon as keyof typeof iconMap],
+          items: itemsWithRisks,
+          totalRisks: totalCategoryRisks,
+        };
+      });
+
+      // Calculate total risks and distribution for project
+      const allProjectRisks = readinessCategories.flatMap(cat => 
+        cat.items.flatMap(item => item.risks)
+      );
+
+      const riskDistribution = {
+        sangatRendah: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 1).length,
+        rendah: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 2).length,
+        sedang: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 3).length,
+        tinggi: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 4).length,
+        sangatTinggi: allProjectRisks.filter(r => getRiskLevel(r.risikoSaatIni.level) === 5).length,
+      };
+
+      // Only include projects that have some readiness data or risks
+      if (readinessItems.length > 0 || allProjectRisks.length > 0) {
+        projectRiskData.push({
+          projectId: project.id,
+          projectName: project.name,
+          readinessCategories,
+          totalRisks: allProjectRisks.length,
+          riskDistribution,
+        });
+      }
+    });
+
+    return projectRiskData;
+  } catch (error) {
+    console.error("Error loading project risk data:", error);
+    return [];
+  }
+};
+
 // Loading component
 function LoadingSpinner() {
   return (
@@ -79,174 +229,248 @@ function LoadingSpinner() {
   );
 }
 
-// Submissions List Component
-interface SubmissionsListProps {
-  submissions: RiskCapture[];
-  onOpenModal: (submission: RiskCapture) => void;
-  getStatusBadge: (status: string) => JSX.Element | null;
-  getRiskLevelSummary: (distribution: RiskCapture["riskLevelDistribution"]) => {
-    total: number;
-    highRisk: number;
-    percentage: number;
-  };
-  isLoading?: boolean;
+// Risk Item Detail Component
+interface RiskItemDetailProps {
+  risk: RiskItem;
 }
 
-function SubmissionsList({
-  submissions,
-  onOpenModal,
-  getStatusBadge,
-  getRiskLevelSummary,
-  isLoading = false,
-}: SubmissionsListProps) {
-  if (isLoading) {
-    return (
-      <Card>
-        <CardContent className="py-12">
-          <LoadingSpinner />
-          <p className="text-center text-gray-500 mt-4">
-            Memuat data submission...
-          </p>
-        </CardContent>
-      </Card>
-    );
-  }
+function RiskItemDetail({ risk }: RiskItemDetailProps) {
+  return (
+    <div className="border rounded-lg p-4 bg-gray-50 space-y-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h4 className="font-medium text-gray-900">{risk.peristiwaRisiko}</h4>
+          <p className="text-sm text-gray-600">{risk.kode} - {risk.taksonomi}</p>
+        </div>
+        {getRiskLevelBadge(risk.risikoSaatIni.level)}
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <div>
+          <span className="font-medium text-gray-700">Sumber Risiko:</span>
+          <p className="text-gray-900 mt-1">{risk.sumberRisiko}</p>
+        </div>
+        <div>
+          <span className="font-medium text-gray-700">Dampak Kualitatif:</span>
+          <p className="text-gray-900 mt-1">{risk.dampakKualitatif}</p>
+        </div>
+        <div>
+          <span className="font-medium text-gray-700">Dampak Kuantitatif:</span>
+          <p className="text-gray-900 mt-1">{risk.dampakKuantitatif}</p>
+        </div>
+        <div>
+          <span className="font-medium text-gray-700">Kontrol Eksisting:</span>
+          <p className="text-gray-900 mt-1">{risk.kontrolEksisting}</p>
+        </div>
+      </div>
 
-  if (submissions.length === 0) {
-    return (
-      <Card>
-        <CardContent className="py-12">
-          <div className="text-center">
-            <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">
-              Tidak ada risk capture submission yang ditemukan
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+        <div className="p-3 bg-red-50 border border-red-200 rounded">
+          <span className="font-medium text-red-700">Risiko Awal:</span>
+          <p className="text-red-900">
+            Kejadian: {risk.risikoAwal.kejadian}, Dampak: {risk.risikoAwal.dampak}
+          </p>
+          <p className="text-red-900 font-semibold">Level: {risk.risikoAwal.level}</p>
+        </div>
+        <div className="p-3 bg-yellow-50 border border-yellow-200 rounded">
+          <span className="font-medium text-yellow-700">Risiko Saat Ini:</span>
+          <p className="text-yellow-900">
+            Kejadian: {risk.risikoSaatIni.kejadian}, Dampak: {risk.risikoSaatIni.dampak}
+          </p>
+          <p className="text-yellow-900 font-semibold">Level: {risk.risikoSaatIni.level}</p>
+        </div>
+        <div className="p-3 bg-green-50 border border-green-200 rounded">
+          <span className="font-medium text-green-700">Risiko Akhir:</span>
+          <p className="text-green-900">
+            Kejadian: {risk.resikoAkhir.kejadian}, Dampak: {risk.resikoAkhir.dampak}
+          </p>
+          <p className="text-green-900 font-semibold">Level: {risk.resikoAkhir.level}</p>
+        </div>
+      </div>
+
+      {risk.verifierComment && (
+        <div className="p-3 bg-blue-50 border border-blue-200 rounded">
+          <span className="font-medium text-blue-700">Komentar Verifier:</span>
+          <p className="text-blue-900 mt-1">{risk.verifierComment}</p>
+          {risk.verifierName && (
+            <p className="text-blue-600 text-sm mt-1">— {risk.verifierName}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Project Risk Display Component
+interface ProjectRiskDisplayProps {
+  projectData: ProjectRiskData;
+}
+
+function ProjectRiskDisplay({ projectData }: ProjectRiskDisplayProps) {
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+
+  const toggleCategory = (categoryId: string) => {
+    setExpandedCategories(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(categoryId)) {
+        newSet.delete(categoryId);
+      } else {
+        newSet.add(categoryId);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleItem = (itemId: string) => {
+    setExpandedItems(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(itemId)) {
+        newSet.delete(itemId);
+      } else {
+        newSet.add(itemId);
+      }
+      return newSet;
+    });
+  };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Risk Capture Submissions ({submissions.length})</CardTitle>
+        <CardTitle className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Shield className="w-5 h-5 text-blue-600" />
+            <span>{projectData.projectName}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="outline">
+              Total Risks: {projectData.totalRisks}
+            </Badge>
+          </div>
+        </CardTitle>
       </CardHeader>
       <CardContent>
+        {/* Risk Distribution Summary */}
+        {projectData.totalRisks > 0 && (
+          <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+            <h4 className="font-medium text-gray-900 mb-3">Distribusi Risiko:</h4>
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 text-sm">
+              <Badge className="bg-green-100 text-green-800 justify-center">
+                Sangat Rendah: {projectData.riskDistribution.sangatRendah}
+              </Badge>
+              <Badge className="bg-green-100 text-green-800 justify-center">
+                Rendah: {projectData.riskDistribution.rendah}
+              </Badge>
+              <Badge className="bg-yellow-100 text-yellow-800 justify-center">
+                Sedang: {projectData.riskDistribution.sedang}
+              </Badge>
+              <Badge className="bg-orange-100 text-orange-800 justify-center">
+                Tinggi: {projectData.riskDistribution.tinggi}
+              </Badge>
+              <Badge className="bg-red-100 text-red-800 justify-center">
+                Sangat Tinggi: {projectData.riskDistribution.sangatTinggi}
+              </Badge>
+            </div>
+          </div>
+        )}
+
         <div className="space-y-4">
-          {submissions.map((submission) => {
-            const riskSummary = getRiskLevelSummary(
-              submission.riskLevelDistribution,
-            );
+          {projectData.readinessCategories.map((category) => {
+            const IconComponent = category.icon;
+            const isExpanded = expandedCategories.has(category.id);
+            const hasAnyRisks = category.items.some(item => item.hasRisks);
 
             return (
-              <div
-                key={submission.id}
-                className="border rounded-lg p-4 sm:p-6 hover:bg-gray-50 transition-all duration-200 hover:shadow-md"
-              >
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                  <div className="flex-1 space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-                      <h3 className="font-semibold text-gray-900 text-lg">
-                        {submission.projectName}
-                      </h3>
-                      {getStatusBadge(submission.status)}
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600">
-                      <div className="flex flex-col">
-                        <span className="font-medium text-gray-700">
-                          Submitter:
+              <div key={category.id} className="border rounded-lg">
+                <Collapsible>
+                  <CollapsibleTrigger asChild>
+                    <div
+                      onClick={() => toggleCategory(category.id)}
+                      className="w-full p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <IconComponent className="w-5 h-5 text-blue-600" />
+                        <span className="font-medium">
+                          {CATEGORY_DISPLAY_NAMES[category.id as keyof typeof CATEGORY_DISPLAY_NAMES] || category.title}
                         </span>
-                        <span className="text-gray-900">
-                          {submission.submittedBy}
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-medium text-gray-700">
-                          Tanggal Submit:
-                        </span>
-                        <span className="text-gray-900">
-                          {formatDateTime(submission.submittedAt)}
-                        </span>
-                      </div>
-                      {submission.verifierName && (
-                        <div className="flex flex-col">
-                          <span className="font-medium text-gray-700">
-                            Verifier:
-                          </span>
-                          <span className="text-gray-900">
-                            {submission.verifierName}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Risk Distribution Summary */}
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-sm">
-                      <div className="flex items-center gap-2">
-                        <Shield className="w-4 h-4 text-blue-600" />
-                        <span className="font-medium">Total Risks:</span>
-                        <Badge variant="outline" className="font-semibold">
-                          {submission.totalRisks}
+                        <Badge variant={hasAnyRisks ? "default" : "secondary"}>
+                          {category.totalRisks} risks
                         </Badge>
                       </div>
-                      {riskSummary.highRisk > 0 && (
-                        <div className="flex items-center gap-2">
-                          <AlertTriangle className="w-4 h-4 text-red-600" />
-                          <span className="text-red-600 font-medium">
-                            High Risk: {riskSummary.highRisk} (
-                            {riskSummary.percentage}%)
-                          </span>
-                        </div>
+                      {isExpanded ? (
+                        <ChevronDown className="w-4 h-4 text-gray-400" />
+                      ) : (
+                        <ChevronRight className="w-4 h-4 text-gray-400" />
                       )}
                     </div>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    {isExpanded && (
+                      <div className="px-4 pb-4 space-y-3 border-t bg-gray-50">
+                        {category.items.map((item) => {
+                          const itemKey = `${category.id}-${item.id}`;
+                          const isItemExpanded = expandedItems.has(itemKey);
 
-                    {/* Risk Level Distribution */}
-                    <div className="flex flex-wrap gap-2 text-xs">
-                      <Badge className="bg-green-100 text-green-800 border-green-200">
-                        Rendah:{" "}
-                        {submission.riskLevelDistribution.sangatRendah +
-                          submission.riskLevelDistribution.rendah}
-                      </Badge>
-                      <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">
-                        Sedang: {submission.riskLevelDistribution.sedang}
-                      </Badge>
-                      <Badge className="bg-red-100 text-red-800 border-red-200">
-                        Tinggi:{" "}
-                        {submission.riskLevelDistribution.tinggi +
-                          submission.riskLevelDistribution.sangatTinggi}
-                      </Badge>
-                    </div>
-
-                    {submission.overallComment && (
-                      <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm">
-                        <span className="font-medium text-blue-900">
-                          Komentar:
-                        </span>
-                        <p className="mt-1 text-blue-800">
-                          {submission.overallComment}
-                        </p>
+                          return (
+                            <div key={itemKey} className="bg-white border rounded-lg">
+                              <div
+                                onClick={() => toggleItem(itemKey)}
+                                className="p-3 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors"
+                              >
+                                <div className="flex items-center gap-3">
+                                  <span className="text-sm font-medium text-gray-900">
+                                    {item.title}
+                                  </span>
+                                  {item.hasRisks ? (
+                                    <Badge className="bg-orange-100 text-orange-800">
+                                      {item.risks.length} risk{item.risks.length > 1 ? 's' : ''}
+                                    </Badge>
+                                  ) : (
+                                    <Badge variant="secondary" className="bg-gray-100 text-gray-600">
+                                      <Info className="w-3 h-3 mr-1" />
+                                      Tidak ada risk capture
+                                    </Badge>
+                                  )}
+                                </div>
+                                {item.hasRisks && (
+                                  isItemExpanded ? (
+                                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                                  ) : (
+                                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                                  )
+                                )}
+                              </div>
+                              
+                              {isItemExpanded && item.hasRisks && (
+                                <div className="px-3 pb-3 border-t bg-gray-50">
+                                  <div className="space-y-3 mt-3">
+                                    {item.risks.map((risk, riskIndex) => (
+                                      <RiskItemDetail key={riskIndex} risk={risk} />
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
-                  </div>
-
-                  <div className="flex justify-end lg:ml-4">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onOpenModal(submission)}
-                      className="w-full sm:w-auto hover:bg-blue-50 hover:border-blue-300"
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      Review
-                    </Button>
-                  </div>
-                </div>
+                  </CollapsibleContent>
+                </Collapsible>
               </div>
             );
           })}
         </div>
+
+        {projectData.totalRisks === 0 && (
+          <div className="text-center py-8">
+            <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-500">Tidak ada risk capture data untuk project ini</p>
+            <p className="text-sm text-gray-400 mt-1">
+              Risk capture dapat ditambahkan melalui halaman verifikasi readiness
+            </p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -254,94 +478,34 @@ function SubmissionsList({
 
 export default function RiskCaptureVerification() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("all");
-  const [selectedSubmission, setSelectedSubmission] =
-    useState<RiskCapture | null>(null);
-  const [verificationModal, setVerificationModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [projectRiskData, setProjectRiskData] = useState<ProjectRiskData[]>([]);
 
-  const [riskCaptureSubmissions, setRiskCaptureSubmissions] = useState<
-    RiskCapture[]
-  >([]);
-
-  // Simulate loading data
   useEffect(() => {
     const timer = setTimeout(() => {
-      setRiskCaptureSubmissions(getRiskCaptureSubmissions());
+      const data = loadProjectRiskData();
+      setProjectRiskData(data);
       setIsLoading(false);
     }, 800);
 
     return () => clearTimeout(timer);
   }, []);
 
-  const getFilteredSubmissions = (status: string) => {
-    return riskCaptureSubmissions.filter((submission) => {
-      const matchesSearch =
-        submission.projectName
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase()) ||
-        submission.submittedBy.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredProjects = projectRiskData.filter((project) =>
+    project.projectName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-      const matchesStatus = status === "all" || submission.status === status;
-
-      return matchesSearch && matchesStatus;
-    });
-  };
-
-  const openVerificationModal = (submission: RiskCapture) => {
-    setSelectedSubmission(submission);
-    setVerificationModal(true);
-  };
-
-  const closeVerificationModal = () => {
-    setVerificationModal(false);
-    setSelectedSubmission(null);
-  };
-
-  const handleVerificationSave = (submissionId: string, data: any) => {
-    console.log("Risk capture verification updated:", submissionId, data);
-    closeVerificationModal();
-  };
-
-  const getStatusBadge = (status: string) => {
-    const config = STATUS_CONFIG[status as keyof typeof STATUS_CONFIG];
-    if (!config) return null;
-
-    const IconComponent = config.icon;
-    return (
-      <Badge className={config.color}>
-        <IconComponent className="w-3 h-3 mr-1" />
-        {config.label}
-      </Badge>
-    );
-  };
-
-  const getRiskLevelSummary = (
-    distribution: RiskCapture["riskLevelDistribution"],
-  ) => {
-    const total = Object.values(distribution).reduce(
-      (sum, count) => sum + count,
-      0,
-    );
-    const highRisk = distribution.tinggi + distribution.sangatTinggi;
-
-    return {
-      total,
-      highRisk,
-      percentage: total > 0 ? Math.round((highRisk / total) * 100) : 0,
-    };
-  };
-
-  const getPendingCount = () => {
-    return riskCaptureSubmissions.filter((s) => s.status === "submitted")
-      .length;
-  };
+  const totalRisks = projectRiskData.reduce((sum, project) => sum + project.totalRisks, 0);
+  const projectsWithRisks = projectRiskData.filter(project => project.totalRisks > 0).length;
+  const highRiskProjects = projectRiskData.filter(project => 
+    project.riskDistribution.tinggi + project.riskDistribution.sangatTinggi > 0
+  ).length;
 
   return (
     <div className="space-y-6">
       <PageHeader
         title="Risk Capture Verification"
-        description="Review dan validasi risk capture assessment yang disubmit oleh user"
+        description="Review dan verifikasi risk capture data berdasarkan readiness categories dan items dari setiap project"
         icon="Shield"
       />
 
@@ -351,29 +515,29 @@ export default function RiskCaptureVerification() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600 flex items-center gap-2">
               <Shield className="w-4 h-4" />
-              Total Submissions
+              Total Projects
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">
-              {riskCaptureSubmissions.length}
+              {projectRiskData.length}
             </div>
-            <p className="text-xs text-gray-500 mt-1">Total keseluruhan</p>
+            <p className="text-xs text-gray-500 mt-1">Projects dengan data</p>
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-md transition-shadow duration-200 border-yellow-200">
+        <Card className="hover:shadow-md transition-shadow duration-200 border-blue-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-yellow-700 flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              Menunggu Review
+            <CardTitle className="text-sm font-medium text-blue-700 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4" />
+              Total Risks
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">
-              {getPendingCount()}
+            <div className="text-2xl font-bold text-blue-600">
+              {totalRisks}
             </div>
-            <p className="text-xs text-yellow-600 mt-1">Memerlukan perhatian</p>
+            <p className="text-xs text-blue-600 mt-1">Semua risk items</p>
           </CardContent>
         </Card>
 
@@ -381,36 +545,29 @@ export default function RiskCaptureVerification() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-green-700 flex items-center gap-2">
               <CheckCircle className="w-4 h-4" />
-              Terverifikasi
+              Projects dengan Risks
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {
-                riskCaptureSubmissions.filter((s) => s.status === "verified")
-                  .length
-              }
+              {projectsWithRisks}
             </div>
-            <p className="text-xs text-green-600 mt-1">Sudah selesai</p>
+            <p className="text-xs text-green-600 mt-1">Ada risk capture data</p>
           </CardContent>
         </Card>
 
         <Card className="hover:shadow-md transition-shadow duration-200 border-red-200">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-red-700 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4" />
-              Perlu Revisi
+              <XCircle className="w-4 h-4" />
+              High Risk Projects
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">
-              {
-                riskCaptureSubmissions.filter(
-                  (s) => s.status === "needs_revision",
-                ).length
-              }
+              {highRiskProjects}
             </div>
-            <p className="text-xs text-red-600 mt-1">Butuh perbaikan</p>
+            <p className="text-xs text-red-600 mt-1">Tinggi/Sangat Tinggi</p>
           </CardContent>
         </Card>
       </div>
@@ -421,7 +578,7 @@ export default function RiskCaptureVerification() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
-              placeholder="Cari berdasarkan nama project atau submitter..."
+              placeholder="Cari berdasarkan nama project..."
               className="pl-10 h-11 border-gray-200 focus:border-blue-400 focus:ring-blue-400"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -430,159 +587,40 @@ export default function RiskCaptureVerification() {
         </CardContent>
       </Card>
 
-      {/* Tabs for Status Tracking */}
-      <Tabs
-        value={activeTab}
-        onValueChange={setActiveTab}
-        className="space-y-6"
-      >
-        <div className="overflow-x-auto">
-          <TabsList className="grid w-full grid-cols-5 min-w-[600px] lg:min-w-0">
-            <TabsTrigger
-              value="all"
-              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
-            >
-              <Shield className="w-3 h-3 lg:w-4 lg:h-4" />
-              <span className="hidden sm:inline">Semua</span>
-              <span className="sm:hidden">All</span>
-              <span className="hidden lg:inline">
-                ({riskCaptureSubmissions.length})
-              </span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="submitted"
-              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
-            >
-              <Clock className="w-3 h-3 lg:w-4 lg:h-4" />
-              <span className="hidden sm:inline">Menunggu</span>
-              <span className="sm:hidden">Wait</span>
-              <span className="hidden lg:inline">
-                (
-                {
-                  riskCaptureSubmissions.filter((s) => s.status === "submitted")
-                    .length
-                }
-                )
-              </span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="under_review"
-              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
-            >
-              <Eye className="w-3 h-3 lg:w-4 lg:h-4" />
-              <span className="hidden sm:inline">Review</span>
-              <span className="sm:hidden">Rev</span>
-              <span className="hidden lg:inline">
-                (
-                {
-                  riskCaptureSubmissions.filter(
-                    (s) => s.status === "under_review",
-                  ).length
-                }
-                )
-              </span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="verified"
-              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
-            >
-              <CheckCircle className="w-3 h-3 lg:w-4 lg:h-4" />
-              <span className="hidden sm:inline">Verified</span>
-              <span className="sm:hidden">Ver</span>
-              <span className="hidden lg:inline">
-                (
-                {
-                  riskCaptureSubmissions.filter((s) => s.status === "verified")
-                    .length
-                }
-                )
-              </span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="needs_revision"
-              className="flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"
-            >
-              <AlertTriangle className="w-3 h-3 lg:w-4 lg:h-4" />
-              <span className="hidden sm:inline">Revisi</span>
-              <span className="sm:hidden">Fix</span>
-              <span className="hidden lg:inline">
-                (
-                {
-                  riskCaptureSubmissions.filter(
-                    (s) => s.status === "needs_revision",
-                  ).length
-                }
-                )
-              </span>
-            </TabsTrigger>
-          </TabsList>
-        </div>
-
-        {/* Tab Content for All */}
-        <TabsContent value="all">
-          <SubmissionsList
-            submissions={getFilteredSubmissions("all")}
-            onOpenModal={openVerificationModal}
-            getStatusBadge={getStatusBadge}
-            getRiskLevelSummary={getRiskLevelSummary}
-            isLoading={isLoading}
-          />
-        </TabsContent>
-
-        {/* Tab Content for Submitted */}
-        <TabsContent value="submitted">
-          <SubmissionsList
-            submissions={getFilteredSubmissions("submitted")}
-            onOpenModal={openVerificationModal}
-            getStatusBadge={getStatusBadge}
-            getRiskLevelSummary={getRiskLevelSummary}
-            isLoading={isLoading}
-          />
-        </TabsContent>
-
-        {/* Tab Content for Under Review */}
-        <TabsContent value="under_review">
-          <SubmissionsList
-            submissions={getFilteredSubmissions("under_review")}
-            onOpenModal={openVerificationModal}
-            getStatusBadge={getStatusBadge}
-            getRiskLevelSummary={getRiskLevelSummary}
-            isLoading={isLoading}
-          />
-        </TabsContent>
-
-        {/* Tab Content for Verified */}
-        <TabsContent value="verified">
-          <SubmissionsList
-            submissions={getFilteredSubmissions("verified")}
-            onOpenModal={openVerificationModal}
-            getStatusBadge={getStatusBadge}
-            getRiskLevelSummary={getRiskLevelSummary}
-            isLoading={isLoading}
-          />
-        </TabsContent>
-
-        {/* Tab Content for Needs Revision */}
-        <TabsContent value="needs_revision">
-          <SubmissionsList
-            submissions={getFilteredSubmissions("needs_revision")}
-            onOpenModal={openVerificationModal}
-            getStatusBadge={getStatusBadge}
-            getRiskLevelSummary={getRiskLevelSummary}
-            isLoading={isLoading}
-          />
-        </TabsContent>
-      </Tabs>
-
-      {/* Verification Modal */}
-      {verificationModal && selectedSubmission && (
-        <RiskCaptureVerificationModal
-          isOpen={verificationModal}
-          onClose={closeVerificationModal}
-          submission={selectedSubmission}
-          onSave={handleVerificationSave}
-        />
-      )}
+      {/* Projects List */}
+      <div className="space-y-6">
+        {isLoading ? (
+          <Card>
+            <CardContent className="py-12">
+              <LoadingSpinner />
+              <p className="text-center text-gray-500 mt-4">
+                Memuat data risk capture...
+              </p>
+            </CardContent>
+          </Card>
+        ) : filteredProjects.length === 0 ? (
+          <Card>
+            <CardContent className="py-12">
+              <div className="text-center">
+                <FileX className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-500">
+                  {searchTerm 
+                    ? "Tidak ada project yang ditemukan dengan kriteria pencarian"
+                    : "Tidak ada project dengan data risk capture"
+                  }
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          filteredProjects.map((projectData) => (
+            <ProjectRiskDisplay 
+              key={projectData.projectId} 
+              projectData={projectData} 
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 }
