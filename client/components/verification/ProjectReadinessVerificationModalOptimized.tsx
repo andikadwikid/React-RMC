@@ -306,7 +306,7 @@ export function ProjectReadinessVerificationModal({
                               onClick={() =>
                                 setDetailDialog({
                                   isOpen: true,
-                                  type: "user",
+                                  type: "user-comments",
                                   title: `User Comments - ${item.category}`,
                                   data: item.userComments,
                                 })
