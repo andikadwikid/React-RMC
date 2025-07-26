@@ -180,7 +180,7 @@ export const useDashboardState = (): [DashboardState, DashboardActions] => {
   }, []);
 
   // Initialize loading state with useEffect
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 600);
     return () => clearTimeout(timer);
   }, []);
