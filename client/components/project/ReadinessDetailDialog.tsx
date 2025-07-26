@@ -36,7 +36,7 @@ interface ReadinessDetailDialogProps {
     verifierName?: string;
     verifiedAt?: string;
     verifierStatus?: string;
-  };
+  } | null;
 }
 
 const STATUS_CONFIG = {
