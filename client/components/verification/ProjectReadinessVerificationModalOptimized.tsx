@@ -373,17 +373,17 @@ export function ProjectReadinessVerificationModal({
                             Status
                           </Label>
                           <Select
-                            value={item.verifierStatus}
+                            value={item.verifierStatus || ""}
                             onValueChange={(value: ReadinessStatus) =>
                               handleItemVerification(
                                 item.id,
                                 value,
-                                item.verifierComment,
+                                item.verifierComment || "",
                               )
                             }
                           >
                             <SelectTrigger className="h-8 text-xs sm:text-sm">
-                              <SelectValue />
+                              <SelectValue placeholder="Pilih status" />
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="lengkap">
@@ -414,7 +414,7 @@ export function ProjectReadinessVerificationModal({
                             Komentar
                           </Label>
                           <Textarea
-                            value={item.verifierComment}
+                            value={item.verifierComment || ""}
                             onChange={(e) =>
                               handleItemVerification(
                                 item.id,
