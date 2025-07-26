@@ -338,11 +338,12 @@ export function ProjectReadinessVerificationModal({
                               <span className="text-sm font-medium text-green-700">
                                 Keterangan User:
                               </span>
-                              {item.userComments && item.userComments.length > 0 && (
-                                <Badge className="bg-green-100 text-green-800 text-xs">
-                                  {item.userComments.length} komentar
-                                </Badge>
-                              )}
+                              {item.userComments &&
+                                item.userComments.length > 0 && (
+                                  <Badge className="bg-green-100 text-green-800 text-xs">
+                                    {item.userComments.length} komentar
+                                  </Badge>
+                                )}
                             </div>
                             <Button
                               variant="outline"
@@ -401,7 +402,9 @@ export function ProjectReadinessVerificationModal({
                               className="h-8 px-3 hover:bg-blue-100 hover:border-blue-300"
                             >
                               <Eye className="w-3 h-3 mr-1" />
-                              {item.verifierComment ? "Lihat Detail" : "Tidak Ada"}
+                              {item.verifierComment
+                                ? "Lihat Detail"
+                                : "Tidak Ada"}
                             </Button>
                           </div>
                         </div>
