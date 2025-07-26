@@ -24,6 +24,13 @@ interface UserComment {
   createdAt: string;
 }
 
+interface VerifierFeedback {
+  id: string;
+  text: string;
+  verifierName: string;
+  createdAt: string;
+}
+
 interface ReadinessDetailDialogProps {
   isOpen: boolean;
   onClose: () => void;
@@ -33,6 +40,7 @@ interface ReadinessDetailDialogProps {
     userComments?: UserComment[];
     userStatus?: string;
     verifierComment?: string;
+    verifierComments?: VerifierFeedback[];
     verifierName?: string;
     verifiedAt?: string;
     verifierStatus?: string;
