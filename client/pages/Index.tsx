@@ -36,7 +36,7 @@ import {
   availableRiskPeriods,
   availableGeographicPeriods,
   availableRiskCapturePeriods,
-} from "@/hooks/useDashboardData";
+} from "@/hooks/dashboard";
 import {
   detectBestPerformancePeriod,
   detectBestRiskPeriod,
