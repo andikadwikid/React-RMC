@@ -65,7 +65,7 @@ function LoadingSpinner() {
   );
 }
 
-export default function Dashboard() {
+function Dashboard() {
   // Performance chart state
   const performanceChartRef = useRef<HTMLDivElement>(null);
   const [selectedPerformancePeriod, setSelectedPerformancePeriod] =
@@ -1152,3 +1152,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default Dashboard;

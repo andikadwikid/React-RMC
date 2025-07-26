@@ -13,7 +13,7 @@ declare global {
 }
 
 // Dashboard pages
-import Dashboard from "./pages/dashboard/Index";
+import Dashboard from "./pages/dashboard/Index.tsx";
 
 // Project pages
 import Projects from "./pages/project/Projects";
@@ -24,6 +24,7 @@ import Verification from "./pages/verification/Verification";
 
 // Common pages
 import PlaceholderPage from "./pages/common/PlaceholderPage";
+import { RiskCaptureVerification } from "./pages/index.ts";
 
 // Simple NotFound component
 function NotFound() {
@@ -71,6 +72,15 @@ const App = () => (
             </Layout>
           }
         />
+        <Route
+          path="/verify-riskcapture"
+          element={
+            <Layout>
+              <RiskCaptureVerification />
+            </Layout>
+          }
+        />
+
         <Route
           path="/settings"
           element={
