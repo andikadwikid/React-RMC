@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { TrendingUp, DollarSign, Clock } from "lucide-react";
-import type { ProjectDetailStats } from "@/hooks/useProjectDetail";
+import type { ProjectDetailStats } from "@/hooks/project";
 
 interface ProjectQuickStatsProps {
   progress: number;
