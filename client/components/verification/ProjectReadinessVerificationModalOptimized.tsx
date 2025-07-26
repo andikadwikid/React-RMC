@@ -109,12 +109,12 @@ export function ProjectReadinessVerificationModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [detailDialog, setDetailDialog] = useState<{
     isOpen: boolean;
-    type: "user" | "verifier";
+    type: "user-comments" | "verifier-feedback";
     title: string;
     data: any;
   }>({
     isOpen: false,
-    type: "user",
+    type: "user-comments",
     title: "",
     data: null,
   });
