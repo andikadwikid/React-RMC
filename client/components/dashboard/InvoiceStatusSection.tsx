@@ -6,7 +6,7 @@ import type {
   InvoiceStatus,
   InvoiceStatusDataPeriod,
   AgingReceivable,
-} from "@/types";
+} from "@/hooks/dashboard";
 import { PeriodSelector } from "./PeriodSelector";
 import { FallbackMessage } from "./FallbackMessage";
 import { InsightCardsGrid } from "./InsightCards";
