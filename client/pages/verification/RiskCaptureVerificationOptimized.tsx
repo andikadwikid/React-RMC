@@ -1,22 +1,14 @@
 import React, { useState, useCallback, Suspense, lazy } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { PageHeader } from "@/components/common/PageHeader";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
-import { Search, Eye, FileX } from "lucide-react";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
+import { Search, FileX } from "lucide-react";
 import { useRiskCaptureData } from "@/hooks/verification/useRiskCaptureData";
 import type { ProjectRiskDetail } from "@/hooks/verification/useRiskCaptureData";
 import RiskCaptureStatsCards from "@/components/verification/RiskCaptureStatsCards";
+import VirtualizedProjectTable from "@/components/verification/VirtualizedProjectTable";
 
 // Lazy load the modal component for better performance
 const ProjectRiskDetailModal = lazy(() => import("@/components/verification/ProjectRiskDetailModal"));
