@@ -25,12 +25,14 @@ function NotFound() {
 }
 
 const App = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </BrowserRouter>
+  <ErrorBoundary>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  </ErrorBoundary>
 );
 
 const container = document.getElementById("root")!;
