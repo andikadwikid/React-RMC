@@ -24,7 +24,7 @@ import Verification from "./pages/verification/Verification";
 
 // Common pages
 import PlaceholderPage from "./pages/common/PlaceholderPage";
-import { RiskCaptureVerification } from "./pages/index.ts";
+import RiskCaptureVerificationOptimized from "./pages/verification/RiskCaptureVerificationOptimized";
 
 // Simple NotFound component
 function NotFound() {
