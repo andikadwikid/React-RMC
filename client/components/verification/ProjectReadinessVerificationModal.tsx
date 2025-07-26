@@ -364,7 +364,7 @@ export function ProjectReadinessVerificationModal({
                               }
                               className="min-h-[36px] px-3 py-2 text-xs sm:text-sm hover:bg-green-100 hover:border-green-300 w-full sm:w-auto"
                             >
-                              <Eye className="w-3 h-3 mr-1" />
+                              <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 flex-shrink-0" />
                               {item.userComments && item.userComments.length > 0
                                 ? "Lihat Detail"
                                 : "Tidak Ada"}
@@ -404,7 +404,7 @@ export function ProjectReadinessVerificationModal({
                               }
                               className="min-h-[36px] px-3 py-2 text-xs sm:text-sm hover:bg-blue-100 hover:border-blue-300 w-full sm:w-auto"
                             >
-                              <Eye className="w-3 h-3 mr-1" />
+                              <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 flex-shrink-0" />
                               {item.verifierComment
                                 ? "Lihat Detail"
                                 : "Tidak Ada"}
