@@ -3,6 +3,7 @@ import "./global.css";
 import { createRoot, type Root } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
+import Layout from "./components/Layout";
 
 // Extend HTMLElement to include our custom _reactRoot property
 declare global {
