@@ -20,7 +20,7 @@ import Projects from "./pages/project/Projects";
 import ProjectDetail from "./pages/project/ProjectDetail";
 
 // Verification pages
-import Verification from "./pages/verification/VerificationOptimized";
+import Verification from "./pages/verification/Verification";
 
 // Common pages
 import PlaceholderPage from "./pages/common/PlaceholderPage";
