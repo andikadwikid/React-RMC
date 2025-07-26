@@ -146,7 +146,7 @@ export function RiskCaptureVerificationModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] lg:max-w-6xl max-h-[95vh] overflow-hidden flex flex-col p-0">
+      <DialogContent className="max-w-[100vw] sm:max-w-[95vw] lg:max-w-6xl h-[100vh] sm:h-[95vh] max-h-[100vh] sm:max-h-[95vh] overflow-hidden flex flex-col p-0">
         <DialogHeader className="p-4 lg:p-6 border-b">
           <DialogTitle className="flex flex-col sm:flex-row sm:items-center gap-2 text-lg lg:text-xl">
             <div className="flex items-center gap-2">
