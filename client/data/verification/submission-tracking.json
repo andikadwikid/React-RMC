@@ -36,7 +36,7 @@
         },
         {
           "id": "item-3",
-          "category": "user-data",
+          "category": "user-technical-data",
           "item": "Drawing atau layout teknis terkini",
           "userStatus": "lengkap",
           "userComment": "Semua drawing teknis sudah tersedia dalam format CAD dan PDF"
@@ -79,7 +79,7 @@
         },
         {
           "id": "item-6",
-          "category": "user-data",
+          "category": "user-technical-data",
           "item": "Spesifikasi teknis atau SOW rinci",
           "userStatus": "lengkap",
           "userComment": "SOW detail telah disiapkan dengan security requirements lengkap"
