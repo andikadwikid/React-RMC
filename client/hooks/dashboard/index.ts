@@ -1,5 +1,4 @@
-// Dashboard hooks
-export { usePeriodDetection } from "./usePeriodDetection";
+// Dashboard hooks (individual functions are exported below)
 
 // Re-export all types and functions from useDashboardData
 export type {
