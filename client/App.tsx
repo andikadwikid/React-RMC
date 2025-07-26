@@ -17,7 +17,7 @@ import Layout from "./components/Layout";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 
 // Dashboard pages
-import Dashboard from "./pages/dashboard/Index";
+import Dashboard from "./pages/dashboard/SimpleTest";
 import VerifierDashboard from "./pages/dashboard/VerifierDashboard";
 
 // Project pages
