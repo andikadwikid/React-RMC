@@ -19,7 +19,7 @@ export function SubmissionItem({
       key={submission.id}
       className="border rounded-lg p-3 sm:p-4 lg:p-6 hover:bg-gray-50 transition-all duration-200 hover:shadow-md"
     >
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
         <div className="flex-1 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
             <h3 className="font-semibold text-gray-900 text-lg">
