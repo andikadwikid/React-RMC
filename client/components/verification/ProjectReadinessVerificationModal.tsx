@@ -434,7 +434,7 @@ export function ProjectReadinessVerificationModal({
                               Verifier Status
                             </Label>
                             <Select
-                              value={item.verifierStatus || ""}
+                              value=""
                               onValueChange={(value: ReadinessStatus) =>
                                 updateVerificationStatus(item.id, value)
                               }
@@ -464,7 +464,7 @@ export function ProjectReadinessVerificationModal({
                               placeholder="Tambahkan komentar verifikasi..."
                               className="mt-2 min-h-[80px] resize-none focus:ring-blue-500 focus:border-blue-500"
                               rows={3}
-                              value={item.verifierComment || ""}
+                              value=""
                               onChange={(e) =>
                                 updateVerificationComment(
                                   item.id,
