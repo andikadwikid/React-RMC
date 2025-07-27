@@ -236,15 +236,23 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = f
     };
   }, [data]);
 
+  // Combine loading states - show loading if either parent is loading or chart is loading
+  const isLoading = loading || isChartLoading;
+
   return (
     <div className="w-full h-full relative">
       {isLoading && (
         <div className="flex flex-col items-center justify-center h-96 min-h-96 absolute inset-0 bg-white/90 z-10 rounded">
           <DashboardLoadingSpinner size="lg" />
           <div className="mt-4 text-center">
-            <p className="text-sm text-muted-foreground">Memuat peta Indonesia...</p>
+            <p className="text-sm text-muted-foreground">
+              {loading ? "Memuat data geografis..." : "Memuat peta Indonesia..."}
+            </p>
             <p className="text-xs text-muted-foreground/70 mt-1">
-              Mengunduh data geografis dan library peta
+              {loading
+                ? "Mengambil data provinsi dari server"
+                : "Mengunduh library peta dan data geografis"
+              }
             </p>
           </div>
         </div>
