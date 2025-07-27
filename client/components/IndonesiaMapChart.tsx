@@ -24,10 +24,10 @@ declare global {
   }
 }
 
-const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
+const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = false }) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isChartLoading, setIsChartLoading] = useState(true);
 
   useEffect(() => {
     // Load Highcharts scripts dynamically
