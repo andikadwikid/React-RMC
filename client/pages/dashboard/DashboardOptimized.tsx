@@ -575,7 +575,10 @@ const DashboardOptimized = () => {
           </CardHeader>
           <CardContent>
             <Suspense fallback={<DashboardLoadingSpinner />}>
-              <IndonesiaMap data={state.provinceData} loading={state.isLoading} />
+              <IndonesiaMap
+                data={state.provinceData}
+                loading={state.isLoading}
+              />
             </Suspense>
           </CardContent>
         </Card>

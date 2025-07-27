@@ -24,7 +24,10 @@ declare global {
   }
 }
 
-const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = false }) => {
+const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({
+  data,
+  loading = false,
+}) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<any>(null);
   const [isChartLoading, setIsChartLoading] = useState(true);
@@ -258,15 +261,18 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = f
           <DashboardLoadingSpinner size="lg" />
           <div className="mt-4 text-center">
             <p className="text-sm text-muted-foreground">
-              {(!data || data.length === 0) ? "Menyiapkan data peta..." :
-               loading ? "Memuat data geografis..." : "Memuat peta Indonesia..."}
+              {!data || data.length === 0
+                ? "Menyiapkan data peta..."
+                : loading
+                  ? "Memuat data geografis..."
+                  : "Memuat peta Indonesia..."}
             </p>
             <p className="text-xs text-muted-foreground/70 mt-1">
-              {(!data || data.length === 0) ? "Menunggu data provinsi tersedia" :
-               loading
-                ? "Mengambil data provinsi dari server"
-                : "Mengunduh library peta dan data geografis"
-              }
+              {!data || data.length === 0
+                ? "Menunggu data provinsi tersedia"
+                : loading
+                  ? "Mengambil data provinsi dari server"
+                  : "Mengunduh library peta dan data geografis"}
             </p>
           </div>
         </div>
