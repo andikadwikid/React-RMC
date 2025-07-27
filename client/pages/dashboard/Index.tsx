@@ -857,7 +857,7 @@ function Dashboard() {
           </CardHeader>
           <CardContent>
             {/* <ProjectDistributionChart data={provinceData} title="" /> */}
-            <IndonesiaMap data={provinceData} />
+            <IndonesiaMap data={provinceData} loading={isLoading} />
           </CardContent>
         </Card>
         {/* Charts Section - Geographic Distribution and Risk Capture - Row 5 */}
