@@ -242,8 +242,8 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = f
     };
   }, [data]);
 
-  // Combine loading states - show loading if either parent is loading or chart is loading
-  const isLoading = loading || isChartLoading;
+  // Combine loading states - show loading if either parent is loading, chart is loading, or no data
+  const isLoading = loading || isChartLoading || !data || data.length === 0;
 
   return (
     <div className="w-full h-full relative">
