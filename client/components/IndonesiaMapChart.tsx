@@ -211,7 +211,7 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = f
       } catch (error) {
         console.error("Error initializing chart:", error);
         // Still set loading to false so the chart container is visible
-        setIsLoading(false);
+        setIsChartLoading(false);
         // Try to show a basic chart or message in the chart container
         if (chartRef.current) {
           chartRef.current.innerHTML = `
