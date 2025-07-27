@@ -15,6 +15,7 @@ import type { ProvinceData } from "@/hooks/dashboard";
 
 interface IndonesiaMapChartProps {
   data: ProvinceData[];
+  loading?: boolean;
 }
 
 declare global {
