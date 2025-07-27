@@ -30,6 +30,12 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = f
   const [isChartLoading, setIsChartLoading] = useState(true);
 
   useEffect(() => {
+    // Skip if no data available
+    if (!data || data.length === 0) {
+      setIsChartLoading(false);
+      return;
+    }
+
     // Load Highcharts scripts dynamically
     const loadHighchartsScripts = async () => {
       // Load main Highmaps library
