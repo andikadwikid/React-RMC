@@ -236,12 +236,15 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
       {isLoading && (
-        <div className="flex items-center justify-center h-96 min-h-96 absolute inset-0 bg-white bg-opacity-80 z-10">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
-            <p className="text-sm text-gray-600">Memuat peta Indonesia...</p>
+        <div className="flex flex-col items-center justify-center h-96 min-h-96 absolute inset-0 bg-white/90 z-10 rounded">
+          <DashboardLoadingSpinner size="lg" />
+          <div className="mt-4 text-center">
+            <p className="text-sm text-muted-foreground">Memuat peta Indonesia...</p>
+            <p className="text-xs text-muted-foreground/70 mt-1">
+              Mengunduh data geografis dan library peta
+            </p>
           </div>
         </div>
       )}
