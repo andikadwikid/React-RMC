@@ -252,10 +252,12 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = f
           <DashboardLoadingSpinner size="lg" />
           <div className="mt-4 text-center">
             <p className="text-sm text-muted-foreground">
-              {loading ? "Memuat data geografis..." : "Memuat peta Indonesia..."}
+              {(!data || data.length === 0) ? "Menyiapkan data peta..." :
+               loading ? "Memuat data geografis..." : "Memuat peta Indonesia..."}
             </p>
             <p className="text-xs text-muted-foreground/70 mt-1">
-              {loading
+              {(!data || data.length === 0) ? "Menunggu data provinsi tersedia" :
+               loading
                 ? "Mengambil data provinsi dari server"
                 : "Mengunduh library peta dan data geografis"
               }
