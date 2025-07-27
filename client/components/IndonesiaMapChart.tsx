@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { DashboardLoadingSpinner } from "@/components/common/DashboardLoadingSpinner";
 
 // Define types for the component
 interface MapDataPoint {
