@@ -62,7 +62,7 @@ const IndonesiaMapChart: React.FC<IndonesiaMapChartProps> = ({ data, loading = f
 
     const initializeChart = async () => {
       try {
-        setIsLoading(true);
+        setIsChartLoading(true);
 
         // Load Highcharts
         const Highcharts = await loadHighchartsScripts();
