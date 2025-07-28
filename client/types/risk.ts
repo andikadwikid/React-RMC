@@ -16,28 +16,11 @@ export interface RiskCategory extends BaseEntity {
 
 export interface RiskItem extends BaseEntity {
   sasaran: string;
-  kode: string;
-  taksonomi: string;
   peristiwaRisiko: string;
   sumberRisiko: string;
   dampakKualitatif: string;
   dampakKuantitatif: string;
   kontrolEksisting: string;
-  risikoAwal: {
-    kejadian: number;
-    dampak: number;
-    level: number;
-  };
-  risikoSaatIni: {
-    kejadian: number;
-    dampak: number;
-    level: number;
-  };
-  resikoAkhir: {
-    kejadian: number;
-    dampak: number;
-    level: number;
-  };
   verifierComment?: string;
   verifierName?: string;
   verifiedAt?: string;
