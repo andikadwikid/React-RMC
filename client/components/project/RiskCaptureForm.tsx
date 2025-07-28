@@ -127,7 +127,7 @@ export function RiskCaptureForm({
                   </p>
                 </div>
                 <Badge variant="outline" className="text-blue-600 self-start">
-                  {risks.length} Risk{risks.length !== 1 ? "s" : ""}
+                  {risks.length} Quick Risk{risks.length !== 1 ? "s" : ""}
                 </Badge>
               </div>
             </CardHeader>
