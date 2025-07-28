@@ -6,7 +6,7 @@
       "risks": [
         {
           "id": "qrc-001",
-          "kode": "RTI",
+          "kode": "RTI-002",
           "taksonomi": "Teknologi & Keamanan Siber - Keamanan Data",
           "peristiwaRisiko": "Kebocoran data operasional dan informasi sensitif proyek akibat cyberattack",
           "sumberRisiko": "Sistem keamanan siber yang belum optimal dan awareness tim yang masih rendah",
@@ -16,7 +16,7 @@
         },
         {
           "id": "qrc-002",
-          "kode": "ROL",
+          "kode": "ROL-003",
           "taksonomi": "Operasional - SDM",
           "peristiwaRisiko": "Tenaga ahli GKAO key person meninggalkan proyek di tengah masa kontrak",
           "sumberRisiko": "Kurangnya employee retention program dan tawaran kompensasi yang lebih baik dari competitor",
@@ -34,7 +34,7 @@
       "risks": [
         {
           "id": "qrc-003",
-          "kode": "RHR",
+          "kode": "RHR-004",
           "taksonomi": "Hukum, Reputasi & Kepatuhan - Kepatuhan",
           "peristiwaRisiko": "Assessment tidak memenuhi standar regulatory compliance yang ditetapkan",
           "sumberRisiko": "Perubahan regulasi yang frequent dan complexity dalam interpretasi requirement assessment",
@@ -44,7 +44,7 @@
         },
         {
           "id": "qrc-004",
-          "kode": "RPK",
+          "kode": "RPK-002",
           "taksonomi": "Proyek - Pelaksanaan",
           "peristiwaRisiko": "Timeline assessment terlambat akibat koordinasi yang tidak optimal antar stakeholder",
           "sumberRisiko": "Jadwal yang tight, dependency pada multiple parties, communication gap",
@@ -62,7 +62,7 @@
       "risks": [
         {
           "id": "qrc-005",
-          "kode": "RTI",
+          "kode": "RTI-001",
           "taksonomi": "Teknologi & Keamanan Siber - Infrastruktur dan Sistem",
           "peristiwaRisiko": "Payroll system integration failure dengan existing HR system",
           "sumberRisiko": "Incompatibility sistem lama dengan sistem baru, lack of proper system integration testing",
@@ -72,7 +72,7 @@
         },
         {
           "id": "qrc-006",
-          "kode": "RKB",
+          "kode": "RKB-001",
           "taksonomi": "Kebijakan - Kebijakan SDM",
           "peristiwaRisiko": "Ketidaksesuaian kebijakan kompensasi antara tenaga ahli regulasi dan non-regulasi",
           "sumberRisiko": "Lack of standardized compensation policy, different skill level requirements",
@@ -90,7 +90,7 @@
       "risks": [
         {
           "id": "qrc-007",
-          "kode": "ROL",
+          "kode": "ROL-002",
           "taksonomi": "Operasional - K3",
           "peristiwaRisiko": "Kecelakaan kerja saat operasi maintenance fasilitas surface production",
           "sumberRisiko": "High-risk working environment, equipment failure risk, human error potential",
@@ -100,7 +100,7 @@
         },
         {
           "id": "qrc-008",
-          "kode": "RPN",
+          "kode": "RPN-001",
           "taksonomi": "Pasar - Nilai Mata Uang/Suku Bunga",
           "peristiwaRisiko": "Fluktuasi nilai tukar rupiah mempengaruhi cost struktur project yang menggunakan equipment import",
           "sumberRisiko": "Global economic uncertainty, inflation pressure, currency volatility",
