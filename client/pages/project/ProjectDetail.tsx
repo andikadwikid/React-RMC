@@ -86,6 +86,10 @@ export default function ProjectDetail() {
 
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
 
+  // Running Risks states
+  const [runningRisks, setRunningRisks] = useState([]);
+  const [isAddingRisk, setIsAddingRisk] = useState(false);
+
   useEffect(() => {
     // Load project data from JSON
     if (projectId) {
