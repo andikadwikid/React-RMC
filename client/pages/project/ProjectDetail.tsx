@@ -1368,7 +1368,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 </DropdownMenuItem>
               )}
 
-              {/* <DropdownMenuItem
+              <DropdownMenuItem
                 onClick={openRiskCaptureForm}
                 className="rounded-xl py-4 px-3 hover:bg-orange-50 transition-all duration-200 group"
               >
@@ -1385,7 +1385,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     </div>
                   </div>
                 </div>
-              </DropdownMenuItem> */}
+              </DropdownMenuItem>
 
               <div className="border-t border-gray-100 my-2"></div>
 
