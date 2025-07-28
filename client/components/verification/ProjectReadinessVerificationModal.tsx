@@ -243,6 +243,16 @@ export function ProjectReadinessVerificationModal({
     return value >= 1 && value <= 25;
   };
 
+  const handleQuickRiskCaptureSave = (data: any) => {
+    console.log("Quick Risk Capture verification saved:", data);
+    setQuickRiskDialog(false);
+    // Here you would typically send the data to your API
+    // Update the quickRiskCapture state if needed
+    if (data.quickRiskCapture) {
+      setQuickRiskCapture(data.quickRiskCapture);
+    }
+  };
+
   const handleSave = async () => {
     setIsSubmitting(true);
 
