@@ -33,13 +33,6 @@ export interface RiskCapture extends BaseEntity {
   submittedBy: string;
   submittedAt: string;
   totalRisks: number;
-  riskLevelDistribution: {
-    sangatRendah: number;
-    rendah: number;
-    sedang: number;
-    tinggi: number;
-    sangatTinggi: number;
-  };
   status: VerificationStatus;
   verifierName?: string;
   verifiedAt?: string;
