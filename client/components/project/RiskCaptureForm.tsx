@@ -47,6 +47,8 @@ export function RiskCaptureForm({
     const newRisk: RiskItem = {
       id: Date.now().toString(),
       sasaran: "",
+      kode: "",
+      taksonomi: "",
       peristiwaRisiko: "",
       sumberRisiko: "",
       dampakKualitatif: "",
