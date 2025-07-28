@@ -139,6 +139,12 @@ export default function Layout({ children }: LayoutProps) {
       icon: DollarSign,
     },
     {
+      id: "invoicing",
+      label: "Invoicing",
+      href: "/invoicing",
+      icon: Receipt,
+    },
+    {
       id: "reports",
       label: "Reports",
       href: "/reports",
