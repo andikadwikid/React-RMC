@@ -29,6 +29,7 @@ import {
   Shield,
   UserCheck,
   Eye,
+  Clock,
 } from "lucide-react";
 import { ReadinessDetailDialog } from "@/components/project/ReadinessDetailDialog";
 import type { ProjectReadiness, ReadinessStatus } from "@/types";
