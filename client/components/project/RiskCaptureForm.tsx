@@ -198,32 +198,36 @@ export function RiskCaptureForm({
                       <CardContent className="space-y-4 p-3 sm:p-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
-                            <Label htmlFor={`sasaran-${risk.id}`}>
-                              Sasaran *
-                            </Label>
-                            <Input
-                              id={`sasaran-${risk.id}`}
-                              value={risk.sasaran}
-                              onChange={(e) =>
-                                updateRiskItem(risk.id, "sasaran", e.target.value)
-                              }
-                              placeholder="Masukkan sasaran"
-                            />
-                          </div>
-                          <div>
                             <Label htmlFor={`kode-${risk.id}`}>Kode *</Label>
-                            <Input
-                              id={`kode-${risk.id}`}
+                            <Select
                               value={risk.kode}
-                              onChange={(e) =>
-                                updateRiskItem(risk.id, "kode", e.target.value)
-                              }
-                              placeholder="Masukkan kode"
-                            />
+                              onValueChange={(value) => {
+                                updateRiskItem(risk.id, "kode", value);
+                                // Auto-fill taksonomi based on selected kode
+                                const selectedTaksonomi = taksonomiData.find(
+                                  (item) => item.kode === value
+                                );
+                                if (selectedTaksonomi) {
+                                  updateRiskItem(
+                                    risk.id,
+                                    "taksonomi",
+                                    selectedTaksonomi.taksonomi
+                                  );
+                                }
+                              }}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Pilih kode risiko" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {taksonomiData.map((item) => (
+                                  <SelectItem key={item.kode} value={item.kode}>
+                                    {item.kode} - {item.title}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                           </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <Label htmlFor={`taksonomi-${risk.id}`}>
                               Taksonomi *
@@ -231,33 +235,29 @@ export function RiskCaptureForm({
                             <Input
                               id={`taksonomi-${risk.id}`}
                               value={risk.taksonomi}
-                              onChange={(e) =>
-                                updateRiskItem(
-                                  risk.id,
-                                  "taksonomi",
-                                  e.target.value,
-                                )
-                              }
-                              placeholder="Masukkan taksonomi"
+                              readOnly
+                              placeholder="Akan terisi otomatis berdasarkan kode"
+                              className="bg-gray-50"
                             />
                           </div>
-                          <div>
-                            <Label htmlFor={`sumberRisiko-${risk.id}`}>
-                              Sumber Risiko *
-                            </Label>
-                            <Input
-                              id={`sumberRisiko-${risk.id}`}
-                              value={risk.sumberRisiko}
-                              onChange={(e) =>
-                                updateRiskItem(
-                                  risk.id,
-                                  "sumberRisiko",
-                                  e.target.value,
-                                )
-                              }
-                              placeholder="Masukkan sumber risiko"
-                            />
-                          </div>
+                        </div>
+
+                        <div>
+                          <Label htmlFor={`sumberRisiko-${risk.id}`}>
+                            Sumber Risiko *
+                          </Label>
+                          <Input
+                            id={`sumberRisiko-${risk.id}`}
+                            value={risk.sumberRisiko}
+                            onChange={(e) =>
+                              updateRiskItem(
+                                risk.id,
+                                "sumberRisiko",
+                                e.target.value,
+                              )
+                            }
+                            placeholder="Masukkan sumber risiko"
+                          />
                         </div>
 
                         <div>
