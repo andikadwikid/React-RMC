@@ -48,6 +48,21 @@ export function RiskCaptureForm({
     const existingRiskCapture = getProjectRiskCapture(projectId);
     return existingRiskCapture ? existingRiskCapture.risks : [];
   });
+  const [taksonomiData, setTaksonomiData] = useState<TaksonomiItem[]>([]);
+
+  // Load taksonomi data
+  useEffect(() => {
+    const loadTaksonomiData = async () => {
+      try {
+        const response = await fetch('/client/data/master/taksonomi.json');
+        const data = await response.json();
+        setTaksonomiData(data.taksonomi);
+      } catch (error) {
+        console.error('Failed to load taksonomi data:', error);
+      }
+    };
+    loadTaksonomiData();
+  }, []);
 
   const addRiskItem = () => {
     const newRisk: RiskItem = {
