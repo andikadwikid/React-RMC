@@ -373,6 +373,16 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   {readinessStatus ? "Update Assessment" : "Create Assessment"}
                 </Button>
               )}
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={openRiskCaptureForm}
+                className="font-medium text-orange-700 border-orange-300 bg-orange-50/50 hover:bg-orange-100 hover:border-orange-400 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105"
+              >
+                <Shield className="w-4 h-4 mr-2" />
+                Risk Capture
+              </Button>
             </div>
           </div>
 
