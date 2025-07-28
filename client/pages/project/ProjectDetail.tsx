@@ -1275,7 +1275,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   size="lg"
                 >
                   <Shield className="w-5 h-5 mr-2" />
-                  Buka Risk Capture Form
+                  Buka Quick Risk Capture Form
                 </Button>
               </div>
 
