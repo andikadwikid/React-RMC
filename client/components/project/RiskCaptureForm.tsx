@@ -131,23 +131,6 @@ export function RiskCaptureForm({
       risks,
       completedAt: new Date().toISOString(),
       totalRisks: risks.length,
-      riskLevelDistribution: {
-        sangatRendah: risks.filter(
-          (r) => r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5,
-        ).length,
-        rendah: risks.filter(
-          (r) => r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10,
-        ).length,
-        sedang: risks.filter(
-          (r) => r.risikoAwal.level >= 11 && r.risikoAwal.level <= 15,
-        ).length,
-        tinggi: risks.filter(
-          (r) => r.risikoAwal.level >= 16 && r.risikoAwal.level <= 20,
-        ).length,
-        sangatTinggi: risks.filter(
-          (r) => r.risikoAwal.level >= 21 && r.risikoAwal.level <= 25,
-        ).length,
-      },
     };
 
     onSave(riskData);
