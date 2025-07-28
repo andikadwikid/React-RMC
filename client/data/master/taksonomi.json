@@ -1,104 +1,144 @@
 {
   "taksonomi": [
     {
-      "kode": "IT-SEC",
-      "title": "Information Technology Security",
-      "taksonomi": "Teknologi Informasi - Keamanan"
+      "kode": "RKB",
+      "group": "Kebijakan",
+      "taksonomi": "Kebijakan SDM"
     },
     {
-      "kode": "IT-OP",
-      "title": "Information Technology Operations",
-      "taksonomi": "Teknologi Informasi - Operasional"
+      "kode": "RKB",
+      "group": "Kebijakan", 
+      "taksonomi": "Kebijakan Sektoral"
     },
     {
-      "kode": "IT-INF",
-      "title": "Information Technology Infrastructure",
-      "taksonomi": "Teknologi Informasi - Infrastruktur"
+      "kode": "RKB",
+      "group": "Kebijakan",
+      "taksonomi": "Kebijakan Bisnis"
     },
     {
-      "kode": "FIN-REP",
-      "title": "Financial Reporting",
-      "taksonomi": "Finansial - Pelaporan"
+      "kode": "RSR",
+      "group": "Struktur",
+      "taksonomi": "Struktur Korporat"
     },
     {
-      "kode": "FIN-PAY",
-      "title": "Financial Payment",
-      "taksonomi": "Finansial - Pembayaran"
+      "kode": "RRO",
+      "group": "Re-Organisasi",
+      "taksonomi": "Kemitraan"
     },
     {
-      "kode": "FIN-BUD",
-      "title": "Financial Budget",
-      "taksonomi": "Finansial - Anggaran"
+      "kode": "RRO",
+      "group": "Re-Organisasi",
+      "taksonomi": "Re-Struktural"
     },
     {
-      "kode": "OP-PROC",
-      "title": "Operational Process",
-      "taksonomi": "Operasional - Proses"
+      "kode": "RRO",
+      "group": "Re-Organisasi",
+      "taksonomi": "Pemisahan/Peleburan/Penggabungan"
     },
     {
-      "kode": "OP-HR",
-      "title": "Operational Human Resources",
-      "taksonomi": "Operasional - Sumber Daya Manusia"
+      "kode": "RSS",
+      "group": "Strategi",
+      "taksonomi": "Program Jangka Panjang"
     },
     {
-      "kode": "OP-SUP",
-      "title": "Operational Supply Chain",
-      "taksonomi": "Operasional - Rantai Pasokan"
+      "kode": "RSS",
+      "group": "Strategi",
+      "taksonomi": "Program Jangka Pendek"
     },
     {
-      "kode": "LEG-COM",
-      "title": "Legal Compliance",
-      "taksonomi": "Legal - Kepatuhan"
+      "kode": "RSS",
+      "group": "Strategi",
+      "taksonomi": "Pengembangan Bisnis"
     },
     {
-      "kode": "LEG-CON",
-      "title": "Legal Contract",
-      "taksonomi": "Legal - Kontrak"
+      "kode": "RPN",
+      "group": "Pasar",
+      "taksonomi": "Nilai Mata Uang/Suku Bunga"
     },
     {
-      "kode": "STR-PLAN",
-      "title": "Strategic Planning",
-      "taksonomi": "Strategis - Perencanaan"
+      "kode": "RKN",
+      "group": "Keuangan",
+      "taksonomi": "Pinjaman"
     },
     {
-      "kode": "STR-RISK",
-      "title": "Strategic Risk Management",
-      "taksonomi": "Strategis - Manajemen Risiko"
+      "kode": "RKN",
+      "group": "Keuangan",
+      "taksonomi": "Investasi"
     },
     {
-      "kode": "ENV-REG",
-      "title": "Environmental Regulation",
-      "taksonomi": "Lingkungan - Regulasi"
+      "kode": "RKN",
+      "group": "Keuangan",
+      "taksonomi": "Pendanaan"
     },
     {
-      "kode": "ENV-SUS",
-      "title": "Environmental Sustainability",
-      "taksonomi": "Lingkungan - Keberlanjutan"
+      "kode": "RHR",
+      "group": "Hukum, Reputasi & Kepatuhan",
+      "taksonomi": "Hukum"
     },
     {
-      "kode": "CRM-REL",
-      "title": "Customer Relationship",
-      "taksonomi": "Customer - Hubungan Pelanggan"
+      "kode": "RHR",
+      "group": "Hukum, Reputasi & Kepatuhan",
+      "taksonomi": "Reputasi"
     },
     {
-      "kode": "CRM-SAT",
-      "title": "Customer Satisfaction",
-      "taksonomi": "Customer - Kepuasan Pelanggan"
+      "kode": "RHR",
+      "group": "Hukum, Reputasi & Kepatuhan",
+      "taksonomi": "Fraud"
     },
     {
-      "kode": "PROJ-MAN",
-      "title": "Project Management",
-      "taksonomi": "Proyek - Manajemen"
+      "kode": "RHR",
+      "group": "Hukum, Reputasi & Kepatuhan",
+      "taksonomi": "Kepatuhan"
     },
     {
-      "kode": "PROJ-DEL",
-      "title": "Project Delivery",
-      "taksonomi": "Proyek - Pengiriman"
+      "kode": "RPK",
+      "group": "Proyek",
+      "taksonomi": "Pra-Proyek"
     },
     {
-      "kode": "QUAL-ASS",
-      "title": "Quality Assurance",
-      "taksonomi": "Kualitas - Jaminan"
+      "kode": "RPK",
+      "group": "Proyek",
+      "taksonomi": "Pelaksanaan"
+    },
+    {
+      "kode": "RPK",
+      "group": "Proyek",
+      "taksonomi": "Pemantauan dan Evaluasi Proyek"
+    },
+    {
+      "kode": "RTI",
+      "group": "Teknologi & Keamanan Siber",
+      "taksonomi": "Infrastruktur dan Sistem"
+    },
+    {
+      "kode": "RTI",
+      "group": "Teknologi & Keamanan Siber",
+      "taksonomi": "Keamanan Data"
+    },
+    {
+      "kode": "RSL",
+      "group": "Sosial & Lingkungan",
+      "taksonomi": "Sosial"
+    },
+    {
+      "kode": "RSL",
+      "group": "Sosial & Lingkungan",
+      "taksonomi": "Lingkungan"
+    },
+    {
+      "kode": "ROL",
+      "group": "Operasional",
+      "taksonomi": "Proses Bisnis"
+    },
+    {
+      "kode": "ROL",
+      "group": "Operasional",
+      "taksonomi": "K3"
+    },
+    {
+      "kode": "ROL",
+      "group": "Operasional",
+      "taksonomi": "SDM"
     }
   ]
 }
