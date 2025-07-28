@@ -57,6 +57,24 @@ import { RiskCaptureSection } from "./RiskCaptureSection";
 
 import type { ProjectReadinessVerificationModalProps, RiskItem } from "@/types";
 
+interface QuickRiskItem extends RiskItem {
+  risikoAwal: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
+  risikoSaatIni: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
+  resikoAkhir: {
+    kejadian: number;
+    dampak: number;
+    level: number;
+  };
+}
+
 // Category display mapping for readiness items
 const CATEGORY_DISPLAY_NAMES = {
   administrative: "Dokumen Administratif",
