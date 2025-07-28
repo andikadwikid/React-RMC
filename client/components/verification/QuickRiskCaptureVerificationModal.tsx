@@ -82,11 +82,11 @@ export function QuickRiskCaptureVerificationModal({
   useEffect(() => {
     const loadTaksonomiData = async () => {
       try {
-        const response = await fetch('/client/data/master/taksonomi.json');
+        const response = await fetch("/client/data/master/taksonomi.json");
         const data = await response.json();
         setTaksonomiData(data.taksonomi);
       } catch (error) {
-        console.error('Failed to load taksonomi data:', error);
+        console.error("Failed to load taksonomi data:", error);
       }
     };
     loadTaksonomiData();
@@ -97,14 +97,16 @@ export function QuickRiskCaptureVerificationModal({
       // Load quick risk capture data from project
       const quickRiskData = getProjectRiskCapture(projectId);
       if (quickRiskData && quickRiskData.risks) {
-        const quickRisks: QuickRiskItem[] = quickRiskData.risks.map((risk: RiskItem) => ({
-          ...risk,
-          risikoAwal: { kejadian: 1, dampak: 1, level: 1 },
-          risikoSaatIni: { kejadian: 1, dampak: 1, level: 1 },
-          resikoAkhir: { kejadian: 1, dampak: 1, level: 1 },
-          isVerified: false,
-          verifierComment: "",
-        }));
+        const quickRisks: QuickRiskItem[] = quickRiskData.risks.map(
+          (risk: RiskItem) => ({
+            ...risk,
+            risikoAwal: { kejadian: 1, dampak: 1, level: 1 },
+            risikoSaatIni: { kejadian: 1, dampak: 1, level: 1 },
+            resikoAkhir: { kejadian: 1, dampak: 1, level: 1 },
+            isVerified: false,
+            verifierComment: "",
+          }),
+        );
         setQuickRiskCapture(quickRisks);
       }
     }
@@ -155,7 +157,7 @@ export function QuickRiskCaptureVerificationModal({
   };
 
   const removeQuickRisk = (riskId: string) => {
-    setQuickRiskCapture(quickRiskCapture.filter(risk => risk.id !== riskId));
+    setQuickRiskCapture(quickRiskCapture.filter((risk) => risk.id !== riskId));
   };
 
   const getRiskColor = (value: number) => {
@@ -177,18 +179,19 @@ export function QuickRiskCaptureVerificationModal({
   };
 
   const calculateProgress = () => {
-    if (quickRiskCapture.length === 0) return { verified: 0, total: 0, percentage: 0 };
-    
-    const verified = quickRiskCapture.filter(risk => risk.isVerified).length;
+    if (quickRiskCapture.length === 0)
+      return { verified: 0, total: 0, percentage: 0 };
+
+    const verified = quickRiskCapture.filter((risk) => risk.isVerified).length;
     const total = quickRiskCapture.length;
     const percentage = total > 0 ? Math.round((verified / total) * 100) : 0;
-    
+
     return { verified, total, percentage };
   };
 
   const handleSave = async () => {
     setIsSubmitting(true);
-    
+
     try {
       const verificationData = {
         projectId,
@@ -196,7 +199,7 @@ export function QuickRiskCaptureVerificationModal({
         verifiedAt: new Date().toISOString(),
         verifierName: "Risk Officer", // This should come from auth context
       };
-      
+
       await onSave(verificationData);
       toast.success("Quick Risk Capture berhasil diverifikasi!");
       onClose();
@@ -219,8 +222,8 @@ export function QuickRiskCaptureVerificationModal({
             Quick Risk Capture Verification - {projectName}
           </DialogTitle>
           <p className="text-sm text-gray-600">
-            Verifikasi dan kelola quick risk capture yang disubmit user. 
-            Anda dapat memperbarui assessment dan menambah risk baru.
+            Verifikasi dan kelola quick risk capture yang disubmit user. Anda
+            dapat memperbarui assessment dan menambah risk baru.
           </p>
         </DialogHeader>
 
@@ -251,7 +254,10 @@ export function QuickRiskCaptureVerificationModal({
               <div className="flex flex-wrap gap-4 text-sm text-gray-600">
                 <span className="flex items-center gap-1">
                   <CheckCircle className="w-4 h-4 text-green-600" />
-                  Verified: <strong className="text-green-600">{progress.verified}</strong>
+                  Verified:{" "}
+                  <strong className="text-green-600">
+                    {progress.verified}
+                  </strong>
                 </span>
                 <span className="flex items-center gap-1">
                   <Shield className="w-4 h-4 text-gray-600" />
@@ -263,7 +269,10 @@ export function QuickRiskCaptureVerificationModal({
 
           {/* Add New Risk Button */}
           <div className="flex justify-end">
-            <Button onClick={addNewQuickRisk} className="bg-orange-600 hover:bg-orange-700">
+            <Button
+              onClick={addNewQuickRisk}
+              className="bg-orange-600 hover:bg-orange-700"
+            >
               <Plus className="w-4 h-4 mr-2" />
               Tambah Quick Risk Baru
             </Button>
@@ -279,8 +288,8 @@ export function QuickRiskCaptureVerificationModal({
                     Belum ada Quick Risk Capture
                   </h3>
                   <p className="text-gray-500 mb-6">
-                    Belum ada data quick risk capture untuk project ini.
-                    Anda dapat menambahkan risk baru dengan klik tombol di atas.
+                    Belum ada data quick risk capture untuk project ini. Anda
+                    dapat menambahkan risk baru dengan klik tombol di atas.
                   </p>
                 </CardContent>
               </Card>
@@ -297,7 +306,8 @@ export function QuickRiskCaptureVerificationModal({
                           className={getRiskColor(risk.risikoSaatIni.level)}
                           size="sm"
                         >
-                          Level {risk.risikoSaatIni.level} - {getRiskLabel(risk.risikoSaatIni.level)}
+                          Level {risk.risikoSaatIni.level} -{" "}
+                          {getRiskLabel(risk.risikoSaatIni.level)}
                         </Badge>
                         <Button
                           variant={risk.isVerified ? "default" : "outline"}
@@ -345,13 +355,13 @@ export function QuickRiskCaptureVerificationModal({
                               updateQuickRiskCapture(risk.id, "kode", value);
                               // Auto-fill taksonomi based on selected kode
                               const selectedTaksonomi = taksonomiData.find(
-                                (item) => item.kode === value
+                                (item) => item.kode === value,
                               );
                               if (selectedTaksonomi) {
                                 updateQuickRiskCapture(
                                   risk.id,
                                   "taksonomi",
-                                  selectedTaksonomi.taksonomi
+                                  selectedTaksonomi.taksonomi,
                                 );
                               }
                             }}
@@ -369,7 +379,9 @@ export function QuickRiskCaptureVerificationModal({
                           </Select>
                         </div>
                         <div>
-                          <Label htmlFor={`taksonomi-${risk.id}`}>Taksonomi *</Label>
+                          <Label htmlFor={`taksonomi-${risk.id}`}>
+                            Taksonomi *
+                          </Label>
                           <Input
                             id={`taksonomi-${risk.id}`}
                             value={risk.taksonomi}
@@ -381,7 +393,9 @@ export function QuickRiskCaptureVerificationModal({
                       </div>
 
                       <div>
-                        <Label htmlFor={`sumberRisiko-${risk.id}`}>Sumber Risiko *</Label>
+                        <Label htmlFor={`sumberRisiko-${risk.id}`}>
+                          Sumber Risiko *
+                        </Label>
                         <Input
                           id={`sumberRisiko-${risk.id}`}
                           value={risk.sumberRisiko}
@@ -397,7 +411,9 @@ export function QuickRiskCaptureVerificationModal({
                       </div>
 
                       <div>
-                        <Label htmlFor={`peristiwaRisiko-${risk.id}`}>Peristiwa Risiko *</Label>
+                        <Label htmlFor={`peristiwaRisiko-${risk.id}`}>
+                          Peristiwa Risiko *
+                        </Label>
                         <Textarea
                           id={`peristiwaRisiko-${risk.id}`}
                           value={risk.peristiwaRisiko}
@@ -416,7 +432,9 @@ export function QuickRiskCaptureVerificationModal({
 
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor={`dampakKualitatif-${risk.id}`}>Dampak Kualitatif *</Label>
+                          <Label htmlFor={`dampakKualitatif-${risk.id}`}>
+                            Dampak Kualitatif *
+                          </Label>
                           <Textarea
                             id={`dampakKualitatif-${risk.id}`}
                             value={risk.dampakKualitatif}
@@ -433,7 +451,9 @@ export function QuickRiskCaptureVerificationModal({
                           />
                         </div>
                         <div>
-                          <Label htmlFor={`dampakKuantitatif-${risk.id}`}>Dampak Kuantitatif *</Label>
+                          <Label htmlFor={`dampakKuantitatif-${risk.id}`}>
+                            Dampak Kuantitatif *
+                          </Label>
                           <Textarea
                             id={`dampakKuantitatif-${risk.id}`}
                             value={risk.dampakKuantitatif}
@@ -452,7 +472,9 @@ export function QuickRiskCaptureVerificationModal({
                       </div>
 
                       <div>
-                        <Label htmlFor={`kontrolEksisting-${risk.id}`}>Kontrol Eksisting *</Label>
+                        <Label htmlFor={`kontrolEksisting-${risk.id}`}>
+                          Kontrol Eksisting *
+                        </Label>
                         <Textarea
                           id={`kontrolEksisting-${risk.id}`}
                           value={risk.kontrolEksisting}

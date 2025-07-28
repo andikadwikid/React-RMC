@@ -15,7 +15,7 @@
           "kontrolEksisting": "Multi-factor authentication, regular security audit, encrypted database storage"
         },
         {
-          "id": "qrc-002", 
+          "id": "qrc-002",
           "kode": "OP-HR",
           "taksonomi": "Operasional - Sumber Daya Manusia",
           "peristiwaRisiko": "Key developer meninggalkan perusahaan di tengah fase critical development",
@@ -30,7 +30,7 @@
     },
     {
       "project_id": "550e8400-e29b-41d4-a716-446655440002",
-      "project_name": "Mobile Banking App", 
+      "project_name": "Mobile Banking App",
       "risks": [
         {
           "id": "qrc-003",
@@ -44,7 +44,7 @@
         },
         {
           "id": "qrc-004",
-          "kode": "LEG-COM", 
+          "kode": "LEG-COM",
           "taksonomi": "Legal - Kepatuhan",
           "peristiwaRisiko": "Non-compliance dengan regulasi OJK terkait mobile banking security requirements",
           "sumberRisiko": "Perubahan regulasi yang frequent, complexity dalam implementation compliance features",
@@ -53,7 +53,7 @@
           "kontrolEksisting": "Regular compliance audit, legal consultation, dedicated compliance team"
         }
       ],
-      "completedAt": "2024-01-26T15:30:00Z", 
+      "completedAt": "2024-01-26T15:30:00Z",
       "totalRisks": 2
     },
     {
@@ -63,7 +63,7 @@
         {
           "id": "qrc-005",
           "kode": "CRM-REL",
-          "taksonomi": "Customer - Hubungan Pelanggan", 
+          "taksonomi": "Customer - Hubungan Pelanggan",
           "peristiwaRisiko": "Data customer tidak dapat di-migrate dengan benar dari sistem lama",
           "sumberRisiko": "Incompatibility antara format data lama dan baru, data corruption during migration",
           "dampakKualitatif": "Loss of customer history, degraded customer service quality, customer dissatisfaction",
@@ -103,7 +103,7 @@
       "totalRisks": 2
     },
     {
-      "project_id": "550e8400-e29b-41d4-a716-446655440005", 
+      "project_id": "550e8400-e29b-41d4-a716-446655440005",
       "project_name": "Supply Chain Management System",
       "risks": [
         {

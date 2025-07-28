@@ -51,11 +51,11 @@ export function RiskCaptureForm({
   useEffect(() => {
     const loadTaksonomiData = async () => {
       try {
-        const response = await fetch('/client/data/master/taksonomi.json');
+        const response = await fetch("/client/data/master/taksonomi.json");
         const data = await response.json();
         setTaksonomiData(data.taksonomi);
       } catch (error) {
-        console.error('Failed to load taksonomi data:', error);
+        console.error("Failed to load taksonomi data:", error);
       }
     };
     loadTaksonomiData();
@@ -214,13 +214,13 @@ export function RiskCaptureForm({
                                 updateRiskItem(risk.id, "kode", value);
                                 // Auto-fill taksonomi based on selected kode
                                 const selectedTaksonomi = taksonomiData.find(
-                                  (item) => item.kode === value
+                                  (item) => item.kode === value,
                                 );
                                 if (selectedTaksonomi) {
                                   updateRiskItem(
                                     risk.id,
                                     "taksonomi",
-                                    selectedTaksonomi.taksonomi
+                                    selectedTaksonomi.taksonomi,
                                   );
                                 }
                               }}

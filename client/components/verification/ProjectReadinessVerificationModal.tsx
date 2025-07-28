@@ -54,7 +54,10 @@ interface ReadinessItem {
   riskCapture?: RiskItem[];
 }
 import { formatDateTime } from "@/utils/formatters";
-import { getProjectReadinessItems, getProjectRiskCapture } from "@/utils/dataLoader";
+import {
+  getProjectReadinessItems,
+  getProjectRiskCapture,
+} from "@/utils/dataLoader";
 import { RiskCaptureSection } from "./RiskCaptureSection";
 import { QuickRiskCaptureVerificationModal } from "./QuickRiskCaptureVerificationModal";
 
@@ -141,14 +144,16 @@ export function ProjectReadinessVerificationModal({
     // Load quick risk capture data from project
     const quickRiskData = getProjectRiskCapture(submission.projectId);
     if (quickRiskData && quickRiskData.risks) {
-      const quickRisks: QuickRiskItem[] = quickRiskData.risks.map((risk: RiskItem) => ({
-        ...risk,
-        risikoAwal: { kejadian: 1, dampak: 1, level: 1 },
-        risikoSaatIni: { kejadian: 1, dampak: 1, level: 1 },
-        resikoAkhir: { kejadian: 1, dampak: 1, level: 1 },
-        isVerified: false,
-        verifierComment: "",
-      }));
+      const quickRisks: QuickRiskItem[] = quickRiskData.risks.map(
+        (risk: RiskItem) => ({
+          ...risk,
+          risikoAwal: { kejadian: 1, dampak: 1, level: 1 },
+          risikoSaatIni: { kejadian: 1, dampak: 1, level: 1 },
+          resikoAkhir: { kejadian: 1, dampak: 1, level: 1 },
+          isVerified: false,
+          verifierComment: "",
+        }),
+      );
       setQuickRiskCapture(quickRisks);
     }
 
@@ -676,7 +681,8 @@ export function ProjectReadinessVerificationModal({
                   Quick Risk Capture
                 </CardTitle>
                 <p className="text-sm text-gray-600 mt-1">
-                  {quickRiskCapture.length} quick risk capture telah disubmit user untuk verifikasi.
+                  {quickRiskCapture.length} quick risk capture telah disubmit
+                  user untuk verifikasi.
                 </p>
               </CardHeader>
               <CardContent>
@@ -685,17 +691,19 @@ export function ProjectReadinessVerificationModal({
                     <div className="text-2xl font-bold text-orange-600">
                       {quickRiskCapture.length}
                     </div>
-                    <div className="text-sm text-gray-600">Total Quick Risks</div>
+                    <div className="text-sm text-gray-600">
+                      Total Quick Risks
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-white rounded-lg border">
                     <div className="text-2xl font-bold text-green-600">
-                      {quickRiskCapture.filter(r => r.isVerified).length}
+                      {quickRiskCapture.filter((r) => r.isVerified).length}
                     </div>
                     <div className="text-sm text-gray-600">Terverifikasi</div>
                   </div>
                   <div className="text-center p-4 bg-white rounded-lg border">
                     <div className="text-2xl font-bold text-yellow-600">
-                      {quickRiskCapture.filter(r => !r.isVerified).length}
+                      {quickRiskCapture.filter((r) => !r.isVerified).length}
                     </div>
                     <div className="text-sm text-gray-600">Pending</div>
                   </div>
@@ -704,7 +712,10 @@ export function ProjectReadinessVerificationModal({
                 {/* Quick Preview */}
                 <div className="space-y-2 mb-4">
                   {quickRiskCapture.slice(0, 3).map((risk, index) => (
-                    <div key={risk.id} className="flex items-center justify-between p-3 bg-white rounded-lg border">
+                    <div
+                      key={risk.id}
+                      className="flex items-center justify-between p-3 bg-white rounded-lg border"
+                    >
                       <div className="flex items-center gap-3">
                         <span className="text-sm font-medium text-gray-600">
                           Risk #{index + 1}

@@ -40,7 +40,11 @@ import {
 } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
 import { Project } from "@/types";
-import { getProjectById, getProjectReadiness, getProjectRiskCapture } from "@/utils/dataLoader";
+import {
+  getProjectById,
+  getProjectReadiness,
+  getProjectRiskCapture,
+} from "@/utils/dataLoader";
 import { ProjectReadinessForm } from "@/components/project/ProjectReadinessForm";
 import { ProjectReadinessResults } from "@/components/project/ProjectReadinessResults";
 import { RiskCaptureForm } from "@/components/project/RiskCaptureForm";
@@ -1321,7 +1325,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Quick Risk Capture Data Display */}
-              {quickRiskCaptureData && quickRiskCaptureData.risks && quickRiskCaptureData.risks.length > 0 ? (
+              {quickRiskCaptureData &&
+              quickRiskCaptureData.risks &&
+              quickRiskCaptureData.risks.length > 0 ? (
                 <>
                   {/* Summary */}
                   <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
@@ -1329,12 +1335,23 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <h3 className="text-lg font-medium text-orange-900">
                         Quick Risk Capture Data
                       </h3>
-                      <Badge variant="outline" className="text-orange-700 border-orange-300">
-                        {quickRiskCaptureData.risks.length} Risk{quickRiskCaptureData.risks.length !== 1 ? 's' : ''}
+                      <Badge
+                        variant="outline"
+                        className="text-orange-700 border-orange-300"
+                      >
+                        {quickRiskCaptureData.risks.length} Risk
+                        {quickRiskCaptureData.risks.length !== 1 ? "s" : ""}
                       </Badge>
                     </div>
                     <p className="text-sm text-orange-700 mb-4">
-                      Data terakhir disimpan: {new Date(quickRiskCaptureData.completedAt).toLocaleDateString('id-ID')} jam {new Date(quickRiskCaptureData.completedAt).toLocaleTimeString('id-ID')}
+                      Data terakhir disimpan:{" "}
+                      {new Date(
+                        quickRiskCaptureData.completedAt,
+                      ).toLocaleDateString("id-ID")}{" "}
+                      jam{" "}
+                      {new Date(
+                        quickRiskCaptureData.completedAt,
+                      ).toLocaleTimeString("id-ID")}
                     </p>
                     <Button
                       onClick={openRiskCaptureForm}
@@ -1351,75 +1368,83 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <h4 className="text-base font-medium text-gray-900">
                       Daftar Risiko yang Telah Diidentifikasi
                     </h4>
-                    {quickRiskCaptureData.risks.map((risk: any, index: number) => (
-                      <Card key={risk.id} className="border-l-4 border-l-orange-500">
-                        <CardHeader className="pb-3">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <CardTitle className="text-base">
-                                Risk #{index + 1}
-                              </CardTitle>
-                              <div className="flex items-center gap-2 mt-1">
-                                <Badge variant="outline" className="text-orange-600 border-orange-300">
-                                  {risk.kode}
-                                </Badge>
-                                <span className="text-sm text-gray-600">
-                                  {risk.taksonomi}
-                                </span>
+                    {quickRiskCaptureData.risks.map(
+                      (risk: any, index: number) => (
+                        <Card
+                          key={risk.id}
+                          className="border-l-4 border-l-orange-500"
+                        >
+                          <CardHeader className="pb-3">
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <CardTitle className="text-base">
+                                  Risk #{index + 1}
+                                </CardTitle>
+                                <div className="flex items-center gap-2 mt-1">
+                                  <Badge
+                                    variant="outline"
+                                    className="text-orange-600 border-orange-300"
+                                  >
+                                    {risk.kode}
+                                  </Badge>
+                                  <span className="text-sm text-gray-600">
+                                    {risk.taksonomi}
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          <div>
-                            <h5 className="font-medium text-sm text-gray-700 mb-2">
-                              Peristiwa Risiko
-                            </h5>
-                            <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
-                              {risk.peristiwaRisiko}
-                            </p>
-                          </div>
+                          </CardHeader>
+                          <CardContent className="space-y-4">
+                            <div>
+                              <h5 className="font-medium text-sm text-gray-700 mb-2">
+                                Peristiwa Risiko
+                              </h5>
+                              <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                                {risk.peristiwaRisiko}
+                              </p>
+                            </div>
 
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                              <h5 className="font-medium text-sm text-gray-700 mb-2">
-                                Sumber Risiko
-                              </h5>
-                              <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
-                                {risk.sumberRisiko}
-                              </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <h5 className="font-medium text-sm text-gray-700 mb-2">
+                                  Sumber Risiko
+                                </h5>
+                                <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                                  {risk.sumberRisiko}
+                                </p>
+                              </div>
+                              <div>
+                                <h5 className="font-medium text-sm text-gray-700 mb-2">
+                                  Kontrol Eksisting
+                                </h5>
+                                <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                                  {risk.kontrolEksisting}
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <h5 className="font-medium text-sm text-gray-700 mb-2">
-                                Kontrol Eksisting
-                              </h5>
-                              <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
-                                {risk.kontrolEksisting}
-                              </p>
-                            </div>
-                          </div>
 
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                              <h5 className="font-medium text-sm text-gray-700 mb-2">
-                                Dampak Kualitatif
-                              </h5>
-                              <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
-                                {risk.dampakKualitatif}
-                              </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <h5 className="font-medium text-sm text-gray-700 mb-2">
+                                  Dampak Kualitatif
+                                </h5>
+                                <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                                  {risk.dampakKualitatif}
+                                </p>
+                              </div>
+                              <div>
+                                <h5 className="font-medium text-sm text-gray-700 mb-2">
+                                  Dampak Kuantitatif
+                                </h5>
+                                <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                                  {risk.dampakKuantitatif}
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <h5 className="font-medium text-sm text-gray-700 mb-2">
-                                Dampak Kuantitatif
-                              </h5>
-                              <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
-                                {risk.dampakKuantitatif}
-                              </p>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                          </CardContent>
+                        </Card>
+                      ),
+                    )}
                   </div>
                 </>
               ) : (
@@ -1430,8 +1455,8 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   </h3>
                   <p className="text-gray-600 mb-6 max-w-md mx-auto">
                     Gunakan form quick risk capture untuk mengidentifikasi,
-                    menganalisis, dan mengelola risiko yang terkait dengan project
-                    ini.
+                    menganalisis, dan mengelola risiko yang terkait dengan
+                    project ini.
                   </p>
                   <Button
                     onClick={openRiskCaptureForm}
