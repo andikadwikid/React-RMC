@@ -1256,7 +1256,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 Quick Risk Capture Management
               </CardTitle>
               <p className="text-sm text-gray-600">
-                Kelola dan analisis risiko project dengan tool risk capture yang terintegrasi
+                Kelola dan analisis risiko project dengan tool quick risk capture yang terintegrasi
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
