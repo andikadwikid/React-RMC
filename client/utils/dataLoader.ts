@@ -252,15 +252,24 @@ export const getProjectRiskCaptureStatus = (projectId: string) => {
     };
   }
 
-  // Calculate score based on risk level distribution
-  const total = Object.values(riskCapture.risk_level_distribution).reduce(
-    (sum, count) => sum + count,
-    0,
-  );
-  const lowRisk =
-    riskCapture.risk_level_distribution.sangatRendah +
-    riskCapture.risk_level_distribution.rendah;
-  const score = total > 0 ? Math.round((lowRisk / total) * 100) : 0;
+  let score = 0;
+
+  // Calculate score based on risk level distribution if available
+  if (riskCapture.risk_level_distribution) {
+    const total = Object.values(riskCapture.risk_level_distribution).reduce(
+      (sum, count) => sum + count,
+      0,
+    );
+    const lowRisk =
+      riskCapture.risk_level_distribution.sangatRendah +
+      riskCapture.risk_level_distribution.rendah;
+    score = total > 0 ? Math.round((lowRisk / total) * 100) : 0;
+  } else {
+    // For quick risk capture data without risk_level_distribution,
+    // calculate score based on number of risks (simple approach)
+    const totalRisks = riskCapture.totalRisks || riskCapture.total_risks || 0;
+    score = totalRisks > 0 ? Math.min(75, totalRisks * 25) : 0; // Cap at 75%
+  }
 
   return {
     status:
