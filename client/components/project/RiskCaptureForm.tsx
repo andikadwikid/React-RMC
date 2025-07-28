@@ -120,7 +120,7 @@ export function RiskCaptureForm({
                 <div className="flex-1">
                   <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
                     <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0" />
-                    <span>Daftar Risk Capture</span>
+                    <span>Daftar Quick Risk Capture</span>
                   </CardTitle>
                   <p className="text-xs sm:text-sm text-gray-600 mt-1">
                     Tambahkan dan kelola risk capture untuk project ini
