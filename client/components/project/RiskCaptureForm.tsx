@@ -31,6 +31,12 @@ import { getProjectRiskCapture } from "@/utils/dataLoader";
 
 import type { RiskItem, RiskCaptureFormProps } from "@/types";
 
+interface TaksonomiItem {
+  kode: string;
+  title: string;
+  taksonomi: string;
+}
+
 export function RiskCaptureForm({
   isOpen,
   onClose,
