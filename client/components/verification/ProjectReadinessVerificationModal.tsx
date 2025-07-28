@@ -192,6 +192,31 @@ export function ProjectReadinessVerificationModal({
     );
   };
 
+  const updateQuickRiskCapture = (
+    riskId: string,
+    field: string,
+    value: any,
+  ): void => {
+    setQuickRiskCapture((prev) =>
+      prev.map((risk) => {
+        if (risk.id !== riskId) return risk;
+
+        if (field.includes(".")) {
+          const [parent, child] = field.split(".");
+          return {
+            ...risk,
+            [parent]: {
+              ...risk[parent as keyof QuickRiskItem],
+              [child]: value,
+            },
+          };
+        }
+
+        return { ...risk, [field]: value };
+      }),
+    );
+  };
+
   const handleSave = async () => {
     setIsSubmitting(true);
 
