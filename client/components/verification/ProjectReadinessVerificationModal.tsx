@@ -123,6 +123,7 @@ export function ProjectReadinessVerificationModal({
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [quickRiskCapture, setQuickRiskCapture] = useState<QuickRiskItem[]>([]);
+  const [quickRiskDialog, setQuickRiskDialog] = useState(false);
   const [detailDialog, setDetailDialog] = useState<{
     isOpen: boolean;
     type: "user-comments" | "verifier-feedback";
