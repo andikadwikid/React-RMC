@@ -300,9 +300,9 @@ export function RiskCaptureForm({
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       <span className="hidden sm:inline">
-                        Tambah Risk Capture Lainnya
+                        Tambah Quick Risk Capture Lainnya
                       </span>
-                      <span className="sm:hidden">Tambah Risk Lainnya</span>
+                      <span className="sm:hidden">Tambah Quick Risk Lainnya</span>
                     </Button>
                   </div>
                 </div>
