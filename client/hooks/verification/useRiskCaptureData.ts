@@ -224,8 +224,13 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
       cat.items.flatMap((item) => item.risks),
     );
 
-    // Combine readiness risks with quick risk capture risks for overall distribution
-    const quickRisks = quickRiskData?.risks || [];
+    // Ensure quick risk capture risks have proper structure with default risk levels
+    const quickRisks = (quickRiskData?.risks || []).map(risk => ({
+      ...risk,
+      risikoSaatIni: risk.risikoSaatIni || { kejadian: 3, dampak: 3, level: 9 }, // Default medium risk
+      risikoAwal: risk.risikoAwal || { kejadian: 3, dampak: 3, level: 9 },
+      resikoAkhir: risk.resikoAkhir || { kejadian: 3, dampak: 3, level: 9 },
+    }));
     const combinedRisks = [...allProjectRisks, ...quickRisks];
     const riskDistribution = calculateRiskDistribution(combinedRisks);
 
