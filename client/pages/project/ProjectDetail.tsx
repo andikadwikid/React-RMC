@@ -1479,7 +1479,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   </div>
                   <div className="flex-1">
                     <div className="font-semibold text-gray-800 text-sm">
-                      Risk Assessment
+                      Quick Risk Assessment
                     </div>
                     <div className="text-xs text-gray-500">
                       Capture & analyze project risks
