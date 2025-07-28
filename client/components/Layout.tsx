@@ -25,6 +25,7 @@ import {
   Folder,
   Tag,
   Globe,
+  Receipt,
 } from "lucide-react";
 
 import type { LayoutProps } from "@/types";
