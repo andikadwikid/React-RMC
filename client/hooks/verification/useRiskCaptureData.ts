@@ -217,13 +217,21 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
       cat.items.flatMap((item) => item.risks),
     );
 
-    const riskDistribution = calculateRiskDistribution(allProjectRisks);
+    // Combine readiness risks with quick risk capture risks for overall distribution
+    const quickRisks = quickRiskData?.risks || [];
+    const combinedRisks = [...allProjectRisks, ...quickRisks];
+    const riskDistribution = calculateRiskDistribution(combinedRisks);
 
     return {
       projectId: project.id,
       projectName: project.name,
       readinessCategories,
-      totalRisks: allProjectRisks.length,
+      quickRiskCapture: quickRiskData ? {
+        risks: quickRiskData.risks,
+        totalRisks: quickRiskData.risks.length,
+        completedAt: quickRiskData.completedAt,
+      } : null,
+      totalRisks: combinedRisks.length,
       riskDistribution,
     };
   } catch (error) {
