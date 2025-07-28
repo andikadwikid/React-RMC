@@ -134,6 +134,20 @@ export function ProjectReadinessVerificationModal({
       submission.projectId,
     );
 
+    // Load quick risk capture data from project
+    const quickRiskData = getProjectRiskCapture(submission.projectId);
+    if (quickRiskData && quickRiskData.risks) {
+      const quickRisks: QuickRiskItem[] = quickRiskData.risks.map((risk: RiskItem) => ({
+        ...risk,
+        risikoAwal: { kejadian: 1, dampak: 1, level: 1 },
+        risikoSaatIni: { kejadian: 1, dampak: 1, level: 1 },
+        resikoAkhir: { kejadian: 1, dampak: 1, level: 1 },
+        isVerified: false,
+        verifierComment: "",
+      }));
+      setQuickRiskCapture(quickRisks);
+    }
+
     const allItems: ReadinessItem[] = projectReadinessItems.map((item) => ({
       id: item.id,
       category: item.category,
