@@ -70,7 +70,7 @@ const ProjectRiskDetailModal = memo(
             {projectDetail.totalRisks > 0 && (
               <div className="p-4 bg-gray-50 rounded-lg">
                 <h4 className="font-medium text-gray-900 mb-3">
-                  Distribusi Risiko:
+                  Distribusi Risiko Total (Readiness + Quick Risk Capture):
                 </h4>
                 <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 text-sm">
                   <Badge className="bg-green-100 text-green-800 justify-center">
@@ -89,6 +89,88 @@ const ProjectRiskDetailModal = memo(
                     Sangat Tinggi: {projectDetail.riskDistribution.sangatTinggi}
                   </Badge>
                 </div>
+              </div>
+            )}
+
+            {/* Quick Risk Capture Section */}
+            {projectDetail.quickRiskCapture && projectDetail.quickRiskCapture.totalRisks > 0 && (
+              <div className="border rounded-lg bg-orange-50 border-orange-200">
+                <div className="p-4 border-b border-orange-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-medium text-orange-900 flex items-center gap-2">
+                      <Target className="w-5 h-5" />
+                      Quick Risk Capture Data
+                    </h4>
+                    <Badge className="bg-orange-100 text-orange-800">
+                      {projectDetail.quickRiskCapture.totalRisks} risk{projectDetail.quickRiskCapture.totalRisks > 1 ? 's' : ''}
+                    </Badge>
+                  </div>
+                  {projectDetail.quickRiskCapture.completedAt && (
+                    <p className="text-sm text-orange-700 flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      Completed: {new Date(projectDetail.quickRiskCapture.completedAt).toLocaleDateString('id-ID')}
+                    </p>
+                  )}
+                </div>
+                <div className="p-4 space-y-4">
+                  {projectDetail.quickRiskCapture.risks.map((risk, index) => (
+                    <div key={risk.id || index} className="bg-white border border-orange-200 rounded-lg p-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <h5 className="font-medium text-gray-900">
+                            Quick Risk #{index + 1}
+                          </h5>
+                          <Badge variant="outline" className="text-orange-600 border-orange-300">
+                            {risk.kode}
+                          </Badge>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        <div>
+                          <p className="text-xs font-medium text-gray-600 mb-1">Taksonomi:</p>
+                          <p className="text-sm text-gray-900">{risk.taksonomi}</p>
+                        </div>
+
+                        <div>
+                          <p className="text-xs font-medium text-gray-600 mb-1">Peristiwa Risiko:</p>
+                          <p className="text-sm text-gray-900 bg-gray-50 p-2 rounded">{risk.peristiwaRisiko}</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div>
+                            <p className="text-xs font-medium text-gray-600 mb-1">Sumber Risiko:</p>
+                            <p className="text-sm text-gray-900 bg-gray-50 p-2 rounded">{risk.sumberRisiko}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-gray-600 mb-1">Kontrol Eksisting:</p>
+                            <p className="text-sm text-gray-900 bg-gray-50 p-2 rounded">{risk.kontrolEksisting}</p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div>
+                            <p className="text-xs font-medium text-gray-600 mb-1">Dampak Kualitatif:</p>
+                            <p className="text-sm text-gray-900 bg-gray-50 p-2 rounded">{risk.dampakKualitatif}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-gray-600 mb-1">Dampak Kuantitatif:</p>
+                            <p className="text-sm text-gray-900 bg-gray-50 p-2 rounded">{risk.dampakKuantitatif}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Separator between Quick Risk Capture and Readiness Categories */}
+            {projectDetail.quickRiskCapture && projectDetail.quickRiskCapture.totalRisks > 0 && (
+              <div className="flex items-center gap-4 my-6">
+                <div className="flex-1 h-px bg-gray-200"></div>
+                <span className="text-sm font-medium text-gray-500">Readiness-Based Risk Capture</span>
+                <div className="flex-1 h-px bg-gray-200"></div>
               </div>
             )}
 
