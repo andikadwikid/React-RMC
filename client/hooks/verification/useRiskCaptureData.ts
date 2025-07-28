@@ -106,11 +106,15 @@ const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
     return projects
       .map((project) => {
         const readinessItems = getProjectReadinessItems(project.id);
+        const quickRiskData = getProjectRiskCapture(project.id);
 
         // Count all risks across all readiness items
-        const allProjectRisks = readinessItems.flatMap(
+        const readinessRisks = readinessItems.flatMap(
           (item) => item.risk_capture || [],
         );
+        const quickRisks = quickRiskData?.risks || [];
+        const allProjectRisks = [...readinessRisks, ...quickRisks];
+
         const itemsWithRisks = readinessItems.filter(
           (item) => item.risk_capture && item.risk_capture.length > 0,
         );
@@ -126,7 +130,7 @@ const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
           ),
         );
 
-        // Calculate risk distribution using memoized function
+        // Calculate risk distribution using memoized function (includes quick risks)
         const riskDistribution = calculateRiskDistribution(allProjectRisks);
 
         // Find highest risk level
