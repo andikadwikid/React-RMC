@@ -136,10 +136,10 @@ const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
         // Calculate risk distribution using memoized function (includes quick risks)
         const riskDistribution = calculateRiskDistribution(allProjectRisks);
 
-        // Find highest risk level
+        // Find highest risk level (handle both data structures)
         const highestRiskLevel =
           allProjectRisks.length > 0
-            ? Math.max(...allProjectRisks.map((r) => r.risikoSaatIni.level))
+            ? Math.max(...allProjectRisks.map((r) => r.risikoSaatIni?.level || 3))
             : 0;
 
         return {
