@@ -188,6 +188,16 @@ export const loadProjectRiskCaptureData = () => {
 };
 
 export const getProjectRiskCapture = (projectId: string) => {
+  // First try to get from quick risk capture dummy data
+  const quickRiskCapture = quickRiskCaptureData.quick_risk_captures.find(
+    (riskCapture) => riskCapture.project_id === projectId,
+  );
+
+  if (quickRiskCapture) {
+    return quickRiskCapture;
+  }
+
+  // Fallback to original risk capture data
   return (
     projectRiskCaptureData.risk_captures.find(
       (riskCapture) => riskCapture.project_id === projectId,
