@@ -1,142 +1,142 @@
 {
   "taksonomi": [
     {
-      "kode": "RKB",
+      "kode": "RKB-001",
       "group": "Kebijakan",
       "taksonomi": "Kebijakan SDM"
     },
     {
-      "kode": "RKB",
+      "kode": "RKB-002",
       "group": "Kebijakan", 
       "taksonomi": "Kebijakan Sektoral"
     },
     {
-      "kode": "RKB",
+      "kode": "RKB-003",
       "group": "Kebijakan",
       "taksonomi": "Kebijakan Bisnis"
     },
     {
-      "kode": "RSR",
+      "kode": "RSR-001",
       "group": "Struktur",
       "taksonomi": "Struktur Korporat"
     },
     {
-      "kode": "RRO",
+      "kode": "RRO-001",
       "group": "Re-Organisasi",
       "taksonomi": "Kemitraan"
     },
     {
-      "kode": "RRO",
+      "kode": "RRO-002",
       "group": "Re-Organisasi",
       "taksonomi": "Re-Struktural"
     },
     {
-      "kode": "RRO",
+      "kode": "RRO-003",
       "group": "Re-Organisasi",
       "taksonomi": "Pemisahan/Peleburan/Penggabungan"
     },
     {
-      "kode": "RSS",
+      "kode": "RSS-001",
       "group": "Strategi",
       "taksonomi": "Program Jangka Panjang"
     },
     {
-      "kode": "RSS",
+      "kode": "RSS-002",
       "group": "Strategi",
       "taksonomi": "Program Jangka Pendek"
     },
     {
-      "kode": "RSS",
+      "kode": "RSS-003",
       "group": "Strategi",
       "taksonomi": "Pengembangan Bisnis"
     },
     {
-      "kode": "RPN",
+      "kode": "RPN-001",
       "group": "Pasar",
       "taksonomi": "Nilai Mata Uang/Suku Bunga"
     },
     {
-      "kode": "RKN",
+      "kode": "RKN-001",
       "group": "Keuangan",
       "taksonomi": "Pinjaman"
     },
     {
-      "kode": "RKN",
+      "kode": "RKN-002",
       "group": "Keuangan",
       "taksonomi": "Investasi"
     },
     {
-      "kode": "RKN",
+      "kode": "RKN-003",
       "group": "Keuangan",
       "taksonomi": "Pendanaan"
     },
     {
-      "kode": "RHR",
+      "kode": "RHR-001",
       "group": "Hukum, Reputasi & Kepatuhan",
       "taksonomi": "Hukum"
     },
     {
-      "kode": "RHR",
+      "kode": "RHR-002",
       "group": "Hukum, Reputasi & Kepatuhan",
       "taksonomi": "Reputasi"
     },
     {
-      "kode": "RHR",
+      "kode": "RHR-003",
       "group": "Hukum, Reputasi & Kepatuhan",
       "taksonomi": "Fraud"
     },
     {
-      "kode": "RHR",
+      "kode": "RHR-004",
       "group": "Hukum, Reputasi & Kepatuhan",
       "taksonomi": "Kepatuhan"
     },
     {
-      "kode": "RPK",
+      "kode": "RPK-001",
       "group": "Proyek",
       "taksonomi": "Pra-Proyek"
     },
     {
-      "kode": "RPK",
+      "kode": "RPK-002",
       "group": "Proyek",
       "taksonomi": "Pelaksanaan"
     },
     {
-      "kode": "RPK",
+      "kode": "RPK-003",
       "group": "Proyek",
       "taksonomi": "Pemantauan dan Evaluasi Proyek"
     },
     {
-      "kode": "RTI",
+      "kode": "RTI-001",
       "group": "Teknologi & Keamanan Siber",
       "taksonomi": "Infrastruktur dan Sistem"
     },
     {
-      "kode": "RTI",
+      "kode": "RTI-002",
       "group": "Teknologi & Keamanan Siber",
       "taksonomi": "Keamanan Data"
     },
     {
-      "kode": "RSL",
+      "kode": "RSL-001",
       "group": "Sosial & Lingkungan",
       "taksonomi": "Sosial"
     },
     {
-      "kode": "RSL",
+      "kode": "RSL-002",
       "group": "Sosial & Lingkungan",
       "taksonomi": "Lingkungan"
     },
     {
-      "kode": "ROL",
+      "kode": "ROL-001",
       "group": "Operasional",
       "taksonomi": "Proses Bisnis"
     },
     {
-      "kode": "ROL",
+      "kode": "ROL-002",
       "group": "Operasional",
       "taksonomi": "K3"
     },
     {
-      "kode": "ROL",
+      "kode": "ROL-003",
       "group": "Operasional",
       "taksonomi": "SDM"
     }
