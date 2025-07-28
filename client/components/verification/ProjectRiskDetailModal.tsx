@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback } from "react";
+import React, { useState, memo, useCallback, Suspense, lazy } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
