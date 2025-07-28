@@ -139,7 +139,7 @@ export function RiskCaptureForm({
                     Belum ada quick risk capture
                   </h3>
                   <p className="mt-1 text-xs sm:text-sm text-gray-500 px-4">
-                    Mulai dengan menambahkan risk capture pertama untuk project
+                    Mulai dengan menambahkan quick risk capture pertama untuk project
                     ini.
                   </p>
                   <div className="mt-4 sm:mt-6">
