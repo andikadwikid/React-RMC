@@ -368,72 +368,11 @@ export function RiskCaptureForm({
           {risks.length > 0 && (
             <Card className="border-blue-200 bg-blue-50">
               <CardContent className="p-3 sm:p-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                  <div className="flex items-center gap-2 text-blue-800">
-                    <CheckCircle className="w-4 h-4 flex-shrink-0" />
-                    <span className="font-medium text-sm sm:text-base">
-                      Total: {risks.length} Risk Capture
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 text-xs sm:text-sm">
-                    <div>
-                      <span className="hidden sm:inline">
-                        Sangat Rendah (1-5):{" "}
-                      </span>
-                      <span className="sm:hidden">SR: </span>
-                      {
-                        risks.filter(
-                          (r) =>
-                            r.risikoAwal.level >= 1 && r.risikoAwal.level <= 5,
-                        ).length
-                      }
-                    </div>
-                    <div>
-                      <span className="hidden sm:inline">Rendah (6-10): </span>
-                      <span className="sm:hidden">R: </span>
-                      {
-                        risks.filter(
-                          (r) =>
-                            r.risikoAwal.level >= 6 && r.risikoAwal.level <= 10,
-                        ).length
-                      }
-                    </div>
-                    <div>
-                      <span className="hidden sm:inline">Sedang (11-15): </span>
-                      <span className="sm:hidden">S: </span>
-                      {
-                        risks.filter(
-                          (r) =>
-                            r.risikoAwal.level >= 11 &&
-                            r.risikoAwal.level <= 15,
-                        ).length
-                      }
-                    </div>
-                    <div>
-                      <span className="hidden sm:inline">Tinggi (16-20): </span>
-                      <span className="sm:hidden">T: </span>
-                      {
-                        risks.filter(
-                          (r) =>
-                            r.risikoAwal.level >= 16 &&
-                            r.risikoAwal.level <= 20,
-                        ).length
-                      }
-                    </div>
-                    <div>
-                      <span className="hidden sm:inline">
-                        Sangat Tinggi (21-25):{" "}
-                      </span>
-                      <span className="sm:hidden">ST: </span>
-                      {
-                        risks.filter(
-                          (r) =>
-                            r.risikoAwal.level >= 21 &&
-                            r.risikoAwal.level <= 25,
-                        ).length
-                      }
-                    </div>
-                  </div>
+                <div className="flex items-center gap-2 text-blue-800">
+                  <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                  <span className="font-medium text-sm sm:text-base">
+                    Total: {risks.length} Risk Capture telah dibuat
+                  </span>
                 </div>
               </CardContent>
             </Card>
