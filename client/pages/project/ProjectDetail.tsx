@@ -1263,7 +1263,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
               <div className="text-center py-8">
                 <Shield className="mx-auto h-16 w-16 text-orange-400 mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Risk Capture Assessment
+                  Quick Risk Capture Assessment
                 </h3>
                 <p className="text-gray-600 mb-6 max-w-md mx-auto">
                   Gunakan form risk capture untuk mengidentifikasi, menganalisis, dan
