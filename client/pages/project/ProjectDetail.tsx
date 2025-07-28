@@ -1266,7 +1266,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   Quick Risk Capture Assessment
                 </h3>
                 <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                  Gunakan form risk capture untuk mengidentifikasi, menganalisis, dan
+                  Gunakan form quick risk capture untuk mengidentifikasi, menganalisis, dan
                   mengelola risiko yang terkait dengan project ini.
                 </p>
                 <Button
