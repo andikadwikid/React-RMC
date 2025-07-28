@@ -48,6 +48,31 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
+// Interface for Running Risk
+interface RunningRisk {
+  id: string;
+  kategoriRisiko: string;
+  uraianPeristiwaRisiko: string;
+  kerugianPotensiKehilangan: string;
+  dampakRisiko: string;
+  pengendalianPerlakuanRisiko: string;
+  createdAt: string;
+}
+
+// Risk categories for dropdown
+const riskCategories = [
+  "Risiko Operasional",
+  "Risiko Finansial",
+  "Risiko Teknis",
+  "Risiko SDM",
+  "Risiko Lingkungan",
+  "Risiko Keamanan",
+  "Risiko Regulasi",
+  "Risiko Supplier",
+  "Risiko Jadwal",
+  "Risiko Kualitas",
+];
+
 // Helper function to check if user can edit readiness
 const canEditReadiness = (readinessStatus: string | null) => {
   // User can edit if:
