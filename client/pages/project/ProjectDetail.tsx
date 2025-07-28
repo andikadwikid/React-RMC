@@ -510,7 +510,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 >
                   <Shield className="w-4 h-4 mr-3 text-orange-600" />
                   <div>
-                    <div className="font-medium">Risk Capture</div>
+                    <div className="font-medium">Quick Risk Capture</div>
                     <div className="text-xs text-gray-500">
                       Capture and analyze project risks
                     </div>
