@@ -107,7 +107,7 @@ export function RiskCaptureForm({
           <DialogTitle className="flex items-start gap-2 text-lg sm:text-xl">
             <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 flex-shrink-0 mt-0.5" />
             <span className="leading-tight break-words">
-              Risk Capture Assessment - {projectName}
+              Quick Risk Capture Assessment - {projectName}
             </span>
           </DialogTitle>
         </DialogHeader>
