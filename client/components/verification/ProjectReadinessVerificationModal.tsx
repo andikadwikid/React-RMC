@@ -52,7 +52,7 @@ interface ReadinessItem {
   riskCapture?: RiskItem[];
 }
 import { formatDateTime } from "@/utils/formatters";
-import { getProjectReadinessItems } from "@/utils/dataLoader";
+import { getProjectReadinessItems, getProjectRiskCapture } from "@/utils/dataLoader";
 import { RiskCaptureSection } from "./RiskCaptureSection";
 
 import type { ProjectReadinessVerificationModalProps, RiskItem } from "@/types";
