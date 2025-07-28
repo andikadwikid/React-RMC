@@ -571,7 +571,7 @@
         {
           "id": "risk-pers-001",
           "sasaran": "Ketersediaan SDM",
-          "kode": "ROL-001",
+          "kode": "ROL-003",
           "taksonomi": "Operasional - SDM",
           "peristiwaRisiko": "Key personnel resign atau tidak tersedia di masa critical development",
           "sumberRisiko": "Ketergantungan pada specific expertise dan market competition",
@@ -738,7 +738,7 @@
         {
           "id": "risk-sys-001",
           "sasaran": "Ketersediaan Sistem",
-          "kode": "ROL-002",
+          "kode": "ROL-001",
           "taksonomi": "Operasional - Proses Bisnis",
           "peristiwaRisiko": "Failure peralatan development yang critical saat peak development",
           "sumberRisiko": "Hardware aging dan kurangnya redundancy",
@@ -911,7 +911,7 @@
         {
           "id": "risk-bank-001",
           "sasaran": "Compliance Banking",
-          "kode": "RHR-002",
+          "kode": "RHR-004",
           "taksonomi": "Hukum, Reputasi & Kepatuhan - Kepatuhan",
           "peristiwaRisiko": "Non-compliance dengan regulasi perbankan dan OJK",
           "sumberRisiko": "Perubahan regulasi yang frequent dan complex banking rules",
@@ -958,7 +958,7 @@
         {
           "id": "risk-bank-002",
           "sasaran": "Keamanan Transaksi Mobile",
-          "kode": "RTI-003",
+          "kode": "RTI-002",
           "taksonomi": "Teknologi & Keamanan Siber - Keamanan Data",
           "peristiwaRisiko": "Serangan cyber pada aplikasi mobile banking",
           "sumberRisiko": "Sophisticated cyber attacks dan mobile vulnerabilities",
