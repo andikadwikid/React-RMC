@@ -505,6 +505,19 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 )}
 
                 <DropdownMenuItem
+                  onClick={openRiskCaptureForm}
+                  className="py-3 hover:bg-orange-50 transition-colors"
+                >
+                  <Shield className="w-4 h-4 mr-3 text-orange-600" />
+                  <div>
+                    <div className="font-medium">Risk Capture</div>
+                    <div className="text-xs text-gray-500">
+                      Capture and analyze project risks
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
                   onClick={generateReport}
                   className="py-3 hover:bg-purple-50 transition-colors"
                 >
