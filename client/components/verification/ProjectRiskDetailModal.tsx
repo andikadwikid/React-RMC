@@ -33,6 +33,7 @@ const ProjectRiskDetailModal = memo(
       new Set(),
     );
     const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+    const [isQuickRiskDetailOpen, setIsQuickRiskDetailOpen] = useState(false);
 
     const toggleCategory = useCallback((categoryId: string) => {
       setExpandedCategories((prev) => {
