@@ -69,28 +69,11 @@ export function RiskCaptureForm({
     const newRisk: RiskItem = {
       id: Date.now().toString(),
       sasaran: "",
-      kode: "",
-      taksonomi: "",
       peristiwaRisiko: "",
       sumberRisiko: "",
       dampakKualitatif: "",
       dampakKuantitatif: "",
       kontrolEksisting: "",
-      risikoAwal: {
-        kejadian: 1,
-        dampak: 1,
-        level: 1,
-      },
-      risikoSaatIni: {
-        kejadian: 1,
-        dampak: 1,
-        level: 1,
-      },
-      resikoAkhir: {
-        kejadian: 1,
-        dampak: 1,
-        level: 1,
-      },
     };
     setRisks([...risks, newRisk]);
   };
