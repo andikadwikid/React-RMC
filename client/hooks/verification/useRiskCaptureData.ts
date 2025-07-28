@@ -4,6 +4,7 @@ import {
   getReadinessTemplate,
   getAllProjects,
   getProjectReadinessItems,
+  getProjectRiskCapture,
 } from "@/utils/dataLoader";
 import {
   getRiskLevel,
