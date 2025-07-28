@@ -1368,6 +1368,252 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             </CardContent>
           </Card>
         </TabsContent>
+
+        <TabsContent value="running-risks" className="space-y-4 sm:space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5 text-red-600" />
+                Risiko Saat Proyek Berjalan
+              </CardTitle>
+              <p className="text-sm text-gray-600">
+                Kelola dan dokumentasi risiko yang muncul selama project berlangsung
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Add Risk Button */}
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-lg font-medium">
+                    Daftar Risiko Proyek ({runningRisks.length})
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    Risiko yang teridentifikasi selama proyek berjalan
+                  </p>
+                </div>
+                <Button
+                  onClick={() => setIsAddingRisk(true)}
+                  className="bg-red-600 hover:bg-red-700"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Tambah Risiko
+                </Button>
+              </div>
+
+              {/* Risk Form */}
+              {isAddingRisk && (
+                <Card className="border-red-200 bg-red-50/50">
+                  <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4 text-red-600" />
+                      Tambah Risiko Baru
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const formData = new FormData(e.target as HTMLFormElement);
+                        const newRisk: RunningRisk = {
+                          id: Date.now().toString(),
+                          kategoriRisiko: formData.get('kategoriRisiko') as string,
+                          uraianPeristiwaRisiko: formData.get('uraianPeristiwaRisiko') as string,
+                          kerugianPotensiKehilangan: formData.get('kerugianPotensiKehilangan') as string,
+                          dampakRisiko: formData.get('dampakRisiko') as string,
+                          pengendalianPerlakuanRisiko: formData.get('pengendalianPerlakuanRisiko') as string,
+                          createdAt: new Date().toISOString(),
+                        };
+                        setRunningRisks([...runningRisks, newRisk]);
+                        setIsAddingRisk(false);
+                        toast.success("Risiko berhasil ditambahkan!");
+                        (e.target as HTMLFormElement).reset();
+                      }}
+                      className="space-y-4"
+                    >
+                      {/* Kategori Risiko - Dropdown */}
+                      <div>
+                        <Label htmlFor="kategoriRisiko">Kategori Risiko *</Label>
+                        <Select name="kategoriRisiko" required>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih kategori risiko" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {riskCategories.map((category) => (
+                              <SelectItem key={category} value={category}>
+                                {category}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Uraian Peristiwa Risiko */}
+                      <div>
+                        <Label htmlFor="uraianPeristiwaRisiko">
+                          Uraian Peristiwa Risiko *
+                        </Label>
+                        <Textarea
+                          name="uraianPeristiwaRisiko"
+                          required
+                          placeholder="Jelaskan detail peristiwa risiko yang terjadi atau berpotensi terjadi..."
+                          className="min-h-24"
+                        />
+                      </div>
+
+                      {/* Kerugian/Potensi Kehilangan */}
+                      <div>
+                        <Label htmlFor="kerugianPotensiKehilangan">
+                          Kerugian/Potensi Kehilangan *
+                        </Label>
+                        <Textarea
+                          name="kerugianPotensiKehilangan"
+                          required
+                          placeholder="Jelaskan kerugian atau potensi kehilangan yang dapat terjadi..."
+                          className="min-h-24"
+                        />
+                      </div>
+
+                      {/* Dampak Risiko */}
+                      <div>
+                        <Label htmlFor="dampakRisiko">Dampak Risiko *</Label>
+                        <Textarea
+                          name="dampakRisiko"
+                          required
+                          placeholder="Jelaskan dampak risiko terhadap proyek..."
+                          className="min-h-24"
+                        />
+                      </div>
+
+                      {/* Pengendalian & Perlakuan Risiko */}
+                      <div>
+                        <Label htmlFor="pengendalianPerlakuanRisiko">
+                          Pengendalian & Perlakuan Risiko *
+                        </Label>
+                        <Textarea
+                          name="pengendalianPerlakuanRisiko"
+                          required
+                          placeholder="Jelaskan langkah pengendalian dan perlakuan yang diambil..."
+                          className="min-h-24"
+                        />
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex gap-2 pt-4">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setIsAddingRisk(false)}
+                        >
+                          <X className="w-4 h-4 mr-2" />
+                          Batal
+                        </Button>
+                        <Button type="submit" className="bg-red-600 hover:bg-red-700">
+                          <Save className="w-4 h-4 mr-2" />
+                          Simpan Risiko
+                        </Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Risk List */}
+              <div className="space-y-4">
+                {runningRisks.length === 0 ? (
+                  <Card className="border-dashed border-2 border-gray-300">
+                    <CardContent className="text-center py-12">
+                      <AlertTriangle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        Belum ada risiko yang didokumentasikan
+                      </h3>
+                      <p className="text-gray-500 mb-6">
+                        Mulai dengan menambahkan risiko pertama yang teridentifikasi
+                        selama proyek berjalan.
+                      </p>
+                      <Button
+                        onClick={() => setIsAddingRisk(true)}
+                        className="bg-red-600 hover:bg-red-700"
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Tambah Risiko Pertama
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  runningRisks.map((risk, index) => (
+                    <Card key={risk.id} className="border-l-4 border-l-red-500">
+                      <CardHeader>
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <CardTitle className="text-base">
+                              Risiko #{index + 1}
+                            </CardTitle>
+                            <div className="flex items-center gap-2 mt-1">
+                              <Badge variant="outline" className="text-red-600 border-red-300">
+                                {risk.kategoriRisiko}
+                              </Badge>
+                              <span className="text-xs text-gray-500">
+                                {new Date(risk.createdAt).toLocaleDateString("id-ID")}
+                              </span>
+                            </div>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setRunningRisks(runningRisks.filter(r => r.id !== risk.id));
+                              toast.success("Risiko berhasil dihapus!");
+                            }}
+                            className="text-red-600 hover:text-red-700"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div>
+                          <h4 className="font-medium text-sm text-gray-700 mb-1">
+                            Uraian Peristiwa Risiko
+                          </h4>
+                          <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                            {risk.uraianPeristiwaRisiko}
+                          </p>
+                        </div>
+
+                        <div>
+                          <h4 className="font-medium text-sm text-gray-700 mb-1">
+                            Kerugian/Potensi Kehilangan
+                          </h4>
+                          <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                            {risk.kerugianPotensiKehilangan}
+                          </p>
+                        </div>
+
+                        <div>
+                          <h4 className="font-medium text-sm text-gray-700 mb-1">
+                            Dampak Risiko
+                          </h4>
+                          <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                            {risk.dampakRisiko}
+                          </p>
+                        </div>
+
+                        <div>
+                          <h4 className="font-medium text-sm text-gray-700 mb-1">
+                            Pengendalian & Perlakuan Risiko
+                          </h4>
+                          <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded">
+                            {risk.pengendalianPerlakuanRisiko}
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
 
       {/* Project Readiness Results */}
