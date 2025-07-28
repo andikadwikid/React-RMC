@@ -16,6 +16,11 @@ import type { ProjectRiskDetail } from "@/hooks/verification/useRiskCaptureData"
 import { CATEGORY_DISPLAY_NAMES } from "@/constants/riskCapture";
 import RiskItemDetail from "./RiskItemDetail";
 
+// Lazy load the QuickRiskCaptureDetailModal for better performance
+const QuickRiskCaptureDetailModal = lazy(
+  () => import("./QuickRiskCaptureDetailModal"),
+);
+
 interface ProjectRiskDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
