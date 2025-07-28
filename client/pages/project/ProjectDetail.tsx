@@ -1356,7 +1356,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
         onSave={handleReadinessSave}
       />
 
-      {/* Risk Capture Form */}
+      {/* Quick Risk Capture Form */}
       <RiskCaptureForm
         isOpen={riskCaptureForm.isOpen}
         onClose={closeRiskCaptureForm}
