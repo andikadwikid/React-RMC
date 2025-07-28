@@ -115,7 +115,11 @@ const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
         const readinessRisks = readinessItems.flatMap(
           (item) => item.risk_capture || [],
         );
-        const quickRisks = quickRiskData?.risks || [];
+        // Ensure quick risk capture risks have proper structure with default risk levels
+        const quickRisks = (quickRiskData?.risks || []).map(risk => ({
+          ...risk,
+          risikoSaatIni: risk.risikoSaatIni || { kejadian: 3, dampak: 3, level: 9 }, // Default medium risk
+        }));
         const allProjectRisks = [...readinessRisks, ...quickRisks];
 
         const itemsWithRisks = readinessItems.filter(
