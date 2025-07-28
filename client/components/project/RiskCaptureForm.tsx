@@ -44,10 +44,7 @@ export function RiskCaptureForm({
   projectName,
   onSave,
 }: RiskCaptureFormProps) {
-  const [risks, setRisks] = useState<RiskItem[]>(() => {
-    const existingRiskCapture = getProjectRiskCapture(projectId);
-    return existingRiskCapture ? existingRiskCapture.risks : [];
-  });
+  const [risks, setRisks] = useState<RiskItem[]>([]);
   const [taksonomiData, setTaksonomiData] = useState<TaksonomiItem[]>([]);
 
   // Load taksonomi data
@@ -63,6 +60,18 @@ export function RiskCaptureForm({
     };
     loadTaksonomiData();
   }, []);
+
+  // Load existing risk capture data when modal opens
+  useEffect(() => {
+    if (isOpen && projectId) {
+      const existingRiskCapture = getProjectRiskCapture(projectId);
+      if (existingRiskCapture && existingRiskCapture.risks) {
+        setRisks(existingRiskCapture.risks);
+      } else {
+        setRisks([]);
+      }
+    }
+  }, [isOpen, projectId]);
 
   const addRiskItem = () => {
     const newRisk: RiskItem = {
