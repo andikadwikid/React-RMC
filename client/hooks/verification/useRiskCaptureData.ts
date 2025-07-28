@@ -33,6 +33,11 @@ export interface ProjectRiskDetail {
   projectId: string;
   projectName: string;
   readinessCategories: ReadinessCategoryWithRisks[];
+  quickRiskCapture: {
+    risks: RiskItem[];
+    totalRisks: number;
+    completedAt?: string;
+  } | null;
   totalRisks: number;
   riskDistribution: {
     sangatRendah: number;
