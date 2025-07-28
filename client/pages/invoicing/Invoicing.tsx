@@ -38,7 +38,7 @@ import type { Project } from "@/types";
 
 // Enhanced project type for invoicing
 interface ProjectWithInvoicing extends Project {
-  invoiceStatus: 'not_created' | 'draft' | 'sent' | 'paid' | 'overdue';
+  invoiceStatus: "not_created" | "draft" | "sent" | "paid" | "overdue";
   lastInvoiceDate?: string;
   totalInvoiced: number;
   outstandingAmount: number;
@@ -69,7 +69,9 @@ const INVOICE_STATUS_CONFIG = {
 
 export default function Invoicing() {
   const [projects, setProjects] = useState<ProjectWithInvoicing[]>([]);
-  const [filteredProjects, setFilteredProjects] = useState<ProjectWithInvoicing[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<
+    ProjectWithInvoicing[]
+  >([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [isLoading, setIsLoading] = useState(true);
@@ -78,15 +80,28 @@ export default function Invoicing() {
     const loadProjects = () => {
       try {
         const projectsData = getAllProjects();
-        
+
         // Enhance projects with invoicing data (in real app, this would come from API)
-        const enhancedProjects: ProjectWithInvoicing[] = projectsData.map((project) => ({
-          ...project,
-          invoiceStatus: ['not_created', 'draft', 'sent', 'paid', 'overdue'][Math.floor(Math.random() * 5)] as any,
-          lastInvoiceDate: Math.random() > 0.5 ? new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toISOString() : undefined,
-          totalInvoiced: Math.floor((project.spent || 0) * (0.6 + Math.random() * 0.4)),
-          outstandingAmount: Math.floor((project.budget || 0) * (Math.random() * 0.3)),
-        }));
+        const enhancedProjects: ProjectWithInvoicing[] = projectsData.map(
+          (project) => ({
+            ...project,
+            invoiceStatus: ["not_created", "draft", "sent", "paid", "overdue"][
+              Math.floor(Math.random() * 5)
+            ] as any,
+            lastInvoiceDate:
+              Math.random() > 0.5
+                ? new Date(
+                    Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000,
+                  ).toISOString()
+                : undefined,
+            totalInvoiced: Math.floor(
+              (project.spent || 0) * (0.6 + Math.random() * 0.4),
+            ),
+            outstandingAmount: Math.floor(
+              (project.budget || 0) * (Math.random() * 0.3),
+            ),
+          }),
+        );
 
         setProjects(enhancedProjects);
         setFilteredProjects(enhancedProjects);
@@ -105,16 +120,19 @@ export default function Invoicing() {
 
     // Filter by search term
     if (searchTerm) {
-      filtered = filtered.filter((project) =>
-        project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.category.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (project) =>
+          project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.category.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     }
 
     // Filter by status
     if (statusFilter !== "all") {
-      filtered = filtered.filter((project) => project.invoiceStatus === statusFilter);
+      filtered = filtered.filter(
+        (project) => project.invoiceStatus === statusFilter,
+      );
     }
 
     setFilteredProjects(filtered);
@@ -130,7 +148,9 @@ export default function Invoicing() {
     totalProjects: projects.length,
     totalInvoiced: projects.reduce((sum, p) => sum + p.totalInvoiced, 0),
     totalOutstanding: projects.reduce((sum, p) => sum + p.outstandingAmount, 0),
-    pendingInvoices: projects.filter(p => ['not_created', 'draft'].includes(p.invoiceStatus)).length,
+    pendingInvoices: projects.filter((p) =>
+      ["not_created", "draft"].includes(p.invoiceStatus),
+    ).length,
   };
 
   if (isLoading) {
@@ -177,8 +197,12 @@ export default function Invoicing() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Projects</p>
-                <p className="text-2xl font-bold text-gray-900">{summary.totalProjects}</p>
+                <p className="text-sm font-medium text-gray-600">
+                  Total Projects
+                </p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {summary.totalProjects}
+                </p>
               </div>
               <Building2 className="w-8 h-8 text-blue-600" />
             </div>
@@ -189,7 +213,9 @@ export default function Invoicing() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Invoiced</p>
+                <p className="text-sm font-medium text-gray-600">
+                  Total Invoiced
+                </p>
                 <p className="text-2xl font-bold text-green-600">
                   {formatCurrency(summary.totalInvoiced)}
                 </p>
@@ -217,8 +243,12 @@ export default function Invoicing() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Pending Invoices</p>
-                <p className="text-2xl font-bold text-red-600">{summary.pendingInvoices}</p>
+                <p className="text-sm font-medium text-gray-600">
+                  Pending Invoices
+                </p>
+                <p className="text-2xl font-bold text-red-600">
+                  {summary.pendingInvoices}
+                </p>
               </div>
               <FileText className="w-8 h-8 text-red-600" />
             </div>
@@ -317,7 +347,9 @@ export default function Invoicing() {
                             style={{ width: `${project.progress}%` }}
                           />
                         </div>
-                        <span className={`text-sm font-medium ${getProgressColor(project.progress)}`}>
+                        <span
+                          className={`text-sm font-medium ${getProgressColor(project.progress)}`}
+                        >
                           {project.progress}%
                         </span>
                       </div>
@@ -333,7 +365,9 @@ export default function Invoicing() {
                     </TableCell>
                     <TableCell>
                       <Badge
-                        className={INVOICE_STATUS_CONFIG[project.invoiceStatus].color}
+                        className={
+                          INVOICE_STATUS_CONFIG[project.invoiceStatus].color
+                        }
                       >
                         {INVOICE_STATUS_CONFIG[project.invoiceStatus].label}
                       </Badge>
@@ -341,7 +375,9 @@ export default function Invoicing() {
                     <TableCell>
                       {project.lastInvoiceDate ? (
                         <span className="text-sm text-gray-600">
-                          {new Date(project.lastInvoiceDate).toLocaleDateString('id-ID')}
+                          {new Date(project.lastInvoiceDate).toLocaleDateString(
+                            "id-ID",
+                          )}
                         </span>
                       ) : (
                         <span className="text-sm text-gray-400">-</span>
@@ -355,8 +391,8 @@ export default function Invoicing() {
                           </Button>
                         </Link>
                         <Link to={`/invoicing/create/${project.id}`}>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             className="bg-blue-600 hover:bg-blue-700"
                           >
                             <Receipt className="w-4 h-4 mr-1" />

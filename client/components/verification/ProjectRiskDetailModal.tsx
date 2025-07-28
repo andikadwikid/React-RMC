@@ -12,7 +12,17 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Shield, FileX, ChevronDown, ChevronRight, Info, AlertTriangle, Calendar, Target, Eye } from "lucide-react";
+import {
+  Shield,
+  FileX,
+  ChevronDown,
+  ChevronRight,
+  Info,
+  AlertTriangle,
+  Calendar,
+  Target,
+  Eye,
+} from "lucide-react";
 import type { ProjectRiskDetail } from "@/hooks/verification/useRiskCaptureData";
 import { CATEGORY_DISPLAY_NAMES } from "@/constants/riskCapture";
 import RiskItemDetail from "./RiskItemDetail";
@@ -100,62 +110,80 @@ const ProjectRiskDetailModal = memo(
             )}
 
             {/* Quick Risk Capture Section */}
-            {projectDetail.quickRiskCapture && projectDetail.quickRiskCapture.totalRisks > 0 && (
-              <div className="border rounded-lg bg-orange-50 border-orange-200">
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <Target className="w-5 h-5 text-orange-600" />
-                      <h4 className="font-medium text-orange-900">Quick Risk Capture Data</h4>
-                      <Badge className="bg-orange-100 text-orange-800">
-                        {projectDetail.quickRiskCapture.totalRisks} risk{projectDetail.quickRiskCapture.totalRisks > 1 ? 's' : ''}
-                      </Badge>
-                    </div>
-                    <Button
-                      onClick={() => setIsQuickRiskDetailOpen(true)}
-                      size="sm"
-                      className="bg-orange-600 hover:bg-orange-700 gap-2"
-                    >
-                      <Eye className="w-4 h-4" />
-                      View Details
-                    </Button>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-                    {projectDetail.quickRiskCapture.completedAt && (
-                      <div className="flex items-center gap-2 text-orange-700">
-                        <Calendar className="w-4 h-4" />
-                        <span>Completed: {new Date(projectDetail.quickRiskCapture.completedAt).toLocaleDateString('id-ID')}</span>
+            {projectDetail.quickRiskCapture &&
+              projectDetail.quickRiskCapture.totalRisks > 0 && (
+                <div className="border rounded-lg bg-orange-50 border-orange-200">
+                  <div className="p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <Target className="w-5 h-5 text-orange-600" />
+                        <h4 className="font-medium text-orange-900">
+                          Quick Risk Capture Data
+                        </h4>
+                        <Badge className="bg-orange-100 text-orange-800">
+                          {projectDetail.quickRiskCapture.totalRisks} risk
+                          {projectDetail.quickRiskCapture.totalRisks > 1
+                            ? "s"
+                            : ""}
+                        </Badge>
                       </div>
-                    )}
-                    <div className="flex items-center gap-2 text-orange-700">
-                      <AlertTriangle className="w-4 h-4" />
-                      <span>Total Risks: {projectDetail.quickRiskCapture.totalRisks}</span>
+                      <Button
+                        onClick={() => setIsQuickRiskDetailOpen(true)}
+                        size="sm"
+                        className="bg-orange-600 hover:bg-orange-700 gap-2"
+                      >
+                        <Eye className="w-4 h-4" />
+                        View Details
+                      </Button>
                     </div>
-                    <div className="flex items-center gap-2 text-orange-700">
-                      <Info className="w-4 h-4" />
-                      <span>Status: Awaiting Assessment</span>
-                    </div>
-                  </div>
 
-                  <div className="mt-3 pt-3 border-t border-orange-200">
-                    <p className="text-xs text-orange-700">
-                      Click "View Details" to see comprehensive quick risk capture information including all risk items,
-                      impact analysis, and assessment data.
-                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                      {projectDetail.quickRiskCapture.completedAt && (
+                        <div className="flex items-center gap-2 text-orange-700">
+                          <Calendar className="w-4 h-4" />
+                          <span>
+                            Completed:{" "}
+                            {new Date(
+                              projectDetail.quickRiskCapture.completedAt,
+                            ).toLocaleDateString("id-ID")}
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2 text-orange-700">
+                        <AlertTriangle className="w-4 h-4" />
+                        <span>
+                          Total Risks:{" "}
+                          {projectDetail.quickRiskCapture.totalRisks}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-orange-700">
+                        <Info className="w-4 h-4" />
+                        <span>Status: Awaiting Assessment</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 pt-3 border-t border-orange-200">
+                      <p className="text-xs text-orange-700">
+                        Click "View Details" to see comprehensive quick risk
+                        capture information including all risk items, impact
+                        analysis, and assessment data.
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
             {/* Separator between Quick Risk Capture and Readiness Categories */}
-            {projectDetail.quickRiskCapture && projectDetail.quickRiskCapture.totalRisks > 0 && (
-              <div className="flex items-center gap-4 my-6">
-                <div className="flex-1 h-px bg-gray-200"></div>
-                <span className="text-sm font-medium text-gray-500">Readiness-Based Risk Capture</span>
-                <div className="flex-1 h-px bg-gray-200"></div>
-              </div>
-            )}
+            {projectDetail.quickRiskCapture &&
+              projectDetail.quickRiskCapture.totalRisks > 0 && (
+                <div className="flex items-center gap-4 my-6">
+                  <div className="flex-1 h-px bg-gray-200"></div>
+                  <span className="text-sm font-medium text-gray-500">
+                    Readiness-Based Risk Capture
+                  </span>
+                  <div className="flex-1 h-px bg-gray-200"></div>
+                </div>
+              )}
 
             <div className="space-y-4">
               {projectDetail.readinessCategories.map((category) => {

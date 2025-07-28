@@ -76,20 +76,23 @@ export default function CreateInvoice() {
 
   const [invoiceData, setInvoiceData] = useState<InvoiceData>({
     invoiceNumber: `INV-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`,
-    invoiceDate: new Date().toISOString().split('T')[0],
-    dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-    projectId: projectId || '',
-    projectName: '',
-    clientName: '',
-    clientEmail: '',
-    clientAddress: '',
+    invoiceDate: new Date().toISOString().split("T")[0],
+    dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0],
+    projectId: projectId || "",
+    projectName: "",
+    clientName: "",
+    clientEmail: "",
+    clientAddress: "",
     items: [],
     subtotal: 0,
     taxRate: 11, // Default PPN 11%
     taxAmount: 0,
     totalAmount: 0,
-    notes: '',
-    terms: 'Payment due within 30 days. Late payment may incur additional charges.',
+    notes: "",
+    terms:
+      "Payment due within 30 days. Late payment may incur additional charges.",
   });
 
   useEffect(() => {
@@ -97,30 +100,31 @@ export default function CreateInvoice() {
       const projectData = getProjectById(projectId);
       if (projectData) {
         setProject(projectData);
-        setInvoiceData(prev => ({
+        setInvoiceData((prev) => ({
           ...prev,
           projectName: projectData.name,
           clientName: projectData.client,
-          clientEmail: projectData.client_email || projectData.clientEmail || '',
+          clientEmail:
+            projectData.client_email || projectData.clientEmail || "",
           clientAddress: `${projectData.province}, Indonesia`,
         }));
 
         // Add default invoice items based on project
         const defaultItems: InvoiceItem[] = [
           {
-            id: '1',
+            id: "1",
             description: `Project Development - ${projectData.name}`,
             quantity: 1,
             unitPrice: projectData.budget * 0.6, // 60% of budget as default
             total: projectData.budget * 0.6,
           },
         ];
-        
-        setInvoiceData(prev => ({
+
+        setInvoiceData((prev) => ({
           ...prev,
           items: defaultItems,
         }));
-        
+
         setIsLoading(false);
       } else {
         toast.error("Project not found");
@@ -131,11 +135,14 @@ export default function CreateInvoice() {
 
   useEffect(() => {
     // Calculate totals when items or tax rate changes
-    const subtotal = invoiceData.items.reduce((sum, item) => sum + item.total, 0);
+    const subtotal = invoiceData.items.reduce(
+      (sum, item) => sum + item.total,
+      0,
+    );
     const taxAmount = (subtotal * invoiceData.taxRate) / 100;
     const totalAmount = subtotal + taxAmount;
 
-    setInvoiceData(prev => ({
+    setInvoiceData((prev) => ({
       ...prev,
       subtotal,
       taxAmount,
@@ -146,30 +153,34 @@ export default function CreateInvoice() {
   const addInvoiceItem = () => {
     const newItem: InvoiceItem = {
       id: Date.now().toString(),
-      description: '',
+      description: "",
       quantity: 1,
       unitPrice: 0,
       total: 0,
     };
 
-    setInvoiceData(prev => ({
+    setInvoiceData((prev) => ({
       ...prev,
       items: [...prev.items, newItem],
     }));
   };
 
-  const updateInvoiceItem = (id: string, field: keyof InvoiceItem, value: string | number) => {
-    setInvoiceData(prev => ({
+  const updateInvoiceItem = (
+    id: string,
+    field: keyof InvoiceItem,
+    value: string | number,
+  ) => {
+    setInvoiceData((prev) => ({
       ...prev,
-      items: prev.items.map(item => {
+      items: prev.items.map((item) => {
         if (item.id === id) {
           const updatedItem = { ...item, [field]: value };
-          
+
           // Recalculate total when quantity or unit price changes
-          if (field === 'quantity' || field === 'unitPrice') {
+          if (field === "quantity" || field === "unitPrice") {
             updatedItem.total = updatedItem.quantity * updatedItem.unitPrice;
           }
-          
+
           return updatedItem;
         }
         return item;
@@ -178,13 +189,13 @@ export default function CreateInvoice() {
   };
 
   const removeInvoiceItem = (id: string) => {
-    setInvoiceData(prev => ({
+    setInvoiceData((prev) => ({
       ...prev,
-      items: prev.items.filter(item => item.id !== id),
+      items: prev.items.filter((item) => item.id !== id),
     }));
   };
 
-  const handleSave = async (action: 'draft' | 'send') => {
+  const handleSave = async (action: "draft" | "send") => {
     if (invoiceData.items.length === 0) {
       toast.error("Please add at least one invoice item");
       return;
@@ -199,12 +210,14 @@ export default function CreateInvoice() {
 
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      if (action === 'draft') {
+      if (action === "draft") {
         toast.success("Invoice saved as draft successfully!");
       } else {
-        toast.success(`Invoice sent to ${invoiceData.clientEmail} successfully!`);
+        toast.success(
+          `Invoice sent to ${invoiceData.clientEmail} successfully!`,
+        );
       }
 
       navigate("/invoicing");
@@ -254,9 +267,7 @@ export default function CreateInvoice() {
               <Receipt className="h-8 w-8 text-blue-600" />
               Create Invoice
             </h1>
-            <p className="text-gray-600 mt-1">
-              Project: {project.name}
-            </p>
+            <p className="text-gray-600 mt-1">Project: {project.name}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -264,8 +275,8 @@ export default function CreateInvoice() {
             <Eye className="w-4 h-4" />
             Preview
           </Button>
-          <Button 
-            onClick={() => handleSave('draft')} 
+          <Button
+            onClick={() => handleSave("draft")}
             disabled={isSaving}
             variant="outline"
             className="gap-2"
@@ -273,8 +284,8 @@ export default function CreateInvoice() {
             <Save className="w-4 h-4" />
             Save Draft
           </Button>
-          <Button 
-            onClick={() => handleSave('send')} 
+          <Button
+            onClick={() => handleSave("send")}
             disabled={isSaving}
             className="bg-blue-600 hover:bg-blue-700 gap-2"
           >
@@ -302,10 +313,12 @@ export default function CreateInvoice() {
                   <Input
                     id="invoiceNumber"
                     value={invoiceData.invoiceNumber}
-                    onChange={(e) => setInvoiceData(prev => ({
-                      ...prev,
-                      invoiceNumber: e.target.value
-                    }))}
+                    onChange={(e) =>
+                      setInvoiceData((prev) => ({
+                        ...prev,
+                        invoiceNumber: e.target.value,
+                      }))
+                    }
                     className="font-medium"
                   />
                 </div>
@@ -315,10 +328,12 @@ export default function CreateInvoice() {
                     id="invoiceDate"
                     type="date"
                     value={invoiceData.invoiceDate}
-                    onChange={(e) => setInvoiceData(prev => ({
-                      ...prev,
-                      invoiceDate: e.target.value
-                    }))}
+                    onChange={(e) =>
+                      setInvoiceData((prev) => ({
+                        ...prev,
+                        invoiceDate: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div>
@@ -327,10 +342,12 @@ export default function CreateInvoice() {
                     id="dueDate"
                     type="date"
                     value={invoiceData.dueDate}
-                    onChange={(e) => setInvoiceData(prev => ({
-                      ...prev,
-                      dueDate: e.target.value
-                    }))}
+                    onChange={(e) =>
+                      setInvoiceData((prev) => ({
+                        ...prev,
+                        dueDate: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -352,10 +369,12 @@ export default function CreateInvoice() {
                   <Input
                     id="clientName"
                     value={invoiceData.clientName}
-                    onChange={(e) => setInvoiceData(prev => ({
-                      ...prev,
-                      clientName: e.target.value
-                    }))}
+                    onChange={(e) =>
+                      setInvoiceData((prev) => ({
+                        ...prev,
+                        clientName: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div>
@@ -364,10 +383,12 @@ export default function CreateInvoice() {
                     id="clientEmail"
                     type="email"
                     value={invoiceData.clientEmail}
-                    onChange={(e) => setInvoiceData(prev => ({
-                      ...prev,
-                      clientEmail: e.target.value
-                    }))}
+                    onChange={(e) =>
+                      setInvoiceData((prev) => ({
+                        ...prev,
+                        clientEmail: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -376,10 +397,12 @@ export default function CreateInvoice() {
                 <Textarea
                   id="clientAddress"
                   value={invoiceData.clientAddress}
-                  onChange={(e) => setInvoiceData(prev => ({
-                    ...prev,
-                    clientAddress: e.target.value
-                  }))}
+                  onChange={(e) =>
+                    setInvoiceData((prev) => ({
+                      ...prev,
+                      clientAddress: e.target.value,
+                    }))
+                  }
                   rows={3}
                 />
               </div>
@@ -418,7 +441,13 @@ export default function CreateInvoice() {
                         <TableCell>
                           <Input
                             value={item.description}
-                            onChange={(e) => updateInvoiceItem(item.id, 'description', e.target.value)}
+                            onChange={(e) =>
+                              updateInvoiceItem(
+                                item.id,
+                                "description",
+                                e.target.value,
+                              )
+                            }
                             placeholder="Enter description..."
                           />
                         </TableCell>
@@ -427,7 +456,13 @@ export default function CreateInvoice() {
                             type="number"
                             min="1"
                             value={item.quantity}
-                            onChange={(e) => updateInvoiceItem(item.id, 'quantity', parseInt(e.target.value) || 1)}
+                            onChange={(e) =>
+                              updateInvoiceItem(
+                                item.id,
+                                "quantity",
+                                parseInt(e.target.value) || 1,
+                              )
+                            }
                           />
                         </TableCell>
                         <TableCell>
@@ -435,7 +470,13 @@ export default function CreateInvoice() {
                             type="number"
                             min="0"
                             value={item.unitPrice}
-                            onChange={(e) => updateInvoiceItem(item.id, 'unitPrice', parseFloat(e.target.value) || 0)}
+                            onChange={(e) =>
+                              updateInvoiceItem(
+                                item.id,
+                                "unitPrice",
+                                parseFloat(e.target.value) || 0,
+                              )
+                            }
                           />
                         </TableCell>
                         <TableCell>
@@ -479,10 +520,12 @@ export default function CreateInvoice() {
                 <Textarea
                   id="notes"
                   value={invoiceData.notes}
-                  onChange={(e) => setInvoiceData(prev => ({
-                    ...prev,
-                    notes: e.target.value
-                  }))}
+                  onChange={(e) =>
+                    setInvoiceData((prev) => ({
+                      ...prev,
+                      notes: e.target.value,
+                    }))
+                  }
                   placeholder="Add any additional notes..."
                   rows={3}
                 />
@@ -492,10 +535,12 @@ export default function CreateInvoice() {
                 <Textarea
                   id="terms"
                   value={invoiceData.terms}
-                  onChange={(e) => setInvoiceData(prev => ({
-                    ...prev,
-                    terms: e.target.value
-                  }))}
+                  onChange={(e) =>
+                    setInvoiceData((prev) => ({
+                      ...prev,
+                      terms: e.target.value,
+                    }))
+                  }
                   rows={3}
                 />
               </div>
@@ -516,11 +561,15 @@ export default function CreateInvoice() {
             <CardContent className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-600">Budget:</span>
-                <span className="font-medium">{formatCurrency(project.budget)}</span>
+                <span className="font-medium">
+                  {formatCurrency(project.budget)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Spent:</span>
-                <span className="font-medium">{formatCurrency(project.spent)}</span>
+                <span className="font-medium">
+                  {formatCurrency(project.spent)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Progress:</span>
@@ -547,7 +596,9 @@ export default function CreateInvoice() {
             <CardContent className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal:</span>
-                <span className="font-medium">{formatCurrency(invoiceData.subtotal)}</span>
+                <span className="font-medium">
+                  {formatCurrency(invoiceData.subtotal)}
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">Tax Rate:</span>
@@ -557,10 +608,12 @@ export default function CreateInvoice() {
                     min="0"
                     max="100"
                     value={invoiceData.taxRate}
-                    onChange={(e) => setInvoiceData(prev => ({
-                      ...prev,
-                      taxRate: parseFloat(e.target.value) || 0
-                    }))}
+                    onChange={(e) =>
+                      setInvoiceData((prev) => ({
+                        ...prev,
+                        taxRate: parseFloat(e.target.value) || 0,
+                      }))
+                    }
                     className="w-20 text-right"
                   />
                   <span className="text-sm">%</span>
@@ -568,7 +621,9 @@ export default function CreateInvoice() {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Tax Amount:</span>
-                <span className="font-medium">{formatCurrency(invoiceData.taxAmount)}</span>
+                <span className="font-medium">
+                  {formatCurrency(invoiceData.taxAmount)}
+                </span>
               </div>
               <Separator />
               <div className="flex justify-between">

@@ -116,9 +116,13 @@ const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
           (item) => item.risk_capture || [],
         );
         // Ensure quick risk capture risks have proper structure with default risk levels
-        const quickRisks = (quickRiskData?.risks || []).map(risk => ({
+        const quickRisks = (quickRiskData?.risks || []).map((risk) => ({
           ...risk,
-          risikoSaatIni: risk.risikoSaatIni || { kejadian: 3, dampak: 3, level: 9 }, // Default medium risk
+          risikoSaatIni: risk.risikoSaatIni || {
+            kejadian: 3,
+            dampak: 3,
+            level: 9,
+          }, // Default medium risk
         }));
         const allProjectRisks = [...readinessRisks, ...quickRisks];
 
@@ -143,7 +147,9 @@ const loadProjectRiskSummary = (): ProjectRiskSummary[] => {
         // Find highest risk level (handle both data structures)
         const highestRiskLevel =
           allProjectRisks.length > 0
-            ? Math.max(...allProjectRisks.map((r) => r.risikoSaatIni?.level || 3))
+            ? Math.max(
+                ...allProjectRisks.map((r) => r.risikoSaatIni?.level || 3),
+              )
             : 0;
 
         return {
@@ -229,7 +235,7 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
     );
 
     // Ensure quick risk capture risks have proper structure with default risk levels
-    const quickRisks = (quickRiskData?.risks || []).map(risk => ({
+    const quickRisks = (quickRiskData?.risks || []).map((risk) => ({
       ...risk,
       risikoSaatIni: risk.risikoSaatIni || { kejadian: 3, dampak: 3, level: 9 }, // Default medium risk
       risikoAwal: risk.risikoAwal || { kejadian: 3, dampak: 3, level: 9 },
@@ -242,11 +248,13 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
       projectId: project.id,
       projectName: project.name,
       readinessCategories,
-      quickRiskCapture: quickRiskData ? {
-        risks: quickRiskData.risks,
-        totalRisks: quickRiskData.risks.length,
-        completedAt: quickRiskData.completedAt,
-      } : null,
+      quickRiskCapture: quickRiskData
+        ? {
+            risks: quickRiskData.risks,
+            totalRisks: quickRiskData.risks.length,
+            completedAt: quickRiskData.completedAt,
+          }
+        : null,
       totalRisks: combinedRisks.length,
       riskDistribution,
     };
