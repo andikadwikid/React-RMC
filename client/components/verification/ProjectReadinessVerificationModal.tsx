@@ -120,6 +120,7 @@ export function ProjectReadinessVerificationModal({
     submission.overallComment || "",
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [quickRiskCapture, setQuickRiskCapture] = useState<QuickRiskItem[]>([]);
   const [detailDialog, setDetailDialog] = useState<{
     isOpen: boolean;
     type: "user-comments" | "verifier-feedback";
