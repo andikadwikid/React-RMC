@@ -31,8 +31,6 @@ import { getProjectRiskCapture } from "@/utils/dataLoader";
 
 import type { RiskItem, RiskCaptureFormProps } from "@/types";
 
-
-
 export function RiskCaptureForm({
   isOpen,
   onClose,
@@ -139,8 +137,8 @@ export function RiskCaptureForm({
                     Belum ada quick risk capture
                   </h3>
                   <p className="mt-1 text-xs sm:text-sm text-gray-500 px-4">
-                    Mulai dengan menambahkan quick risk capture pertama untuk project
-                    ini.
+                    Mulai dengan menambahkan quick risk capture pertama untuk
+                    project ini.
                   </p>
                   <div className="mt-4 sm:mt-6">
                     <Button onClick={addRiskItem} className="w-full sm:w-auto">
@@ -148,7 +146,9 @@ export function RiskCaptureForm({
                       <span className="hidden sm:inline">
                         Tambah Quick Risk Capture Pertama
                       </span>
-                      <span className="sm:hidden">Tambah Quick Risk Capture</span>
+                      <span className="sm:hidden">
+                        Tambah Quick Risk Capture
+                      </span>
                     </Button>
                   </div>
                 </div>
@@ -182,11 +182,7 @@ export function RiskCaptureForm({
                             id={`sasaran-${risk.id}`}
                             value={risk.sasaran}
                             onChange={(e) =>
-                              updateRiskItem(
-                                risk.id,
-                                "sasaran",
-                                e.target.value,
-                              )
+                              updateRiskItem(risk.id, "sasaran", e.target.value)
                             }
                             placeholder="Masukkan sasaran"
                           />
@@ -286,8 +282,6 @@ export function RiskCaptureForm({
                             className="min-h-20"
                           />
                         </div>
-
-
                       </CardContent>
                     </Card>
                   ))}
@@ -302,7 +296,9 @@ export function RiskCaptureForm({
                       <span className="hidden sm:inline">
                         Tambah Quick Risk Capture Lainnya
                       </span>
-                      <span className="sm:hidden">Tambah Quick Risk Lainnya</span>
+                      <span className="sm:hidden">
+                        Tambah Quick Risk Lainnya
+                      </span>
                     </Button>
                   </div>
                 </div>

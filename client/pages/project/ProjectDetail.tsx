@@ -1301,7 +1301,8 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 Quick Risk Capture Management
               </CardTitle>
               <p className="text-sm text-gray-600">
-                Kelola dan analisis risiko project dengan tool quick risk capture yang terintegrasi
+                Kelola dan analisis risiko project dengan tool quick risk
+                capture yang terintegrasi
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -1311,8 +1312,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                   Quick Risk Capture Assessment
                 </h3>
                 <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                  Gunakan form quick risk capture untuk mengidentifikasi, menganalisis, dan
-                  mengelola risiko yang terkait dengan project ini.
+                  Gunakan form quick risk capture untuk mengidentifikasi,
+                  menganalisis, dan mengelola risiko yang terkait dengan project
+                  ini.
                 </p>
                 <Button
                   onClick={openRiskCaptureForm}
@@ -1334,7 +1336,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <AlertTriangle className="w-4 h-4 text-orange-600" />
                     </div>
                     <div>
-                      <h5 className="font-medium text-gray-900">Risk Identification</h5>
+                      <h5 className="font-medium text-gray-900">
+                        Risk Identification
+                      </h5>
                       <p className="text-sm text-gray-600">
                         Identifikasi dan dokumentasi risiko potensial project
                       </p>
@@ -1346,7 +1350,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <Target className="w-4 h-4 text-blue-600" />
                     </div>
                     <div>
-                      <h5 className="font-medium text-gray-900">Risk Assessment</h5>
+                      <h5 className="font-medium text-gray-900">
+                        Risk Assessment
+                      </h5>
                       <p className="text-sm text-gray-600">
                         Evaluasi level risiko berdasarkan kejadian dan dampak
                       </p>
@@ -1358,7 +1364,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <CheckCircle className="w-4 h-4 text-green-600" />
                     </div>
                     <div>
-                      <h5 className="font-medium text-gray-900">Risk Mitigation</h5>
+                      <h5 className="font-medium text-gray-900">
+                        Risk Mitigation
+                      </h5>
                       <p className="text-sm text-gray-600">
                         Strategi pengendalian dan mitigasi risiko
                       </p>
@@ -1370,7 +1378,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                       <Activity className="w-4 h-4 text-purple-600" />
                     </div>
                     <div>
-                      <h5 className="font-medium text-gray-900">Risk Monitoring</h5>
+                      <h5 className="font-medium text-gray-900">
+                        Risk Monitoring
+                      </h5>
                       <p className="text-sm text-gray-600">
                         Pemantauan dan evaluasi efektivitas kontrol
                       </p>
@@ -1390,7 +1400,8 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                 Risiko Saat Proyek Berjalan
               </CardTitle>
               <p className="text-sm text-gray-600">
-                Kelola dan dokumentasi risiko yang muncul selama project berlangsung
+                Kelola dan dokumentasi risiko yang muncul selama project
+                berlangsung
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -1426,14 +1437,24 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        const formData = new FormData(e.target as HTMLFormElement);
+                        const formData = new FormData(
+                          e.target as HTMLFormElement,
+                        );
                         const newRisk: RunningRisk = {
                           id: Date.now().toString(),
-                          kategoriRisiko: formData.get('kategoriRisiko') as string,
-                          uraianPeristiwaRisiko: formData.get('uraianPeristiwaRisiko') as string,
-                          kerugianPotensiKehilangan: formData.get('kerugianPotensiKehilangan') as string,
-                          dampakRisiko: formData.get('dampakRisiko') as string,
-                          pengendalianPerlakuanRisiko: formData.get('pengendalianPerlakuanRisiko') as string,
+                          kategoriRisiko: formData.get(
+                            "kategoriRisiko",
+                          ) as string,
+                          uraianPeristiwaRisiko: formData.get(
+                            "uraianPeristiwaRisiko",
+                          ) as string,
+                          kerugianPotensiKehilangan: formData.get(
+                            "kerugianPotensiKehilangan",
+                          ) as string,
+                          dampakRisiko: formData.get("dampakRisiko") as string,
+                          pengendalianPerlakuanRisiko: formData.get(
+                            "pengendalianPerlakuanRisiko",
+                          ) as string,
                           createdAt: new Date().toISOString(),
                         };
                         setRunningRisks([...runningRisks, newRisk]);
@@ -1445,7 +1466,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                     >
                       {/* Kategori Risiko - Dropdown */}
                       <div>
-                        <Label htmlFor="kategoriRisiko">Kategori Risiko *</Label>
+                        <Label htmlFor="kategoriRisiko">
+                          Kategori Risiko *
+                        </Label>
                         <Select name="kategoriRisiko" required>
                           <SelectTrigger>
                             <SelectValue placeholder="Pilih kategori risiko" />
@@ -1520,7 +1543,10 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                           <X className="w-4 h-4 mr-2" />
                           Batal
                         </Button>
-                        <Button type="submit" className="bg-red-600 hover:bg-red-700">
+                        <Button
+                          type="submit"
+                          className="bg-red-600 hover:bg-red-700"
+                        >
                           <Save className="w-4 h-4 mr-2" />
                           Simpan Risiko
                         </Button>
@@ -1540,8 +1566,8 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                         Belum ada risiko yang didokumentasikan
                       </h3>
                       <p className="text-gray-500 mb-6">
-                        Mulai dengan menambahkan risiko pertama yang teridentifikasi
-                        selama proyek berjalan.
+                        Mulai dengan menambahkan risiko pertama yang
+                        teridentifikasi selama proyek berjalan.
                       </p>
                       <Button
                         onClick={() => setIsAddingRisk(true)}
@@ -1562,11 +1588,16 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                               Risiko #{index + 1}
                             </CardTitle>
                             <div className="flex items-center gap-2 mt-1">
-                              <Badge variant="outline" className="text-red-600 border-red-300">
+                              <Badge
+                                variant="outline"
+                                className="text-red-600 border-red-300"
+                              >
                                 {risk.kategoriRisiko}
                               </Badge>
                               <span className="text-xs text-gray-500">
-                                {new Date(risk.createdAt).toLocaleDateString("id-ID")}
+                                {new Date(risk.createdAt).toLocaleDateString(
+                                  "id-ID",
+                                )}
                               </span>
                             </div>
                           </div>
@@ -1574,7 +1605,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
                             variant="ghost"
                             size="sm"
                             onClick={() => {
-                              setRunningRisks(runningRisks.filter(r => r.id !== risk.id));
+                              setRunningRisks(
+                                runningRisks.filter((r) => r.id !== risk.id),
+                              );
                               toast.success("Risiko berhasil dihapus!");
                             }}
                             className="text-red-600 hover:text-red-700"
