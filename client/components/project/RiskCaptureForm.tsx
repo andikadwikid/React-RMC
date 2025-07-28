@@ -146,9 +146,9 @@ export function RiskCaptureForm({
                     <Button onClick={addRiskItem} className="w-full sm:w-auto">
                       <Plus className="w-4 h-4 mr-2" />
                       <span className="hidden sm:inline">
-                        Tambah Risk Capture Pertama
+                        Tambah Quick Risk Capture Pertama
                       </span>
-                      <span className="sm:hidden">Tambah Risk Capture</span>
+                      <span className="sm:hidden">Tambah Quick Risk Capture</span>
                     </Button>
                   </div>
                 </div>
