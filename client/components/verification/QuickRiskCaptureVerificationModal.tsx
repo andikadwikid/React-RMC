@@ -5,6 +5,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -46,6 +53,12 @@ interface QuickRiskItem extends RiskItem {
   };
 }
 
+interface TaksonomiItem {
+  kode: string;
+  title: string;
+  taksonomi: string;
+}
+
 interface QuickRiskCaptureVerificationModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -62,7 +75,22 @@ export function QuickRiskCaptureVerificationModal({
   onSave,
 }: QuickRiskCaptureVerificationModalProps) {
   const [quickRiskCapture, setQuickRiskCapture] = useState<QuickRiskItem[]>([]);
+  const [taksonomiData, setTaksonomiData] = useState<TaksonomiItem[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Load taksonomi data
+  useEffect(() => {
+    const loadTaksonomiData = async () => {
+      try {
+        const response = await fetch('/client/data/master/taksonomi.json');
+        const data = await response.json();
+        setTaksonomiData(data.taksonomi);
+      } catch (error) {
+        console.error('Failed to load taksonomi data:', error);
+      }
+    };
+    loadTaksonomiData();
+  }, []);
 
   useEffect(() => {
     if (isOpen && projectId) {
@@ -306,40 +334,139 @@ export function QuickRiskCaptureVerificationModal({
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {/* User Submitted Data */}
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h5 className="font-medium text-sm text-gray-700 mb-3">
-                        Data yang Disubmit User:
-                      </h5>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm">
+                    {/* Editable Risk Details */}
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <div>
-                          <Label className="text-xs font-medium text-gray-600">Kode:</Label>
-                          <p className="text-gray-900 mt-1">{risk.kode}</p>
+                          <Label htmlFor={`kode-${risk.id}`}>Kode *</Label>
+                          <Select
+                            value={risk.kode}
+                            onValueChange={(value) => {
+                              updateQuickRiskCapture(risk.id, "kode", value);
+                              // Auto-fill taksonomi based on selected kode
+                              const selectedTaksonomi = taksonomiData.find(
+                                (item) => item.kode === value
+                              );
+                              if (selectedTaksonomi) {
+                                updateQuickRiskCapture(
+                                  risk.id,
+                                  "taksonomi",
+                                  selectedTaksonomi.taksonomi
+                                );
+                              }
+                            }}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Pilih kode risiko" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {taksonomiData.map((item) => (
+                                <SelectItem key={item.kode} value={item.kode}>
+                                  {item.kode} - {item.title}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </div>
                         <div>
-                          <Label className="text-xs font-medium text-gray-600">Taksonomi:</Label>
-                          <p className="text-gray-900 mt-1">{risk.taksonomi}</p>
+                          <Label htmlFor={`taksonomi-${risk.id}`}>Taksonomi *</Label>
+                          <Input
+                            id={`taksonomi-${risk.id}`}
+                            value={risk.taksonomi}
+                            readOnly
+                            placeholder="Akan terisi otomatis berdasarkan kode"
+                            className="bg-gray-50"
+                          />
                         </div>
-                        <div className="lg:col-span-2">
-                          <Label className="text-xs font-medium text-gray-600">Peristiwa Risiko:</Label>
-                          <p className="text-gray-900 mt-1">{risk.peristiwaRisiko}</p>
+                      </div>
+
+                      <div>
+                        <Label htmlFor={`sumberRisiko-${risk.id}`}>Sumber Risiko *</Label>
+                        <Input
+                          id={`sumberRisiko-${risk.id}`}
+                          value={risk.sumberRisiko}
+                          onChange={(e) =>
+                            updateQuickRiskCapture(
+                              risk.id,
+                              "sumberRisiko",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="Masukkan sumber risiko"
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor={`peristiwaRisiko-${risk.id}`}>Peristiwa Risiko *</Label>
+                        <Textarea
+                          id={`peristiwaRisiko-${risk.id}`}
+                          value={risk.peristiwaRisiko}
+                          onChange={(e) =>
+                            updateQuickRiskCapture(
+                              risk.id,
+                              "peristiwaRisiko",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="Jelaskan peristiwa risiko yang mungkin terjadi"
+                          className="min-h-[80px] resize-none"
+                          rows={3}
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor={`dampakKualitatif-${risk.id}`}>Dampak Kualitatif *</Label>
+                          <Textarea
+                            id={`dampakKualitatif-${risk.id}`}
+                            value={risk.dampakKualitatif}
+                            onChange={(e) =>
+                              updateQuickRiskCapture(
+                                risk.id,
+                                "dampakKualitatif",
+                                e.target.value,
+                              )
+                            }
+                            placeholder="Jelaskan dampak kualitatif"
+                            className="min-h-[80px] resize-none"
+                            rows={3}
+                          />
                         </div>
                         <div>
-                          <Label className="text-xs font-medium text-gray-600">Sumber Risiko:</Label>
-                          <p className="text-gray-900 mt-1">{risk.sumberRisiko}</p>
+                          <Label htmlFor={`dampakKuantitatif-${risk.id}`}>Dampak Kuantitatif *</Label>
+                          <Textarea
+                            id={`dampakKuantitatif-${risk.id}`}
+                            value={risk.dampakKuantitatif}
+                            onChange={(e) =>
+                              updateQuickRiskCapture(
+                                risk.id,
+                                "dampakKuantitatif",
+                                e.target.value,
+                              )
+                            }
+                            placeholder="Jelaskan dampak kuantitatif (angka, nilai, dll)"
+                            className="min-h-[80px] resize-none"
+                            rows={3}
+                          />
                         </div>
-                        <div>
-                          <Label className="text-xs font-medium text-gray-600">Kontrol Eksisting:</Label>
-                          <p className="text-gray-900 mt-1">{risk.kontrolEksisting}</p>
-                        </div>
-                        <div>
-                          <Label className="text-xs font-medium text-gray-600">Dampak Kualitatif:</Label>
-                          <p className="text-gray-900 mt-1">{risk.dampakKualitatif}</p>
-                        </div>
-                        <div>
-                          <Label className="text-xs font-medium text-gray-600">Dampak Kuantitatif:</Label>
-                          <p className="text-gray-900 mt-1">{risk.dampakKuantitatif}</p>
-                        </div>
+                      </div>
+
+                      <div>
+                        <Label htmlFor={`kontrolEksisting-${risk.id}`}>Kontrol Eksisting *</Label>
+                        <Textarea
+                          id={`kontrolEksisting-${risk.id}`}
+                          value={risk.kontrolEksisting}
+                          onChange={(e) =>
+                            updateQuickRiskCapture(
+                              risk.id,
+                              "kontrolEksisting",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="Jelaskan kontrol yang sudah ada"
+                          className="min-h-[80px] resize-none"
+                          rows={3}
+                        />
                       </div>
                     </div>
 
