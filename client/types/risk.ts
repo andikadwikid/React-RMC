@@ -15,7 +15,6 @@ export interface RiskCategory extends BaseEntity {
 }
 
 export interface RiskItem extends BaseEntity {
-  sasaran: string;
   kode: string;
   taksonomi: string;
   peristiwaRisiko: string;
