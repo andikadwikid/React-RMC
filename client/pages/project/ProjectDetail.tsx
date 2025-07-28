@@ -1281,7 +1281,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
 
               <div className="border-t pt-6">
                 <h4 className="text-base font-medium text-gray-900 mb-3">
-                  Fitur Risk Capture
+                  Fitur Quick Risk Capture
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
