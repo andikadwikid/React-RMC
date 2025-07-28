@@ -3,129 +3,165 @@
     {
       "id": "550e8400-e29b-41d4-a716-446655441001",
       "projectId": "550e8400-e29b-41d4-a716-446655440001",
-      "projectName": "Sistem ERP Perusahaan",
-      "submittedBy": "Budi Santoso",
-      "submittedAt": "2024-01-20T10:30:00Z",
+      "projectName": "Kontra Bantuan Penyediaan Jasa Tenaga Ahli GKAO",
+      "submittedBy": "AWALUDIN",
+      "submittedAt": "2024-02-10T10:30:00Z",
       "status": "under_review",
       "verifierName": "John Risk Officer",
-      "assignedAt": "2024-01-20T11:00:00Z",
-      "startedAt": "2024-01-20T14:30:00Z",
+      "assignedAt": "2024-02-10T11:00:00Z",
+      "startedAt": "2024-02-10T14:30:00Z",
       "verifiedAt": null,
-      "completionPercentage": 57,
+      "completionPercentage": 65,
       "totalItems": 14,
-      "verifiedItems": 8,
-      "priority": "medium",
-      "dueDate": "2024-01-22T17:00:00Z",
+      "verifiedItems": 9,
+      "priority": "high",
+      "dueDate": "2024-02-12T17:00:00Z",
       "estimatedHours": 4.5,
       "notes": "Administrative documents complete, technical specs under review",
-      "createdAt": "2024-01-20T10:30:00Z",
+      "createdAt": "2024-02-10T10:30:00Z",
       "items": [
         {
           "id": "item-1",
           "category": "administrative",
           "item": "Kontrak atau PO dari user",
           "userStatus": "lengkap",
-          "userComment": "Kontrak sudah ditandatangani dan disimpan dengan nomor kontrak ERP-2024-001"
+          "userComment": "Kontrak bantuan tenaga ahli GKAO sudah ditandatangani dengan nomor GKAO-2024-001"
         },
         {
           "id": "item-2",
           "category": "administrative",
           "item": "BA serah terima awal (jika ada)",
           "userStatus": "parsial",
-          "userComment": "Sebagian dokumen sudah diterima, masih menunggu dokumen teknis detil"
+          "userComment": "Sebagian dokumen sudah diterima, masih menunggu technical handover dari klien"
         },
         {
           "id": "item-3",
           "category": "user-technical-data",
           "item": "Drawing atau layout teknis terkini",
           "userStatus": "lengkap",
-          "userComment": "Semua drawing teknis sudah tersedia dalam format CAD dan PDF"
+          "userComment": "Semua dokumentasi teknis fasilitas sudah tersedia dalam format digital"
         },
         {
           "id": "item-4",
           "category": "personnel",
           "item": "Daftar personel dan penanggung jawab teknis",
           "userStatus": "lengkap",
-          "userComment": "Tim sudah terbentuk lengkap dengan project manager dan tech lead"
+          "userComment": "Tim tenaga ahli GKAO sudah terbentuk lengkap dengan supervisor dan technical lead"
         }
       ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655441002",
       "projectId": "550e8400-e29b-41d4-a716-446655440002",
-      "projectName": "Mobile Banking App",
-      "submittedBy": "Sari Wijaya",
-      "submittedAt": "2024-01-25T14:20:00Z",
+      "projectName": "Pelaksanaan Assessment NOT Berdasarkan Hasil Study F-DZ/MPT/PAUS TANP Assessment Air Tenaga Ahli Regulatory Risk dan pengembangan",
+      "submittedBy": "AWALUDIN",
+      "submittedAt": "2025-01-15T14:20:00Z",
       "status": "verified",
       "verifierName": "Senior Verifier",
-      "assignedAt": "2024-01-25T15:00:00Z",
-      "startedAt": "2024-01-25T16:00:00Z",
-      "verifiedAt": "2024-01-26T09:15:00Z",
+      "assignedAt": "2025-01-15T15:00:00Z",
+      "startedAt": "2025-01-15T16:00:00Z",
+      "verifiedAt": "2025-01-16T09:15:00Z",
       "completionPercentage": 100,
       "totalItems": 16,
       "verifiedItems": 16,
       "priority": "high",
-      "dueDate": "2024-01-26T12:00:00Z",
+      "dueDate": "2025-01-16T12:00:00Z",
       "estimatedHours": 3.0,
-      "notes": "Excellent documentation, all security requirements met",
-      "createdAt": "2024-01-25T14:20:00Z",
+      "notes": "Excellent documentation, all regulatory requirements met",
+      "createdAt": "2025-01-15T14:20:00Z",
       "items": [
         {
           "id": "item-5",
           "category": "administrative",
           "item": "Kontrak atau PO dari user",
           "userStatus": "lengkap",
-          "userComment": "Kontrak master agreement signed dengan Bank Central Indonesia"
+          "userComment": "Kontrak assessment sudah signed dengan comprehensive scope"
         },
         {
           "id": "item-6",
           "category": "user-technical-data",
           "item": "Spesifikasi teknis atau SOW rinci",
           "userStatus": "lengkap",
-          "userComment": "SOW detail telah disiapkan dengan security requirements lengkap"
+          "userComment": "SOW assessment methodology telah disiapkan dengan regulatory compliance requirements lengkap"
         },
         {
           "id": "item-7",
           "category": "legal-financial",
           "item": "Verifikasi skema pembayaran dan milestone",
           "userStatus": "lengkap",
-          "userComment": "Payment scheme approved dengan 5 milestone pembayaran"
+          "userComment": "Payment scheme approved dengan 3 milestone assessment completion"
         }
       ]
     },
     {
-      "id": "550e8400-e29b-41d4-a716-446655441005",
-      "projectId": "550e8400-e29b-41d4-a716-446655440005",
-      "projectName": "HR Management System",
-      "submittedBy": "Rudi Hartono",
-      "submittedAt": "2024-01-21T16:45:00Z",
-      "status": "submitted",
-      "verifierName": null,
-      "assignedAt": "2024-01-21T17:30:00Z",
-      "startedAt": null,
+      "id": "550e8400-e29b-41d4-a716-446655441003",
+      "projectId": "550e8400-e29b-41d4-a716-446655440003",
+      "projectName": "Kontrak Bantuan Penyediaan Tenaga Ahli Regulasi dan Non-Regulasi dengan Payroll System untuk POLAPLAN",
+      "submittedBy": "Lukman",
+      "submittedAt": "2025-01-22T16:45:00Z",
+      "status": "under_review",
+      "verifierName": "Senior Verifier",
+      "assignedAt": "2025-01-22T17:30:00Z",
+      "startedAt": "2025-01-23T08:00:00Z",
       "verifiedAt": null,
-      "completionPercentage": 10,
+      "completionPercentage": 75,
       "totalItems": 8,
-      "verifiedItems": 0,
-      "priority": "low",
-      "dueDate": "2024-01-24T17:00:00Z",
+      "verifiedItems": 6,
+      "priority": "medium",
+      "dueDate": "2025-01-25T17:00:00Z",
       "estimatedHours": 2.5,
-      "notes": "Waiting for verifier assignment",
-      "createdAt": "2024-01-21T16:45:00Z",
+      "notes": "Payroll system integration documentation under review",
+      "createdAt": "2025-01-22T16:45:00Z",
       "items": [
         {
           "id": "item-8",
           "category": "administrative",
           "item": "Jadwal kerja disetujui",
-          "userStatus": "parsial",
-          "userComment": "Jadwal high-level sudah approved, detail weekly plan masih disesuaikan"
+          "userStatus": "lengkap",
+          "userComment": "Jadwal deployment tenaga ahli dan payroll system sudah approved"
         },
         {
           "id": "item-9",
           "category": "personnel",
           "item": "Approval SDM internal/outsourcing",
-          "userStatus": "tidak_tersedia",
-          "userComment": "Masih menunggu approval budget untuk outsourcing developer"
+          "userStatus": "parsial",
+          "userComment": "Approval untuk tenaga ahli regulasi lengkap, non-regulasi masih dalam proses"
+        }
+      ]
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655441004",
+      "projectId": "550e8400-e29b-41d4-a716-446655440004",
+      "projectName": "KONTRAK BANTUAN PENYEDIAAN JASA TENAGA AHLI OPERASI DAN MAINTENANCE FASILITAS SURFACE",
+      "submittedBy": "Lukman",
+      "submittedAt": "2024-09-05T16:45:00Z",
+      "status": "verified",
+      "verifierName": "Senior Risk Officer",
+      "assignedAt": "2024-09-06T08:00:00Z",
+      "startedAt": "2024-09-06T09:00:00Z",
+      "verifiedAt": "2024-09-07T16:00:00Z",
+      "completionPercentage": 100,
+      "totalItems": 12,
+      "verifiedItems": 12,
+      "priority": "high",
+      "dueDate": "2024-09-08T17:00:00Z",
+      "estimatedHours": 3.5,
+      "notes": "All safety and operational requirements verified",
+      "createdAt": "2024-09-05T16:45:00Z",
+      "items": [
+        {
+          "id": "item-10",
+          "category": "administrative",
+          "item": "Jadwal kerja disetujui",
+          "userStatus": "lengkap",
+          "userComment": "Jadwal operasi dan maintenance 24/7 sudah approved dengan shift rotation"
+        },
+        {
+          "id": "item-11",
+          "category": "personnel",
+          "item": "Approval SDM internal/outsourcing",
+          "userStatus": "lengkap",
+          "userComment": "Tim operasi dan maintenance tersertifikasi lengkap dengan safety training"
         }
       ]
     }
@@ -134,44 +170,44 @@
     {
       "id": "550e8400-e29b-41d4-a716-446655443001",
       "projectId": "550e8400-e29b-41d4-a716-446655440001",
-      "projectName": "Sistem ERP Perusahaan",
-      "submittedBy": "Budi Santoso",
-      "submittedAt": "2024-01-22T11:15:00Z",
+      "projectName": "Kontra Bantuan Penyediaan Jasa Tenaga Ahli GKAO",
+      "submittedBy": "AWALUDIN",
+      "submittedAt": "2024-02-15T11:15:00Z",
       "status": "under_review",
       "verifierName": "Chief Risk Officer",
-      "assignedAt": "2024-01-22T12:00:00Z",
-      "startedAt": "2024-01-22T14:00:00Z",
+      "assignedAt": "2024-02-15T12:00:00Z",
+      "startedAt": "2024-02-15T14:00:00Z",
       "verifiedAt": null,
       "totalRisks": 8,
       "verifiedRisks": 4,
       "verificationPercentage": 50.0,
       "priority": "high",
-      "dueDate": "2024-01-25T17:00:00Z",
+      "dueDate": "2024-02-18T17:00:00Z",
       "estimatedHours": 8.0,
       "riskLevelDistribution": {
-        "sangatRendah": 2,
-        "rendah": 3,
-        "sedang": 2,
-        "tinggi": 1,
+        "sangatRendah": 1,
+        "rendah": 2,
+        "sedang": 3,
+        "tinggi": 2,
         "sangatTinggi": 0
       },
-      "notes": "Integration risks need additional controls",
-      "createdAt": "2024-01-22T11:15:00Z",
+      "notes": "Security and operational risks require enhanced controls",
+      "createdAt": "2024-02-15T11:15:00Z",
       "risks": [
         {
           "id": "risk-001",
-          "sasaran": "Keamanan Data",
-          "kode": "IT-SEC-001",
-          "taksonomi": "Teknologi Informasi",
-          "peristiwaRisiko": "Kebocoran data pelanggan saat integrasi sistem",
-          "sumberRisiko": "Proses integrasi yang tidak aman",
-          "dampakKualitatif": "Kehilangan kepercayaan pelanggan dan reputasi perusahaan",
-          "dampakKuantitatif": "Kerugian finansial hingga 500 juta rupiah",
-          "kontrolEksisting": "Enkripsi data, access control, monitoring log",
+          "sasaran": "Keamanan Data Operasional",
+          "kode": "RTI-001",
+          "taksonomi": "Teknologi & Keamanan Siber - Keamanan Data",
+          "peristiwaRisiko": "Kebocoran data operasional dan informasi sensitif proyek GKAO",
+          "sumberRisiko": "Sistem keamanan siber yang belum optimal",
+          "dampakKualitatif": "Kehilangan kepercayaan klien dan reputasi perusahaan",
+          "dampakKuantitatif": "Kerugian finansial hingga 5 miliar rupiah",
+          "kontrolEksisting": "Multi-factor authentication, VPN access, security audit",
           "risikoAwal": {
             "kejadian": 3,
-            "dampak": 4,
-            "level": 12
+            "dampak": 5,
+            "level": 15
           },
           "resikoAkhir": {
             "kejadian": 2,
@@ -182,18 +218,18 @@
           "verifierName": "",
           "verifiedAt": "",
           "isVerified": false,
-          "createdAt": "2024-01-22T11:15:00Z"
+          "createdAt": "2024-02-15T11:15:00Z"
         },
         {
           "id": "risk-002",
-          "sasaran": "Operasional Sistem",
-          "kode": "IT-OP-001",
-          "taksonomi": "Operasional",
-          "peristiwaRisiko": "Downtime sistem saat migrasi data",
-          "sumberRisiko": "Proses migrasi yang kompleks",
-          "dampakKualitatif": "Gangguan operasional bisnis selama 2-4 jam",
-          "dampakKuantitatif": "Kerugian produktivitas 50 juta rupiah",
-          "kontrolEksisting": "Backup system, rollback plan, testing environment",
+          "sasaran": "Kontinuitas Tenaga Ahli",
+          "kode": "ROL-001",
+          "taksonomi": "Operasional - SDM",
+          "peristiwaRisiko": "Key person tenaga ahli GKAO meninggalkan proyek",
+          "sumberRisiko": "Kurangnya employee retention program",
+          "dampakKualitatif": "Delay project deliverable dan knowledge loss",
+          "dampakKuantitatif": "Cost impact 1.2 miliar rupiah untuk replacement",
+          "kontrolEksisting": "Retention bonus, succession planning, documentation",
           "risikoAwal": {
             "kejadian": 4,
             "dampak": 3,
@@ -208,172 +244,172 @@
           "verifierName": "",
           "verifiedAt": "",
           "isVerified": false,
-          "createdAt": "2024-01-22T11:15:00Z"
+          "createdAt": "2024-02-15T11:15:00Z"
         }
       ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655443002",
       "projectId": "550e8400-e29b-41d4-a716-446655440002",
-      "projectName": "Mobile Banking App",
-      "submittedBy": "Sari Wijaya",
-      "submittedAt": "2024-01-26T15:30:00Z",
+      "projectName": "Pelaksanaan Assessment NOT Berdasarkan Hasil Study F-DZ/MPT/PAUS TANP Assessment Air Tenaga Ahli Regulatory Risk dan pengembangan",
+      "submittedBy": "AWALUDIN",
+      "submittedAt": "2025-01-18T15:30:00Z",
       "status": "verified",
       "verifierName": "Chief Risk Officer",
-      "assignedAt": "2024-01-26T16:00:00Z",
-      "startedAt": "2024-01-26T16:30:00Z",
-      "verifiedAt": "2024-01-27T10:45:00Z",
+      "assignedAt": "2025-01-18T16:00:00Z",
+      "startedAt": "2025-01-18T16:30:00Z",
+      "verifiedAt": "2025-01-19T10:45:00Z",
       "totalRisks": 6,
       "verifiedRisks": 6,
       "verificationPercentage": 100.0,
       "priority": "urgent",
-      "dueDate": "2024-01-27T12:00:00Z",
+      "dueDate": "2025-01-19T12:00:00Z",
       "estimatedHours": 6.0,
+      "riskLevelDistribution": {
+        "sangatRendah": 0,
+        "rendah": 1,
+        "sedang": 3,
+        "tinggi": 2,
+        "sangatTinggi": 0
+      },
+      "notes": "Comprehensive regulatory compliance controls implemented",
+      "createdAt": "2025-01-18T15:30:00Z",
+      "risks": [
+        {
+          "id": "risk-003",
+          "sasaran": "Standar Assessment",
+          "kode": "RHR-001",
+          "taksonomi": "Hukum, Reputasi & Kepatuhan - Kepatuhan",
+          "peristiwaRisiko": "Assessment NOT tidak memenuhi standar regulatory compliance",
+          "sumberRisiko": "Changing regulation dan complexity interpretation",
+          "dampakKualitatif": "Sanksi regulatori dan credibility loss",
+          "dampakKuantitatif": "Regulatory fine hingga 15 miliar rupiah",
+          "kontrolEksisting": "Compliance review, methodology validation, expert consultation",
+          "risikoAwal": {
+            "kejadian": 3,
+            "dampak": 5,
+            "level": 15
+          },
+          "resikoAkhir": {
+            "kejadian": 2,
+            "dampak": 3,
+            "level": 6
+          },
+          "verifierComment": "Comprehensive compliance framework addresses requirements",
+          "verifierName": "Chief Risk Officer",
+          "verifiedAt": "2025-01-19T10:45:00Z",
+          "isVerified": true,
+          "createdAt": "2025-01-18T15:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655443003",
+      "projectId": "550e8400-e29b-41d4-a716-446655440003",
+      "projectName": "Kontrak Bantuan Penyediaan Tenaga Ahli Regulasi dan Non-Regulasi dengan Payroll System untuk POLAPLAN",
+      "submittedBy": "Lukman",
+      "submittedAt": "2025-01-20T09:20:00Z",
+      "status": "under_review",
+      "verifierName": "Senior Risk Analyst",
+      "assignedAt": "2025-01-20T10:00:00Z",
+      "startedAt": "2025-01-20T11:00:00Z",
+      "verifiedAt": null,
+      "totalRisks": 7,
+      "verifiedRisks": 3,
+      "verificationPercentage": 43.0,
+      "priority": "medium",
+      "dueDate": "2025-01-22T17:00:00Z",
+      "estimatedHours": 5.0,
       "riskLevelDistribution": {
         "sangatRendah": 1,
         "rendah": 2,
         "sedang": 2,
-        "tinggi": 1,
+        "tinggi": 2,
         "sangatTinggi": 0
       },
-      "notes": "Comprehensive security controls implemented",
-      "createdAt": "2024-01-26T15:30:00Z",
+      "notes": "Payroll system integration requires additional security controls",
+      "createdAt": "2025-01-20T09:20:00Z",
       "risks": [
         {
-          "id": "risk-003",
-          "sasaran": "Keamanan Aplikasi Mobile",
-          "kode": "MOB-SEC-001",
-          "taksonomi": "Teknologi Informasi",
-          "peristiwaRisiko": "Serangan man-in-the-middle pada transaksi mobile",
-          "sumberRisiko": "Komunikasi yang tidak terenkripsi",
-          "dampakKualitatif": "Pencurian data transaksi dan informasi keuangan",
-          "dampakKuantitatif": "Kerugian hingga 1 miliar rupiah",
-          "kontrolEksisting": "SSL/TLS encryption, certificate pinning, app security",
+          "id": "risk-004",
+          "sasaran": "Integrasi Payroll System",
+          "kode": "RTI-002",
+          "taksonomi": "Teknologi & Keamanan Siber - Infrastruktur dan Sistem",
+          "peristiwaRisiko": "Kegagalan integrasi payroll system dengan existing HR system",
+          "sumberRisiko": "System incompatibility dan migration issues",
+          "dampakKualitatif": "Payroll disruption dan administrative burden",
+          "dampakKuantitatif": "System recovery cost 800 juta rupiah",
+          "kontrolEksisting": "System testing, data backup, phased implementation",
           "risikoAwal": {
-            "kejadian": 2,
-            "dampak": 5,
-            "level": 10
+            "kejadian": 3,
+            "dampak": 4,
+            "level": 12
           },
           "resikoAkhir": {
-            "kejadian": 1,
-            "dampak": 3,
-            "level": 3
+            "kejadian": 2,
+            "dampak": 2,
+            "level": 4
           },
-          "verifierComment": "Security implementation excellent",
-          "verifierName": "Chief Risk Officer",
-          "verifiedAt": "2024-01-27T10:45:00Z",
-          "isVerified": true,
-          "createdAt": "2024-01-26T15:30:00Z"
+          "verifierComment": "",
+          "verifierName": "",
+          "verifiedAt": "",
+          "isVerified": false,
+          "createdAt": "2025-01-20T09:20:00Z"
         }
       ]
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655443004",
       "projectId": "550e8400-e29b-41d4-a716-446655440004",
-      "projectName": "E-commerce Platform",
-      "submittedBy": "Dewi Sartika",
-      "submittedAt": "2024-01-19T09:20:00Z",
+      "projectName": "KONTRAK BANTUAN PENYEDIAAN JASA TENAGA AHLI OPERASI DAN MAINTENANCE FASILITAS SURFACE",
+      "submittedBy": "Lukman",
+      "submittedAt": "2024-09-10T14:30:00Z",
       "status": "needs_revision",
       "verifierName": "Senior Risk Analyst",
-      "assignedAt": "2024-01-19T10:00:00Z",
-      "startedAt": "2024-01-19T11:00:00Z",
-      "verifiedAt": "2024-01-20T14:30:00Z",
-      "totalRisks": 5,
-      "verifiedRisks": 3,
-      "verificationPercentage": 60.0,
-      "priority": "medium",
-      "dueDate": "2024-01-21T17:00:00Z",
-      "estimatedHours": 5.0,
+      "assignedAt": "2024-09-10T15:00:00Z",
+      "startedAt": "2024-09-10T16:00:00Z",
+      "verifiedAt": "2024-09-12T16:30:00Z",
+      "totalRisks": 6,
+      "verifiedRisks": 4,
+      "verificationPercentage": 67.0,
+      "priority": "high",
+      "dueDate": "2024-09-13T17:00:00Z",
+      "estimatedHours": 6.0,
       "riskLevelDistribution": {
-        "sangatRendah": 1,
-        "rendah": 1,
+        "sangatRendah": 0,
+        "rendah": 2,
         "sedang": 2,
-        "tinggi": 1,
+        "tinggi": 2,
         "sangatTinggi": 0
       },
-      "notes": "Payment security requires additional controls",
-      "createdAt": "2024-01-19T09:20:00Z",
-      "risks": [
-        {
-          "id": "risk-004",
-          "sasaran": "Keamanan Payment Gateway",
-          "kode": "PAY-SEC-001",
-          "taksonomi": "Finansial",
-          "peristiwaRisiko": "Fraud transaksi pembayaran online",
-          "sumberRisiko": "Validasi payment yang lemah",
-          "dampakKualitatif": "Kerugian finansial merchant dan customer",
-          "dampakKuantitatif": "Kerugian 200 juta rupiah per bulan",
-          "kontrolEksisting": "Basic fraud detection, OTP verification",
-          "risikoAwal": {
-            "kejadian": 3,
-            "dampak": 4,
-            "level": 12
-          },
-          "resikoAkhir": {
-            "kejadian": 3,
-            "dampak": 4,
-            "level": 12
-          },
-          "verifierComment": "Needs stronger fraud detection system",
-          "verifierName": "Senior Risk Analyst",
-          "verifiedAt": "2024-01-20T14:30:00Z",
-          "isVerified": false,
-          "createdAt": "2024-01-19T09:20:00Z"
-        }
-      ]
-    },
-    {
-      "id": "550e8400-e29b-41d4-a716-446655443005",
-      "projectId": "550e8400-e29b-41d4-a716-446655440005",
-      "projectName": "CRM System Integration",
-      "submittedBy": "Ahmad Fadli",
-      "submittedAt": "2024-01-28T08:30:00Z",
-      "status": "submitted",
-      "verifierName": null,
-      "assignedAt": "2024-01-28T09:00:00Z",
-      "startedAt": null,
-      "verifiedAt": null,
-      "totalRisks": 4,
-      "verifiedRisks": 0,
-      "verificationPercentage": 0.0,
-      "priority": "medium",
-      "dueDate": "2024-01-30T17:00:00Z",
-      "estimatedHours": 4.0,
-      "riskLevelDistribution": {
-        "sangatRendah": 2,
-        "rendah": 1,
-        "sedang": 1,
-        "tinggi": 0,
-        "sangatTinggi": 0
-      },
-      "notes": "Initial submission awaiting assignment",
-      "createdAt": "2024-01-28T08:30:00Z",
+      "notes": "K3 safety controls require enhancement for surface operations",
+      "createdAt": "2024-09-10T14:30:00Z",
       "risks": [
         {
           "id": "risk-005",
-          "sasaran": "Integrasi CRM",
-          "kode": "CRM-INT-001",
-          "taksonomi": "Operasional",
-          "peristiwaRisiko": "Kehilangan data customer saat migrasi CRM",
-          "sumberRisiko": "Proses migrasi yang tidak terstandar",
-          "dampakKualitatif": "Kehilangan history customer dan sales pipeline",
-          "dampakKuantitatif": "Kerugian opportunity 100 juta rupiah",
-          "kontrolEksisting": "Data backup, staged migration, validation script",
+          "sasaran": "Keselamatan Kerja",
+          "kode": "ROL-002",
+          "taksonomi": "Operasional - K3",
+          "peristiwaRisiko": "Kecelakaan kerja serius saat operasi maintenance fasilitas surface",
+          "sumberRisiko": "High-risk working environment dan equipment failure potential",
+          "dampakKualitatif": "Worker injury dan operational downtime",
+          "dampakKuantitatif": "Medical cost hingga 5 miliar rupiah",
+          "kontrolEksisting": "Safety training, PPE, equipment maintenance, supervision",
           "risikoAwal": {
-            "kejadian": 2,
-            "dampak": 3,
-            "level": 6
+            "kejadian": 3,
+            "dampak": 5,
+            "level": 15
           },
           "resikoAkhir": {
-            "kejadian": 1,
-            "dampak": 2,
-            "level": 2
+            "kejadian": 2,
+            "dampak": 4,
+            "level": 8
           },
-          "verifierComment": "",
-          "verifierName": "",
-          "verifiedAt": "",
+          "verifierComment": "Need enhanced safety monitoring system",
+          "verifierName": "Senior Risk Analyst",
+          "verifiedAt": "2024-09-12T16:30:00Z",
           "isVerified": false,
-          "createdAt": "2024-01-28T08:30:00Z"
+          "createdAt": "2024-09-10T14:30:00Z"
         }
       ]
     }
