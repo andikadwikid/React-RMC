@@ -832,6 +832,15 @@ export function ProjectReadinessVerificationModal({
         title={detailDialog.title}
         data={detailDialog.data}
       />
+
+      {/* Quick Risk Capture Verification Dialog */}
+      <QuickRiskCaptureVerificationModal
+        isOpen={quickRiskDialog}
+        onClose={() => setQuickRiskDialog(false)}
+        projectId={submission.projectId}
+        projectName={submission.projectName}
+        onSave={handleQuickRiskCaptureSave}
+      />
     </Dialog>
   );
 }
