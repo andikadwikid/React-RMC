@@ -274,6 +274,16 @@ const ProjectRiskDetailModal = memo(
             )}
           </div>
         </DialogContent>
+
+        {/* Quick Risk Capture Detail Modal */}
+        <Suspense fallback={<div>Loading...</div>}>
+          <QuickRiskCaptureDetailModal
+            isOpen={isQuickRiskDetailOpen}
+            onClose={() => setIsQuickRiskDetailOpen(false)}
+            projectName={projectDetail.projectName}
+            quickRiskData={projectDetail.quickRiskCapture}
+          />
+        </Suspense>
       </Dialog>
     );
   },
