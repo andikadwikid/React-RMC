@@ -27,6 +27,9 @@ import PlaceholderPage from "./pages/common/PlaceholderPage";
 import RiskCaptureVerificationOptimized from "./pages/verification/RiskCaptureVerificationOptimized";
 import { CreateProject, VerifierDashboard } from "./pages/index.ts";
 
+// Invoicing pages
+import { Invoicing, CreateInvoice } from "./pages/invoicing";
+
 // Simple NotFound component
 function NotFound() {
   return (
@@ -96,6 +99,23 @@ const App = () => (
           element={
             <Layout>
               <RiskCaptureVerificationOptimized />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/invoicing"
+          element={
+            <Layout>
+              <Invoicing />
+            </Layout>
+          }
+        />
+        <Route
+          path="/invoicing/create/:projectId"
+          element={
+            <Layout>
+              <CreateInvoice />
             </Layout>
           }
         />
