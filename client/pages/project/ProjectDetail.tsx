@@ -1253,7 +1253,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-orange-600" />
-                Risk Capture Management
+                Quick Risk Capture Management
               </CardTitle>
               <p className="text-sm text-gray-600">
                 Kelola dan analisis risiko project dengan tool risk capture yang terintegrasi
