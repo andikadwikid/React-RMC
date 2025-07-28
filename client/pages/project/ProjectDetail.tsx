@@ -1247,6 +1247,95 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             </CardContent>
           </Card>
         </TabsContent>
+
+        <TabsContent value="risk" className="space-y-4 sm:space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-orange-600" />
+                Risk Capture Management
+              </CardTitle>
+              <p className="text-sm text-gray-600">
+                Kelola dan analisis risiko project dengan tool risk capture yang terintegrasi
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="text-center py-8">
+                <Shield className="mx-auto h-16 w-16 text-orange-400 mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Risk Capture Assessment
+                </h3>
+                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  Gunakan form risk capture untuk mengidentifikasi, menganalisis, dan
+                  mengelola risiko yang terkait dengan project ini.
+                </p>
+                <Button
+                  onClick={openRiskCaptureForm}
+                  className="bg-orange-600 hover:bg-orange-700"
+                  size="lg"
+                >
+                  <Shield className="w-5 h-5 mr-2" />
+                  Buka Risk Capture Form
+                </Button>
+              </div>
+
+              <div className="border-t pt-6">
+                <h4 className="text-base font-medium text-gray-900 mb-3">
+                  Fitur Risk Capture
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <AlertTriangle className="w-4 h-4 text-orange-600" />
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-gray-900">Risk Identification</h5>
+                      <p className="text-sm text-gray-600">
+                        Identifikasi dan dokumentasi risiko potensial project
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Target className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-gray-900">Risk Assessment</h5>
+                      <p className="text-sm text-gray-600">
+                        Evaluasi level risiko berdasarkan kejadian dan dampak
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <CheckCircle className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-gray-900">Risk Mitigation</h5>
+                      <p className="text-sm text-gray-600">
+                        Strategi pengendalian dan mitigasi risiko
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Activity className="w-4 h-4 text-purple-600" />
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-gray-900">Risk Monitoring</h5>
+                      <p className="text-sm text-gray-600">
+                        Pemantauan dan evaluasi efektivitas kontrol
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
 
       {/* Project Readiness Results */}
