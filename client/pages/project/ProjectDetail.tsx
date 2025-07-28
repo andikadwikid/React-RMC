@@ -702,7 +702,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
         className="space-y-4"
       >
         <div className="overflow-x-auto">
-          <TabsList className="grid w-full grid-cols-5 min-w-[400px]">
+          <TabsList className="grid w-full grid-cols-6 min-w-[480px]">
             <TabsTrigger value="overview" className="text-xs sm:text-sm">
               Overview
             </TabsTrigger>
@@ -717,6 +717,9 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
             </TabsTrigger>
             <TabsTrigger value="risk" className="text-xs sm:text-sm">
               Quick Risk
+            </TabsTrigger>
+            <TabsTrigger value="running-risks" className="text-xs sm:text-sm">
+              Risiko Berjalan
             </TabsTrigger>
           </TabsList>
         </div>
