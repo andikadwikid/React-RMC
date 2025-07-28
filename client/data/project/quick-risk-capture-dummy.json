@@ -2,123 +2,115 @@
   "quick_risk_captures": [
     {
       "project_id": "550e8400-e29b-41d4-a716-446655440001",
-      "project_name": "Sistem ERP Perusahaan",
+      "project_name": "Kontra Bantuan Penyediaan Jasa Tenaga Ahli GKAO",
       "risks": [
         {
           "id": "qrc-001",
-          "kode": "IT-SEC",
-          "taksonomi": "Teknologi Informasi - Keamanan",
-          "peristiwaRisiko": "Kebocoran data customer akibat vulnerability dalam sistem authentication",
-          "sumberRisiko": "Sistem authentication yang tidak ter-update dengan security patch terbaru",
-          "dampakKualitatif": "Kehilangan kepercayaan customer, reputasi perusahaan menurun, potential legal liability",
-          "dampakKuantitatif": "Estimasi kerugian finansial hingga Rp 2.5 miliar untuk compensation dan legal fees",
-          "kontrolEksisting": "Multi-factor authentication, regular security audit, encrypted database storage"
+          "kode": "RTI",
+          "taksonomi": "Teknologi & Keamanan Siber - Keamanan Data",
+          "peristiwaRisiko": "Kebocoran data operasional dan informasi sensitif proyek akibat cyberattack",
+          "sumberRisiko": "Sistem keamanan siber yang belum optimal dan awareness tim yang masih rendah",
+          "dampakKualitatif": "Kehilangan kepercayaan klien, reputasi perusahaan menurun, potential legal liability dari regulator",
+          "dampakKuantitatif": "Estimasi kerugian finansial hingga Rp 5 miliar untuk compensation dan legal fees",
+          "kontrolEksisting": "Multi-factor authentication, regular security audit, VPN access untuk remote work"
         },
         {
           "id": "qrc-002",
-          "kode": "OP-HR",
-          "taksonomi": "Operasional - Sumber Daya Manusia",
-          "peristiwaRisiko": "Key developer meninggalkan perusahaan di tengah fase critical development",
-          "sumberRisiko": "Kurangnya documentation dan knowledge transfer, dependency pada individual expertise",
-          "dampakKualitatif": "Delay project timeline, quality degradation, team morale menurun",
-          "dampakKuantitatif": "Delay 3-6 bulan dengan cost impact Rp 800 juta untuk hiring dan training replacement",
-          "kontrolEksisting": "Knowledge documentation, pair programming, retention bonus program"
+          "kode": "ROL",
+          "taksonomi": "Operasional - SDM",
+          "peristiwaRisiko": "Tenaga ahli GKAO key person meninggalkan proyek di tengah masa kontrak",
+          "sumberRisiko": "Kurangnya employee retention program dan tawaran kompensasi yang lebih baik dari competitor",
+          "dampakKualitatif": "Delay project deliverable, knowledge gap, penurunan kualitas output operasional",
+          "dampakKuantitatif": "Delay 2-4 bulan dengan cost impact Rp 1.2 miliar untuk recruitment dan training replacement",
+          "kontrolEksisting": "Retention bonus program, clear career path, competitive compensation package"
         }
       ],
-      "completedAt": "2024-01-22T11:15:00Z",
+      "completedAt": "2024-02-10T11:15:00Z",
       "totalRisks": 2
     },
     {
       "project_id": "550e8400-e29b-41d4-a716-446655440002",
-      "project_name": "Mobile Banking App",
+      "project_name": "Pelaksanaan Assessment NOT Berdasarkan Hasil Study",
       "risks": [
         {
           "id": "qrc-003",
-          "kode": "FIN-PAY",
-          "taksonomi": "Finansial - Pembayaran",
-          "peristiwaRisiko": "Fraud transaksi melalui compromised mobile device atau malware",
-          "sumberRisiko": "Keamanan device user yang tidak terkontrol, potential malware infection",
-          "dampakKualitatif": "Kerugian nasabah, loss of trust, regulatory scrutiny dari otoritas perbankan",
-          "dampakKuantitatif": "Potential fraud loss Rp 5 miliar per tahun, regulatory fine hingga Rp 10 miliar",
-          "kontrolEksisting": "Device binding, transaction limit, real-time fraud detection, SMS OTP verification"
+          "kode": "RHR",
+          "taksonomi": "Hukum, Reputasi & Kepatuhan - Kepatuhan",
+          "peristiwaRisiko": "Assessment tidak memenuhi standar regulatory compliance yang ditetapkan",
+          "sumberRisiko": "Perubahan regulasi yang frequent dan complexity dalam interpretasi requirement assessment",
+          "dampakKualitatif": "Sanksi regulatori, potential repeat assessment, reputational damage terhadap kredibilitas",
+          "dampakKuantitatif": "Regulatory fine hingga Rp 15 miliar, cost untuk re-assessment Rp 3 miliar",
+          "kontrolEksisting": "Regular compliance review, legal consultation, dedicated assessment quality team"
         },
         {
           "id": "qrc-004",
-          "kode": "LEG-COM",
-          "taksonomi": "Legal - Kepatuhan",
-          "peristiwaRisiko": "Non-compliance dengan regulasi OJK terkait mobile banking security requirements",
-          "sumberRisiko": "Perubahan regulasi yang frequent, complexity dalam implementation compliance features",
-          "dampakKualitatif": "Sanksi regulatori, potential suspension of services, reputational damage",
-          "dampakKuantitatif": "Regulatory fine hingga Rp 25 miliar, opportunity cost dari service suspension",
-          "kontrolEksisting": "Regular compliance audit, legal consultation, dedicated compliance team"
+          "kode": "RPK",
+          "taksonomi": "Proyek - Pelaksanaan",
+          "peristiwaRisiko": "Timeline assessment terlambat akibat koordinasi yang tidak optimal antar stakeholder",
+          "sumberRisiko": "Jadwal yang tight, dependency pada multiple parties, communication gap",
+          "dampakKualitatif": "Delay project completion, client dissatisfaction, impact pada credibility untuk future projects",
+          "dampakKuantitatif": "Penalty delay hingga Rp 500 juta, opportunity cost dari late delivery",
+          "kontrolEksisting": "Project management tools, regular stakeholder meeting, clear communication protocol"
         }
       ],
-      "completedAt": "2024-01-26T15:30:00Z",
+      "completedAt": "2025-01-15T15:30:00Z",
       "totalRisks": 2
     },
     {
       "project_id": "550e8400-e29b-41d4-a716-446655440003",
-      "project_name": "Customer Relationship Management",
+      "project_name": "Kontrak Bantuan Penyediaan Tenaga Ahli Regulasi dan Non-Regulasi",
       "risks": [
         {
           "id": "qrc-005",
-          "kode": "CRM-REL",
-          "taksonomi": "Customer - Hubungan Pelanggan",
-          "peristiwaRisiko": "Data customer tidak dapat di-migrate dengan benar dari sistem lama",
-          "sumberRisiko": "Incompatibility antara format data lama dan baru, data corruption during migration",
-          "dampakKualitatif": "Loss of customer history, degraded customer service quality, customer dissatisfaction",
-          "dampakKuantitatif": "Cost untuk data recovery Rp 500 juta, potential customer churn 15% dengan value Rp 2 miliar",
-          "kontrolEksisting": "Data backup strategy, migration testing in staging environment, rollback procedures"
-        }
-      ],
-      "completedAt": "2024-01-28T14:20:00Z",
-      "totalRisks": 1
-    },
-    {
-      "project_id": "550e8400-e29b-41d4-a716-446655440004",
-      "project_name": "E-commerce Platform",
-      "risks": [
-        {
-          "id": "qrc-006",
-          "kode": "IT-INF",
-          "taksonomi": "Teknologi Informasi - Infrastruktur",
-          "peristiwaRisiko": "Server overload saat flash sale atau peak traffic period",
-          "sumberRisiko": "Insufficient server capacity planning, lack of auto-scaling capability",
-          "dampakKualitatif": "Poor user experience, lost sales opportunity, brand reputation impact",
-          "dampakKuantitatif": "Lost revenue Rp 1.2 miliar per incident, infrastructure upgrade cost Rp 800 juta",
-          "kontrolEksisting": "Load balancer, CDN implementation, performance monitoring tools"
+          "kode": "RTI",
+          "taksonomi": "Teknologi & Keamanan Siber - Infrastruktur dan Sistem",
+          "peristiwaRisiko": "Payroll system integration failure dengan existing HR system",
+          "sumberRisiko": "Incompatibility sistem lama dengan sistem baru, lack of proper system integration testing",
+          "dampakKualitatif": "Disruption pada payroll processing, employee dissatisfaction, administrative burden",
+          "dampakKuantitatif": "Cost untuk system recovery Rp 800 juta, manual process overhead Rp 200 juta per bulan",
+          "kontrolEksisting": "Comprehensive system testing, backup payment process, dedicated IT support team"
         },
         {
-          "id": "qrc-007",
-          "kode": "FIN-PAY",
-          "taksonomi": "Finansial - Pembayaran",
-          "peristiwaRisiko": "Payment gateway failure during high transaction volume",
-          "sumberRisiko": "Third-party payment provider limitations, network latency issues",
-          "dampakKualitatif": "Customer frustration, abandoned carts, negative reviews and complaints",
-          "dampakKuantitatif": "Revenue loss Rp 800 juta per hour during failure, customer acquisition cost increase",
-          "kontrolEksisting": "Multiple payment gateway redundancy, real-time monitoring, automatic failover"
+          "id": "qrc-006",
+          "kode": "RKB",
+          "taksonomi": "Kebijakan - Kebijakan SDM",
+          "peristiwaRisiko": "Ketidaksesuaian kebijakan kompensasi antara tenaga ahli regulasi dan non-regulasi",
+          "sumberRisiko": "Lack of standardized compensation policy, different skill level requirements",
+          "dampakKualitatif": "Employee conflict, unfair treatment perception, potential legal dispute",
+          "dampakKuantitatif": "Legal settlement cost hingga Rp 1 miliar, turnover cost Rp 500 juta",
+          "kontrolEksisting": "Clear compensation framework, transparent grading system, HR policy documentation"
         }
       ],
-      "completedAt": "2024-01-19T09:20:00Z",
+      "completedAt": "2025-01-20T14:20:00Z",
       "totalRisks": 2
     },
     {
-      "project_id": "550e8400-e29b-41d4-a716-446655440005",
-      "project_name": "Supply Chain Management System",
+      "project_id": "550e8400-e29b-41d4-a716-446655440004",
+      "project_name": "Kontrak Bantuan Penyediaan Jasa Tenaga Ahli Operasi dan Maintenance",
       "risks": [
         {
+          "id": "qrc-007",
+          "kode": "ROL",
+          "taksonomi": "Operasional - K3",
+          "peristiwaRisiko": "Kecelakaan kerja saat operasi maintenance fasilitas surface production",
+          "sumberRisiko": "High-risk working environment, equipment failure risk, human error potential",
+          "dampakKualitatif": "Worker injury, operational downtime, regulatory scrutiny dari Kemnaker",
+          "dampakKuantitatif": "Medical cost dan compensation hingga Rp 2 miliar, production loss Rp 5 miliar per hari",
+          "kontrolEksisting": "Comprehensive safety training, proper PPE, regular equipment maintenance, safety officer supervision"
+        },
+        {
           "id": "qrc-008",
-          "kode": "OP-SUP",
-          "taksonomi": "Operasional - Rantai Pasokan",
-          "peristiwaRisiko": "Supplier data tidak dapat terintegrasi dengan sistem baru",
-          "sumberRisiko": "Heterogeneous supplier systems, lack of standardized data format",
-          "dampakKualitatif": "Supply chain disruption, delayed procurement process, supplier relationship strain",
-          "dampakKuantitatif": "Operational delay cost Rp 1.5 miliar, manual process overhead Rp 300 juta per month",
-          "kontrolEksisting": "API integration standards, supplier onboarding program, data mapping tools"
+          "kode": "RPN",
+          "taksonomi": "Pasar - Nilai Mata Uang/Suku Bunga",
+          "peristiwaRisiko": "Fluktuasi nilai tukar rupiah mempengaruhi cost struktur project yang menggunakan equipment import",
+          "sumberRisiko": "Global economic uncertainty, inflation pressure, currency volatility",
+          "dampakKualitatif": "Budget overrun, margin compression, potential renegotiation dengan client",
+          "dampakKuantitatif": "Additional cost hingga Rp 800 juta untuk currency impact, hedging cost Rp 100 juta",
+          "kontrolEksisting": "Currency hedging strategy, regular budget monitoring, price escalation clause in contract"
         }
       ],
-      "completedAt": "2024-01-30T16:45:00Z",
-      "totalRisks": 1
+      "completedAt": "2024-09-01T09:20:00Z",
+      "totalRisks": 2
     }
   ]
 }
