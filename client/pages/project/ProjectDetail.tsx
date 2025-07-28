@@ -172,13 +172,13 @@ export default function ProjectDetail() {
     });
   };
 
-  // const handleRiskCaptureSave = (data: any) => {
-  //   console.log("Risk capture data saved for project:", project?.id, data);
-  //   // Here you would typically send the data to your API
-  //   closeRiskCaptureForm();
-  //   // Show success message
-  //   toast.success("Risk Assessment berhasil disimpan!");
-  // };
+  const handleRiskCaptureSave = (data: any) => {
+    console.log("Risk capture data saved for project:", project?.id, data);
+    // Here you would typically send the data to your API
+    closeRiskCaptureForm();
+    // Show success message
+    toast.success("Risk Assessment berhasil disimpan!");
+  };
 
   const generateReport = async () => {
     if (!project) return;
