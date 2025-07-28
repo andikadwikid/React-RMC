@@ -32,6 +32,9 @@ import {
   Target,
   User,
   MoreHorizontal,
+  Plus,
+  Save,
+  Trash2,
 } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
 import { Project } from "@/types";
