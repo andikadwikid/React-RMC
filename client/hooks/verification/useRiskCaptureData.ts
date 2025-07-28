@@ -67,7 +67,10 @@ export interface ReadinessItemWithRisks {
 const calculateRiskDistribution = (risks: RiskItem[]) => {
   return risks.reduce(
     (acc, risk) => {
-      const level = getRiskLevel(risk.risikoSaatIni.level);
+      // Handle both readiness-based risks (with risikoSaatIni) and quick risk capture (without risk levels)
+      // For quick risk capture, we'll assign a default medium risk level since they don't have assessment yet
+      const riskLevel = risk.risikoSaatIni?.level || 3; // Default to medium risk level
+      const level = getRiskLevel(riskLevel);
       switch (level) {
         case 1:
           acc.sangatRendah++;
