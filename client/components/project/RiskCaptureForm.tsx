@@ -31,27 +31,7 @@ import { getProjectRiskCapture } from "@/utils/dataLoader";
 
 import type { RiskItem, RiskCaptureFormProps } from "@/types";
 
-const getRiskColor = (value: number) => {
-  if (value >= 1 && value <= 5) return "bg-green-100 text-green-800";
-  if (value >= 6 && value <= 10) return "bg-yellow-100 text-yellow-800";
-  if (value >= 11 && value <= 15) return "bg-orange-100 text-orange-800";
-  if (value >= 16 && value <= 20) return "bg-red-100 text-red-800";
-  if (value >= 21 && value <= 25) return "bg-red-200 text-red-900";
-  return "bg-gray-100 text-gray-800";
-};
 
-const getRiskLabel = (value: number) => {
-  if (value >= 1 && value <= 5) return "Sangat Rendah";
-  if (value >= 6 && value <= 10) return "Rendah";
-  if (value >= 11 && value <= 15) return "Sedang";
-  if (value >= 16 && value <= 20) return "Tinggi";
-  if (value >= 21 && value <= 25) return "Sangat Tinggi";
-  return "Invalid";
-};
-
-const isValidRange = (value: number) => {
-  return value >= 1 && value <= 25;
-};
 
 export function RiskCaptureForm({
   isOpen,
