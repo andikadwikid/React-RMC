@@ -163,6 +163,7 @@ const loadProjectRiskDetail = (projectId: string): ProjectRiskDetail | null => {
     if (!project) return null;
 
     const readinessItems = getProjectReadinessItems(projectId);
+    const quickRiskData = getProjectRiskCapture(projectId);
 
     // Group readiness items by category
     const itemsByCategory = readinessItems.reduce(
