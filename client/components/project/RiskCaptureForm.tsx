@@ -176,36 +176,68 @@ export function RiskCaptureForm({
                         </div>
                       </CardHeader>
                       <CardContent className="space-y-4 p-3 sm:p-6">
-                        <div>
-                          <Label htmlFor={`sasaran-${risk.id}`}>
-                            Sasaran *
-                          </Label>
-                          <Input
-                            id={`sasaran-${risk.id}`}
-                            value={risk.sasaran}
-                            onChange={(e) =>
-                              updateRiskItem(risk.id, "sasaran", e.target.value)
-                            }
-                            placeholder="Masukkan sasaran"
-                          />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor={`sasaran-${risk.id}`}>
+                              Sasaran *
+                            </Label>
+                            <Input
+                              id={`sasaran-${risk.id}`}
+                              value={risk.sasaran}
+                              onChange={(e) =>
+                                updateRiskItem(risk.id, "sasaran", e.target.value)
+                              }
+                              placeholder="Masukkan sasaran"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor={`kode-${risk.id}`}>Kode *</Label>
+                            <Input
+                              id={`kode-${risk.id}`}
+                              value={risk.kode}
+                              onChange={(e) =>
+                                updateRiskItem(risk.id, "kode", e.target.value)
+                              }
+                              placeholder="Masukkan kode"
+                            />
+                          </div>
                         </div>
 
-                        <div>
-                          <Label htmlFor={`sumberRisiko-${risk.id}`}>
-                            Sumber Risiko *
-                          </Label>
-                          <Input
-                            id={`sumberRisiko-${risk.id}`}
-                            value={risk.sumberRisiko}
-                            onChange={(e) =>
-                              updateRiskItem(
-                                risk.id,
-                                "sumberRisiko",
-                                e.target.value,
-                              )
-                            }
-                            placeholder="Masukkan sumber risiko"
-                          />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor={`taksonomi-${risk.id}`}>
+                              Taksonomi *
+                            </Label>
+                            <Input
+                              id={`taksonomi-${risk.id}`}
+                              value={risk.taksonomi}
+                              onChange={(e) =>
+                                updateRiskItem(
+                                  risk.id,
+                                  "taksonomi",
+                                  e.target.value,
+                                )
+                              }
+                              placeholder="Masukkan taksonomi"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor={`sumberRisiko-${risk.id}`}>
+                              Sumber Risiko *
+                            </Label>
+                            <Input
+                              id={`sumberRisiko-${risk.id}`}
+                              value={risk.sumberRisiko}
+                              onChange={(e) =>
+                                updateRiskItem(
+                                  risk.id,
+                                  "sumberRisiko",
+                                  e.target.value,
+                                )
+                              }
+                              placeholder="Masukkan sumber risiko"
+                            />
+                          </div>
                         </div>
 
                         <div>
