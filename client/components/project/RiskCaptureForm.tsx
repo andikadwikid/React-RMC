@@ -341,7 +341,7 @@ export function RiskCaptureForm({
             >
               <Save className="w-4 h-4 mr-2" />
               <span className="hidden sm:inline">
-                Simpan Risk Capture ({risks.length})
+                Simpan Quick Risk Capture ({risks.length})
               </span>
               <span className="sm:hidden">Simpan ({risks.length})</span>
             </Button>
