@@ -317,7 +317,7 @@ export function RiskCaptureForm({
                 <div className="flex items-center gap-2 text-blue-800">
                   <CheckCircle className="w-4 h-4 flex-shrink-0" />
                   <span className="font-medium text-sm sm:text-base">
-                    Total: {risks.length} Risk Capture telah dibuat
+                    Total: {risks.length} Quick Risk Capture telah dibuat
                   </span>
                 </div>
               </CardContent>
