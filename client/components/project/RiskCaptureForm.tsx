@@ -159,7 +159,7 @@ export function RiskCaptureForm({
                       <CardHeader className="pb-3">
                         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                           <h4 className="text-base sm:text-lg font-medium">
-                            Risk Capture #{index + 1}
+                            Quick Risk Capture #{index + 1}
                           </h4>
                           <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                             <Button
