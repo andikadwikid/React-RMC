@@ -123,7 +123,7 @@ export function RiskCaptureForm({
                     <span>Daftar Quick Risk Capture</span>
                   </CardTitle>
                   <p className="text-xs sm:text-sm text-gray-600 mt-1">
-                    Tambahkan dan kelola risk capture untuk project ini
+                    Tambahkan dan kelola quick risk capture untuk project ini
                   </p>
                 </div>
                 <Badge variant="outline" className="text-blue-600 self-start">
