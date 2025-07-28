@@ -197,7 +197,7 @@
         {
           "id": "risk-001",
           "sasaran": "Keamanan Data Operasional",
-          "kode": "RTI-001",
+          "kode": "RTI-002",
           "taksonomi": "Teknologi & Keamanan Siber - Keamanan Data",
           "peristiwaRisiko": "Kebocoran data operasional dan informasi sensitif proyek GKAO",
           "sumberRisiko": "Sistem keamanan siber yang belum optimal",
@@ -223,7 +223,7 @@
         {
           "id": "risk-002",
           "sasaran": "Kontinuitas Tenaga Ahli",
-          "kode": "ROL-001",
+          "kode": "ROL-003",
           "taksonomi": "Operasional - SDM",
           "peristiwaRisiko": "Key person tenaga ahli GKAO meninggalkan proyek",
           "sumberRisiko": "Kurangnya employee retention program",
@@ -278,7 +278,7 @@
         {
           "id": "risk-003",
           "sasaran": "Standar Assessment",
-          "kode": "RHR-001",
+          "kode": "RHR-004",
           "taksonomi": "Hukum, Reputasi & Kepatuhan - Kepatuhan",
           "peristiwaRisiko": "Assessment NOT tidak memenuhi standar regulatory compliance",
           "sumberRisiko": "Changing regulation dan complexity interpretation",
@@ -333,7 +333,7 @@
         {
           "id": "risk-004",
           "sasaran": "Integrasi Payroll System",
-          "kode": "RTI-002",
+          "kode": "RTI-001",
           "taksonomi": "Teknologi & Keamanan Siber - Infrastruktur dan Sistem",
           "peristiwaRisiko": "Kegagalan integrasi payroll system dengan existing HR system",
           "sumberRisiko": "System incompatibility dan migration issues",
