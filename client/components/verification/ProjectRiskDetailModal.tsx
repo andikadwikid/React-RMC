@@ -12,7 +12,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Shield, FileX, ChevronDown, ChevronRight, Info, AlertTriangle, Calendar, Target } from "lucide-react";
+import { Shield, FileX, ChevronDown, ChevronRight, Info, AlertTriangle, Calendar, Target, Eye } from "lucide-react";
 import type { ProjectRiskDetail } from "@/hooks/verification/useRiskCaptureData";
 import { CATEGORY_DISPLAY_NAMES } from "@/constants/riskCapture";
 import RiskItemDetail from "./RiskItemDetail";
