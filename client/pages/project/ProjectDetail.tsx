@@ -716,7 +716,7 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
               Financial
             </TabsTrigger>
             <TabsTrigger value="risk" className="text-xs sm:text-sm">
-              Risk Capture
+              Quick Risk
             </TabsTrigger>
           </TabsList>
         </div>
