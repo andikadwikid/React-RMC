@@ -653,6 +653,310 @@ export function ProjectReadinessVerificationModal({
             ) : null;
           })()}
 
+          {/* Quick Risk Capture */}
+          {quickRiskCapture.length > 0 && (
+            <Card className="border-orange-200 bg-orange-50/30">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-orange-600" />
+                  Quick Risk Capture
+                </CardTitle>
+                <p className="text-sm text-gray-600 mt-1">
+                  Verifikasi dan kelola quick risk capture yang disubmit user.
+                  Anda dapat memperbarui kode/taksonomi dan menentukan tingkat risiko.
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {quickRiskCapture.map((risk, index) => (
+                  <Card key={risk.id} className="border border-gray-200">
+                    <CardHeader className="pb-3">
+                      <div className="flex justify-between items-start">
+                        <h4 className="text-base font-medium">
+                          Quick Risk #{index + 1}
+                        </h4>
+                        <div className="flex items-center gap-2">
+                          <Badge
+                            className={getRiskColor(risk.risikoSaatIni.level)}
+                            size="sm"
+                          >
+                            Level {risk.risikoSaatIni.level} - {getRiskLabel(risk.risikoSaatIni.level)}
+                          </Badge>
+                          <Button
+                            variant={risk.isVerified ? "default" : "outline"}
+                            size="sm"
+                            onClick={() =>
+                              updateQuickRiskCapture(
+                                risk.id,
+                                "isVerified",
+                                !risk.isVerified,
+                              )
+                            }
+                          >
+                            {risk.isVerified ? (
+                              <>
+                                <CheckCircle className="w-4 h-4 mr-1" />
+                                Verified
+                              </>
+                            ) : (
+                              <>
+                                <AlertTriangle className="w-4 h-4 mr-1" />
+                                Pending
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {/* User Submitted Data */}
+                      <div className="p-4 bg-gray-50 rounded-lg">
+                        <h5 className="font-medium text-sm text-gray-700 mb-3">
+                          Data yang Disubmit User:
+                        </h5>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <Label className="text-xs font-medium text-gray-600">Kode:</Label>
+                            <p className="text-gray-900 mt-1">{risk.kode}</p>
+                          </div>
+                          <div>
+                            <Label className="text-xs font-medium text-gray-600">Taksonomi:</Label>
+                            <p className="text-gray-900 mt-1">{risk.taksonomi}</p>
+                          </div>
+                          <div className="lg:col-span-2">
+                            <Label className="text-xs font-medium text-gray-600">Peristiwa Risiko:</Label>
+                            <p className="text-gray-900 mt-1">{risk.peristiwaRisiko}</p>
+                          </div>
+                          <div>
+                            <Label className="text-xs font-medium text-gray-600">Sumber Risiko:</Label>
+                            <p className="text-gray-900 mt-1">{risk.sumberRisiko}</p>
+                          </div>
+                          <div>
+                            <Label className="text-xs font-medium text-gray-600">Kontrol Eksisting:</Label>
+                            <p className="text-gray-900 mt-1">{risk.kontrolEksisting}</p>
+                          </div>
+                          <div>
+                            <Label className="text-xs font-medium text-gray-600">Dampak Kualitatif:</Label>
+                            <p className="text-gray-900 mt-1">{risk.dampakKualitatif}</p>
+                          </div>
+                          <div>
+                            <Label className="text-xs font-medium text-gray-600">Dampak Kuantitatif:</Label>
+                            <p className="text-gray-900 mt-1">{risk.dampakKuantitatif}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Risk Officer Assessment */}
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        {/* Risiko Awal */}
+                        <div className="p-4 border border-blue-200 bg-blue-50 rounded-lg">
+                          <h5 className="font-medium mb-3 text-blue-700 flex items-center gap-2">
+                            <AlertTriangle className="w-4 h-4" />
+                            Risiko Awal
+                          </h5>
+                          <div className="space-y-3">
+                            <div>
+                              <Label className="text-xs">Kejadian (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.risikoAwal.kejadian}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "risikoAwal.kejadian",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Dampak (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.risikoAwal.dampak}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "risikoAwal.dampak",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Level (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.risikoAwal.level}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "risikoAwal.level",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Risiko Saat Ini */}
+                        <div className="p-4 border border-yellow-200 bg-yellow-50 rounded-lg">
+                          <h5 className="font-medium mb-3 text-yellow-700 flex items-center gap-2">
+                            <Clock className="w-4 h-4" />
+                            Risiko Saat Ini
+                          </h5>
+                          <div className="space-y-3">
+                            <div>
+                              <Label className="text-xs">Kejadian (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.risikoSaatIni.kejadian}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "risikoSaatIni.kejadian",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Dampak (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.risikoSaatIni.dampak}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "risikoSaatIni.dampak",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Level (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.risikoSaatIni.level}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "risikoSaatIni.level",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Risiko Akhir */}
+                        <div className="p-4 border border-green-200 bg-green-50 rounded-lg">
+                          <h5 className="font-medium mb-3 text-green-700 flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4" />
+                            Risiko Akhir
+                          </h5>
+                          <div className="space-y-3">
+                            <div>
+                              <Label className="text-xs">Kejadian (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.resikoAkhir.kejadian}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "resikoAkhir.kejadian",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Dampak (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.resikoAkhir.dampak}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "resikoAkhir.dampak",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Level (1-25)</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={25}
+                                value={risk.resikoAkhir.level}
+                                onChange={(e) =>
+                                  updateQuickRiskCapture(
+                                    risk.id,
+                                    "resikoAkhir.level",
+                                    parseInt(e.target.value) || 1,
+                                  )
+                                }
+                                className="mt-1"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Risk Officer Comment */}
+                      <div>
+                        <Label className="text-sm font-medium text-gray-700">
+                          Komentar Risk Officer
+                        </Label>
+                        <Textarea
+                          value={risk.verifierComment || ""}
+                          onChange={(e) =>
+                            updateQuickRiskCapture(
+                              risk.id,
+                              "verifierComment",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="Tambahkan komentar verifikasi untuk quick risk capture ini..."
+                          className="mt-2 min-h-[80px] resize-none"
+                          rows={3}
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+
           {/* Overall Verification */}
           <Card className="border-t-4 border-t-blue-500">
             <CardHeader>
