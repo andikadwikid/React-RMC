@@ -56,6 +56,7 @@ interface ReadinessItem {
 import { formatDateTime } from "@/utils/formatters";
 import { getProjectReadinessItems, getProjectRiskCapture } from "@/utils/dataLoader";
 import { RiskCaptureSection } from "./RiskCaptureSection";
+import { QuickRiskCaptureVerificationModal } from "./QuickRiskCaptureVerificationModal";
 
 import type { ProjectReadinessVerificationModalProps, RiskItem } from "@/types";
 
