@@ -1264,6 +1264,15 @@ Report generated on: ${new Date().toLocaleDateString("id-ID")} ${new Date().toLo
         onSave={handleReadinessSave}
       />
 
+      {/* Risk Capture Form */}
+      <RiskCaptureForm
+        isOpen={riskCaptureForm.isOpen}
+        onClose={closeRiskCaptureForm}
+        projectId={riskCaptureForm.projectId}
+        projectName={riskCaptureForm.projectName}
+        onSave={handleRiskCaptureSave}
+      />
+
       {/* Floating Action Button for Mobile Quick Actions */}
       <div className="fixed bottom-6 right-6 sm:hidden z-50">
         <DropdownMenu>
