@@ -136,7 +136,7 @@ export function RiskCaptureForm({
                 <div className="text-center py-6 sm:py-8">
                   <Shield className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400" />
                   <h3 className="mt-2 text-sm sm:text-base font-medium text-gray-900">
-                    Belum ada risk capture
+                    Belum ada quick risk capture
                   </h3>
                   <p className="mt-1 text-xs sm:text-sm text-gray-500 px-4">
                     Mulai dengan menambahkan risk capture pertama untuk project
