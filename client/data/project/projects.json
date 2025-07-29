@@ -2,11 +2,11 @@
   "projects": [
     {
       "id": "550e8400-e29b-41d4-a716-446655440001",
-      "name": "Sistem ERP Perusahaan",
-      "description": "Implementasi sistem ERP untuk mengelola seluruh operasional perusahaan termasuk inventory, HR, finance, dan CRM. Sistem ini akan mengintegrasikan semua departemen dalam satu platform yang unified.",
-      "client": "PT. Teknologi Maju",
-      "client_email": "contact@teknologimaju.com",
-      "client_phone": "+62 21 1234 5678",
+      "name": "Quality Management Services (QMS) Execute for Ubadari, Tangguh EGR/CCUS, and Tangguh Onshore Compression (UCC Project)",
+      "description": "Penyediaan Quality Management Services untuk proyek EGR/CCUS dan UCC di BP Berau Ltd.",
+      "client": "BP Berau Ltd.",
+      "client_email": "indonesiaqueries@bp.com",
+      "client_phone": "+622178838000",
       "budget": 2500000000,
       "spent": 1800000000,
       "start_date": "2024-01-15",
